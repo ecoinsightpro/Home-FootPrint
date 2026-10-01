@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>EcoInsight Home</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -15,6 +15,46 @@
     body { margin:0; background: var(--bg, oklch(97.5% 0.012 85)); font-family:'Public Sans',sans-serif; }
     * { box-sizing:border-box; }
     ::selection { background: var(--accent-soft, oklch(93% 0.035 152)); }
+
+    [data-eih-main] [style*="width:900px"],[data-eih-main] [style*="width:760px"],[data-eih-main] [style*="width:640px"],[data-eih-main] [style*="width:480px"],[data-eih-main] [style*="width:460px"],[data-eih-main] [style*="width:380px"],[data-eih-main] [style*="width:320px"] { max-width:100% !important; }
+    [data-eih-main] svg[viewBox] { max-width:100%; }
+    [data-eih-main] button, [data-eih-main] select, [data-eih-main] input:not([type=checkbox]):not([type=range]) { min-height:44px; }
+    [data-eih-main] input[type=checkbox] { width:22px; height:22px; }
+    @media (min-width:601px) and (max-width:1024px) {
+      [data-eih-aside] { width:76px !important; padding:16px 8px !important; align-items:center; }
+      [data-eih-aside] > div:first-child { padding:0 !important; justify-content:center; }
+      [data-eih-aside] > div:first-child > span, [data-eih-aside] > a > span, [data-eih-aside] > nav button span { display:none !important; }
+      [data-eih-aside] > a { padding:0 !important; width:44px; height:44px; justify-content:center; }
+      [data-eih-aside] > nav { width:100%; }
+      [data-eih-aside] > nav button { justify-content:center; padding:0 !important; height:44px !important; }
+      [data-eih-aside] > nav > div:first-child { height:44px !important; }
+      [data-eih-aside] > div:nth-last-child(2) { flex-direction:column; width:100%; }
+      [data-eih-aside] > div:last-child { display:none !important; }
+      [data-eih-main] { padding:24px 24px 48px !important; }
+      [data-eih-main] [style*="1.1fr"], [data-eih-main] [style*="1fr 260px"] { grid-template-columns:minmax(0,1fr) !important; }
+    }
+    @media (max-width:600px) {
+      body { font-size:16px; }
+      [data-eih-root] { display:block !important; }
+      [data-eih-aside] { position:fixed !important; top:auto !important; bottom:0; left:0; right:0; width:100% !important; height:auto !important; z-index:60; flex-direction:row !important; padding:6px 6px calc(6px + env(safe-area-inset-bottom)) 6px !important; gap:0 !important; border-right:none !important; border-top:1px solid var(--border, oklch(88% 0.012 85)); overflow:visible !important; box-shadow:0 -6px 20px -10px oklch(23% 0.02 85 / .25); }
+      [data-eih-aside] > div:first-child, [data-eih-aside] > a, [data-eih-aside] > div:nth-last-child(3), [data-eih-aside] > div:last-child { display:none !important; }
+      [data-eih-aside] > div:nth-last-child(2) { display:flex !important; position:fixed; top:calc(8px + env(safe-area-inset-top)); right:10px; width:96px; z-index:61; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; padding:3px !important; }
+      [data-eih-aside] > div:nth-last-child(2) button { min-height:36px; border-radius:999px !important; }
+      [data-eih-aside] > nav { flex-direction:row !important; gap:2px !important; width:100%; overflow-x:auto; scrollbar-width:none; scroll-snap-type:x proximity; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
+      [data-eih-aside] > nav::-webkit-scrollbar { display:none; }
+      [data-eih-aside] > nav > div:first-child { display:none !important; }
+      [data-eih-aside] > nav button { flex:0 0 auto; min-width:68px; height:58px !important; flex-direction:column; justify-content:center; gap:3px !important; padding:4px 6px !important; text-align:center !important; scroll-snap-align:start; transform:none !important; }
+      [data-eih-aside] > nav button span { font-size:10.5px; line-height:1.15; white-space:nowrap; }
+      [data-eih-aside] > nav button svg { width:22px; height:22px; }
+      [data-eih-aside] > nav > button:nth-child(4) { order:1; } [data-eih-aside] > nav > button:nth-child(5) { order:2; } [data-eih-aside] > nav > button:nth-child(6) { order:3; } [data-eih-aside] > nav > button:nth-child(8) { order:4; }
+      [data-eih-aside] > nav > button:nth-child(2), [data-eih-aside] > nav > button:nth-child(3), [data-eih-aside] > nav > button:nth-child(7), [data-eih-aside] > nav > button:nth-child(9), [data-eih-aside] > nav > button:nth-child(10), [data-eih-aside] > nav > button:nth-child(11) { order:9; }
+      [data-eih-main] { max-width:none !important; padding:calc(56px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important; }
+      [data-eih-main] [style*="grid-template-columns"]:not([style*="repeat(2,1fr)"]) { grid-template-columns:minmax(0,1fr) !important; gap:16px !important; }
+      [data-eih-main] h1 { font-size:30px !important; }
+      [data-eih-main] [style*="font-size:13px"] { font-size:14px !important; }
+      [data-eih-main] input:not([type=checkbox]):not([type=range]), [data-eih-main] select { min-height:48px; font-size:16px !important; }
+      [data-eih-main] [style*="overflow-x:auto"], [data-eih-main] [style*="overflow:auto"] { -webkit-overflow-scrolling:touch; }
+    }
     @keyframes fadeInUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
     @keyframes eihBarGrow { from { transform:scaleY(0); } to { transform:scaleY(1); } }
     @keyframes eihLineDraw { from { stroke-dashoffset:1400; } to { stroke-dashoffset:0; } }
@@ -70,9 +110,9 @@
     .hogar-sparkle { animation: hogarSparkle 0.6s ease-out; }
   </style>
 </helmet>
-<div style="min-height:100vh; color:var(--text, oklch(23% 0.02 85)); background:var(--bg, oklch(97.5% 0.012 85)); font-family:'Public Sans',sans-serif; display:flex; transition:background-color 0.35s ease, color 0.35s ease;">
+<div data-eih-root="1" style="min-height:100vh; color:var(--text, oklch(23% 0.02 85)); background:var(--bg, oklch(97.5% 0.012 85)); font-family:'Public Sans',sans-serif; display:flex; transition:background-color 0.35s ease, color 0.35s ease;">
 
-  <aside style="position:sticky; top:0; align-self:flex-start; height:100vh; width:220px; flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:20px 14px; display:flex; flex-direction:column; gap:16px; overflow-y:auto;">
+  <aside data-eih-aside="1" style="position:sticky; top:0; align-self:flex-start; height:100vh; width:220px; flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:20px 14px; display:flex; flex-direction:column; gap:16px; overflow-y:auto;">
     <div style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:0 6px;" onClick="{{ go_landing }}">
       <div style="width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--grad1, oklch(58% 0.11 152)), var(--grad2, oklch(46% 0.09 175))); flex-shrink:0; display:flex; align-items:center; justify-content:center;">
         <svg width="27" height="27" viewBox="0 0 32 32" fill="none"><defs><linearGradient id="cbg" x1="6" y1="3" x2="26" y2="29"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cdeedb"/></linearGradient></defs><path d="M16 4.6 L27 13.4 V24.6 A2.4 2.4 0 0 1 24.6 27 H7.4 A2.4 2.4 0 0 1 5 24.6 V13.4 Z" fill="url(#cbg)" stroke="url(#cbg)" stroke-width="1.6" stroke-linejoin="round"></path><path d="M16 24.2 C10.8 23 10.4 17.4 16 14 C21.6 17.4 21.2 23 16 24.2 Z" fill="#1f6b46"></path><path d="M16 23 V17.6" stroke="#cdeedb" stroke-width="1.1" stroke-linecap="round"></path><path d="M16 20.4 L18.2 18.6 M16 21.8 L13.9 20.2" stroke="#cdeedb" stroke-width="0.9" stroke-linecap="round"></path><circle cx="26.5" cy="6.2" r="2.6" fill="#fff" opacity=".28"></circle><circle cx="26.5" cy="6.2" r="1.5" fill="#fff"></circle></svg>
@@ -141,7 +181,7 @@
     </div>
   </aside>
 
-  <main style="flex:1; min-width:0; max-width:1100px; margin:0 auto; padding:20px 20px 80px;">
+  <main data-eih-main="1" style="flex:1; min-width:0; max-width:1280px; margin:0 auto; padding:20px 20px 80px;">
 
   <!-- ================= LANDING ================= -->
   <sc-if value="{{ show.landing }}" hint-placeholder-val="{{ true }}">
@@ -335,7 +375,7 @@
           <sc-if value="{{ hasSolar }}" hint-placeholder-val="{{ false }}">
             <div>
               <label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ t.label_solar_kw }}</label>
-              <input type="number" min="0" step="0.5" value="{{ solarKw }}" onChange="{{ setSolarKw }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 14px 'Public Sans',sans-serif;">
+              <input type="number" inputmode="decimal" min="0" step="0.5" value="{{ solarKw }}" onChange="{{ setSolarKw }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 14px 'Public Sans',sans-serif;">
               <div style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:6px;">{{ t.solar_hint }}</div>
             </div>
           </sc-if>
@@ -409,10 +449,10 @@
             <span style="font:700 14.5px 'Public Sans',sans-serif;">{{ t.group_energia }}</span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_elec }}</label><input type="number" min="0" value="{{ regVals.elec }}" onChange="{{ setRegElec }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_gas }}</label><input type="number" min="0" value="{{ regVals.gas }}" onChange="{{ setRegGas }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_elec }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.elec }}" onChange="{{ setRegElec }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_gas }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.gas }}" onChange="{{ setRegGas }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
             <sc-if value="{{ heatingNeedsInput }}" hint-placeholder-val="{{ true }}">
-              <div style="grid-column:1 / -1;"><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">Calefacción ({{ heatingUnitLabel }})</label><input type="number" min="0" value="{{ regVals.heating }}" onChange="{{ setRegHeating }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+              <div style="grid-column:1 / -1;"><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">Calefacción ({{ heatingUnitLabel }})</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.heating }}" onChange="{{ setRegHeating }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
             </sc-if>
             <sc-if value="{{ !heatingNeedsInput }}" hint-placeholder-val="{{ false }}">
               <div style="grid-column:1 / -1; font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); border:1px dashed var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px;">Calefacción: no aplica — su consumo ya está incluido en la electricidad de la casa.</div>
@@ -434,7 +474,7 @@
                     <div style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85)); border:1px dashed var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px;">{{ t.vehiculo_ev_note }}</div>
                   </sc-if>
                   <sc-if value="{{ !vr.isElectric }}" hint-placeholder-val="{{ true }}">
-                    <input type="number" min="0" value="{{ vr.value }}" onChange="{{ vr.onChange }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;">
+                    <input type="number" inputmode="decimal" min="0" value="{{ vr.value }}" onChange="{{ vr.onChange }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;">
                   </sc-if>
                 </div>
               </sc-for>
@@ -451,11 +491,11 @@
             <span style="font:700 14.5px 'Public Sans',sans-serif;">{{ t.group_compras }} <span style="font-weight:500; color:var(--text-muted, oklch(46% 0.02 85));">· {{ regMoneyUnit }}</span></span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_food }}</label><input type="number" min="0" value="{{ regVals.food }}" onChange="{{ setRegFood }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_clothes }}</label><input type="number" min="0" value="{{ regVals.clothes }}" onChange="{{ setRegClothes }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_electronics }}</label><input type="number" min="0" value="{{ regVals.electronics }}" onChange="{{ setRegElectronics }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_homegoods }}</label><input type="number" min="0" value="{{ regVals.homegoods }}" onChange="{{ setRegHomegoods }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div style="grid-column:1 / -1;"><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_services }}</label><input type="number" min="0" value="{{ regVals.services }}" onChange="{{ setRegServices }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_food }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.food }}" onChange="{{ setRegFood }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_clothes }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.clothes }}" onChange="{{ setRegClothes }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_electronics }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.electronics }}" onChange="{{ setRegElectronics }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_homegoods }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.homegoods }}" onChange="{{ setRegHomegoods }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div style="grid-column:1 / -1;"><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_services }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.services }}" onChange="{{ setRegServices }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
           </div>
         </div>
 
@@ -465,11 +505,11 @@
             <span style="font:700 14.5px 'Public Sans',sans-serif;">{{ t.group_viajes }}</span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_flights }}</label><input type="number" min="0" value="{{ regVals.flights }}" onChange="{{ setRegFlights }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_flight_pax }}</label><input type="number" min="0" value="{{ regVals.flightPax }}" onChange="{{ setRegFlightPax }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_bustrain }}</label><input type="number" min="0" value="{{ regVals.bustrain }}" onChange="{{ setRegBustrain }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_urban }}</label><input type="number" min="0" value="{{ regVals.urban }}" onChange="{{ setRegUrban }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_hotel }}</label><input type="number" min="0" value="{{ regVals.hotel }}" onChange="{{ setRegHotel }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_flights }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.flights }}" onChange="{{ setRegFlights }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_flight_pax }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.flightPax }}" onChange="{{ setRegFlightPax }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_bustrain }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.bustrain }}" onChange="{{ setRegBustrain }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_urban }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.urban }}" onChange="{{ setRegUrban }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_hotel }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.hotel }}" onChange="{{ setRegHotel }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
           </div>
         </div>
         <div style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:12px; padding:16px;">
@@ -478,8 +518,8 @@
             <span style="font:700 14.5px 'Public Sans',sans-serif;">{{ t.group_agua }}</span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_water }}</label><input type="number" min="0" value="{{ regVals.water }}" onChange="{{ setRegWater }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_waste }}</label><input type="number" min="0" value="{{ regVals.waste }}" onChange="{{ setRegWaste }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_water }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.water }}" onChange="{{ setRegWater }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_waste }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.waste }}" onChange="{{ setRegWaste }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
             <label style="grid-column:1 / -1; display:flex; align-items:center; gap:8px; font-size:12.5px; cursor:pointer; color:var(--text-muted, oklch(46% 0.02 85));"><input type="checkbox" checked="{{ regVals.recycles }}" onChange="{{ setRegRecycles }}">{{ t.label_recycles }}</label>
           </div>
         </div>
@@ -1579,6 +1619,7 @@ class Component extends DCLogic {
       theme = localStorage.getItem('eih_theme') || theme;
       palette = localStorage.getItem('eih_palette') || palette;
     } catch (e) {}
+    try { const q = new URLSearchParams(location.search); if (q.get('theme')) theme = q.get('theme'); if (q.get('example')) this.loadExample(); if (q.get('screen')) this.setState({ screen:q.get('screen') }); } catch (e) {}
     this.applyThemeWith(theme, palette);
     let reducedMotion = false;
     try { reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
