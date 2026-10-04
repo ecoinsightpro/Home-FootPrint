@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>CarbonHome</title>
+<title>EcoInsight Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script src="./support.js"></script>
 </head>
@@ -23,6 +23,7 @@
     @media (min-width:601px) and (max-width:1024px) {
       [data-eih-aside] { width:76px !important; padding:16px 8px !important; align-items:center; }
       [data-eih-aside] > div:first-child { padding:0 !important; justify-content:center; }
+      [data-eih-logo-wide] { display:none !important; } [data-eih-logo-sq] { display:block !important; }
       [data-eih-aside] > div:first-child > span, [data-eih-aside] > a > span, [data-eih-aside] > nav button span { display:none !important; }
       [data-eih-aside] > a { padding:0 !important; width:44px; height:44px; justify-content:center; }
       [data-eih-aside] > nav { width:100%; }
@@ -37,9 +38,11 @@
       body { font-size:16px; }
       [data-eih-root] { display:block !important; }
       [data-eih-aside] { position:fixed !important; top:auto !important; bottom:0; left:0; right:0; width:100% !important; height:auto !important; z-index:60; flex-direction:row !important; padding:6px 6px calc(6px + env(safe-area-inset-bottom)) 6px !important; gap:0 !important; border-right:none !important; border-top:1px solid var(--border, oklch(88% 0.012 85)); overflow:visible !important; box-shadow:0 -6px 20px -10px oklch(23% 0.02 85 / .25); }
-      [data-eih-aside] > div:first-child, [data-eih-aside] > a, [data-eih-aside] > div:nth-last-child(3), [data-eih-aside] > div:last-child { display:none !important; }
-      [data-eih-aside] > div:nth-last-child(2) { display:flex !important; position:fixed; top:calc(8px + env(safe-area-inset-top)); right:10px; width:96px; z-index:61; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; padding:3px !important; }
-      [data-eih-aside] > div:nth-last-child(2) button { min-height:36px; border-radius:999px !important; }
+      [data-eih-aside] > a, [data-eih-aside] > div:nth-last-child(3), [data-eih-aside] > div:last-child { display:none !important; }
+      [data-eih-aside] > div:first-child { position:fixed; top:calc(6px + env(safe-area-inset-top)); left:12px; padding:0 !important; z-index:61; width:auto; }
+      [data-eih-logo-wide] { display:none !important; } [data-eih-logo-sq] { display:block !important; }
+      [data-eih-aside] > div:nth-last-child(2) { display:flex !important; position:fixed; top:calc(8px + env(safe-area-inset-top)); right:10px; width:116px; z-index:61; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; padding:3px !important; }
+      [data-eih-aside] > div:nth-last-child(2) button { min-height:44px; min-width:44px; border-radius:999px !important; }
       [data-eih-aside] > nav { flex-direction:row !important; gap:2px !important; width:100%; overflow-x:auto; scrollbar-width:none; scroll-snap-type:x proximity; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
       [data-eih-aside] > nav::-webkit-scrollbar { display:none; }
       [data-eih-aside] > nav > div:first-child { display:none !important; }
@@ -48,7 +51,7 @@
       [data-eih-aside] > nav button svg { width:22px; height:22px; }
       [data-eih-aside] > nav > button:nth-child(4) { order:1; } [data-eih-aside] > nav > button:nth-child(5) { order:2; } [data-eih-aside] > nav > button:nth-child(6) { order:3; } [data-eih-aside] > nav > button:nth-child(8) { order:4; }
       [data-eih-aside] > nav > button:nth-child(2), [data-eih-aside] > nav > button:nth-child(3), [data-eih-aside] > nav > button:nth-child(7), [data-eih-aside] > nav > button:nth-child(9), [data-eih-aside] > nav > button:nth-child(10), [data-eih-aside] > nav > button:nth-child(11) { order:9; }
-      [data-eih-main] { max-width:none !important; padding:calc(56px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important; }
+      [data-eih-main] { max-width:none !important; padding:calc(72px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important; }
       [data-eih-main] [style*="grid-template-columns"]:not([style*="repeat(2,1fr)"]) { grid-template-columns:minmax(0,1fr) !important; gap:16px !important; }
       [data-eih-main] h1 { font-size:30px !important; }
       [data-eih-main] [style*="font-size:13px"] { font-size:14px !important; }
@@ -114,10 +117,7 @@
 
   <aside data-eih-aside="1" style="position:sticky; top:0; align-self:flex-start; height:100vh; width:220px; flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:20px 14px; display:flex; flex-direction:column; gap:16px; overflow-y:auto;">
     <div style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:0 6px;" onClick="{{ go_landing }}">
-      <div style="width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--grad1, oklch(58% 0.11 152)), var(--grad2, oklch(46% 0.09 175))); flex-shrink:0; display:flex; align-items:center; justify-content:center;">
-        <svg width="27" height="27" viewBox="0 0 32 32" fill="none"><defs><linearGradient id="cbg" x1="6" y1="3" x2="26" y2="29"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cdeedb"/></linearGradient></defs><path d="M16 4.6 L27 13.4 V24.6 A2.4 2.4 0 0 1 24.6 27 H7.4 A2.4 2.4 0 0 1 5 24.6 V13.4 Z" fill="url(#cbg)" stroke="url(#cbg)" stroke-width="1.6" stroke-linejoin="round"></path><path d="M16 24.2 C10.8 23 10.4 17.4 16 14 C21.6 17.4 21.2 23 16 24.2 Z" fill="#1f6b46"></path><path d="M16 23 V17.6" stroke="#cdeedb" stroke-width="1.1" stroke-linecap="round"></path><path d="M16 20.4 L18.2 18.6 M16 21.8 L13.9 20.2" stroke="#cdeedb" stroke-width="0.9" stroke-linecap="round"></path><circle cx="26.5" cy="6.2" r="2.6" fill="#fff" opacity=".28"></circle><circle cx="26.5" cy="6.2" r="1.5" fill="#fff"></circle></svg>
-      </div>
-      <span style="font-family:'Lora',serif; font-weight:600; font-size:16px;">CarbonHome</span>
+      <div data-eih-logo-wide="1" style="background:transparent; border-radius:12px; padding:8px 10px; width:100%; box-sizing:border-box;"><img src="logo-ecoinsight.png" alt="EcoInsight Home" style="width:100%; height:auto; display:block;"></div><div data-eih-logo-sq="1" style="display:none; background:transparent; border-radius:12px; width:48px; height:48px; padding:5px; box-sizing:border-box;"><img src="logo-ecoinsight-icon-square.png" alt="EcoInsight Home" style="width:100%; height:100%; object-fit:contain; display:block;"></div>
     </div>
     <a href="index.html" style="display:flex; align-items:center; gap:8px; margin:0 0 14px; padding:8px 12px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; font:600 12.5px 'Public Sans',sans-serif; color:var(--text-muted, oklch(46% 0.02 85)); text-decoration:none; transition:border-color .2s ease, color .2s ease;" style-hover="border-color:var(--accent, oklch(52% 0.1 152)); color:var(--accent-text, oklch(33% 0.08 152));">
       <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10 H4 M9 5 L4 10 L9 15"></path></svg>
@@ -295,15 +295,10 @@
   <!-- ================= ONBOARDING ================= -->
   <sc-if value="{{ show.onboarding }}" hint-placeholder-val="{{ false }}">
     <section style="max-width:760px; margin:0 auto; padding:10px 0;">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
-        <sc-for list="{{ onbSteps }}" as="st" hint-placeholder-count="5"><button onClick="{{ st.go }}" aria-label="{{ st.label }}" style="border:none; cursor:pointer; width:44px; height:44px; border-radius:50%; background:transparent; padding:0; display:flex; align-items:center; justify-content:center;"><span style="width:32px; height:32px; border-radius:50%; background:{{ st.bg }}; color:{{ st.fg }}; display:flex; align-items:center; justify-content:center; font:700 13px 'Public Sans',sans-serif;">{{ st.label }}</span></button></sc-for>
-        <span style="margin-left:auto; font:600 13px 'Public Sans',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">{{ onbProgress }}</span>
-      </div>
-      <h1 style="font-family:'Lora',serif; font-size:26px; margin:0 0 6px;">{{ onbTitle }}</h1>
-      <p style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:14px; margin:0 0 22px;">{{ onbSub }}</p>
+      <h1 style="font-family:'Lora',serif; font-size:26px; margin:0 0 6px;">{{ t.onb_step0_title }}</h1>
+      <p style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:14px; margin:0 0 22px;">{{ t.onb_step0_sub }}</p>
 
       <div style="display:grid; gap:16px;">
-        <sc-if value="{{ onb.step0 }}" hint-placeholder-val="{{ true }}">
         <div style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:20px; background:var(--surface, oklch(99% 0.004 85));">
           <div style="font:700 14.5px 'Public Sans',sans-serif; margin-bottom:14px;">{{ t.onb_step0_title }}</div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
@@ -342,8 +337,6 @@
           </select>
         </div>
 
-        </sc-if>
-        <sc-if value="{{ onb.step1 }}" hint-placeholder-val="{{ false }}">
         <div style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:20px; background:var(--surface, oklch(99% 0.004 85));">
           <div style="font:700 14.5px 'Public Sans',sans-serif; margin-bottom:4px;">{{ t.onb_step1_title }}</div>
           <div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px; margin-bottom:14px;">{{ t.onb_step1_sub }}</div>
@@ -369,12 +362,6 @@
               </select>
             </div>
             <div>
-              <label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ gasLabel }}</label>
-              <select value="{{ gasType }}" onChange="{{ setGasType }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 14px 'Public Sans',sans-serif;">
-                <option value="glp">{{ gasOptGlp }}</option><option value="natural">{{ gasOptNat }}</option><option value="electric">{{ gasOptElec }}</option>
-              </select>
-            </div>
-            <div>
               <label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ t.label_cooling }}</label>
               <select value="{{ coolingType }}" onChange="{{ setCoolingType }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 14px 'Public Sans',sans-serif;">
                 <option>Eléctrico (aire acondicionado)</option><option>Evaporativo</option><option>Sin enfriamiento</option>
@@ -394,8 +381,6 @@
           </sc-if>
         </div>
 
-        </sc-if>
-        <sc-if value="{{ onb.step2 }}" hint-placeholder-val="{{ false }}">
         <div style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:20px; background:var(--surface, oklch(99% 0.004 85));">
           <div style="font:700 14.5px 'Public Sans',sans-serif; margin-bottom:4px;">{{ t.onb_step2_title }}</div>
           <div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px; margin-bottom:14px;">{{ t.onb_step2_sub }}</div>
@@ -417,24 +402,6 @@
           </div>
         </div>
 
-        </sc-if>
-        <sc-if value="{{ onb.step3 }}" hint-placeholder-val="{{ false }}">
-        <div style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:20px; background:var(--surface, oklch(99% 0.004 85));">
-          <div style="font:700 14.5px 'Public Sans',sans-serif; margin-bottom:4px;">{{ onbTariffTitle }}</div>
-          <div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px; margin-bottom:14px;">{{ onbTariffSub }}</div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;">
-            <div>
-              <label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ tariffLabel }}</label>
-              <input type="number" inputmode="decimal" min="0" step="any" value="{{ elecTariff }}" onInput="{{ setElecTariff }}" style="width:100%; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 16px 'Public Sans',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));">
-              <div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:4px;">{{ tariffHint }}</div>
-            </div>
-            <div>
-              <label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ fuelLabel }}</label>
-              <input type="number" inputmode="decimal" min="0" step="any" value="{{ fuelTariff }}" onInput="{{ setFuelTariff }}" style="width:100%; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 16px 'Public Sans',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));">
-            </div>
-          </div>
-        </div>
-
         <div style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:20px; background:var(--surface, oklch(99% 0.004 85));">
           <div style="font:700 14.5px 'Public Sans',sans-serif; margin-bottom:4px;">{{ t.onb_step3_title }}</div>
           <div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px; margin-bottom:14px;">{{ t.onb_step3_sub }}</div>
@@ -446,36 +413,10 @@
             </sc-for>
           </div>
         </div>
-        </sc-if>
-        <sc-if value="{{ onb.step4 }}" hint-placeholder-val="{{ false }}">
-        <div style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:20px; background:var(--surface, oklch(99% 0.004 85));">
-          <div style="font:700 14.5px 'Public Sans',sans-serif; margin-bottom:4px;">{{ onbMonthTitle }}</div>
-          <div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px; margin-bottom:14px;">{{ onbMonthSub }}</div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;">
-            <div><label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ t.label_elec }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.elec }}" onChange="{{ setRegElec }}" style="width:100%; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 16px 'Public Sans',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"></div>
-<sc-if value="{{ cookGas }}" hint-placeholder-val="{{ true }}"><div><label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ t.label_gas }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.gas }}" onChange="{{ setRegGas }}" style="width:100%; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 16px 'Public Sans',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"></div></sc-if>
-            <sc-if value="{{ heatingNeedsInput }}" hint-placeholder-val="{{ false }}"><div><label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ heatLabelFull }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.heating }}" onChange="{{ setRegHeating }}" style="width:100%; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 16px 'Public Sans',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"></div></sc-if>
-            <div><label style="font:600 13px 'Public Sans',sans-serif; display:block; margin-bottom:6px;">{{ t.label_water }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.water }}" onChange="{{ setRegWater }}" style="width:100%; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:11px; font:500 16px 'Public Sans',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"></div>
-          </div>
-          <div style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:12px;">{{ onbMonthHint }}</div>
-        </div>
-        </sc-if>
       </div>
 
-      <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
-        <sc-if value="{{ onbNotFirst }}" hint-placeholder-val="{{ false }}"><button onClick="{{ onbBack }}" style="flex:0 0 auto; min-height:48px; padding:0 22px; border-radius:10px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:700 15px 'Public Sans',sans-serif; cursor:pointer;">{{ onbBackLabel }}</button></sc-if>
-        <sc-if value="{{ onbNotLast }}" hint-placeholder-val="{{ true }}"><button onClick="{{ onbNext }}" style="flex:1; min-height:48px; border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; border-radius:10px; font:700 15px 'Public Sans',sans-serif; cursor:pointer;">{{ onbNextLabel }}</button></sc-if>
-        <sc-if value="{{ onb.step4 }}" hint-placeholder-val="{{ false }}"><button onClick="{{ onbAskOpen }}" style="flex:1; min-height:48px; border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; border-radius:10px; font:700 15px 'Public Sans',sans-serif; cursor:pointer;">{{ onbFinishLabel }}</button></sc-if>
-      </div>
-      <sc-if value="{{ onbAsk }}" hint-placeholder-val="{{ false }}"><div role="dialog" aria-modal="true" style="position:fixed; inset:0; z-index:200; background:oklch(20% 0.02 85 / 0.55); display:flex; align-items:center; justify-content:center; padding:20px;">
-        <div style="background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); border-radius:16px; padding:24px; max-width:440px; width:100%; display:grid; gap:12px;">
-          <div style="font-family:'Lora',serif; font-size:22px; font-weight:600;">{{ onbAskTitle }}</div>
-          <div style="font-size:14px; line-height:1.5; color:var(--text-muted, oklch(46% 0.02 85));">{{ onbAskSub }}</div>
-          <button onClick="{{ onbPickJan }}" style="min-height:52px; border:2px solid var(--accent, oklch(52% 0.1 152)); background:var(--surface, oklch(99% 0.004 85)); color:var(--accent-text, oklch(33% 0.08 152)); border-radius:10px; font:700 15px 'Public Sans',sans-serif; cursor:pointer;">{{ onbAskJan }}</button>
-          <button onClick="{{ onbPickNow }}" style="min-height:52px; border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; border-radius:10px; font:700 15px 'Public Sans',sans-serif; cursor:pointer;">{{ onbAskNow }}</button>
-          <button onClick="{{ onbAskClose }}" style="min-height:44px; border:none; background:transparent; color:var(--text-muted, oklch(46% 0.02 85)); font:600 14px 'Public Sans',sans-serif; cursor:pointer;">{{ onbBackLabel }}</button>
-        </div></div></sc-if>
-      <sc-if value="{{ onb.step4 }}" hint-placeholder-val="{{ false }}"><div style="text-align:center; margin-top:10px;"><button onClick="{{ go_registro }}" style="border:none; background:transparent; min-height:44px; padding:0 12px; font:600 14px 'Public Sans',sans-serif; color:var(--accent-text, oklch(33% 0.08 152)); text-decoration:underline; cursor:pointer;">{{ t.btn_first_reg }}</button></div></sc-if>
+      <button onClick="{{ go_registro }}" style="width:100%; margin-top:20px; border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:14px; border-radius:10px; font:700 15px 'Public Sans',sans-serif; cursor:pointer;">{{ t.btn_first_reg }}</button>
+      </sc-if>
     </section>
   </sc-if>
 
@@ -509,9 +450,9 @@
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_elec }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.elec }}" onChange="{{ setRegElec }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
-<sc-if value="{{ cookGas }}" hint-placeholder-val="{{ true }}"><div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_gas }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.gas }}" onChange="{{ setRegGas }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div></sc-if>
+            <div><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ t.label_gas }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.gas }}" onChange="{{ setRegGas }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
             <sc-if value="{{ heatingNeedsInput }}" hint-placeholder-val="{{ true }}">
-              <div style="grid-column:1 / -1;"><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">{{ heatLabelFull }}</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.heating }}" onChange="{{ setRegHeating }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
+              <div style="grid-column:1 / -1;"><label style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); display:block; margin-bottom:4px;">Calefacción ({{ heatingUnitLabel }})</label><input type="number" inputmode="decimal" min="0" value="{{ regVals.heating }}" onChange="{{ setRegHeating }}" style="width:100%; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px; font:500 13px 'Public Sans',sans-serif;"></div>
             </sc-if>
             <sc-if value="{{ !heatingNeedsInput }}" hint-placeholder-val="{{ false }}">
               <div style="grid-column:1 / -1; font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); border:1px dashed var(--border, oklch(88% 0.012 85)); border-radius:8px; padding:10px;">Calefacción: no aplica — su consumo ya está incluido en la electricidad de la casa.</div>
@@ -627,14 +568,6 @@
   <sc-if value="{{ show.dashboard }}" hint-placeholder-val="{{ true }}">
     <section style="animation: fadeInUp 0.45s ease;">
       <h1 style="font-family:'Lora',serif; font-size:24px; margin:0 0 10px;">{{ t.title_dashboard }}</h1>
-      <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:18px; margin-bottom:16px; display:grid; gap:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;"><div style="font:700 16px 'Public Sans',sans-serif;">{{ goal.title }}</div><button onClick="{{ exportCSV }}" style="border:1px solid var(--border, oklch(88% 0.012 85)); background:transparent; color:var(--accent-text, oklch(33% 0.08 152)); min-height:44px; padding:0 16px; border-radius:10px; font:700 14px 'Public Sans',sans-serif; cursor:pointer;">{{ goal.csv }}</button></div>
-        <label style="display:grid; gap:6px; font:600 13px 'Public Sans',sans-serif;">{{ goal.pctLabel }}<input type="range" min="0" max="60" step="5" value="{{ goalPct }}" onInput="{{ setGoalPct }}" style="width:100%; accent-color:var(--accent, oklch(52% 0.1 152));"></label>
-        <div style="position:relative; height:14px; border-radius:999px; background:var(--surface-alt, oklch(96% 0.01 85)); overflow:hidden;"><div style="position:absolute; inset:0 auto 0 0; width:{{ goal.projPct }}; background:var(--accent-soft, oklch(93% 0.035 152)); border-right:2px dashed var(--accent, oklch(52% 0.1 152));"></div><div style="position:absolute; inset:0 auto 0 0; width:{{ goal.usedPct }}; background:var(--accent, oklch(52% 0.1 152)); border-radius:999px;"></div></div>
-        <div style="display:flex; gap:20px; flex-wrap:wrap; font-size:14px;"><div><div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px;">{{ goal.lblBudget }}</div><b>{{ goal.budget }}</b></div><div><div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px;">{{ goal.lblUsed }}</div><b>{{ goal.used }}</b></div><div><div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px;">{{ goal.lblProj }}</div><b>{{ goal.proj }}</b></div></div>
-        <div style="font-size:14px; color:var(--text, oklch(23% 0.02 85));">{{ goal.status }}</div>
-        <div style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85));">{{ goal.note }}</div>
-      </div>
       <div style="background:var(--accent-soft2, oklch(96% 0.02 152)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:12px 16px; font-size:12.5px; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:16px; line-height:1.5;">{{ t.info_dashboard }}</div>
 
       <sc-if value="{{ !demoEmpty }}" hint-placeholder-val="{{ true }}">
@@ -1004,26 +937,6 @@
       <h1 style="font-family:'Lora',serif; font-size:24px; margin:0 0 4px;">{{ t.title_proyeccion }}</h1>
       <div style="background:var(--accent-soft2, oklch(96% 0.02 152)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:12px 16px; font-size:12.5px; color:var(--accent-text, oklch(33% 0.08 152)); margin:10px 0; line-height:1.5;">{{ t.info_proyeccion }}</div>
       <p style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:13.5px; margin:0 0 18px;">{{ t.proj_sub }} {{ countryCity }}.</p>
-      <sc-if value="{{ proj.planHas }}" hint-placeholder-val="{{ true }}"><div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:22px; margin-bottom:18px;">
-        <div style="font-family:'Lora',serif; font-size:22px; font-weight:600; margin-bottom:6px;">{{ proj.planTitle }}</div>
-        <div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:14.5px; line-height:1.55; margin-bottom:18px; max-width:700px;">{{ proj.planSub }}</div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-bottom:18px;">
-          <sc-for list="{{ proj.scn }}" as="sc" hint-placeholder-count="3"><div style="border:2px solid {{ sc.bd }}; background:{{ sc.bg }}; border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px;">
-            <div><div style="font:700 16px 'Public Sans',sans-serif;">{{ sc.name }}</div><div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:13px; line-height:1.4;">{{ sc.desc }}</div></div>
-            <div style="font-family:'Lora',serif; font-size:24px; font-weight:600;">{{ sc.co2L }}</div>
-            <div><div style="height:10px; border-radius:6px; background:var(--surface-alt, oklch(96% 0.01 85)); overflow:hidden;"><div style="height:10px; width:{{ sc.barW }}; background:{{ sc.barC }}; border-radius:6px;"></div></div><div style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:12.5px; margin-top:4px;">{{ sc.afterL }}</div></div>
-            <div style="font:700 14.5px 'Public Sans',sans-serif; color:var(--accent-text, oklch(33% 0.08 152));">{{ sc.moneyL }}</div>
-            <sc-if value="{{ sc.hasEq }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.5; color:var(--text-muted, oklch(46% 0.02 85));"><div>{{ sc.trees }}</div><div>{{ sc.km }}</div></div></sc-if>
-            <div style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:auto;">{{ sc.costL }}</div>
-          </div></sc-for>
-        </div>
-        <sc-if value="{{ proj.hasFirst }}" hint-placeholder-val="{{ false }}"><div style="background:var(--accent-soft, oklch(93% 0.035 152)); border-radius:12px; padding:16px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:12px;">
-          <div><div style="font:700 12.5px 'Public Sans',sans-serif; color:var(--accent-text, oklch(33% 0.08 152)); text-transform:uppercase; letter-spacing:.04em;">{{ proj.firstTitle }}</div><div style="font:700 16px 'Public Sans',sans-serif; margin:2px 0;">{{ proj.firstName }}</div><div style="font-size:13.5px;">{{ proj.firstWhy }}</div></div>
-          <button onClick="{{ proj.planGo }}" style="border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; min-height:44px; padding:0 20px; border-radius:10px; font:700 14px 'Public Sans',sans-serif; cursor:pointer;">{{ proj.planBtn }}</button>
-        </div></sc-if>
-        <div style="font-size:12.5px; line-height:1.5; color:var(--text-muted, oklch(46% 0.02 85));">{{ proj.planNote }}</div>
-      </div></sc-if>
-      <sc-if value="{{ proj.roadEmpty }}" hint-placeholder-val="{{ false }}"><div style="background:var(--surface, oklch(99% 0.004 85)); border:1px dashed var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:22px; margin-bottom:18px; font-size:14px; color:var(--text-muted, oklch(46% 0.02 85));">{{ proj.roadEmptyMsg }}</div></sc-if>
       <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:22px; margin-bottom:18px;">
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:18px;">
           <div><div style="font-size:12px;color:var(--text-muted, oklch(46% 0.02 85));">{{ t.proj_footprint }}</div><div style="font-family:'Lora',serif;font-size:24px;font-weight:600;">{{ proj.co2Low }} – {{ proj.co2High }}</div></div>
@@ -1039,21 +952,16 @@
           <sc-if value="{{ proj.hasScenario }}" hint-placeholder-val="{{ false }}">
             <polyline class="eih-line" points="{{ proj.scenarioPoints }}" fill="none" stroke="var(--scenario-blue, oklch(60% 0.12 230))" stroke-width="3"></polyline>
           </sc-if>
-          <line x1="10" y1="{{ proj.targetY }}" x2="710" y2="{{ proj.targetY }}" stroke="var(--warn, oklch(42% 0.11 55))" stroke-width="1.5" stroke-dasharray="6,4" vector-effect="non-scaling-stroke"></line>
         </svg>
         <sc-for list="{{ proj.gridLines }}" as="g" hint-placeholder-count="5">
-          <div style="position:absolute; left:calc(100% - 2px); top:{{ g.y }}px; transform:translate(-100%,-100%); font-size:9px; white-space:nowrap; line-height:1; color:var(--text-muted, oklch(46% 0.02 85)); pointer-events:none; background:var(--surface, oklch(99% 0.004 85)); padding:0 2px;">{{ g.label }}</div>
+          <div style="position:absolute; left:calc(100% - 2px); top:{{ g.y }}px; transform:translate(-100%,-100%); font-size:9px; color:var(--text-muted, oklch(46% 0.02 85)); pointer-events:none; background:var(--surface, oklch(99% 0.004 85)); padding:0 2px;">{{ g.label }}</div>
         </sc-for>
         <sc-for list="{{ proj.labels }}" as="l" hint-placeholder-count="4">
           <div style="position:absolute; left:{{ l.xPct }}; top:196px; transform:translateX(-50%); font-size:10px; color:var(--text-muted, oklch(46% 0.02 85)); pointer-events:none; white-space:nowrap;">{{ l.text }}</div>
         </sc-for>
-        <sc-for list="{{ proj.dots }}" as="d" hint-placeholder-count="12"><div style="position:absolute; left:{{ d.xPct }}; top:{{ d.top }}px; width:9px; height:9px; margin:-4.5px 0 0 -4.5px; border-radius:50%; background:{{ d.bg }}; border:2px solid var(--accent, oklch(52% 0.1 152)); box-sizing:border-box; pointer-events:none;"></div></sc-for>
         </div>
         <div style="display:flex; gap:14px; font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:8px; flex-wrap:wrap;">
           <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent-soft, oklch(93% 0.035 152));border:1px solid var(--accent, oklch(52% 0.1 152));border-radius:2px;margin-right:5px;"></span>{{ t.proj_range }}</span>
-          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px; height:9px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); border:2px solid var(--accent, oklch(52% 0.1 152)); box-sizing:border-box;"></span>{{ proj.lgLogged }}</span>
-          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px; height:9px; border-radius:50%; background:var(--surface, oklch(99% 0.004 85)); border:2px solid var(--accent, oklch(52% 0.1 152)); box-sizing:border-box;"></span>{{ proj.lgEst }}</span>
-          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:16px; height:0; border-top:2px dashed var(--warn, oklch(42% 0.11 55));"></span>{{ proj.lgBudget }}</span>
           <sc-if value="{{ proj.hasScenario }}" hint-placeholder-val="{{ false }}">
             <span><span style="display:inline-block;width:10px;height:10px;background:var(--scenario-blue, oklch(60% 0.12 230));border-radius:2px;margin-right:5px;"></span>{{ t.proj_scenario }}</span>
           </sc-if>
@@ -1286,10 +1194,8 @@
         <div style="position:absolute; right:-70px; top:-70px; width:320px; height:320px; border-radius:50%; border:1px solid oklch(100% 0 0 / .1);"></div>
         <div style="position:absolute; right:-10px; top:-10px; width:200px; height:200px; border-radius:50%; background:oklch(100% 0 0 / .05);"></div>
         <div style="position:relative; display:flex; align-items:center; gap:12px;">
-          <div style="width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg, var(--grad1, oklch(58% 0.11 152)), var(--grad2, oklch(46% 0.09 175))); box-shadow:0 0 0 1px oklch(100% 0 0 / .35); flex-shrink:0; display:flex; align-items:center; justify-content:center;">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><defs><linearGradient id="cbg" x1="6" y1="3" x2="26" y2="29"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cdeedb"/></linearGradient></defs><path d="M16 4.6 L27 13.4 V24.6 A2.4 2.4 0 0 1 24.6 27 H7.4 A2.4 2.4 0 0 1 5 24.6 V13.4 Z" fill="url(#cbg)" stroke="url(#cbg)" stroke-width="1.6" stroke-linejoin="round"></path><path d="M16 24.2 C10.8 23 10.4 17.4 16 14 C21.6 17.4 21.2 23 16 24.2 Z" fill="#1f6b46"></path><path d="M16 23 V17.6" stroke="#cdeedb" stroke-width="1.1" stroke-linecap="round"></path><path d="M16 20.4 L18.2 18.6 M16 21.8 L13.9 20.2" stroke="#cdeedb" stroke-width="0.9" stroke-linecap="round"></path><circle cx="26.5" cy="6.2" r="2.6" fill="#fff" opacity=".28"></circle><circle cx="26.5" cy="6.2" r="1.5" fill="#fff"></circle></svg>
-          </div>
-          <div><div style="font:600 17px 'Lora',serif;">CarbonHome</div><div style="font:600 10.5px 'Public Sans',sans-serif; letter-spacing:.16em; text-transform:uppercase; color:oklch(88% 0.03 160);">{{ rt.coverTag }}</div></div>
+          <div style="background:#fff; border-radius:12px; width:52px; height:52px; padding:5px; box-sizing:border-box; flex-shrink:0;"><img src="logo-ecoinsight-icon-square.png" alt="EcoInsight Home" style="width:100%; height:100%; object-fit:contain; display:block;"></div>
+          <div><div style="font:600 0px 'Lora',serif;"></div><div style="font:600 10.5px 'Public Sans',sans-serif; letter-spacing:.16em; text-transform:uppercase; color:oklch(88% 0.03 160);">{{ rt.coverTag }}</div></div>
         </div>
         <div style="position:relative; max-width:640px;">
           <div style="width:56px; height:3px; background:var(--accent, oklch(52% 0.1 152)); filter:brightness(1.5); margin-bottom:24px;"></div>
@@ -1474,7 +1380,7 @@
                 <polygon points="{{ proj.bandPoints }}" fill="var(--accent-soft, oklch(93% 0.035 152))"></polygon>
                 <polyline points="{{ proj.midPoints }}" fill="none" stroke="var(--accent, oklch(52% 0.1 152))" stroke-width="2.5" stroke-dasharray="5,4"></polyline>
               </svg>
-              <sc-for list="{{ proj.gridLines }}" as="g" hint-placeholder-count="5"><div style="position:absolute; left:calc(100% - 2px); top:{{ g.y }}px; transform:translate(-100%,-100%); font-size:9px; white-space:nowrap; line-height:1; color:var(--text-muted, oklch(46% 0.02 85)); background:var(--surface, oklch(99% 0.004 85));">{{ g.label }}</div></sc-for>
+              <sc-for list="{{ proj.gridLines }}" as="g" hint-placeholder-count="5"><div style="position:absolute; left:calc(100% - 2px); top:{{ g.y }}px; transform:translate(-100%,-100%); font-size:9px; color:var(--text-muted, oklch(46% 0.02 85)); background:var(--surface, oklch(99% 0.004 85));">{{ g.label }}</div></sc-for>
               <sc-for list="{{ proj.labels }}" as="l" hint-placeholder-count="4"><div style="position:absolute; left:{{ l.xPct }}; top:196px; transform:translateX(-50%); font-size:10px; color:var(--text-muted, oklch(46% 0.02 85)); white-space:nowrap;">{{ l.text }}</div></sc-for>
             </div>
           </div>
@@ -1609,7 +1515,6 @@ class Component extends DCLogic {
   componentWillUnmount() { this.co2labClearTimers(); clearTimeout(this._dnT); }
   runDonut = () => { clearTimeout(this._dnT); this.setState({ donutOn: false }); this._dnT = setTimeout(() => this.setState({ donutOn: true }), 80); };
   componentDidUpdate() {
-    this.persist();
     const k = this.state.screen+'|'+this.state.dashUpTo+'|'+this.state.country+'|'+this.state.kpiPerPerson+'|'+this.state.demo;
     if (k !== this._dnKey) { this._dnKey = k; if (this.state.screen === 'dashboard') this.runDonut(); }
   }
@@ -1706,8 +1611,6 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    let _fresh = false; try { _fresh = /[?&]fresh=1/.test(location.search); if (_fresh) { localStorage.removeItem('cc_v2'); this.setState({ screen:'onboarding', onbStep:0 }); } } catch (e) {}
-    if (!_fresh) try { const sv = JSON.parse(localStorage.getItem('cc_v2')||'null'); if (sv && Array.isArray(sv.raw) && sv.raw.length === 12 && !/example=/.test(location.search)) { this.rawMonths.length = 0; this.rawMonths.push(...sv.raw); this.setState(sv.st || {}); } } catch (e) {}
     this._dnKey = this.state.screen+'|'+this.state.dashUpTo+'|'+this.state.country+'|'+this.state.kpiPerPerson+'|'+this.state.demo; if (this.state.screen === 'dashboard') this.runDonut();
     let theme = 'light', palette = 'sage';
     try {
@@ -1720,7 +1623,6 @@ class Component extends DCLogic {
     try { reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
     this.setState({ theme, palette, co2labReducedMotion: reducedMotion });
   }
-  RECO_EN = {"Bomba de calor (reemplaza tu calefacción actual)":{"t":"Heat pump (replaces your current heating)","d":"Moves heat instead of generating it: with a COP of 3 it uses a third of the energy per degree. Calculated from your heating use and your country’s grid factor."},"Sellado de ventanas e infiltraciones":{"t":"Seal windows and air leaks","d":"Weatherstripping and caulk stop air leaks. Estimate: −10% of your heating and cooling."},"Aislar techumbre y muros":{"t":"Insulate roof and walls","d":"Keeps the indoor temperature. Estimate: −25% of your heating and cooling."},"Termostato programable para el A/C":{"t":"Programmable thermostat for the A/C","d":"Turns the air conditioning off when nobody is home. Estimate: −20% of your cooling."},"Paneles solares (3 kW adicionales)":{"t":"Solar panels (3 kW extra)","d":"Generation based on your country’s solar radiation, with ~40% self-consumption and the rest exported to the grid."},"Cambiar a ampolletas LED en toda la casa":{"t":"Switch to LED bulbs throughout the home","d":"Use up to 80% less than incandescent bulbs. Estimate: −8% of your electricity."},"Lavar ropa con agua fría":{"t":"Wash clothes in cold water","d":"Heating the water is most of the energy of a wash. Estimate: −3% of your electricity."},"Comprar ropa de segunda mano":{"t":"Buy second-hand clothes","d":"Avoids producing new garments. Estimate: half of your clothing bought used."},"Reparar en vez de reemplazar electrónicos":{"t":"Repair instead of replacing electronics","d":"Manufacturing weighs more than use. Estimate: −20% of your electronics purchases."},"Reducir compras de electrónica nueva al año":{"t":"Buy less new electronics each year","d":"Extend the life of your devices. Estimate: −30% of your electronics purchases."},"Preferir bus/tren en vez del auto":{"t":"Prefer bus/train over the car","d":"Move 20% of your car km to public transport (bus/train emissions are deducted)."},"Combinar noches de hotel en un solo viaje":{"t":"Combine hotel nights into a single trip","d":"Estimate: −25% of your hotel nights."},"Volar menos: reemplazar un vuelo corto por bus/tren":{"t":"Fly less: replace a short flight with bus/train","d":"Estimate: −25% of your flown km, replaced by bus/train."},"Cocinar con tapa y olla a presión":{"t":"Cook with lids and a pressure cooker","d":"Shortens cooking time and the gas used. Estimate: −10% of your cooking gas."},"Cocina de inducción en vez de gas":{"t":"Induction cooktop instead of gas","d":"More efficient and no combustion at home. Estimate: −60% of your cooking gas emissions, net of the extra electricity."},"Eliminar consumo fantasma (stand-by)":{"t":"Eliminate phantom load (stand-by)","d":"Power strips with a switch for TV, consoles and chargers. Estimate: −5% of your electricity."},"Secar la ropa al aire":{"t":"Air-dry your clothes","d":"Skips the dryer. Estimate: −4% of your electricity."},"Refrigerador de alta eficiencia (clase A)":{"t":"High-efficiency refrigerator (class A)","d":"It runs 24 hours a day, so its efficiency matters a lot. Estimate: −10% of your electricity."},"Bajar 1 °C la calefacción":{"t":"Lower the heating by 1 °C","d":"Each degree less saves about 7% of heating energy."},"Conducción eficiente":{"t":"Efficient driving","d":"Smooth acceleration and braking, steady speed. Estimate: −10% of your fuel."},"Revisar presión de neumáticos y mantención":{"t":"Check tire pressure and maintenance","d":"Properly inflated tires reduce consumption. Estimate: −3% of your fuel."},"Compartir auto o combinar trayectos":{"t":"Carpool or combine trips","d":"Fewer trips with a nearly empty car. Estimate: −15% of your fuel."},"Teletrabajar un día a la semana":{"t":"Work from home one day a week","d":"One fewer commute out of five. Estimate: −20% of your fuel."},"Cambiar a un vehículo eléctrico":{"t":"Switch to an electric vehicle","d":"Estimate: −60% of fuel emissions, considering your country’s grid factor."},"Reducir el desperdicio de alimentos":{"t":"Reduce food waste","d":"Plan purchases and use leftovers. Estimate: −15% of your food purchases."},"Más comidas vegetales a la semana":{"t":"More plant-based meals each week","d":"Swap meat for legumes and vegetables. Estimate: −12% of your food emissions."},"Comprar muebles y artículos del hogar usados o reparados":{"t":"Buy used or repaired furniture and home goods","d":"Estimate: −25% of your home goods purchases."},"Pasar más km urbanos a bus o metro":{"t":"Shift more urban km to bus or metro","d":"Estimate: −30% of your urban km by taxi or ride-hailing."},"Duchas más cortas":{"t":"Shorter showers","d":"Cut 2 minutes per shower. Estimate: −15% of your water use."},"Reparar fugas y usar grifos eficientes":{"t":"Fix leaks and use efficient taps","d":"A dripping tap wastes thousands of liters a year. Estimate: −8% of your water use."},"Compostar residuos orgánicos":{"t":"Compost organic waste","d":"Keeps food scraps from producing methane in landfills. Estimate: −30% of your waste emissions."},"Reciclar más y separar bien":{"t":"Recycle more and sort well","d":"Estimate: −20% of your waste emissions."}};
   MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   MONTHS_ES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   tm(label, lang) { const i = this.MONTHS_ES.indexOf(label); return (lang==='en' && i>=0) ? this.MONTHS_EN[i] : label; }
@@ -1987,33 +1889,6 @@ class Component extends DCLogic {
     'Polonia':5.4, 'Japón':6.0, 'China':4.5, 'India':1.2, 'Corea del Sur':8.5, 'Emiratos Árabes Unidos':14.0, 'Sudáfrica':4.3, 'Egipto':1.6, 'Nigeria':0.5, 'Marruecos':1.3, 'Australia':9.5, 'Nueva Zelanda':5.5,
   };
   // factor: kgCO₂e/unidad (GLP y leña en kg, kerosene en L) · kwh: energía por unidad · eff: rendimiento del equipo actual
-  tariffs = { 'Chile':{elec:0.20,fuel:1.30}, 'México':{elec:0.10,fuel:1.15}, 'Colombia':{elec:0.17,fuel:0.85}, 'Argentina':{elec:0.08,fuel:1.00}, 'Brasil':{elec:0.17,fuel:1.20}, 'Estados Unidos':{elec:0.17,fuel:0.85}, 'Canadá':{elec:0.13,fuel:1.10}, 'España':{elec:0.28,fuel:1.75}, 'Alemania':{elec:0.40,fuel:2.00}, 'Francia':{elec:0.25,fuel:1.95}, 'Reino Unido':{elec:0.35,fuel:1.85}, 'Italia':{elec:0.35,fuel:2.00} };
-  DATA_KEYS = ['elecUnits','heatingUnits','coolingUnits','gasM3Cocina','fuelL','waterM3','wasteKg','food','clothes','electronics','homegoods','services','flightsKm','bustrainKm','urbanKm','hotelNights'];
-  isLogged(m) { return this.DATA_KEYS.some(k => (m[k]||0) > 0); }
-  lastLoggedIdx() { let r = -1; this.rawMonths.forEach((m,i) => { if (this.isLogged(m)) r = i; }); return r + 1; }
-  fillYear(arr) {
-    const flags = this.rawMonths.map(m => this.isLogged(m)), n = flags.filter(Boolean).length;
-    if (n === 0 || n === arr.length) return arr;
-    const keys = Object.keys(arr[flags.indexOf(true)]).filter(k => typeof arr[flags.indexOf(true)][k] === 'number');
-    const avg = {}; keys.forEach(k => { avg[k] = arr.reduce((a,m,i) => a + (flags[i] ? (m[k]||0) : 0), 0) / n; });
-    return arr.map((m,i) => flags[i] ? m : { ...m, ...avg, label: m.label, estimated: true });
-  }
-  cutOf(id, s) {
-    const d = this.UPGRADE_DEFS[id]; if (!d) return 0;
-    if (id === 'solar' && s.hasSolar) return 0;
-    if (id === 'heatpump' && (s.heatingType === 'Eléctrica' || s.heatingType === 'Sin calefacción')) return 0;
-    if (id === 'ev' && !s.vehicles.some(v => v.type !== 'Eléctrico')) return 0;
-    return d.cut;
-  }
-  persist() { try { const s = this.state; localStorage.setItem('cc_v2', JSON.stringify({ raw: this.rawMonths, st: { country:s.country, heatingType:s.heatingType, coolingType:s.coolingType, vehicles:s.vehicles, hasSolar:s.hasSolar, solarKw:s.solarKw, householdSize:s.householdSize, trackingYear:s.trackingYear, gasType:s.gasType, elecTariff:s.elecTariff, fuelTariff:s.fuelTariff, goalPct:s.goalPct, dashUpTo:s.dashUpTo, demo:s.demo } })); } catch (e) {} }
-  exportCSV = () => {
-    const cd = this.countryData[this.state.country] || this.countryData['Internacional (USD)'];
-    const months = this.fillYear(this.buildMonths(cd.factor, this.state.heatingType, this.state.coolingType, this.state.vehicles, this.state.hasSolar, this.state.solarKw));
-    const cols = ['label','co2Energia','co2Fuel','co2Compras','co2Viajes','co2AguaRes','total','cost'];
-    const rows = [['Mes','Energía kgCO2e','Vehículo kgCO2e','Compras kgCO2e','Viajes kgCO2e','Agua y residuos kgCO2e','Total kgCO2e','Costo '+cd.currency, 'Estimado'].join(',')].concat(months.map(m => cols.map(c => typeof m[c]==='number' ? m[c].toFixed(2) : m[c]).concat(m.estimated?'sí':'no').join(',')));
-    const url = URL.createObjectURL(new Blob(['\ufeff'+rows.join('\n')], { type:'text/csv' }));
-    const a = document.createElement('a'); a.href = url; a.download = 'carbonhome-'+this.state.trackingYear+'.csv'; a.click(); URL.revokeObjectURL(url);
-  };
   heatingDefs = {
     'Gas licuado (GLP)': { factor: 2.94, price: 2.0, kwh: 12.8, eff: 0.9 },
     'Eléctrica': null,
@@ -2067,9 +1942,8 @@ class Component extends DCLogic {
     palette: 'sage',
     onbStep: 0,
     trackingYear: 2026,
-    dashUpTo: 0,
-    gasType: 'natural', elecTariff: '', fuelTariff: '', goalPct: 20,
-    registroMonthIdx: null, onbAsk: false,
+    dashUpTo: 1,
+    registroMonthIdx: null,
     householdSize: 3,
     kpiPerPerson: false,
     lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })(),
@@ -2116,7 +1990,7 @@ class Component extends DCLogic {
       food:0, clothes:0, electronics:0, homegoods:0, services:0,
       flightsKm:0, bustrainKm:0, urbanKm:0, hotelNights:0,
     })));
-    this.setState({ trackingYear: (this.state.trackingYear||2026)+1, dashUpTo:0, registroMonthIdx:null, screen:'registro' });
+    this.setState({ trackingYear: (this.state.trackingYear||2026)+1, dashUpTo:1, registroMonthIdx:null, screen:'registro' });
   };
   triggerImport = () => { this.fileInputRef.current && this.fileInputRef.current.click(); };
   importData = (e) => {
@@ -2133,7 +2007,7 @@ class Component extends DCLogic {
         }
         if (data.settings) this.setState(data.settings); else this.forceUpdate();
       } catch (err) {
-        alert('El archivo no es un JSON válido de CarbonHome.');
+        alert('El archivo no es un JSON válido de EcoInsight Home.');
       }
     };
     reader.readAsText(file);
@@ -2144,8 +2018,8 @@ class Component extends DCLogic {
     const labels = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
     return labels.map(label => ({ label, elecUnits:0, heatingUnits:0, coolingUnits:0, gasM3Cocina:0, fuelL:0, waterM3:0, wasteKg:0, recycles:false, food:0, clothes:0, electronics:0, homegoods:0, services:0, flightsKm:0, bustrainKm:0, urbanKm:0, hotelNights:0 }));
   }
-  loadExample = () => { this.rawMonths.length = 0; this.rawMonths.push(...this.buildExampleMonths()); this.setState({ demo:'data', dashUpTo:0, registroMonthIdx:null }); };
-  clearData = () => { this.rawMonths.length = 0; this.rawMonths.push(...this.buildZeroMonths()); this.setState({ demo:'empty', dashUpTo:0, registroMonthIdx:null }); };
+  loadExample = () => { this.rawMonths.length = 0; this.rawMonths.push(...this.buildExampleMonths()); this.setState({ demo:'data', dashUpTo:8, registroMonthIdx:null }); };
+  clearData = () => { this.rawMonths.length = 0; this.rawMonths.push(...this.buildZeroMonths()); this.setState({ demo:'empty', dashUpTo:1, registroMonthIdx:null }); };
   hasData() { return this.rawMonths.some(m => (m.elecUnits+m.heatingUnits+m.coolingUnits+m.gasM3Cocina+m.fuelL+m.waterM3+m.wasteKg+m.food+m.clothes+m.electronics+m.homegoods+m.services+m.flightsKm+m.bustrainKm+m.urbanKm+m.hotelNights) > 0); }
   buildExampleMonths() {
     // Enero a diciembre; datos estacionales del hemisferio sur (invierno Jun-Ago, verano Dic-Feb)
@@ -2212,8 +2086,7 @@ class Component extends DCLogic {
     const baseHeat = this.heatingDefs[heatingType] || null; // null = eléctrica: ya incluida en la boleta de electricidad
     const heatPumpOn = !!scenario.heatPump && !!baseHeat && baseHeat.kwh > 0;
     const coolMult = (this.coolingDefs[coolingType] || { elecMult: 1 }).elecMult;
-    const tar = this._tar || { elec:0.21, fuel:1.45 }, fuelMult = tar.fuel/1.45, glp = this._gasType === 'glp', noGas = this._gasType === 'electric';
-    const ELEC_P = tar.elec*fx, GAS_P = noGas ? 0 : (glp ? 2.6 : 1.0)*fx, GAS_F = noGas ? 0 : (glp ? 5.76 : 2.0), WATER_P = 0.95*fx, HP_COP = 3, SELF_USE = 0.4;
+    const ELEC_P = 0.21*fx, GAS_P = 2.6*fx, GAS_F = 5.76, WATER_P = 0.95*fx, HP_COP = 3, SELF_USE = 0.4;
     const sol = this.solarDefs[this._countryName] || this.solarDefs['Internacional (USD)'];
     const sw = Array.from({ length: 12 }, (_, k) => 1 + sol.amp*Math.cos(2*Math.PI*(k - (sol.south ? 0 : 6))/12));
     const swSum = sw.reduce((a,b)=>a+b,0);
@@ -2234,7 +2107,7 @@ class Component extends DCLogic {
         const liters = (m.fuelByVehicle && m.fuelByVehicle[vi] != null ? m.fuelByVehicle[vi] : (m.fuelL / (combVehicles.length||1))) * transportCut;
         fuelLiters += liters;
         co2Fuel += liters*def.factor;
-        costFuel += liters*def.price*fx*fuelMult;
+        costFuel += liters*def.price*fx;
       });
       let co2HeatFuel = 0, costHeatFuel = 0, hpKwh = 0, heatFuelUnits = 0;
       if (baseHeat) {
@@ -2289,7 +2162,7 @@ class Component extends DCLogic {
         gasM3: m.gasM3Cocina, costGas: m.gasM3Cocina*GAS_P, exportKwh: excessSolarKwh, exportCreditCost, fuelLiters,
         spendFood: m.food*fx, spendHome: m.homegoods*fx, spendServices: m.services*fx, pkmFlights: flightsKm, kmBus: m.bustrainKm, costBus: m.bustrainKm*td.bustrain.price*fx,
         kmUrban: m.urbanKm, costUrban: m.urbanKm*td.urban.price*fx, hotelNights: m.hotelNights, waterM3: m.waterM3,
-        co2Elec, costElec, co2Heating, costHeating, co2Cooling, costCooling, co2Clothes, spendClothes: clothes*fx, co2Electronics, spendElectronics: electronics*fx, co2Flights, costFlights, co2Hotel, costHotel, co2Gas, co2Food, co2Homegoods, co2Services, co2Urban, co2Bustrain };
+        co2Elec, costElec, co2Heating, costHeating, co2Cooling, costCooling, co2Clothes, spendClothes: clothes*fx, co2Electronics, spendElectronics: electronics*fx, co2Flights, costFlights, co2Hotel, costHotel };
     });
   }
   UPGRADE_DEFS = {
@@ -2320,13 +2193,12 @@ class Component extends DCLogic {
     const baseV = months.reduce((a,m)=>a+m.co2Fuel,0);
     const baseC = months.reduce((a,m)=>a+m.co2Compras,0);
     const baseJ = months.reduce((a,m)=>a+m.co2Viajes,0);
-    const baseA = months.reduce((a,m)=>a+m.co2AguaRes,0);
-    const baseTotal = baseE+baseV+baseC+baseJ+baseA;
+    const baseTotal = baseE+baseV+baseC+baseJ;
     const active = s.hogarUpgrades;
-    const factorFor = (cat) => active.reduce((f,id) => { const d=this.UPGRADE_DEFS[id]; return d && d.cutCat===cat ? f*(1-this.cutOf(id,s)) : f; }, 1);
+    const factorFor = (cat) => active.reduce((f,id) => { const d=this.UPGRADE_DEFS[id]; return d && d.cutCat===cat ? f*(1-d.cut) : f; }, 1);
     const fE = factorFor('energia'), fV = factorFor('vehiculo'), fJ = factorFor('viajes'), fC = factorFor('compras');
     const nowE = baseE*fE, nowV = baseV*fV, nowJ = baseJ*fJ, nowC = baseC*fC;
-    const nowTotal = nowE+nowV+nowC+nowJ+baseA;
+    const nowTotal = nowE+nowV+nowC+nowJ;
     const reductionKg = Math.max(0, baseTotal-nowTotal);
     const reductionPct = baseTotal>0 ? Math.round(reductionKg/baseTotal*100) : 0;
     const goalPct = 30;
@@ -2344,8 +2216,8 @@ class Component extends DCLogic {
       ropa: { label: s.lang==='en'?'Sustainable / second-hand clothing':'Ropa sostenible / de segunda mano', detail: s.lang==='en'?'Second-hand or durable clothing':'Ropa de segunda mano o duradera' },
       consumo: { label: s.lang==='en'?'Mindful shopping':'Consumo consciente', detail: s.lang==='en'?'~15% fewer impulse purchases':'~15% menos compras impulsivas' },
     };
-    const upgrades = Object.keys(upgradeMeta).map(id => { const applied = active.includes(id); const cut = this.cutOf(id,s); return {
-      id, label: upgradeMeta[id].label, detail: upgradeMeta[id].detail + (cut===0 ? (s.lang==='en'?' · Not applicable to your home':' · No aplica a tu hogar') : ''), applied,
+    const upgrades = Object.keys(upgradeMeta).map(id => { const applied = active.includes(id); const cut = this.UPGRADE_DEFS[id].cut; return {
+      id, label: upgradeMeta[id].label, detail: upgradeMeta[id].detail, applied,
       toggle: () => this.toggleUpgrade(id),
       dragStart: this.onHogarDragStart(id),
       popClass: applied ? 'hogar-card-applied' : '',
@@ -2363,11 +2235,10 @@ class Component extends DCLogic {
       catRow(T.cat_vehiculo, baseV, nowV, 'var(--text-muted, oklch(46% 0.02 85))'),
       catRow(T.cat_compras, baseC, nowC, 'var(--fuel, oklch(58% 0.1 30))'),
       catRow(T.cat_viajes, baseJ, nowJ, 'var(--scenario-blue, oklch(60% 0.12 230))'),
-      catRow(T.cat_agua, baseA, baseA, 'oklch(55% 0.08 200)'),
     ];
     const hogarWindowColor = active.includes('led') ? 'oklch(85% 0.12 95)' : 'var(--surface-alt, oklch(96% 0.01 85))';
     const hogarWindowGlow = active.includes('led') ? '0 0 14px oklch(80% 0.16 95 / .85)' : 'none';
-    const hogarPoints = active.reduce((sum,id) => sum + Math.round(this.cutOf(id,s)*100), 0);
+    const hogarPoints = active.reduce((sum,id) => sum + Math.round(this.UPGRADE_DEFS[id].cut*100), 0);
     const hogarSmogOpacity = Math.max(0, Math.min(1, (30-reductionPct)/30));
     const hogarGrassOpacity = Math.max(0, Math.min(1, reductionPct/25));
     const hogarHasTree1 = reductionPct>=8, hogarHasBush = reductionPct>=15, hogarHasTree2 = reductionPct>=22,
@@ -2407,14 +2278,9 @@ class Component extends DCLogic {
     const u = this.unitsFor(this._countryName); this._u = u;
     const fxC = cd.fx || 1, simStep = Math.pow(10, Math.floor(Math.log10(10*fxC))), simMin = Math.ceil(60*fxC/simStep)*simStep, simMax = Math.ceil(800*fxC/simStep)*simStep;
     const simAmt = s.simAmount != null ? s.simAmount : Math.min(simMax, Math.max(simMin, Math.round(250*fxC/simStep)*simStep));
-    this._gasType = s.gasType;
-    { const base = this.tariffs[this._countryName] || { elec:0.21, fuel:1.45 }; const eT = parseFloat(s.elecTariff), fT = parseFloat(s.fuelTariff);
-      this._tar = { elec: eT > 0 ? eT/fxC : base.elec, fuel: fT > 0 ? (fT/u.v)/fxC : base.fuel }; }
     const months = this.buildMonths(cd.factor, s.heatingType, s.coolingType, s.vehicles, s.hasSolar, s.solarKw);
-    const annualMonths = this.fillYear(months);
     const isEmpty = !this.hasData();
-    const _d = new Date(), calMonth = (s.trackingYear||2026) === _d.getFullYear() ? _d.getMonth()+1 : 0;
-    const completed = isEmpty ? 0 : (s.dashUpTo || calMonth || this.lastLoggedIdx() || 1);
+    const completed = isEmpty ? 0 : s.dashUpTo;
 
     const screens = ['landing','onboarding','registro','dashboard','factores','proyeccion','simulador','recomendaciones','historial','informe'];
     const show = {};
@@ -2449,7 +2315,7 @@ class Component extends DCLogic {
       cycleCO2: this.fmtKg(cycleCO2/divisor),
       monthCost: this.fmtCLP(last.cost/divisor),
       accCost: this.fmtCLP(visibleMonths.reduce((a,m)=>a+m.cost,0)/divisor),
-      avgCO2: this.fmtKg(cycleCO2/divisor/(Math.max(1, visibleMonths.filter((_,i)=>this.isLogged(this.rawMonths[i])).length))),
+      avgCO2: this.fmtKg(cycleCO2/divisor/(visibleMonths.length||1)),
       kpiSuffix: s.kpiPerPerson ? ' / persona' : '',
       ...(() => {
         const benchPP = (this.benchDefs[s.country] || this.benchDefs['Internacional (USD)'])*1000/12;
@@ -2623,7 +2489,7 @@ class Component extends DCLogic {
       electronicsCutPct: s.scenarioElectronicsCut,
     };
     const hasScenario = scenario.heatPump || scenario.extraSolarKw>0 || scenario.flightsCutPct>0 || scenario.clothesCutPct>0 || scenario.elecCutPct>0 || scenario.transportCutPct>0 || scenario.thermoCutPct>0 || scenario.electronicsCutPct>0;
-    const scenarioMonths = hasScenario ? this.fillYear(this.buildMonths(cd.factor, s.heatingType, s.coolingType, s.vehicles, s.hasSolar, s.solarKw, scenario)) : annualMonths;
+    const scenarioMonths = hasScenario ? this.buildMonths(cd.factor, s.heatingType, s.coolingType, s.vehicles, s.hasSolar, s.solarKw, scenario) : months;
     const scenarioAnnualCO2 = scenarioMonths.reduce((a,m)=>a+m.total,0);
 
     const nowIdx = completed % 12;
@@ -2631,10 +2497,10 @@ class Component extends DCLogic {
     const projPts = [];
     for (let k=0;k<projCount;k++) {
       const idx = (nowIdx+k) % 12;
-      projPts.push({ label: this.tm(annualMonths[idx].label,s.lang), base: annualMonths[idx].total, scenarioVal: scenarioMonths[idx].total, baseCost: annualMonths[idx].cost, scenarioCost: scenarioMonths[idx].cost });
+      projPts.push({ label: this.tm(months[idx].label,s.lang), base: months[idx].total, scenarioVal: scenarioMonths[idx].total, baseCost: months[idx].cost, scenarioCost: scenarioMonths[idx].cost });
     }
     const projMaxTotal = Math.max(...projPts.map(p=>Math.max(p.base*1.08, p.scenarioVal*1.08)), 1);
-    const pChartW = 700, pChartH = 150, pBaseY = 165, pStep = (pChartW-80)/(projCount-1);
+    const pChartW = 700, pChartH = 150, pBaseY = 165, pStep = pChartW/(projCount-1);
     const yOf = v => pBaseY - (v/projMaxTotal)*pChartH;
     const bandUpper = projPts.map((p,i)=>`${10+i*pStep},${yOf(p.base*1.08)}`).join(' ');
     const bandLower = projPts.slice().reverse().map((p,i)=>`${10+(projCount-1-i)*pStep},${yOf(p.base*0.92)}`).join(' ');
@@ -2658,55 +2524,9 @@ class Component extends DCLogic {
       savingsCO2: this.fmtKg(projPts.reduce((a,p)=>a+(p.base-p.scenarioVal),0)),
       savingsCost: this.fmtCLP(projPts.reduce((a,p)=>a+(p.baseCost-p.scenarioCost),0)),
     };
-    {
-      const EN3 = s.lang==='en', hhP = s.householdSize||1, TARGET = 2.5, Y0 = new Date().getFullYear(), TY = Math.max(2030, Y0+4), yrs = TY-Y0;
-      const nf1 = v => Number(v).toLocaleString(cd.locale, { maximumFractionDigits:1, minimumFractionDigits:1 });
-      const baseKg = annualMonths.reduce((a,m)=>a+m.total,0), scenKg = scenarioMonths.reduce((a,m)=>a+m.total,0);
-      const pp = baseKg/hhP/1000, ppS = scenKg/hhP/1000, ppAvg = (this.benchDefs[s.country] || this.benchDefs['Internacional (USD)']);
-      const has = baseKg > 0, maxY = Math.max(pp, ppAvg, TARGET, 0.1)*1.12;
-      const X = k => 50 + k*(480/yrs), Yp = v => 175 - (v/maxY)*165;
-      const ks = Array.from({ length: yrs+1 }, (_, k) => k);
-      const tgt = k => pp > TARGET ? pp*Math.pow(TARGET/pp, k/yrs) : TARGET;
-      const reqPct = pp > TARGET ? (1-Math.pow(TARGET/pp, 1/yrs))*100 : 0;
-      const redPct = pp > 0 ? Math.max(0, Math.round((1-ppS/pp)*100)) : 0;
-      const reach = ppS <= TARGET;
-      const monthlyTarget = TARGET*hhP*1000/12;
-      Object.assign(proj, {
-        roadHas: has, roadEmpty: !has,
-        gYou: Math.min(100, pp/(Math.max(pp, ppAvg, TARGET)*1.15)*100).toFixed(1)+'%', gTgt: (TARGET/(Math.max(pp, ppAvg, TARGET)*1.15)*100).toFixed(1)+'%', gAvg: (ppAvg/(Math.max(pp, ppAvg, TARGET)*1.15)*100).toFixed(1)+'%',
-        gYouL: nf1(pp)+' t', gTgtL: nf1(TARGET)+' t', gAvgL: nf1(ppAvg)+' t',
-        gYouT: EN3?'You':'Tu hogar', gTgtT: EN3?'2030 target':'Meta 2030', gAvgT: EN3?'Avg. '+s.country:'Promedio '+s.country,
-        gYouColor: pp <= TARGET ? 'var(--accent, oklch(52% 0.1 152))' : 'var(--warn, oklch(42% 0.11 55))',
-        headline: !has ? '' : pp <= TARGET ? (EN3?'Your household already emits less than the 2030 target.':'Tu hogar ya emite menos que la meta de 2030.') : (EN3?'Each person in your household emits '+nf1(pp)+' t per year. The 2030 target is '+nf1(TARGET)+' t.':'Cada persona de tu hogar emite '+nf1(pp)+' t al año. La meta para 2030 es '+nf1(TARGET)+' t.'),
-        headline2: !has || pp <= TARGET ? '' : (EN3?'That is '+nf1(pp/TARGET)+' times the target. To close the gap by '+TY+' you would need to cut about '+nf1(reqPct)+'% every year ('+nf1(pp-TARGET)+' t per person in total).':'Es '+nf1(pp/TARGET)+' veces la meta. Para cerrar la brecha en '+TY+' tendrías que reducir cerca de '+nf1(reqPct)+'% cada año ('+nf1(pp-TARGET)+' t por persona en total).'),
-        eBauY: Yp(pp), eTgtY: Yp(tgt(yrs)), eScenY: Yp(ppS), eBauL: (EN3?'Current pace: ':'Ritmo actual: ')+nf1(pp)+' t', eTgtL: (EN3?'Target: ':'Meta: ')+nf1(tgt(yrs))+' t', eScenL: (EN3?'With your actions: ':'Con tus acciones: ')+nf1(ppS)+' t', showScen: hasScenario,
-        gloTitle: EN3?'What these terms mean':'Qué significa cada concepto',
-        glo: (EN3 ? [['t CO₂e','Tonnes of carbon dioxide equivalent. It adds all greenhouse gases (CO₂, methane, etc.) into one number. 1 tonne is about 6,000 km driven by car.'],['Per person','Your household total divided by the number of people, so homes of different sizes can be compared.'],['2030 target ('+nf1(TARGET)+' t)','The yearly amount per person that scientists estimate is compatible with limiting warming to 1.5°C.'],['Current pace','What you would emit each year if you keep your current habits.'],['Target path','The straight descent from where you are today to the target, year by year.'],['With your actions','The path after applying the actions you select in the game below.']] : [['t CO₂e','Toneladas de dióxido de carbono equivalente. Junta todos los gases de efecto invernadero (CO₂, metano, etc.) en un solo número. 1 tonelada equivale a unos 6.000 km en auto.'],['Por persona','El total de tu hogar dividido por las personas que viven en él, para poder comparar hogares de distinto tamaño.'],['Meta 2030 ('+nf1(TARGET)+' t)','Lo que cada persona podría emitir al año, según estimaciones científicas, para frenar el calentamiento en 1,5 °C.'],['Ritmo actual','Lo que emitirías cada año si mantienes tus hábitos de hoy.'],['Camino a la meta','La bajada pareja desde donde estás hoy hasta la meta, año a año.'],['Con tus acciones','El camino después de aplicar las acciones que elijas en el juego de más abajo.']]).map(([k,v]) => ({ k, v })),
-
-        roadTitle: EN3?'Roadmap to '+TY:'Hoja de ruta a '+TY, roadSub: EN3?'Your annual footprint per person against the 1.5°C-compatible level ('+nf1(TARGET)+' t CO₂e per person per year).':'Tu huella anual por persona frente al nivel compatible con 1,5 °C ('+nf1(TARGET)+' t CO₂e por persona al año).',
-        roadEmptyMsg: EN3?'Log at least one month to see your roadmap.':'Registra al menos un mes para ver tu hoja de ruta.',
-        kNow: nf1(pp), kNowL: EN3?'Your footprint today (t / person / year)':'Tu huella hoy (t / persona / año)',
-        kTarget: nf1(TARGET), kTargetL: EN3?'1.5°C-compatible level':'Nivel compatible con 1,5 °C',
-        kAvg: nf1(ppAvg), kAvgL: EN3?'Average in '+s.country:'Promedio en '+s.country,
-        kReq: pp > TARGET ? nf1(reqPct)+'%' : '0%', kReqL: EN3?'Reduction needed per year':'Reducción necesaria por año',
-        roadGrid: [0,1,2,3,4].map(i => { const v = maxY*i/4; return { y: Yp(v), label: nf1(v) }; }),
-        roadBau: ks.map(k => X(k)+','+Yp(pp)).join(' '),
-        roadScen: ks.map(k => X(k)+','+Yp(k===0 ? pp : ppS)).join(' '),
-        roadTgt: ks.map(k => X(k)+','+Yp(tgt(k))).join(' '),
-        roadYears: ks.map(k => ({ xPct: (X(k)/720*100).toFixed(2)+'%', text: String(Y0+k) })),
-        roadAvgY: Yp(ppAvg),
-        roadStatus: !has ? '' : pp <= TARGET ? (EN3?'You are already below the 1.5°C-compatible level.':'Ya estás por debajo del nivel compatible con 1,5 °C.') : hasScenario ? (reach ? (EN3?'With your selected actions you reach the target ('+nf1(ppS)+' t / person / year).':'Con las acciones que elegiste alcanzas la meta ('+nf1(ppS)+' t / persona / año).') : (EN3?'With your selected actions you cut '+redPct+'% and end '+nf1(ppS-TARGET)+' t per person above the target.':'Con las acciones que elegiste reduces '+redPct+'% y quedas '+nf1(ppS-TARGET)+' t por persona sobre la meta.')) : (EN3?'You need to cut about '+nf1(reqPct)+'% per year to reach the target by '+TY+'. Pick actions below to see your path.':'Necesitas reducir cerca de '+nf1(reqPct)+'% al año para llegar a la meta en '+TY+'. Elige acciones más abajo para ver tu camino.'),
-        roadOk: has && (pp <= TARGET || (hasScenario && reach)),
-        lgBau: EN3?'Current pace':'Ritmo actual', lgScen: EN3?'With your actions':'Con tus acciones', lgTgt: EN3?'Target path':'Camino a la meta', lgAvg: EN3?'Country average':'Promedio del país',
-        lgLogged: EN3?'Logged month':'Mes registrado', lgEst: EN3?'Estimated month':'Mes estimado', lgBudget: EN3?'Monthly target':'Meta mensual',
-        targetY: Math.max(4, yOf(monthlyTarget)), targetLabel: this.fmtKg(monthlyTarget),
-        dots: projPts.map((p,i) => { const idx = (nowIdx+i)%12, est = !this.isLogged(this.rawMonths[idx]); return { xPct: ((10+i*pStep)/720*100).toFixed(2)+'%', top: yOf(p.base), bg: est ? 'var(--surface, oklch(99% 0.004 85))' : 'var(--accent, oklch(52% 0.1 152))' }; }),
-        methodNote: EN3?'Months without data are estimated with the average of your logged months. The band shows ±8% of uncertainty. The target of 2.5 t per person per year by 2030 comes from 1.5°C-compatible per-capita pathways in the literature.':'Los meses sin datos se estiman con el promedio de tus meses registrados. La banda muestra ±8% de incertidumbre. La meta de 2,5 t por persona al año hacia 2030 viene de trayectorias por persona compatibles con 1,5 °C en la literatura.',
-      });
-    }
     const heatPumpApplicable = s.heatingType !== 'Eléctrica' && s.heatingType !== 'Sin calefacción';
 
-    const annualCO2raw = annualMonths.reduce((a,m)=>a+m.total,0), annualCO2 = annualCO2raw || 1;
+    const annualCO2raw = months.reduce((a,m)=>a+m.total,0), annualCO2 = annualCO2raw || 1;
     const reductionPct = annualCO2raw>0 ? Math.max(0, Math.min(99, Math.round((1-scenarioAnnualCO2/annualCO2)*100))) : 0;
     const ecoScore = reductionPct*10;
     const tierNames = s.lang==='en' ? ['Seedling','Bronze','Silver','Gold','Platinum'] : ['Semilla','Bronce','Plata','Oro','Platino'];
@@ -2726,19 +2546,19 @@ class Component extends DCLogic {
       nextTierGap: nextTier ? (nextTier.min-reductionPct) : 0,
       savedKgLabel: this.fmtKg(annualCO2-scenarioAnnualCO2),
     };
-    const shareEnergia = annualMonths.reduce((a,m)=>a+m.co2Energia,0)/annualCO2;
-    const shareFuel = annualMonths.reduce((a,m)=>a+m.co2Fuel,0)/annualCO2;
-    const shareCompras = annualMonths.reduce((a,m)=>a+m.co2Compras,0)/annualCO2;
-    const shareViajes = annualMonths.reduce((a,m)=>a+m.co2Viajes,0)/annualCO2;
-    const shareAgua = annualMonths.reduce((a,m)=>a+m.co2AguaRes,0)/annualCO2;
-    const priceKgEnergia = annualMonths.reduce((a,m)=>a+m.costEnergia,0)/(annualMonths.reduce((a,m)=>a+m.co2Energia,0)||1);
-    const priceKgFuel = annualMonths.reduce((a,m)=>a+m.costFuel,0)/(annualMonths.reduce((a,m)=>a+m.co2Fuel,0)||1);
-    const priceKgCompras = annualMonths.reduce((a,m)=>a+m.costCompras,0)/(annualMonths.reduce((a,m)=>a+m.co2Compras,0)||1);
-    const priceKgViajes = annualMonths.reduce((a,m)=>a+m.costViajes,0)/(annualMonths.reduce((a,m)=>a+m.co2Viajes,0)||1);
-    const priceKgAgua = annualMonths.reduce((a,m)=>a+m.costAgua,0)/(annualMonths.reduce((a,m)=>a+m.co2AguaRes,0)||1);
+    const shareEnergia = months.reduce((a,m)=>a+m.co2Energia,0)/annualCO2;
+    const shareFuel = months.reduce((a,m)=>a+m.co2Fuel,0)/annualCO2;
+    const shareCompras = months.reduce((a,m)=>a+m.co2Compras,0)/annualCO2;
+    const shareViajes = months.reduce((a,m)=>a+m.co2Viajes,0)/annualCO2;
+    const shareAgua = months.reduce((a,m)=>a+m.co2AguaRes,0)/annualCO2;
+    const priceKgEnergia = months.reduce((a,m)=>a+m.costEnergia,0)/(months.reduce((a,m)=>a+m.co2Energia,0)||1);
+    const priceKgFuel = months.reduce((a,m)=>a+m.costFuel,0)/(months.reduce((a,m)=>a+m.co2Fuel,0)||1);
+    const priceKgCompras = months.reduce((a,m)=>a+m.costCompras,0)/(months.reduce((a,m)=>a+m.co2Compras,0)||1);
+    const priceKgViajes = months.reduce((a,m)=>a+m.costViajes,0)/(months.reduce((a,m)=>a+m.co2Viajes,0)||1);
+    const priceKgAgua = months.reduce((a,m)=>a+m.costAgua,0)/(months.reduce((a,m)=>a+m.co2AguaRes,0)||1);
     const reduceKg = annualCO2 * (s.simPercent/100);
     const simMoney = reduceKg*shareEnergia*priceKgEnergia + reduceKg*shareFuel*priceKgFuel + reduceKg*shareCompras*priceKgCompras + reduceKg*shareViajes*priceKgViajes + reduceKg*shareAgua*priceKgAgua;
-    const annualCost2 = annualMonths.reduce((a,m)=>a+m.cost,0);
+    const annualCost2 = months.reduce((a,m)=>a+m.cost,0);
     const blendedPricePerKg = annualCost2/(annualCO2||1);
     const reqKg = simAmt/(blendedPricePerKg||1);
     const reqPercent = annualCO2>0 ? Math.min(99, Math.round(reqKg/annualCO2*100)) : 0;
@@ -2759,15 +2579,14 @@ class Component extends DCLogic {
       { label:'Agua y residuos', priceLabel: this.fmtCLP(priceKgAgua)+'/kg', color:'oklch(55% 0.08 200)', pct: Math.round(priceKgAgua/maxPriceKg*100) },
     ];
 
-    const Ann = k => annualMonths.reduce((a,m)=>a+(m[k]||0),0);
+    const Ann = k => months.reduce((a,m)=>a+(m[k]||0),0);
     const baseCO2y = Ann('total'), baseCosty = Ann('cost');
     const deltaOf = (mm) => mm ? { co2: baseCO2y - mm.reduce((a,m)=>a+m.total,0), money: baseCosty - mm.reduce((a,m)=>a+m.cost,0) } : { co2: 0, money: 0 };
-    const hpDelta = heatPumpApplicable ? deltaOf(this.fillYear(this.buildMonths(cd.factor, s.heatingType, s.coolingType, s.vehicles, s.hasSolar, s.solarKw, { heatPump: true }))) : { co2: 0, money: 0 };
-    const solDelta = deltaOf(this.fillYear(this.buildMonths(cd.factor, s.heatingType, s.coolingType, s.vehicles, s.hasSolar, s.solarKw, { extraSolarKw: 3 })));
+    const hpDelta = heatPumpApplicable ? deltaOf(this.buildMonths(cd.factor, s.heatingType, s.coolingType, s.vehicles, s.hasSolar, s.solarKw, { heatPump: true })) : { co2: 0, money: 0 };
+    const solDelta = deltaOf(this.buildMonths(cd.factor, s.heatingType, s.coolingType, s.vehicles, s.hasSolar, s.solarKw, { extraSolarKw: 3 }));
     const thermal = { co2: Ann('co2Heating')+Ann('co2Cooling'), money: Ann('costHeating')+Ann('costCooling') };
     const frac = (co2, money, f) => ({ co2: co2*f, money: money*f });
-    const E_ = { cat:'energia', letter:'E', color:'var(--accent, oklch(52% 0.1 152))' }, C_ = { cat:'compras', letter:'C', color:'var(--fuel, oklch(58% 0.1 30))' }, J_ = { cat:'viajes', letter:'J', color:'var(--scenario-blue, oklch(60% 0.12 230))' }, V_ = { cat:'vehiculo', letter:'V', color:'var(--text-muted, oklch(46% 0.02 85))' }, W_ = { cat:'agua', letter:'A', color:'oklch(55% 0.08 200)' };
-    const noEV = s.vehicles.some(v => v.type !== 'Eléctrico') ? 1 : 0, cookGasOn = s.gasType !== 'electric' ? 1 : 0;
+    const E_ = { cat:'energia', letter:'E', color:'var(--accent, oklch(52% 0.1 152))' }, C_ = { cat:'compras', letter:'C', color:'var(--fuel, oklch(58% 0.1 30))' }, J_ = { cat:'viajes', letter:'J', color:'var(--scenario-blue, oklch(60% 0.12 230))' };
     const recoDefs = [
       { ...E_, title:'Bomba de calor (reemplaza tu calefacción actual)', desc:'Mueve calor en vez de generarlo: con un COP de 3 usa un tercio de la energía por grado. Calculado con tu consumo de calefacción y el factor eléctrico de tu país.', investN:900, d: hpDelta },
       { ...E_, title:'Sellado de ventanas e infiltraciones', desc:'Burletes y masilla evitan fugas de aire. Estimado: −10% de tu calefacción y enfriamiento.', investN:130, d: frac(thermal.co2, thermal.money, 0.10) },
@@ -2782,51 +2601,10 @@ class Component extends DCLogic {
       { ...J_, title:'Preferir bus/tren en vez del auto', desc:'Pasar el 20% de tus km en auto a transporte público (se descuentan las emisiones del bus/tren).', investN:0, d: { co2: Ann('co2Fuel')*0.2*0.75, money: Ann('costFuel')*0.2*0.6 } },
       { ...J_, title:'Combinar noches de hotel en un solo viaje', desc:'Estimado: −25% de tus noches de hotel.', investN:0, d: frac(Ann('co2Hotel'), Ann('costHotel'), 0.25) },
       { ...J_, title:'Volar menos: reemplazar un vuelo corto por bus/tren', desc:'Estimado: −25% de tus km volados, reemplazados por bus/tren.', investN:0, d: { co2: Ann('co2Flights')*0.25*0.75, money: Ann('costFlights')*0.25*0.5 } },
-
-      { ...E_, title:'Cocinar con tapa y olla a presión', desc:'Reduce el tiempo de cocción y el gas usado. Estimado: −10% de tu gas de cocina.', investN:0, d: frac(Ann('co2Gas'), Ann('costGas'), 0.10) },
-      { ...E_, title:'Cocina de inducción en vez de gas', desc:'Más eficiente y sin combustión en casa. Estimado: −60% de las emisiones de tu gas de cocina, descontando la electricidad adicional.', investN:350, d: frac(Ann('co2Gas')*cookGasOn, Ann('costGas')*cookGasOn, 0.6) },
-      { ...E_, title:'Eliminar consumo fantasma (stand-by)', desc:'Regletas con interruptor para TV, consolas y cargadores. Estimado: −5% de tu electricidad.', investN:15, d: frac(Ann('co2Elec'), Ann('costElec'), 0.05) },
-      { ...E_, title:'Secar la ropa al aire', desc:'Evita la secadora. Estimado: −4% de tu electricidad.', investN:0, d: frac(Ann('co2Elec'), Ann('costElec'), 0.04) },
-      { ...E_, title:'Refrigerador de alta eficiencia (clase A)', desc:'Funciona 24 horas al día, por lo que su eficiencia pesa mucho. Estimado: −10% de tu electricidad.', investN:700, d: frac(Ann('co2Elec'), Ann('costElec'), 0.10) },
-      { ...E_, title:'Bajar 1 °C la calefacción', desc:'Cada grado menos ahorra alrededor de 7% de la energía de calefacción.', investN:0, d: frac(Ann('co2Heating'), Ann('costHeating'), 0.07) },
-      { ...V_, title:'Conducción eficiente', desc:'Acelerar y frenar suave, y mantener velocidad constante. Estimado: −10% de tu combustible.', investN:0, d: frac(Ann('co2Fuel'), Ann('costFuel'), 0.10) },
-      { ...V_, title:'Revisar presión de neumáticos y mantención', desc:'Neumáticos bien inflados reducen el consumo. Estimado: −3% de tu combustible.', investN:0, d: frac(Ann('co2Fuel'), Ann('costFuel'), 0.03) },
-      { ...V_, title:'Compartir auto o combinar trayectos', desc:'Menos viajes con el auto casi vacío. Estimado: −15% de tu combustible.', investN:0, d: frac(Ann('co2Fuel'), Ann('costFuel'), 0.15) },
-      { ...V_, title:'Teletrabajar un día a la semana', desc:'Un día menos de traslado de cinco. Estimado: −20% de tu combustible.', investN:0, d: frac(Ann('co2Fuel'), Ann('costFuel'), 0.20) },
-      { ...V_, title:'Cambiar a un vehículo eléctrico', desc:'Estimado: −60% de las emisiones de combustible, considerando el factor eléctrico de tu país.', investN:12000, d: frac(Ann('co2Fuel')*noEV, Ann('costFuel')*noEV, 0.6) },
-      { ...C_, title:'Reducir el desperdicio de alimentos', desc:'Planificar compras y aprovechar sobras. Estimado: −15% de tus compras de alimentos.', investN:0, d: frac(Ann('co2Food'), Ann('spendFood'), 0.15) },
-      { ...C_, title:'Más comidas vegetales a la semana', desc:'Sustituir carne por legumbres y verduras. Estimado: −12% de las emisiones de tus alimentos.', investN:0, d: frac(Ann('co2Food'), 0, 0.12) },
-      { ...C_, title:'Comprar muebles y artículos del hogar usados o reparados', desc:'Estimado: −25% de tus compras para el hogar.', investN:0, d: frac(Ann('co2Homegoods'), Ann('spendHome'), 0.25) },
-      { ...J_, title:'Pasar más km urbanos a bus o metro', desc:'Estimado: −30% de tus km urbanos en taxi o aplicación.', investN:0, d: frac(Ann('co2Urban'), Ann('costUrban'), 0.30) },
-      { ...W_, title:'Duchas más cortas', desc:'Reducir 2 minutos por ducha. Estimado: −15% de tu consumo de agua.', investN:0, d: frac(Ann('co2Agua'), Ann('costAgua'), 0.15) },
-      { ...W_, title:'Reparar fugas y usar grifos eficientes', desc:'Una llave que gotea pierde miles de litros al año. Estimado: −8% de tu consumo de agua.', investN:45, d: frac(Ann('co2Agua'), Ann('costAgua'), 0.08) },
-      { ...W_, title:'Compostar residuos orgánicos', desc:'Evita que los restos de comida generen metano en el vertedero. Estimado: −30% de las emisiones de tus residuos.', investN:30, d: frac(Ann('co2Residuos'), 0, 0.30) },
-      { ...W_, title:'Reciclar más y separar bien', desc:'Estimado: −20% de las emisiones de tus residuos.', investN:0, d: frac(Ann('co2Residuos'), 0, 0.20) },
     ];
     const recoBase = recoDefs
-      .map(r => ({ ...r, ...(s.lang==='en' && this.RECO_EN[r.title] ? { title: this.RECO_EN[r.title].t, desc: this.RECO_EN[r.title].d } : {}), investN: Math.round(r.investN*(cd.fx||1)), saveMoneyN: Math.max(0, Math.round(r.d.money)), saveCO2N: Math.round(r.d.co2) }))
+      .map(r => ({ ...r, investN: Math.round(r.investN*(cd.fx||1)), saveMoneyN: Math.max(0, Math.round(r.d.money)), saveCO2N: Math.round(r.d.co2) }))
       .filter(r => r.saveCO2N >= 1);
-    { const EN5 = s.lang==='en', baseKg5 = annualMonths.reduce((a,m)=>a+m.total,0), baseCost5 = annualMonths.reduce((a,m)=>a+m.cost,0);
-      const sum = (arr,k) => arr.reduce((a,r)=>a+r[k],0), easy = recoBase.filter(r=>r.investN===0), inv = recoBase.filter(r=>r.investN>0);
-      const nfx = v => Math.round(v).toLocaleString(cd.locale);
-      const mk = (name, desc, list, capped, tone) => { const co2 = Math.min(sum(list,'saveCO2N'), baseKg5*0.85), money = Math.min(sum(list,'saveMoneyN'), baseCost5*0.6), invest = sum(list,'investN');
-        return { name, desc, tone, n: list.length, co2L: list.length ? '−'+this.fmtKg(co2) : (EN5?'No change':'Sin cambios'), pct: baseKg5>0 ? Math.round(co2/baseKg5*100) : 0, barW: Math.max(2, Math.round((1-co2/(baseKg5||1))*100))+'%', afterL: this.fmtKg(baseKg5-co2),
-          moneyL: list.length ? this.fmtCLP(money)+(EN5?' saved / year':' de ahorro / año') : '—',
-          trees: list.length ? '≈ '+nfx(co2/21)+(EN5?' trees absorbing for a year':' árboles absorbiendo durante un año') : '',
-          km: list.length ? '≈ '+nfx(co2/0.17/u.d)+' '+u.dl+(EN5?' not driven by car':' sin recorrer en auto') : '',
-          costL: !list.length ? '' : invest===0 ? (EN5?'No investment needed':'Sin inversión') : (EN5?'Investment: ':'Inversión: ')+this.fmtCLP(invest)+(money>0?(EN5?' · pays back in ':' · se recupera en ')+(invest/money).toFixed(1)+(EN5?' years':' años'):'') }; };
-      const first = [...recoBase].sort((a,b)=>(b.saveMoneyN+b.saveCO2N*0.1)-(a.saveMoneyN+a.saveCO2N*0.1)).filter(r=>r.investN===0)[0] || [...recoBase].sort((a,b)=>b.saveCO2N-a.saveCO2N)[0];
-      Object.assign(proj, { planHas: baseKg5>0 && recoBase.length>0,
-        planTitle: EN5?'Your next 12 months, three paths':'Tus próximos 12 meses, tres caminos',
-        planSub: EN5?'If you change nothing, your home emits about '+this.fmtKg(baseKg5)+' and spends '+this.fmtCLP(baseCost5)+'. This is what you could save with each level of effort.':'Si no cambias nada, tu hogar emitirá cerca de '+this.fmtKg(baseKg5)+' y gastará '+this.fmtCLP(baseCost5)+'. Esto es lo que podrías ahorrar según cuánto esfuerzo pongas.',
-        scn: [ mk(EN5?'Keep going as is':'Seguir igual', EN5?'No new actions.':'Sin acciones nuevas.', [], false, 'a'), mk(EN5?'Easy changes':'Cambios fáciles', EN5?'Habits that cost nothing.':'Hábitos que no cuestan dinero.', easy, true, 'b'), mk(EN5?'Full plan':'Plan completo', EN5?'Habits plus investments (solar, heat pump, insulation).':'Hábitos más inversiones (solar, bomba de calor, aislación).', recoBase, true, 'c') ].map((x,i) => ({ ...x, bg: i===2 ? 'var(--accent-soft, oklch(93% 0.035 152))' : 'var(--surface, oklch(99% 0.004 85))', bd: i===2 ? 'var(--accent, oklch(52% 0.1 152))' : 'var(--border, oklch(88% 0.012 85))', barC: i===0 ? 'var(--text-muted, oklch(46% 0.02 85))' : i===1 ? 'var(--scenario-blue, oklch(60% 0.12 230))' : 'var(--accent, oklch(52% 0.1 152))', hasEq: x.n>0 })),
-        firstTitle: EN5?'Start here':'Empieza por aquí', firstName: first ? first.title : '', firstWhy: first ? (EN5?'Saves ':'Ahorra ')+this.fmtCLP(first.saveMoneyN)+(EN5?' and ':' y evita ')+this.fmtKg(first.saveCO2N)+(EN5?' per year':' al año')+(first.investN===0?(EN5?', at no cost.':', sin costo.'):'.') : '', hasFirst: !!first,
-        planNote: EN5?'Estimates based on your logged usage. Savings of different actions overlap, so the full plan is capped at 85% of emissions and 60% of spend.':'Estimaciones según tu consumo registrado. Los ahorros de distintas acciones se superponen, por eso el plan completo se limita al 85% de las emisiones y al 60% del gasto.',
-        planBtn: EN5?'See all recommendations':'Ver todas las recomendaciones', planGo: this.go('recomendaciones') }); }
-    { const EN4 = s.lang==='en', gapKg = Math.max(0, annualMonths.reduce((a,m)=>a+m.total,0) - 2500*(s.householdSize||1));
-      const top = [...recoBase].sort((a,b)=>b.saveCO2N-a.saveCO2N).slice(0,3);
-      Object.assign(proj, { hasTop: top.length>0 && gapKg>0, topTitle: EN4?'Actions that get you closest':'Las acciones que más te acercan', topSub: EN4?'Estimated yearly impact for your household, from the Recommendations tab.':'Impacto anual estimado para tu hogar, según la pestaña Recomendaciones.',
-        top: top.map(r => ({ title: r.title, kg: this.fmtKg(r.saveCO2N)+(EN4?' / year':' / año'), share: (Math.min(100, Math.round(r.saveCO2N/(gapKg||1)*100)))+'%', shareL: (Math.min(100, Math.round(r.saveCO2N/(gapKg||1)*100)))+(EN4?'% of the gap':'% de la brecha'), color: r.color })), topBtn: EN4?'See all recommendations':'Ver todas las recomendaciones', topGo: this.go('recomendaciones') }); }
     let sorted = s.recoFilter==='all' ? [...recoBase] : recoBase.filter(r=>r.cat===s.recoFilter);
     if (s.recoSort==='money') sorted.sort((a,b)=>b.saveMoneyN-a.saveMoneyN);
     if (s.recoSort==='co2') sorted.sort((a,b)=>b.saveCO2N-a.saveCO2N);
@@ -2837,10 +2615,10 @@ class Component extends DCLogic {
       onLeave: () => this.setState({ hoveredRecoIdx: null }),
       tipOpacity: s.hoveredRecoIdx===i ? 1 : 0,
       tipShiftY: s.hoveredRecoIdx===i ? 0 : 4,
-      invest: r.investN===0? (s.lang==='en'?'No cost':'Sin costo') : this.fmtCLP(r.investN),
-      saveMoney: this.fmtCLP(r.saveMoneyN)+(s.lang==='en'?'/year':'/año'),
-      saveCO2: this.fmtKg(r.saveCO2N)+(s.lang==='en'?'/year':'/año'),
-      payback: r.investN===0 ? (s.lang==='en'?'Immediate':'Inmediato') : (r.saveMoneyN > 0 ? (r.investN/r.saveMoneyN).toFixed(1)+(s.lang==='en'?' years':' años') : '—'),
+      invest: r.investN===0? 'Sin costo' : this.fmtCLP(r.investN),
+      saveMoney: this.fmtCLP(r.saveMoneyN)+'/año',
+      saveCO2: this.fmtKg(r.saveCO2N)+'/año',
+      payback: r.investN===0 ? 'Inmediato' : (r.saveMoneyN > 0 ? (r.investN/r.saveMoneyN).toFixed(1)+' años' : '—'),
     }));
     const recoSortDefs = [['money',T0.sort_money], ['co2',T0.sort_co2], ['invest',T0.sort_invest]];
     const recoSorts = recoSortDefs.map(([id,label]) => ({
@@ -2848,26 +2626,13 @@ class Component extends DCLogic {
       bg: s.recoSort===id ? 'var(--accent, oklch(52% 0.1 152))' : 'var(--surface-alt, oklch(96% 0.01 85))',
       color: s.recoSort===id ? '#fff' : 'var(--text-muted, oklch(46% 0.02 85))',
     }));
-    const recoFilterDefs = [['all',T0.filter_all], ['energia',T0.cat_energia], ['compras',T0.cat_compras], ['viajes',T0.cat_viajes], ['vehiculo', s.lang==='en'?'Vehicle':'Vehículo'], ['agua', s.lang==='en'?'Water & waste':'Agua y residuos']];
+    const recoFilterDefs = [['all',T0.filter_all], ['energia',T0.cat_energia], ['compras',T0.cat_compras], ['viajes',T0.cat_viajes]];
     const recoFilters = recoFilterDefs.map(([id,label]) => ({
       label, go: () => this.setState({ recoFilter: id }),
       bg: s.recoFilter===id ? 'var(--text, oklch(23% 0.02 85))' : 'transparent',
       color: s.recoFilter===id ? '#fff' : 'var(--text-muted, oklch(46% 0.02 85))',
     }));
 
-    const OB = s.lang==='en' ? [['Where do you live?','Your country sets the electricity emission factor and units.'],['Your home and energy','Household size, heating, cooking gas and cooling.'],['Your vehicles','Add the cars in your household, or skip if you have none.'],['Prices and factors','Prices you pay and the emission factors we will use.'],['Your first month','Last step: enter the main usage of one month.']] : [['¿Dónde vives?','Tu país define el factor eléctrico y las unidades.'],['Tu hogar y su energía','Personas, calefacción, gas de cocina y enfriamiento.'],['Tus vehículos','Agrega los autos del hogar, o sáltalo si no tienes.'],['Precios y factores','Lo que pagas y los factores de emisión que usaremos.'],['Tu primer mes','Último paso: ingresa el consumo principal de un mes.']];
-    const PT = s.lang==='en' ? [['proyeccion','Projection'],['simulador','Simulator'],['recomendaciones','Recommendations']] : [['proyeccion','Proyección'],['simulador','Simulador'],['recomendaciones','Recomendaciones']];
-    const planTabsV = PT.map(([id,label]) => ({ label, go: this.go(id), bg: s.screen===id ? 'var(--accent, oklch(52% 0.1 152))' : 'var(--surface-alt, oklch(96% 0.01 85))', color: s.screen===id ? '#fff' : 'var(--text-muted, oklch(46% 0.02 85))' }));
-    const EN2 = s.lang==='en', hh = s.householdSize||1;
-    const bench = (this.benchDefs[s.country] || this.benchDefs['Internacional (USD)'])*hh*1000;
-    const budget = bench*(1-(s.goalPct||0)/100), nLog = Math.max(1, this.lastLoggedIdx());
-    const usedKg = annualMonths.reduce((a,m,i)=>a+(i<nLog?m.total:0),0), projKg = annualMonths.reduce((a,m)=>a+m.total,0);
-    const onTrack = projKg <= budget;
-    const goalV = { budget: this.fmtKg(budget), used: this.fmtKg(usedKg), proj: this.fmtKg(projKg), usedPct: Math.min(100, Math.round(usedKg/(budget||1)*100))+'%', projPct: Math.min(100, Math.round(projKg/(budget||1)*100))+'%', ok: onTrack, bad: !onTrack, empty: isEmpty,
-      status: isEmpty ? (EN2?'Log your first month to see your progress.':'Registra tu primer mes para ver tu avance.') : onTrack ? (EN2?'On track: projected year-end is within budget.':'Vas bien: la proyección al cierre del año está dentro del presupuesto.') : (EN2?'Over budget: at this pace you will exceed it by ':'Sobre el presupuesto: a este ritmo lo superarás en ')+this.fmtKg(projKg-budget)+'.',
-      title: EN2?'Annual carbon budget':'Presupuesto anual de carbono', pctLabel: (EN2?'Reduction goal vs. average household: ':'Meta de reducción vs. hogar promedio: ')+(s.goalPct||0)+'%',
-      lblBudget: EN2?'Budget':'Presupuesto', lblUsed: EN2?'Used so far':'Usado a la fecha', lblProj: EN2?'Projected year-end':'Proyección al cierre', csv: EN2?'Download CSV':'Descargar CSV',
-      note: EN2?'Months without data are estimated with the average of your logged months.':'Los meses sin datos se estiman con el promedio de tus meses registrados.' };
     const historyRows = visibleMonths.map(m => ({
       label: this.tm(m.label,s.lang), co2: this.fmtKg(m.total), cost: this.fmtCLP(m.cost),
     }));
@@ -2885,9 +2650,7 @@ class Component extends DCLogic {
       { label: s.lang==='en'?'Electricity':'Electricidad', scope:Tf.th_alcance2, value: cd.factor.toFixed(2)+' kgCO₂e/kWh', source: cd.source },
       { label:(s.lang==='en'?'Heating (':'Calefacción (')+s.heatingType+')', scope: heatingScopeLabel, value: s.heatingType==='Eléctrica' ? (s.lang==='en'?'Included in electricity':'Incluida en electricidad') : (heating.factor||0).toFixed(2)+' kgCO₂e/'+({'Gas licuado (GLP)':'kg','Leña':'kg','Kerosene':'L'}[s.heatingType]||'unidad'), source: s.heatingType==='Eléctrica' ? cd.source : (s.heatingType==='Leña' ? 'DEFRA/DESNZ 2026 (incl. CO₂ biogénico)' : 'DEFRA/DESNZ 2026') },
       { label:(s.lang==='en'?'Cooling (':'Enfriamiento (')+s.coolingType+')', scope:Tf.th_alcance2, value: (cd.factor*coolMult).toFixed(2)+' kgCO₂e/kWh', source: cd.source },
-      { label: s.lang==='en'?(s.gasType==='glp'?'Cooking (LPG)':s.gasType==='electric'?'Cooking (electric)':'Cooking (natural gas)'):(s.gasType==='glp'?'Cocina (GLP)':s.gasType==='electric'?'Cocina (eléctrica)':'Cocina (gas natural)'), scope: s.gasType==='electric' ? Tf.th_alcance2 : Tf.th_alcance1, value: s.gasType==='electric' ? (s.lang==='en'?'Included in electricity':'Incluida en electricidad') : (s.gasType==='glp'?'5.76':'2.00')+' kgCO₂e/m³', source: s.gasType==='electric' ? cd.source : 'DEFRA/DESNZ 2026' },
-      { label: s.lang==='en'?'Electricity tariff':'Tarifa eléctrica', scope:'—', value: this.fmtCLP(this._tar.elec*fxP)+'/kWh', source: (parseFloat(s.elecTariff)>0 ? (s.lang==='en'?'Entered by you':'Ingresada por ti') : (s.lang==='en'?'Reference residential average (enter yours in My data)':'Promedio residencial referencial (ingresa la tuya en Mis datos)')) },
-      { label: s.lang==='en'?'Fuel price':'Precio del combustible', scope:'—', value: this.fmtCLP(this._tar.fuel*fxP*u.v)+'/'+u.vl, source: (parseFloat(s.fuelTariff)>0 ? (s.lang==='en'?'Entered by you':'Ingresado por ti') : (s.lang==='en'?'Reference average (enter yours in My data)':'Promedio referencial (ingresa el tuyo en Mis datos)')) },
+      { label: s.lang==='en'?'Cooking gas (LPG)':'Gas de cocina (GLP)', scope:Tf.th_alcance1, value: '5.76 kgCO₂e/m³', source: 'DEFRA/DESNZ 2026' },
       { label: s.lang==='en'?'Water supply & treatment':'Agua potable y tratamiento', scope:Tf.th_alcance3, value: '0.344 kgCO₂e/m³', source: 'DEFRA/DESNZ 2026' },
       { label: s.lang==='en'?'Waste (recycling)':'Residuos (con reciclaje)', scope:Tf.th_alcance3, value: '0.15 kgCO₂e/kg', source: 'DEFRA/DESNZ 2026' },
       { label: s.lang==='en'?'Waste (landfill)':'Residuos (sin reciclaje)', scope:Tf.th_alcance3, value: '0.45 kgCO₂e/kg', source: 'DEFRA/DESNZ 2026' },
@@ -2979,10 +2742,7 @@ class Component extends DCLogic {
       go_onboarding: () => this.setState({ screen:'onboarding', onbStep:0 }),
       go_registro: this.go('registro'), go_dashboard: this.go('dashboard'),
       noop: () => {},
-      exportData: this.exportData, exportCSV: this.exportCSV, planTabs: planTabsV, goal: goalV, goalPct: s.goalPct||0, setGoalPct: (e) => this.setState({ goalPct: Number(e.target.value) }),
-      gasType: s.gasType, setGasType: (e) => this.setState({ gasType: e.target.value }), gasLabel: s.lang==='en'?'Cooking gas':'Gas de cocina', gasOptNat: s.lang==='en'?'Natural gas':'Gas natural', gasOptGlp: s.lang==='en'?'LPG (bottled)':'Gas licuado (GLP)', gasOptElec: s.lang==='en'?'Electric / induction':'Eléctrica / inducción', cookGas: s.gasType !== 'electric',
-      elecTariff: s.elecTariff, setElecTariff: (e) => this.setState({ elecTariff: e.target.value }), fuelTariff: s.fuelTariff, setFuelTariff: (e) => this.setState({ fuelTariff: e.target.value }),
-      tariffLabel: (s.lang==='en'?'Electricity price you pay per kWh (':'Precio de la luz que pagas por kWh (')+cd.currency+(s.lang==='en'?', optional)':', opcional)'), fuelLabel: (s.lang==='en'?'Fuel price per ':'Precio del combustible por ')+u.vl+' ('+cd.currency+(s.lang==='en'?', optional)':', opcional)'), tariffHint: s.lang==='en'?'Reference averages are used if left empty.':'Si lo dejas vacío se usa un promedio referencial.',
+      exportData: this.exportData,
       startNewCycle: this.startNewCycle,
       triggerImport: this.triggerImport,
       importData: this.importData,
@@ -3005,26 +2765,13 @@ class Component extends DCLogic {
       solarKw: s.solarKw,
       setSolarKw: (e) => this.setState({ solarKw: Number(e.target.value) }),
 
-      onb: { step0: s.onbStep===0, step1: s.onbStep===1, step2: s.onbStep===2, step3: s.onbStep===3, step4: s.onbStep===4 },
-      onbAsk: s.onbAsk, onbAskOpen: () => this.setState({ onbAsk: true }), onbAskClose: () => this.setState({ onbAsk: false }),
-      onbAskTitle: s.lang==='en'?'Where do you want to start logging?':'¿Desde qué mes quieres registrar?',
-      onbAskSub: s.lang==='en'?'Starting in January lets you load the months you already have bills for. Starting this month only tracks from now on.':'Desde enero puedes cargar los meses de los que ya tienes boletas. Desde el mes actual solo registras de aquí en adelante.',
-      onbAskJan: s.lang==='en'?'From January':'Desde enero', onbAskNow: (s.lang==='en'?'From this month (':'Desde el mes actual (')+(s.lang==='en'?['January','February','March','April','May','June','July','August','September','October','November','December']:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'])[new Date().getMonth()]+')',
-      onbPickJan: () => this.setState({ onbAsk:false, screen:'registro', registroMonthIdx:0 }),
-      onbPickNow: () => this.setState({ onbAsk:false, screen:'registro', registroMonthIdx:new Date().getMonth() }),
-      onbNotFirst: s.onbStep>0, onbNotLast: s.onbStep<4,
-      onbTitle: OB[s.onbStep][0], onbSub: OB[s.onbStep][1],
-      onbSteps: [0,1,2,3,4].map(i => ({ label: String(i+1), bg: i<=s.onbStep ? 'var(--accent, oklch(52% 0.1 152))' : 'var(--surface-alt, oklch(96% 0.01 85))', fg: i<=s.onbStep ? '#fff' : 'var(--text-muted, oklch(46% 0.02 85))', go: () => this.setState({ onbStep: i }) })),
-      onbProgress: (s.lang==='en'?'Step ':'Paso ')+(s.onbStep+1)+(s.lang==='en'?' of 5':' de 5'),
-      onbNext: () => this.setState({ onbStep: Math.min(4, s.onbStep+1) }),
+      onb: { step0: s.onbStep===0, step1: s.onbStep===1, step2: s.onbStep===2, step3: s.onbStep===3 },
+      onbSteps: [0,1,2,3].map(i => ({ bg: i<=s.onbStep ? 'var(--accent, oklch(52% 0.1 152))' : 'var(--border, oklch(88% 0.012 85))' })),
+      onbNext: () => this.setState({ onbStep: Math.min(3, s.onbStep+1) }),
       onbBack: () => this.setState({ onbStep: Math.max(0, s.onbStep-1) }),
-      onbNextLabel: s.lang==='en'?'Continue':'Continuar', onbBackLabel: s.lang==='en'?'Back':'Atrás', onbFinishLabel: s.lang==='en'?'See my dashboard':'Ver mi dashboard',
-      onbTariffTitle: s.lang==='en'?'What you pay':'Lo que pagas', onbTariffSub: s.lang==='en'?'Optional. Enter your bill prices for accurate costs and savings.':'Opcional. Ingresa los precios de tu boleta para obtener costos y ahorros precisos.',
-      onbMonthTitle: s.lang==='en'?'Your first month':'Tu primer mes', onbMonthSub: s.lang==='en'?'Enter this month\u2019s main usage. You can complete purchases, travel and fuel later in the monthly log.':'Ingresa el consumo principal de este mes. Puedes completar compras, viajes y combustible después en el registro mensual.',
-      onbMonthHint: s.lang==='en'?'Leave blank what you don\u2019t know yet.':'Deja en blanco lo que aún no sepas.', onbHeatLabel: '', heatLabelFull: (s.lang==='en' ? {'Gas licuado (GLP)':'LPG used (kg; a 15 kg cylinder = 15)','Leña':'Firewood burned (kg)','Kerosene':'Kerosene used (L)','Eléctrica':'Electric heating (kWh)'} : {'Gas licuado (GLP)':'Gas licuado (GLP) usado (kg; un balón de 15 kg = 15)','Leña':'Leña quemada (kg)','Kerosene':'Kerosene usado (L)','Eléctrica':'Calefacción eléctrica (kWh)'})[s.heatingType] || (s.lang==='en'?'Heating':'Calefacción'),
 
-      cycleProgressLabel: `${T0.dash_month_of} ${isEmpty ? 1 : completed} ${T0.dash_of12} ${T0.cycle_month_of}`,
-      dashUpTo: completed || 1,
+      cycleProgressLabel: `${T0.dash_month_of} ${isEmpty ? 1 : s.dashUpTo} ${T0.dash_of12} ${T0.cycle_month_of}`,
+      dashUpTo: s.dashUpTo,
       setDashUpTo: (e) => this.setState({ dashUpTo: Number(e.target.value) }),
       demoEmpty: isEmpty, noData: isEmpty, loadExample: this.loadExample,
       dash, proj,
@@ -3083,7 +2830,7 @@ class Component extends DCLogic {
       historyRows,
       ...this.registroVals(s, completed, months),
       ...this.co2labVals(s),
-      ...this.hogarVals(s, annualMonths, annualCO2),
+      ...this.hogarVals(s, months, annualCO2),
     };
   }
 
@@ -3093,7 +2840,7 @@ class Component extends DCLogic {
     const fxR = cdR.fx || 1, mDiv = fxR >= 100 ? 1000 : 1, u = this.unitsFor(s.country in this.countryData ? s.country : '');
     const money = v => Math.round((v||0)*fxR/mDiv);
     const regMoneyUnit = (mDiv === 1000 ? (s.lang==='en' ? 'thousands of ' : 'miles de ') : '') + cdR.currency;
-    const _now = new Date(), currentIdx = (s.trackingYear||2026) === _now.getFullYear() ? _now.getMonth() : Math.max(completed,1) - 1;
+    const currentIdx = Math.max(completed,1) - 1;
     const selIdx = s.registroMonthIdx === null ? currentIdx : s.registroMonthIdx;
     const raw = this.rawMonths;
     const registroMonths = raw.map((m,i) => ({

@@ -17,7 +17,20 @@
     * { box-sizing:border-box; }
     a { color:var(--accent-text, oklch(33% 0.08 152)); text-decoration:none; }
     a:hover { color:var(--accent, oklch(52% 0.1 152)); }
-    @media (max-width: 1000px) { [data-fp-links] { display:none !important; } }
+    @media (max-width: 1000px) { [data-fp-links], [data-fp-ctl] { display:none !important; } [data-fp-burger] { display:flex !important; } }
+    @media (max-width: 600px) {
+      [data-fp-logo] { height:40px !important; }
+      [data-fp-enter] { padding:0 14px !important; }
+      [data-fp-drawer] { top:69px !important; }
+      [style*="font-size:12.5px"] { font-size:14px !important; }
+      [style*="font-size:13px"] { font-size:14px !important; }
+      [style*="font-size:15px"] { font-size:16px !important; }
+      #top { padding-top:40px !important; padding-bottom:56px !important; gap:40px !important; }
+      #metodologia > div { padding:24px !important; }
+      section[style*="padding:96px 24px"], div[style*="padding:96px 24px"] { padding-top:64px !important; padding-bottom:64px !important; }
+      section[style*="padding:0 24px 96px"] { padding-bottom:64px !important; }
+    }
+    @media (max-width: 380px) { [data-fp-enter] { display:none !important; } }
     ::selection { background:var(--accent-soft, oklch(93% 0.035 152)); }
     @keyframes fpPulse { 0% { box-shadow:0 0 0 0 oklch(52% 0.1 152 / .5); } 100% { box-shadow:0 0 0 10px oklch(52% 0.1 152 / 0); } }
     @keyframes fpFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
@@ -51,10 +64,7 @@
   <header id="fp-header" style="position:sticky; top:0; z-index:20; background:color-mix(in oklch, var(--bg, oklch(97.5% 0.012 85)) 82%, transparent); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid color-mix(in oklch, var(--border, oklch(88% 0.012 85)) 70%, transparent);">
     <div style="max-width:1180px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
       <a href="#top" style="display:flex; align-items:center; gap:10px; color:var(--text, oklch(23% 0.02 85));">
-        <span style="width:42px; height:42px; border-radius:12px; background:linear-gradient(145deg, var(--grad1, oklch(60% 0.12 152)), var(--grad2, oklch(40% 0.09 165))); box-shadow:inset 0 1px 0 oklch(100% 0 0 / .35), 0 6px 16px -6px oklch(40% 0.09 160 / .7); display:flex; align-items:center; justify-content:center;">
-          <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><defs><linearGradient id="cbg" x1="6" y1="3" x2="26" y2="29"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cdeedb"/></linearGradient></defs><path d="M16 4.6 L27 13.4 V24.6 A2.4 2.4 0 0 1 24.6 27 H7.4 A2.4 2.4 0 0 1 5 24.6 V13.4 Z" fill="url(#cbg)" stroke="url(#cbg)" stroke-width="1.6" stroke-linejoin="round"></path><path d="M16 24.2 C10.8 23 10.4 17.4 16 14 C21.6 17.4 21.2 23 16 24.2 Z" fill="#1f6b46"></path><path d="M16 23 V17.6" stroke="#cdeedb" stroke-width="1.1" stroke-linecap="round"></path><path d="M16 20.4 L18.2 18.6 M16 21.8 L13.9 20.2" stroke="#cdeedb" stroke-width="0.9" stroke-linecap="round"></path><circle cx="26.5" cy="6.2" r="2.6" fill="#fff" opacity=".28"></circle><circle cx="26.5" cy="6.2" r="1.5" fill="#fff"></circle></svg>
-        </span>
-        <span style="font-family:'Lora',serif; font-weight:600; font-size:24px; white-space:nowrap;">CarbonHome</span>
+        <img data-fp-logo="1" src="logo-ecoinsight.png" alt="EcoInsight Home" style="height:46px; width:auto; display:block;">
       </a>
       <nav style="display:flex; align-items:center; gap:16px; font-size:14px; font-weight:500; flex-wrap:nowrap; min-width:0;">
         <div style="display:flex; align-items:center; gap:16px; min-width:0; overflow:hidden; flex-shrink:1;" data-fp-links="1">
@@ -62,7 +72,7 @@
         <a href="#como" class="fp-navlink" style="color:var(--text-muted, oklch(46% 0.02 85)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_how }}</a>
         <a href="#metodologia" class="fp-navlink" style="color:var(--text-muted, oklch(46% 0.02 85)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_method }}</a>
         </div>
-        <div style="display:flex; align-items:center; gap:10px; padding:4px 4px 4px 10px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; background:var(--surface, oklch(99% 0.004 85));">
+        <div data-fp-ctl="1" style="display:flex; align-items:center; gap:10px; padding:4px 4px 4px 10px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; background:var(--surface, oklch(99% 0.004 85));">
           <div style="display:flex; gap:5px;">
             <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
               <button onClick="{{ p.select }}" title="{{ p.label }}" aria-label="{{ p.label }}" style="width:16px; height:16px; border-radius:999px; padding:0; cursor:pointer; background:{{ p.dot }}; border:{{ p.ring }}; box-shadow:0 0 0 1px var(--border, oklch(88% 0.012 85)); transition:transform .15s ease;" style-hover="transform:scale(1.2);"></button>
@@ -77,10 +87,39 @@
             <sc-if value="{{ themeIsLight }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if>
           </button>
         </div>
-        <a href="carbonhome.html?fresh=1" style="background:var(--text, oklch(23% 0.02 85)); color:var(--bg, oklch(97.5% 0.012 85)); padding:9px 16px; border-radius:9px; font-weight:600; transition:background .2s ease; white-space:nowrap;" style-hover="background:var(--accent-text, oklch(33% 0.08 152)); color:#fff;">{{ t.nav_enter }}</a>
+        <a data-fp-enter="1" href="home.html?fresh=1" style="display:inline-flex; align-items:center; min-height:44px; background:var(--text, oklch(23% 0.02 85)); color:var(--bg, oklch(97.5% 0.012 85)); padding:0 16px; border-radius:9px; font-weight:600; transition:background .2s ease; white-space:nowrap;" style-hover="background:var(--accent-text, oklch(33% 0.08 152)); color:#fff;">{{ t.nav_enter }}</a>
+        <button data-fp-burger="1" onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; width:44px; height:44px; border-radius:11px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); align-items:center; justify-content:center; cursor:pointer; padding:0;">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7 H18 M4 11 H18 M4 15 H18"></path></svg>
+        </button>
       </nav>
     </div>
   </header>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-fp-drawer="1" style="position:fixed; top:var(--fp-hh, 74px); left:0; right:0; bottom:0; z-index:19; background:var(--bg, oklch(97.5% 0.012 85)); overflow-y:auto; padding:8px 24px calc(32px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:4px;">
+    <a href="#medimos" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_what }}</a>
+    <a href="#como" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_how }}</a>
+    <a href="#metodologia" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_method }}</a>
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px 0;">
+      <div style="display:flex; gap:4px; flex-wrap:wrap;">
+        <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
+          <button onClick="{{ p.select }}" title="{{ p.label }}" aria-label="{{ p.label }}" style="width:44px; height:44px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:24px; height:24px; border-radius:999px; background:{{ p.dot }}; border:{{ p.ring }}; box-shadow:0 0 0 1px var(--border, oklch(88% 0.012 85));"></span></button>
+        </sc-for>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; background:var(--surface, oklch(99% 0.004 85));">
+          <button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:48px; height:44px; border-radius:999px; font:700 14px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button>
+          <button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:48px; height:44px; border-radius:999px; font:700 14px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button>
+        </div>
+        <button onClick="{{ toggleTheme }}" title="{{ themeTitle }}" aria-label="{{ themeTitle }}" style="width:44px; height:44px; border-radius:999px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;">
+          <sc-if value="{{ themeIsDark }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if>
+          <sc-if value="{{ themeIsLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if>
+        </button>
+      </div>
+    </div>
+    <a href="home.html?fresh=1" style="display:flex; align-items:center; justify-content:center; min-height:56px; border-radius:12px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; font-size:17px; font-weight:700;">{{ t.nav_enter }}</a>
+  </div>
+  </sc-if>
 
   <section id="top" style="position:relative; max-width:1180px; margin:0 auto; padding:72px 24px 88px; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr)); gap:56px; align-items:center;">
     <div>
@@ -91,7 +130,7 @@
       <h1 data-reveal="1" data-delay="80" style="font-family:'Lora',serif; font-weight:600; font-size:clamp(38px,5.2vw,62px); line-height:1.06; letter-spacing:-0.015em; margin:0 0 22px; text-wrap:balance;">{{ t.h1a }} <em style="font-style:italic; font-weight:500; color:var(--accent, oklch(52% 0.1 152));">{{ t.h1b }}</em> {{ t.h1c }}</h1>
       <p data-reveal="1" data-delay="160" style="font-size:18px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0 0 34px; max-width:520px; text-wrap:pretty;">{{ t.hero_sub }}</p>
       <div data-reveal="1" data-delay="240" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-        <a href="carbonhome.html?fresh=1" class="fp-cta" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:15px 24px; border-radius:11px; font-weight:700; font-size:15px; box-shadow:0 8px 24px oklch(52% 0.1 152 / .28); transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .25s ease;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff; transform:translateY(-2px); box-shadow:0 12px 28px oklch(52% 0.1 152 / .34);">
+        <a href="home.html?fresh=1" class="fp-cta" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:15px 24px; border-radius:11px; font-weight:700; font-size:15px; box-shadow:0 8px 24px oklch(52% 0.1 152 / .28); transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .25s ease;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff; transform:translateY(-2px); box-shadow:0 12px 28px oklch(52% 0.1 152 / .34);">
           {{ t.cta_start }}
           <svg class="fp-arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg>
         </a>
@@ -251,7 +290,7 @@
       <div style="position:absolute; width:300px; height:300px; left:-120px; bottom:-170px; border-radius:50%; background:oklch(100% 0 0 / .08);"></div>
       <h2 style="position:relative; font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.8vw,44px); line-height:1.15; margin:0 auto 14px; max-width:680px; text-wrap:balance;">{{ t.h_cta }}</h2>
       <p style="position:relative; font-size:16.5px; color:oklch(95% 0.03 152); margin:0 auto 30px; max-width:480px; line-height:1.6;">{{ t.p_cta }}</p>
-      <a href="carbonhome.html?fresh=1" class="fp-cta" style="position:relative; display:inline-flex; align-items:center; gap:10px; background:#fff; color:oklch(27% 0.05 152); padding:15px 26px; border-radius:11px; font-weight:700; font-size:15px; transition:transform .2s ease;" style-hover="transform:translateY(-2px); color:oklch(27% 0.05 152);">
+      <a href="home.html?fresh=1" class="fp-cta" style="position:relative; display:inline-flex; align-items:center; gap:10px; background:#fff; color:oklch(27% 0.05 152); padding:15px 26px; border-radius:11px; font-weight:700; font-size:15px; transition:transform .2s ease;" style-hover="transform:translateY(-2px); color:oklch(27% 0.05 152);">
         {{ t.cta_enter }}
         <svg class="fp-arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg>
       </a>
@@ -259,15 +298,15 @@
   </section>
 
   <footer style="max-width:1180px; margin:0 auto; padding:28px 24px 40px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:13px; color:var(--text-muted, oklch(46% 0.02 85)); border-top:1px solid var(--border, oklch(88% 0.012 85));">
-    <span style="font-family:'Lora',serif; font-weight:600; color:var(--text, oklch(23% 0.02 85));">CarbonHome</span>
+    <span style="font-family:'Lora',serif; font-weight:600; color:var(--text, oklch(23% 0.02 85));">EcoInsight Home</span>
     <span>{{ t.footer }} · {{ t.rights }}</span>
   </footer>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { p: 0, theme: 'light', palette: 'sage', lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
-  I18N = {"es":{"nav_what":"Qué medimos","nav_how":"Cómo funciona","nav_method":"Metodología","nav_enter":"Entrar","badge":"Huella de carbono del hogar","h1a":"Entiende el impacto de tu hogar y","h1b":"cuánto pueden ahorrar","hero_sub":"Registra la energía, el auto, las compras y los viajes del hogar cada mes. Te mostramos tu huella de carbono en un lenguaje simple y, sobre todo, cuánto dinero pueden ahorrar reduciéndola.","cta_start":"Comenzar ahora","cta_how":"Ver cómo funciona","card_title":"Mi huella · Septiembre","card_example":"Ejemplo ilustrativo","card_delta":"−18% vs. agosto","card_save":"Ahorro potencial al año","chip_title":"Paneles solares","chip_sub":"Energía −70%","k_what":"QUÉ MEDIMOS","h_what":"Las cuatro fuentes que forman la huella de un hogar","p_what":"Cada registro se convierte en kg de CO₂e con factores de emisión de tu país.","k_how":"CÓMO FUNCIONA","h_how":"Tres pasos, una vez al mes","k_app":"DENTRO DE LA APP","h_app":"Del dato mensual a decisiones concretas","k_flow":"FLUJO DEL HOGAR","h_flow":"Arrastra mejoras a tu casa y mira cómo reverdece el paisaje","p_flow":"Paneles solares, bomba de calor, auto eléctrico, ropa de segunda mano. Cada mejora baja tus emisiones reales y suma puntos hacia la meta de −30%.","k_method":"METODOLOGÍA","h_method":"Cálculo alineado al GHG Protocol","p_method":"Separamos tus emisiones en tres alcances y usamos factores de emisión propios de cada país.","h_cta":"Empieza a medir la huella de tu hogar","p_cta":"Configura tu hogar, registra tu primer mes y descubre dónde está tu mayor oportunidad de ahorro.","cta_enter":"Entrar a CarbonHome","footer":"© 2026 · Huella de carbono para hogares","rights":"Todos los derechos reservados.","h1c":"juntos"},"en":{"nav_what":"What we measure","nav_how":"How it works","nav_method":"Methodology","nav_enter":"Sign in","badge":"Household carbon footprint","h1a":"Understand your home’s impact and","h1b":"how much you can save","hero_sub":"Log your home’s energy, car, shopping and travel each month. We show your carbon footprint in plain language and, above all, how much money you can save by reducing it.","cta_start":"Get started","cta_how":"See how it works","card_title":"My footprint · September","card_example":"Illustrative example","card_delta":"−18% vs. August","card_save":"Potential yearly savings","chip_title":"Solar panels","chip_sub":"Energy −70%","k_what":"WHAT WE MEASURE","h_what":"The four sources behind a household footprint","p_what":"Each entry is converted to kg CO₂e using your country’s emission factors.","k_how":"HOW IT WORKS","h_how":"Three steps, once a month","k_app":"INSIDE THE APP","h_app":"From monthly data to concrete decisions","k_flow":"HOME FLOW","h_flow":"Drag upgrades onto your home and watch the landscape turn green","p_flow":"Solar panels, heat pump, electric car, second-hand clothing. Each upgrade lowers your real emissions and earns points toward the −30% goal.","k_method":"METHODOLOGY","h_method":"Calculation aligned with the GHG Protocol","p_method":"We split your emissions into three scopes and use country-specific emission factors.","h_cta":"Start measuring your home’s footprint","p_cta":"Set up your home, log your first month and find your biggest savings opportunity.","cta_enter":"Enter CarbonHome","footer":"© 2026 · Carbon footprint for households","rights":"All rights reserved.","h1c":"together"}};
+  state = { menu: false, p: 0, theme: 'light', palette: 'sage', lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
+  I18N = {"es":{"nav_what":"Qué medimos","nav_how":"Cómo funciona","nav_method":"Metodología","nav_enter":"Entrar","badge":"Huella de carbono del hogar","h1a":"Entiende el impacto de tu hogar y","h1b":"cuánto pueden ahorrar","hero_sub":"Registra la energía, el auto, las compras y los viajes del hogar cada mes. Te mostramos tu huella de carbono en un lenguaje simple y, sobre todo, cuánto dinero pueden ahorrar reduciéndola.","cta_start":"Comenzar ahora","cta_how":"Ver cómo funciona","card_title":"Mi huella · Septiembre","card_example":"Ejemplo ilustrativo","card_delta":"−18% vs. agosto","card_save":"Ahorro potencial al año","chip_title":"Paneles solares","chip_sub":"Energía −70%","k_what":"QUÉ MEDIMOS","h_what":"Las cuatro fuentes que forman la huella de un hogar","p_what":"Cada registro se convierte en kg de CO₂e con factores de emisión de tu país.","k_how":"CÓMO FUNCIONA","h_how":"Tres pasos, una vez al mes","k_app":"DENTRO DE LA APP","h_app":"Del dato mensual a decisiones concretas","k_flow":"FLUJO DEL HOGAR","h_flow":"Arrastra mejoras a tu casa y mira cómo reverdece el paisaje","p_flow":"Paneles solares, bomba de calor, auto eléctrico, ropa de segunda mano. Cada mejora baja tus emisiones reales y suma puntos hacia la meta de −30%.","k_method":"METODOLOGÍA","h_method":"Cálculo alineado al GHG Protocol","p_method":"Separamos tus emisiones en tres alcances y usamos factores de emisión propios de cada país.","h_cta":"Empieza a medir la huella de tu hogar","p_cta":"Configura tu hogar, registra tu primer mes y descubre dónde está tu mayor oportunidad de ahorro.","cta_enter":"Entrar a EcoInsight Home","footer":"© 2026 · Huella de carbono para hogares","rights":"Todos los derechos reservados.","h1c":"juntos"},"en":{"nav_what":"What we measure","nav_how":"How it works","nav_method":"Methodology","nav_enter":"Sign in","badge":"Household carbon footprint","h1a":"Understand your home’s impact and","h1b":"how much you can save","hero_sub":"Log your home’s energy, car, shopping and travel each month. We show your carbon footprint in plain language and, above all, how much money you can save by reducing it.","cta_start":"Get started","cta_how":"See how it works","card_title":"My footprint · September","card_example":"Illustrative example","card_delta":"−18% vs. August","card_save":"Potential yearly savings","chip_title":"Solar panels","chip_sub":"Energy −70%","k_what":"WHAT WE MEASURE","h_what":"The four sources behind a household footprint","p_what":"Each entry is converted to kg CO₂e using your country’s emission factors.","k_how":"HOW IT WORKS","h_how":"Three steps, once a month","k_app":"INSIDE THE APP","h_app":"From monthly data to concrete decisions","k_flow":"HOME FLOW","h_flow":"Drag upgrades onto your home and watch the landscape turn green","p_flow":"Solar panels, heat pump, electric car, second-hand clothing. Each upgrade lowers your real emissions and earns points toward the −30% goal.","k_method":"METHODOLOGY","h_method":"Calculation aligned with the GHG Protocol","p_method":"We split your emissions into three scopes and use country-specific emission factors.","h_cta":"Start measuring your home’s footprint","p_cta":"Set up your home, log your first month and find your biggest savings opportunity.","cta_enter":"Enter EcoInsight Home","footer":"© 2026 · Carbon footprint for households","rights":"All rights reserved.","h1c":"together"}};
   setLang = (lang) => { try { localStorage.setItem('fp_lang', lang); } catch (e) {} document.documentElement.lang = lang; this.setState({ lang }); };
   PALETTES = {
     sage:   { label:'Salvia',    accent:'oklch(52% 0.1 152)',  accentHover:'oklch(46% 0.09 152)', accentText:'oklch(33% 0.08 152)',  accentSoft:'oklch(93% 0.035 152)', accentSoft2:'oklch(96% 0.02 152)', grad1:'oklch(58% 0.11 152)', grad2:'oklch(46% 0.09 175)',
@@ -412,6 +451,7 @@ class Component extends DCLogic {
     const st = this.state;
     return {
       t: this.I18N[st.lang] || this.I18N.es,
+      menuOpen: !!st.menu, toggleMenu: () => this.setState(s => ({ menu: !s.menu })), closeMenu: () => this.setState({ menu: false }),
       setEs: () => this.setLang('es'), setEn: () => this.setLang('en'),
       esBg: E ? 'transparent' : 'var(--accent, oklch(52% 0.1 152))', esColor: E ? 'var(--text-muted, oklch(46% 0.02 85))' : '#fff',
       enBg: E ? 'var(--accent, oklch(52% 0.1 152))' : 'transparent', enColor: E ? '#fff' : 'var(--text-muted, oklch(46% 0.02 85))',
