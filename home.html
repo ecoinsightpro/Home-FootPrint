@@ -43,14 +43,17 @@
       [data-eih-logo-wide] { display:none !important; } [data-eih-logo-sq] { display:block !important; }
       [data-eih-aside] > div:nth-last-child(2) { display:flex !important; position:fixed; top:calc(8px + env(safe-area-inset-top)); right:10px; width:116px; z-index:61; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; padding:3px !important; }
       [data-eih-aside] > div:nth-last-child(2) button { min-height:44px; min-width:44px; border-radius:999px !important; }
-      [data-eih-aside] > nav { flex-direction:row !important; gap:2px !important; width:100%; overflow-x:auto; scrollbar-width:none; scroll-snap-type:x proximity; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
-      [data-eih-aside] > nav::-webkit-scrollbar { display:none; }
+      [data-eih-aside] > nav { flex-direction:row !important; gap:0 !important; width:100%; justify-content:space-around; }
       [data-eih-aside] > nav > div:first-child { display:none !important; }
-      [data-eih-aside] > nav button { flex:0 0 auto; min-width:68px; height:58px !important; flex-direction:column; justify-content:center; gap:3px !important; padding:4px 6px !important; text-align:center !important; scroll-snap-align:start; transform:none !important; }
-      [data-eih-aside] > nav button span { font-size:10.5px; line-height:1.15; white-space:nowrap; }
-      [data-eih-aside] > nav button svg { width:22px; height:22px; }
-      [data-eih-aside] > nav > button:nth-child(4) { order:1; } [data-eih-aside] > nav > button:nth-child(5) { order:2; } [data-eih-aside] > nav > button:nth-child(6) { order:3; } [data-eih-aside] > nav > button:nth-child(8) { order:4; }
-      [data-eih-aside] > nav > button:nth-child(2), [data-eih-aside] > nav > button:nth-child(3), [data-eih-aside] > nav > button:nth-child(7), [data-eih-aside] > nav > button:nth-child(9), [data-eih-aside] > nav > button:nth-child(10), [data-eih-aside] > nav > button:nth-child(11) { order:9; }
+      [data-eih-aside] > nav button { flex:1 1 0; min-width:0; height:58px !important; flex-direction:column; justify-content:center; align-items:center; gap:3px !important; padding:4px 2px !important; text-align:center !important; transform:none !important; border-radius:12px !important; }
+      [data-eih-aside] > nav button span { font-size:11.5px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+      [data-eih-aside] > nav button svg { width:22px; height:22px; flex-shrink:0; }
+      [data-eih-aside] > nav > button { display:none !important; }
+      [data-eih-aside] > nav > button:nth-child(4), [data-eih-aside] > nav > button:nth-child(5), [data-eih-aside] > nav > button:nth-child(6), [data-eih-aside] > nav > button:nth-child(8), [data-eih-aside] > nav > button[data-eih-more] { display:flex !important; }
+      [data-eih-aside] > nav > button:nth-child(4) { order:1; } [data-eih-aside] > nav > button:nth-child(5) { order:2; } [data-eih-aside] > nav > button:nth-child(6) { order:3; } [data-eih-aside] > nav > button:nth-child(8) { order:4; } [data-eih-aside] > nav > button[data-eih-more] { order:5; }
+      [data-eih-aside][data-more="1"] > [data-eih-backdrop] { display:block !important; position:fixed; inset:0; background:oklch(20% 0.02 85 / .35); z-index:-1; }
+      [data-eih-aside][data-more="1"] > nav { flex-wrap:wrap; }
+      [data-eih-aside][data-more="1"] > nav > button { display:flex !important; flex:0 0 25%; }
       [data-eih-main] { max-width:none !important; padding:calc(72px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important; }
       [data-eih-main] [style*="grid-template-columns"]:not([style*="repeat(2,1fr)"]) { grid-template-columns:minmax(0,1fr) !important; gap:16px !important; }
       [data-eih-main] h1 { font-size:30px !important; }
@@ -115,7 +118,7 @@
 </helmet>
 <div data-eih-root="1" style="min-height:100vh; color:var(--text, oklch(23% 0.02 85)); background:var(--bg, oklch(97.5% 0.012 85)); font-family:'Public Sans',sans-serif; display:flex; transition:background-color 0.35s ease, color 0.35s ease;">
 
-  <aside data-eih-aside="1" style="position:sticky; top:0; align-self:flex-start; height:100vh; width:220px; flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:20px 14px; display:flex; flex-direction:column; gap:16px; overflow-y:auto;">
+  <aside data-eih-aside="1" data-more="{{ moreAttr }}" style="position:sticky; top:0; align-self:flex-start; height:100vh; width:220px; flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:20px 14px; display:flex; flex-direction:column; gap:16px; overflow-y:auto;">
     <div style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:0 6px;" onClick="{{ go_landing }}">
       <div data-eih-logo-wide="1" style="background:transparent; border-radius:12px; padding:8px 10px; width:100%; box-sizing:border-box;"><img src="logo-ecoinsight.png" alt="EcoInsight Home" style="width:100%; height:auto; display:block;"></div><div data-eih-logo-sq="1" style="display:none; background:transparent; border-radius:12px; width:48px; height:48px; padding:5px; box-sizing:border-box;"><img src="logo-ecoinsight-icon-square.png" alt="EcoInsight Home" style="width:100%; height:100%; object-fit:contain; display:block;"></div>
     </div>
@@ -123,7 +126,8 @@
       <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10 H4 M9 5 L4 10 L9 15"></path></svg>
       <span>{{ t.back_landing }}</span>
     </a>
-    <nav style="position:relative; display:flex; flex-direction:column; gap:4px;">
+    <div data-eih-backdrop="1" onClick="{{ closeMore }}" style="display:none;"></div>
+    <nav onClick="{{ closeMore }}" style="position:relative; display:flex; flex-direction:column; gap:4px;">
       <div style="position:absolute; left:0; right:0; top:0; height:40px; border-radius:10px; background:linear-gradient(90deg, var(--accent-soft, oklch(93% 0.035 152)), var(--accent-soft2, oklch(96% 0.02 152))); box-shadow:inset 0 0 0 1px oklch(52% 0.1 152 / .18), 0 6px 16px oklch(52% 0.1 152 / .14); transform:translateY({{ navPillY }}px); opacity:{{ navPillOp }}; transition:transform .5s cubic-bezier(.34,1.35,.5,1), opacity .25s ease; pointer-events:none;">
         <div style="position:absolute; left:0; top:11px; width:3px; height:18px; border-radius:0 3px 3px 0; background:var(--accent, oklch(52% 0.1 152));"></div>
       </div>
@@ -167,6 +171,10 @@
       <button onClick="{{ nav.factores.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.factores.color }}; font:{{ nav.factores.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3 H12 L15 6 V17 H6 Z"></path><path d="M9 9 H12 M9 12 H12"></path></svg>
         <span>{{ t.nav_factores }}</span>
+      </button>
+      <button data-eih-more="1" onClick="{{ toggleMore }}" aria-expanded="{{ moreAttr }}" style="display:none; border:none; background:transparent; color:var(--text-muted, oklch(46% 0.02 85)); cursor:pointer; font:600 13px 'Public Sans',sans-serif; align-items:center; justify-content:center;">
+        <svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><circle cx="4.5" cy="10" r="1.6"></circle><circle cx="10" cy="10" r="1.6"></circle><circle cx="15.5" cy="10" r="1.6"></circle></svg>
+        <span>{{ moreLabel }}</span>
       </button>
     </nav>
     <div style="flex:1;"></div>
@@ -942,6 +950,7 @@
                 </tr>
               </tfoot>
             </table>
+            <div style="font-size:12px; line-height:1.5; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:12px;">{{ t.cost_ref_note }}</div>
           </div>
 
           <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:20px;">
@@ -1519,26 +1528,29 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   PALETTES = {
-    sage:   { label:'Salvia',    accent:'oklch(52% 0.1 152)',  accentHover:'oklch(46% 0.09 152)', accentText:'oklch(33% 0.08 152)',  accentSoft:'oklch(93% 0.035 152)', accentSoft2:'oklch(96% 0.02 152)', grad1:'oklch(58% 0.11 152)', grad2:'oklch(46% 0.09 175)',
-                dark:{ accent:'oklch(68% 0.13 152)', accentHover:'oklch(74% 0.14 152)', accentText:'oklch(88% 0.07 152)', accentSoft:'oklch(30% 0.05 152)', accentSoft2:'oklch(25% 0.03 152)', grad1:'oklch(62% 0.13 152)', grad2:'oklch(52% 0.1 175)' } },
-    ocean:  { label:'Océano',    accent:'oklch(52% 0.11 230)', accentHover:'oklch(46% 0.1 230)',  accentText:'oklch(33% 0.09 230)',  accentSoft:'oklch(93% 0.03 230)',  accentSoft2:'oklch(96% 0.02 230)', grad1:'oklch(58% 0.12 220)', grad2:'oklch(46% 0.1 250)',
-                dark:{ accent:'oklch(70% 0.12 230)', accentHover:'oklch(76% 0.13 230)', accentText:'oklch(88% 0.06 230)', accentSoft:'oklch(30% 0.05 230)', accentSoft2:'oklch(25% 0.03 230)', grad1:'oklch(62% 0.12 220)', grad2:'oklch(52% 0.11 250)' } },
-    sunset: { label:'Atardecer', accent:'oklch(56% 0.15 40)',  accentHover:'oklch(49% 0.14 40)', accentText:'oklch(38% 0.12 40)',   accentSoft:'oklch(93% 0.05 55)',   accentSoft2:'oklch(96% 0.03 45)',  grad1:'oklch(62% 0.15 45)',  grad2:'oklch(52% 0.14 25)',
-                dark:{ accent:'oklch(70% 0.15 40)', accentHover:'oklch(76% 0.16 40)', accentText:'oklch(88% 0.08 45)', accentSoft:'oklch(31% 0.06 40)', accentSoft2:'oklch(26% 0.04 40)', grad1:'oklch(64% 0.15 45)', grad2:'oklch(54% 0.14 25)' } },
-    slate:  { label:'Pizarra',   accent:'oklch(48% 0.06 265)', accentHover:'oklch(42% 0.06 265)', accentText:'oklch(32% 0.05 265)', accentSoft:'oklch(93% 0.02 265)', accentSoft2:'oklch(96% 0.012 265)', grad1:'oklch(54% 0.07 265)', grad2:'oklch(42% 0.06 290)',
-                dark:{ accent:'oklch(68% 0.08 265)', accentHover:'oklch(74% 0.09 265)', accentText:'oklch(88% 0.04 265)', accentSoft:'oklch(29% 0.03 265)', accentSoft2:'oklch(24% 0.02 265)', grad1:'oklch(60% 0.08 265)', grad2:'oklch(48% 0.07 290)' } },
-    rosa:   { label:'Rosa', dot:'#FFC5D3', accent:'oklch(60% 0.13 10)',  accentHover:'oklch(53% 0.13 10)',  accentText:'oklch(40% 0.12 10)',  accentSoft:'#FFC5D3', accentSoft2:'oklch(96% 0.02 10)',  grad1:'oklch(66% 0.14 15)',  grad2:'oklch(54% 0.12 350)',
-                dark:{ accent:'oklch(74% 0.13 10)', accentHover:'oklch(78% 0.14 10)', accentText:'oklch(88% 0.07 10)', accentSoft:'oklch(30% 0.05 10)', accentSoft2:'oklch(25% 0.03 10)', grad1:'oklch(68% 0.13 15)', grad2:'oklch(56% 0.12 350)' } },
-    pato:   { label:'Amarillo pato', dot:'#FFD23F', accent:'oklch(58% 0.16 85)', accentHover:'oklch(51% 0.15 85)', accentText:'oklch(38% 0.12 85)', accentSoft:'oklch(93% 0.06 95)', accentSoft2:'oklch(96% 0.04 95)', grad1:'oklch(74% 0.16 90)', grad2:'oklch(58% 0.16 70)',
-                dark:{ accent:'oklch(78% 0.15 90)', accentHover:'oklch(82% 0.16 90)', accentText:'oklch(88% 0.09 90)', accentSoft:'oklch(30% 0.05 90)', accentSoft2:'oklch(25% 0.03 90)', grad1:'oklch(76% 0.15 90)', grad2:'oklch(60% 0.15 70)' } },
+    alerce:    { label:'Alerce',    sw:['#0b1f2a','#2e9e3f','#1e63c8','#63c64c'] },
+    araucaria: { label:'Araucaria', sw:['#10261c','#3f7d4e','#8a5a1c','#a7d26a'] },
+    queule:    { label:'Queule',    sw:['#071e33','#0e7c7b','#1864a6','#4dd6cd'] },
+    guayacan:  { label:'Guayacán',  sw:['#2a1712','#a94a26','#8c5a0e','#f2a96b'] },
+    ruil:      { label:'Ruil',      sw:['#141a21','#3d7466','#3b6597','#b6e68a'] },
+    notro:     { label:'Notro',     sw:['#3a1420','#d63c6b','#b6316e','#f27fa6'] },
   };
-  BASE_LIGHT = { bg:'oklch(97.5% 0.012 85)', surface:'oklch(99% 0.004 85)', surfaceAlt:'oklch(96% 0.01 85)', border:'oklch(88% 0.012 85)', text:'oklch(23% 0.02 85)', textMuted:'oklch(46% 0.02 85)', warn:'oklch(42% 0.11 55)', warnSoft:'oklch(93% 0.045 55)', warnLine:'oklch(60% 0.13 55)', scenarioBlue:'oklch(60% 0.12 230)', neutralBar:'oklch(70% 0.01 85)', fuel:'oklch(58% 0.1 30)', shadowSm:'oklch(23% 0.02 85 / 0.04)', shadowMd:'oklch(23% 0.02 85 / 0.07)', shadowLg:'oklch(23% 0.02 85 / 0.08)' };
-  BASE_DARK  = { bg:'oklch(19% 0.012 85)', surface:'oklch(23% 0.012 85)', surfaceAlt:'oklch(27% 0.012 85)', border:'oklch(33% 0.014 85)', text:'oklch(94% 0.006 85)', textMuted:'oklch(70% 0.012 85)', warn:'oklch(75% 0.14 55)', warnSoft:'oklch(30% 0.06 55)', warnLine:'oklch(75% 0.14 55)', scenarioBlue:'oklch(74% 0.12 230)', neutralBar:'oklch(48% 0.01 85)', fuel:'oklch(72% 0.12 30)', shadowSm:'oklch(0% 0 0 / 0.3)', shadowMd:'oklch(0% 0 0 / 0.4)', shadowLg:'oklch(0% 0 0 / 0.5)' };
+  BASE_LIGHT = { warn:'oklch(42% 0.11 55)', warnSoft:'oklch(93% 0.045 55)', warnLine:'oklch(60% 0.13 55)', fuel:'oklch(58% 0.1 30)', shadowSm:'oklch(23% 0.02 85 / 0.04)', shadowMd:'oklch(23% 0.02 85 / 0.07)', shadowLg:'oklch(23% 0.02 85 / 0.08)' };
+  BASE_DARK  = { warn:'oklch(75% 0.14 55)', warnSoft:'oklch(30% 0.06 55)', warnLine:'oklch(75% 0.14 55)', fuel:'oklch(72% 0.12 30)', shadowSm:'oklch(0% 0 0 / 0.3)', shadowMd:'oklch(0% 0 0 / 0.4)', shadowLg:'oklch(0% 0 0 / 0.5)' };
 
   computeTokens(theme, paletteId) {
-    const p = this.PALETTES[paletteId] || this.PALETTES.sage;
-    const isDark = theme === 'dark';
-    return { ...(isDark ? this.BASE_DARK : this.BASE_LIGHT), ...(isDark ? p.dark : p) };
+    const p = this.PALETTES[paletteId] || this.PALETTES.alerce;
+    let [s0, s1, s2, s3] = p.sw;
+    if (theme === 'dark' && paletteId === 'notro') { s1 = '#f4799f'; s2 = '#f08bb8'; s3 = '#ffc2d8'; }
+    const m = (a, n, b) => 'color-mix(in oklab, ' + a + ' ' + n + '%, ' + b + ')';
+    if (theme === 'dark') return { ...this.BASE_DARK,
+      bg:s0, surface:m(s0,90,'#fff'), surfaceAlt:m(s0,84,'#fff'), border:m(s0,76,'#fff'), text:'#eaf1ef', textMuted:m('#fff',68,s0),
+      accent:s1, accentHover:m(s1,82,'#fff'), accentText:m(s3,72,'#fff'), accentSoft:m(s1,40,s0), accentSoft2:m(s1,22,s0),
+      grad1:s1, grad2:s2, scenarioBlue:m(s2,58,'#fff'), neutralBar:m(s0,58,'#fff') };
+    return { ...this.BASE_LIGHT,
+      bg:'oklch(97.5% 0.012 85)', surface:'oklch(99% 0.004 85)', surfaceAlt:'oklch(96% 0.01 85)', border:'oklch(88% 0.012 85)', text:'oklch(23% 0.02 85)', textMuted:'oklch(46% 0.02 85)',
+      accent:m(s1,90,'#000'), accentHover:m(s1,70,'#000'), accentText:m(s1,56,'#000'), accentSoft:m(s1,24,'#fff'), accentSoft2:m(s1,12,'#fff'),
+      grad1:s1, grad2:s2, scenarioBlue:s2, neutralBar:m(s0,28,'#fff') };
   }
   applyThemeWith(theme, palette) {
     const t = this.computeTokens(theme, palette);
@@ -1707,11 +1719,12 @@ class Component extends DCLogic {
     let _fresh = false; try { _fresh = /[?&]fresh=1/.test(location.search); if (_fresh) { localStorage.removeItem('cc_v2'); this.setState({ screen:'onboarding', onbStep:0 }); } } catch (e) {}
     if (!_fresh) try { const sv = JSON.parse(localStorage.getItem('cc_v2')||'null'); if (sv && Array.isArray(sv.raw) && sv.raw.length === 12 && !/example=/.test(location.search)) { this.rawMonths.length = 0; this.rawMonths.push(...sv.raw); this.setState(sv.st || {}); } } catch (e) {}
     this._dnKey = this.state.screen+'|'+this.state.dashUpTo+'|'+this.state.country+'|'+this.state.kpiPerPerson+'|'+this.state.demo; if (this.state.screen === 'dashboard') this.runDonut();
-    let theme = 'light', palette = 'sage';
+    let theme = 'light', palette = 'alerce';
     try {
       theme = localStorage.getItem('eih_theme') || theme;
       palette = localStorage.getItem('eih_palette') || palette;
     } catch (e) {}
+    if (!this.PALETTES[palette]) { palette = 'alerce'; try { localStorage.setItem('eih_palette', palette); } catch (e) {} }
     try { const q = new URLSearchParams(location.search); if (q.get('theme')) theme = q.get('theme'); if (q.get('example')) this.loadExample(); if (q.get('screen')) this.setState({ screen:q.get('screen') }); } catch (e) {}
     this.applyThemeWith(theme, palette);
     let reducedMotion = false;
@@ -1787,7 +1800,7 @@ class Component extends DCLogic {
       dash_kpi_view:'Ver KPIs:', kpi_household:'Por hogar', kpi_person:'Por persona',
       empty_title:'Aún no tienen registros', empty_body:'Completen su primer registro mensual para ver la huella y el ahorro posible de la familia.', empty_cta:'Ir a registro mensual', example_btn:'Cargar valores de ejemplo', example_hint:'o prueba la app con datos de ejemplo',
       kpi_month:'Huella este mes', kpi_cycle:'Acumulado del ciclo', kpi_month_of:'a mes', kpi_expense:'Gasto este mes', kpi_bench:'Benchmark per cápita', kpi_bench_sub:'Media residencial por persona, acumulada a la fecha',
-      cat_energia:'Energía', cat_vehiculo:'Vehículo', cat_compras:'Compras', cat_viajes:'Viajes', cat_agua:'Agua y residuos', kpi_acc:'Huella acumulada', table_costs:'Detalle de gastos acumulados', table_costs_sub:'Cantidad consumida × precio unitario de cada concepto, del mes 1 al mes', th_concepto:'Concepto', th_cantidad:'Cantidad', th_precio:'Precio unitario', th_gasto:'Gasto', th_pct:'% del gasto', kpi_avg:'Promedio mensual', kpi_expense_acc:'Gasto acumulado', th_agua:'Agua/residuos', label_flight_pax:'Personas que volaron', avoided_title:'Emisiones evitadas por inyección solar', avoided_sub:'Energía enviada a la red. Se reporta aparte y no se descuenta del Alcance 2.',
+      cat_energia:'Energía', cat_vehiculo:'Vehículo', cat_compras:'Compras', cat_viajes:'Viajes', cat_agua:'Agua y residuos', kpi_acc:'Huella acumulada', table_costs:'Detalle de gastos acumulados', cost_ref_note:'Nota: los valores y montos de dinero calculados son referenciales. Se estiman con las tarifas y precios indicados en Mis datos, y pueden diferir de lo que cobran tus proveedores.', table_costs_sub:'Cantidad consumida × precio unitario de cada concepto, del mes 1 al mes', th_concepto:'Concepto', th_cantidad:'Cantidad', th_precio:'Precio unitario', th_gasto:'Gasto', th_pct:'% del gasto', kpi_avg:'Promedio mensual', kpi_expense_acc:'Gasto acumulado', th_agua:'Agua/residuos', label_flight_pax:'Personas que volaron', avoided_title:'Emisiones evitadas por inyección solar', avoided_sub:'Energía enviada a la red. Se reporta aparte y no se descuenta del Alcance 2.',
       chart_title:'Evolución mensual de emisiones', chart_year:'Año de seguimiento:', legend_real:'Real', legend_norm:'Normalizado', chart_expense:'Gasto:',
       factor_note:'Factor eléctrico:', factor_note2:'· Factores de combustión: DEFRA/DESNZ 2026.',
       cum_title:'Acumulado del año de seguimiento', cum_sub:'· suma corrida mes a mes',
@@ -1811,7 +1824,7 @@ class Component extends DCLogic {
       impact_title:'Lo que significa en la vida real', impact_trees:'árboles que absorberían lo mismo en un año', impact_fuel:'litros de bencina sin quemar', impact_km:'km menos manejados en auto', impact_gauge:'de reducción',
       cost_per_kg_title:'Costo evitado por kg de CO₂, según fuente', cost_per_kg_note:'Reducir viajes en avión o electrodomésticos nuevos suele ser lo más caro de evitar por kg de CO₂.',
       sort_money:'Más ahorro $', sort_co2:'Más CO₂', sort_invest:'Menor inversión', filter_all:'Todas',
-      card_invest:'Inversión', card_savemoney:'Ahorro anual', card_saveco2:'CO₂ evitado/año', card_payback:'Retorno',
+      card_invest:'Inversión referencial', card_savemoney:'Potencial de ahorro anual', card_saveco2:'Potencial de CO₂ evitado/año', card_payback:'Retorno',
       btn_new_cycle:'Iniciar nuevo ciclo', close_cycle_title:'Cierre de ciclo', close_cycle_total:'Huella total del ciclo', close_cycle_savings:'Ahorro logrado vs. simulado',
       historial_note:'Metodología: GHG Protocol (Corporate Standard adaptado al hogar) — Alcance 1 combustión directa, Alcance 2 electricidad, Alcance 3 compras y viajes. Factor eléctrico',
       historial_note2:', factores de combustión y consumo DEFRA/DESNZ 2026, grados-día base', historial_note3:'. Ver el detalle completo en la pestaña Factores.',
@@ -1894,7 +1907,7 @@ class Component extends DCLogic {
       dash_kpi_view:'View KPIs:', kpi_household:'Per household', kpi_person:'Per person',
       empty_title:'No entries yet', empty_body:'Complete your first monthly log to see your family\u2019s footprint and possible savings.', empty_cta:'Go to monthly log', example_btn:'Load example values', example_hint:'or try the app with sample data',
       kpi_month:'Footprint this month', kpi_cycle:'Cycle accumulated', kpi_month_of:'to month', kpi_expense:'Spend this month', kpi_bench:'Per-capita benchmark', kpi_bench_sub:'Residential average per person, accumulated to date',
-      cat_energia:'Energy', cat_vehiculo:'Vehicle', cat_compras:'Purchases', cat_viajes:'Travel', cat_agua:'Water & waste', kpi_acc:'Accumulated footprint', table_costs:'Accumulated spend breakdown', table_costs_sub:'Quantity used × unit price for each item, from month 1 to month', th_concepto:'Item', th_cantidad:'Quantity', th_precio:'Unit price', th_gasto:'Spend', th_pct:'% of spend', kpi_avg:'Monthly average', kpi_expense_acc:'Accumulated spend', th_agua:'Water/waste', label_flight_pax:'People who flew', avoided_title:'Emissions avoided by solar export', avoided_sub:'Energy sent to the grid. Reported separately, not deducted from Scope 2.',
+      cat_energia:'Energy', cat_vehiculo:'Vehicle', cat_compras:'Purchases', cat_viajes:'Travel', cat_agua:'Water & waste', kpi_acc:'Accumulated footprint', table_costs:'Accumulated spend breakdown', cost_ref_note:'Note: calculated values and money amounts are for reference only. They are estimated from the rates and prices set in My data and may differ from what your providers charge.', table_costs_sub:'Quantity used × unit price for each item, from month 1 to month', th_concepto:'Item', th_cantidad:'Quantity', th_precio:'Unit price', th_gasto:'Spend', th_pct:'% of spend', kpi_avg:'Monthly average', kpi_expense_acc:'Accumulated spend', th_agua:'Water/waste', label_flight_pax:'People who flew', avoided_title:'Emissions avoided by solar export', avoided_sub:'Energy sent to the grid. Reported separately, not deducted from Scope 2.',
       chart_title:'Monthly emissions trend', chart_year:'Tracking year:', legend_real:'Actual', legend_norm:'Normalized', chart_expense:'Spend:',
       factor_note:'Electricity factor:', factor_note2:'· Combustion factors: DEFRA/DESNZ 2026.',
       cum_title:'Tracking-year accumulated total', cum_sub:'· running monthly total',
@@ -1918,7 +1931,7 @@ class Component extends DCLogic {
       impact_title:'What this means in real life', impact_trees:'trees that would absorb the same in a year', impact_fuel:'liters of gasoline left unburned', impact_km:'fewer km driven', impact_gauge:'reduction',
       cost_per_kg_title:'Cost avoided per kg of CO₂, by source', cost_per_kg_note:'Cutting flights or buying new appliances is usually the most expensive way to avoid a kg of CO₂.',
       sort_money:'Most $ savings', sort_co2:'Most CO₂', sort_invest:'Lowest investment', filter_all:'All',
-      card_invest:'Investment', card_savemoney:'Yearly savings', card_saveco2:'CO₂ avoided/yr', card_payback:'Payback',
+      card_invest:'Reference investment', card_savemoney:'Yearly savings potential', card_saveco2:'CO₂ avoidance potential/yr', card_payback:'Payback',
       btn_new_cycle:'Start new cycle', close_cycle_title:'Cycle close-out', close_cycle_total:'Total footprint this cycle', close_cycle_savings:'Savings achieved vs. simulated',
       historial_note:'Methodology: GHG Protocol (Corporate Standard adapted for a household) — Scope 1 direct combustion, Scope 2 electricity, Scope 3 purchases and travel. Electricity factor',
       historial_note2:', combustion and consumption factors DEFRA/DESNZ 2026, base degree-days', historial_note3:'. See the full detail in the Factors tab.',
@@ -2044,6 +2057,7 @@ class Component extends DCLogic {
   };
 
   state = {
+    moreOpen: false,
     screen: 'landing',
     demo: 'data',
     country: 'Internacional (USD)',
@@ -2062,7 +2076,7 @@ class Component extends DCLogic {
     scenarioElectronicsCut: 0,
     dashHoverIdx: null,
     theme: 'light',
-    palette: 'sage',
+    palette: 'alerce',
     onbStep: 0,
     trackingYear: 2026,
     dashUpTo: 0,
@@ -2075,7 +2089,7 @@ class Component extends DCLogic {
     simPercent: 20,
     simAmount: null,
     recoSort: 'money',
-    recoFilter: 'all',
+    recoFilter: 'energia',
     co2labSource: 'electricidad', co2labSource2: 'gas', co2labAmount: 10, co2labCompare: false, co2labPhase: 'idle', co2labReducedMotion: false, co2labCountA: 0, co2labCountB: 0, co2labScore: 0,
     donutOn: false, donutHover: null,
     hogarUpgrades: [], hogarDragOver: false, hogarPulse: false,
@@ -2809,16 +2823,16 @@ class Component extends DCLogic {
       const nfx = v => Math.round(v).toLocaleString(cd.locale);
       const mk = (name, desc, list, capped, tone) => { const co2 = Math.min(sum(list,'saveCO2N'), baseKg5*0.85), money = Math.min(sum(list,'saveMoneyN'), baseCost5*0.6), invest = sum(list,'investN');
         return { name, desc, tone, n: list.length, co2L: list.length ? '−'+this.fmtKg(co2) : (EN5?'No change':'Sin cambios'), pct: baseKg5>0 ? Math.round(co2/baseKg5*100) : 0, barW: Math.max(2, Math.round((1-co2/(baseKg5||1))*100))+'%', afterL: this.fmtKg(baseKg5-co2),
-          moneyL: list.length ? this.fmtCLP(money)+(EN5?' saved / year':' de ahorro / año') : '—',
+          moneyL: list.length ? this.fmtCLP(money)+(EN5?' savings potential / year':' de potencial de ahorro / año') : '—',
           trees: list.length ? '≈ '+nfx(co2/21)+(EN5?' trees absorbing for a year':' árboles absorbiendo durante un año') : '',
           km: list.length ? '≈ '+nfx(co2/0.17/u.d)+' '+u.dl+(EN5?' not driven by car':' sin recorrer en auto') : '',
-          costL: !list.length ? '' : invest===0 ? (EN5?'No investment needed':'Sin inversión') : (EN5?'Investment: ':'Inversión: ')+this.fmtCLP(invest)+(money>0?(EN5?' · pays back in ':' · se recupera en ')+(invest/money).toFixed(1)+(EN5?' years':' años'):'') }; };
+          costL: !list.length ? '' : invest===0 ? (EN5?'No investment needed':'Sin inversión') : (EN5?'Reference investment: ':'Inversión referencial: ')+this.fmtCLP(invest)+(money>0?(EN5?' · pays back in ':' · se recupera en ')+(invest/money).toFixed(1)+(EN5?' years':' años'):'') }; };
       const first = [...recoBase].sort((a,b)=>(b.saveMoneyN+b.saveCO2N*0.1)-(a.saveMoneyN+a.saveCO2N*0.1)).filter(r=>r.investN===0)[0] || [...recoBase].sort((a,b)=>b.saveCO2N-a.saveCO2N)[0];
       Object.assign(proj, { planHas: baseKg5>0 && recoBase.length>0,
         planTitle: EN5?'Your next 12 months, three paths':'Tus próximos 12 meses, tres caminos',
         planSub: EN5?'If you change nothing, your home emits about '+this.fmtKg(baseKg5)+' and spends '+this.fmtCLP(baseCost5)+'. This is what you could save with each level of effort.':'Si no cambias nada, tu hogar emitirá cerca de '+this.fmtKg(baseKg5)+' y gastará '+this.fmtCLP(baseCost5)+'. Esto es lo que podrías ahorrar según cuánto esfuerzo pongas.',
         scn: [ mk(EN5?'Keep going as is':'Seguir igual', EN5?'No new actions.':'Sin acciones nuevas.', [], false, 'a'), mk(EN5?'Easy changes':'Cambios fáciles', EN5?'Habits that cost nothing.':'Hábitos que no cuestan dinero.', easy, true, 'b'), mk(EN5?'Full plan':'Plan completo', EN5?'Habits plus investments (solar, heat pump, insulation).':'Hábitos más inversiones (solar, bomba de calor, aislación).', recoBase, true, 'c') ].map((x,i) => ({ ...x, bg: i===2 ? 'var(--accent-soft, oklch(93% 0.035 152))' : 'var(--surface, oklch(99% 0.004 85))', bd: i===2 ? 'var(--accent, oklch(52% 0.1 152))' : 'var(--border, oklch(88% 0.012 85))', barC: i===0 ? 'var(--text-muted, oklch(46% 0.02 85))' : i===1 ? 'var(--scenario-blue, oklch(60% 0.12 230))' : 'var(--accent, oklch(52% 0.1 152))', hasEq: x.n>0 })),
-        firstTitle: EN5?'Start here':'Empieza por aquí', firstName: first ? first.title : '', firstWhy: first ? (EN5?'Saves ':'Ahorra ')+this.fmtCLP(first.saveMoneyN)+(EN5?' and ':' y evita ')+this.fmtKg(first.saveCO2N)+(EN5?' per year':' al año')+(first.investN===0?(EN5?', at no cost.':', sin costo.'):'.') : '', hasFirst: !!first,
+        firstTitle: EN5?'Start here':'Empieza por aquí', firstName: first ? first.title : '', firstWhy: first ? (EN5?'Savings potential of ':'Potencial de ahorro de ')+this.fmtCLP(first.saveMoneyN)+(EN5?' and ':' y evita ')+this.fmtKg(first.saveCO2N)+(EN5?' per year':' al año')+(first.investN===0?(EN5?', at no cost.':', sin costo.'):'.') : '', hasFirst: !!first,
         planNote: EN5?'Estimates based on your logged usage. Savings of different actions overlap, so the full plan is capped at 85% of emissions and 60% of spend.':'Estimaciones según tu consumo registrado. Los ahorros de distintas acciones se superponen, por eso el plan completo se limita al 85% de las emisiones y al 60% del gasto.',
         planBtn: EN5?'See all recommendations':'Ver todas las recomendaciones', planGo: this.go('recomendaciones') }); }
     { const EN4 = s.lang==='en', gapKg = Math.max(0, annualMonths.reduce((a,m)=>a+m.total,0) - 2500*(s.householdSize||1));
@@ -3051,12 +3065,20 @@ class Component extends DCLogic {
       game,
       themeIsDark: s.theme === 'dark',
       toggleTheme: this.toggleTheme,
-      paletteOptions: Object.keys(this.PALETTES).map(id => ({
-        id, label: this.PALETTES[id].label,
-        dot: this.PALETTES[id].dot || (s.theme==='dark' ? this.PALETTES[id].dark.accent : this.PALETTES[id].accent),
-        select: () => this.setPalette(id),
-        ring: s.palette === id ? '2px solid var(--text, oklch(23% 0.02 85))' : '2px solid transparent',
-      })),
+      moreAttr: s.moreOpen ? '1' : '0', moreLabel: s.lang === 'en' ? 'More' : 'Más',
+      toggleMore: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(x => ({ moreOpen: !x.moreOpen })); },
+      closeMore: () => { if (this.state.moreOpen) this.setState({ moreOpen: false }); },
+      paletteOptions: Object.keys(this.PALETTES).map(id => { const sw = this.PALETTES[id].sw, on = (s.palette) === id; return {
+        id, label: this.PALETTES[id].label, c1:sw[0], c2:sw[1], c3:sw[2], c4:sw[3],
+        select: () => { this.setPalette(id); this.setState({ palOpen:false }); },
+        check: on ? '✓' : '', rowBg: on ? 'var(--accent-soft2, oklch(96% 0.02 152))' : 'transparent',
+      }; }),
+      palOpen: !!s.palOpen, togglePal: () => this.setState(x => ({ palOpen: !x.palOpen })), closePal: () => this.setState({ palOpen:false }),
+      curName: (this.PALETTES[s.palette] || this.PALETTES.alerce).label,
+      cur1: (this.PALETTES[s.palette] || this.PALETTES.alerce).sw[0], cur2: (this.PALETTES[s.palette] || this.PALETTES.alerce).sw[1], cur3: (this.PALETTES[s.palette] || this.PALETTES.alerce).sw[2], cur4: (this.PALETTES[s.palette] || this.PALETTES.alerce).sw[3],
+      showMoon: s.theme !== 'dark', showSun: s.theme === 'dark',
+      themeLabel: s.theme === 'dark' ? (s.lang==='en' ? 'Light mode' : 'Modo claro') : (s.lang==='en' ? 'Dark mode' : 'Modo oscuro'),
+      palTitle: s.lang==='en' ? 'COLOR PALETTE' : 'PALETA DE COLORES',
 
       simIsReduce: s.simMode==='reduce',
       setSimReduce: () => this.setState({ simMode:'reduce' }),

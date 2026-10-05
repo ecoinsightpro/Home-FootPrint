@@ -19,9 +19,9 @@
     a:hover { color:var(--accent, oklch(52% 0.1 152)); }
     @media (max-width: 1000px) { [data-fp-links], [data-fp-ctl] { display:none !important; } [data-fp-burger] { display:flex !important; } }
     @media (max-width: 600px) {
-      [data-fp-logo] { height:40px !important; }
+      [data-fp-logo] { height:36px !important; }
       [data-fp-enter] { padding:0 14px !important; }
-      [data-fp-drawer] { top:69px !important; }
+      [data-fp-drawer] { top:62px !important; }
       [style*="font-size:12.5px"] { font-size:14px !important; }
       [style*="font-size:13px"] { font-size:14px !important; }
       [style*="font-size:15px"] { font-size:16px !important; }
@@ -32,7 +32,7 @@
     }
     @media (max-width: 380px) { [data-fp-enter] { display:none !important; } }
     ::selection { background:var(--accent-soft, oklch(93% 0.035 152)); }
-    @keyframes fpPulse { 0% { box-shadow:0 0 0 0 oklch(52% 0.1 152 / .5); } 100% { box-shadow:0 0 0 10px oklch(52% 0.1 152 / 0); } }
+    @keyframes fpPulse { 0% { box-shadow:0 0 0 0 color-mix(in oklab, var(--accent) 50%, transparent); } 100% { box-shadow:0 0 0 10px color-mix(in oklab, var(--accent) 0%, transparent); } }
     @keyframes fpFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
     @keyframes fpPing { 0% { transform:scale(.7); opacity:.0; } 15% { opacity:.9; } 100% { transform:scale(1.32); opacity:0; } }
     @keyframes fpSpin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
@@ -61,33 +61,38 @@
 <div style="min-height:100vh; background:var(--bg, oklch(97.5% 0.012 85)); overflow-x:clip;">
 
   <div id="fp-progress"></div>
-  <header id="fp-header" style="position:sticky; top:0; z-index:20; background:color-mix(in oklch, var(--bg, oklch(97.5% 0.012 85)) 82%, transparent); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid color-mix(in oklch, var(--border, oklch(88% 0.012 85)) 70%, transparent);">
-    <div style="max-width:1180px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
+  <header id="fp-header" style="position:sticky; top:0; z-index:20; background:color-mix(in oklab, var(--accent-soft, #e6f2e8) 78%, var(--bg, #fff)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid color-mix(in oklch, var(--border, oklch(88% 0.012 85)) 70%, transparent);">
+    <div style="max-width:1180px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
       <a href="#top" style="display:flex; align-items:center; gap:10px; color:var(--text, oklch(23% 0.02 85));">
-        <img data-fp-logo="1" src="logo-ecoinsight.png" alt="EcoInsight Home" style="height:46px; width:auto; display:block;">
+        <img data-fp-logo="1" src="logo-ecoinsight.png" alt="EcoInsight Home" style="height:42px; width:auto; display:block;">
       </a>
       <nav style="display:flex; align-items:center; gap:16px; font-size:14px; font-weight:500; flex-wrap:nowrap; min-width:0;">
         <div style="display:flex; align-items:center; gap:16px; min-width:0; overflow:hidden; flex-shrink:1;" data-fp-links="1">
-        <a href="#medimos" class="fp-navlink" style="color:var(--text-muted, oklch(46% 0.02 85)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_what }}</a>
-        <a href="#como" class="fp-navlink" style="color:var(--text-muted, oklch(46% 0.02 85)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_how }}</a>
-        <a href="#metodologia" class="fp-navlink" style="color:var(--text-muted, oklch(46% 0.02 85)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_method }}</a>
+        <a href="#medimos" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_what }}</a>
+        <a href="#como" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_how }}</a>
+        <a href="#metodologia" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_method }}</a>
         </div>
-        <div data-fp-ctl="1" style="display:flex; align-items:center; gap:10px; padding:4px 4px 4px 10px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; background:var(--surface, oklch(99% 0.004 85));">
-          <div style="display:flex; gap:5px;">
-            <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
-              <button onClick="{{ p.select }}" title="{{ p.label }}" aria-label="{{ p.label }}" style="width:16px; height:16px; border-radius:999px; padding:0; cursor:pointer; background:{{ p.dot }}; border:{{ p.ring }}; box-shadow:0 0 0 1px var(--border, oklch(88% 0.012 85)); transition:transform .15s ease;" style-hover="transform:scale(1.2);"></button>
-            </sc-for>
+        <div data-fp-ctl="1" style="display:flex; align-items:center; gap:8px;">
+          <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display:flex; align-items:center; gap:8px; height:40px; min-height:40px; padding:0 12px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff); color:var(--text, #222); cursor:pointer; font:600 13.5px 'Public Sans',sans-serif; white-space:nowrap;"><sc-if value="{{ showMoon }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if><sc-if value="{{ showSun }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if><span data-lbl="1">{{ themeLabel }}</span></button>
+          <div style="position:relative;">
+            <button onClick="{{ togglePal }}" aria-label="{{ palTitle }}" style="display:flex; align-items:center; gap:8px; height:40px; min-height:40px; padding:0 12px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff); color:var(--text, #222); cursor:pointer; font:600 13.5px 'Public Sans',sans-serif; white-space:nowrap; justify-content:space-between;"><span style="display:flex; align-items:center; flex-shrink:0;"><span style="width:14px; height:14px; border-radius:50%; background:{{ cur1 }}; border:1.5px solid var(--surface, #fff);"></span><span style="width:14px; height:14px; border-radius:50%; background:{{ cur2 }}; border:1.5px solid var(--surface, #fff); margin-left:-4px;"></span><span style="width:14px; height:14px; border-radius:50%; background:{{ cur3 }}; border:1.5px solid var(--surface, #fff); margin-left:-4px;"></span><span style="width:14px; height:14px; border-radius:50%; background:{{ cur4 }}; border:1.5px solid var(--surface, #fff); margin-left:-4px;"></span></span><span class="lbl" data-lbl="1" style="flex:1; text-align:left;">{{ curName }}</span><svg class="lbl" data-lbl="1" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"></path></svg></button>
+            <sc-if value="{{ palOpen }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ closePal }}" style="position:fixed; inset:0; z-index:40;"></div>
+              <div style="position:absolute; top:calc(100% + 8px); right:0; width:270px; zoom:0.7; z-index:41; background:var(--surface, #fff); border:1px solid var(--border, #ddd); border-radius:14px; padding:6px; box-shadow:0 18px 40px -12px var(--shadow-lg, rgba(0,0,0,.25));">
+                <div style="font:600 11.5px 'Public Sans',sans-serif; letter-spacing:.22em; color:var(--text-muted, #666); padding:10px 12px 10px;">{{ palTitle }}</div>
+                <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
+            <button onClick="{{ p.select }}" style="display:flex; align-items:center; gap:16px; width:100%; min-height:52px; padding:8px 12px; border:none; border-radius:12px; background:{{ p.rowBg }}; cursor:pointer; text-align:left; font-family:'Public Sans',sans-serif;">
+              <span style="display:flex; align-items:center; gap:5px; flex-shrink:0;"><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c1 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c2 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c3 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c4 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span></span>
+              <span style="flex:1; font-size:18px; font-weight:500; letter-spacing:.005em; color:var(--text, #222);">{{ p.label }}</span>
+              <span style="color:var(--accent, #2e9e3f); font-size:18px; font-weight:700; width:18px; text-align:right;">{{ p.check }}</span>
+            </button>
+          </sc-for>
+              </div>
+            </sc-if>
           </div>
-          <div style="display:flex; gap:2px; padding-left:6px; border-left:1px solid var(--border, oklch(88% 0.012 85));">
-  <button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; padding:5px 8px; border-radius:999px; font:700 12px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button>
-          <button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; padding:5px 8px; border-radius:999px; font:700 12px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button>
-          </div>
-          <button onClick="{{ toggleTheme }}" title="{{ themeTitle }}" aria-label="{{ themeTitle }}" style="width:30px; height:30px; border-radius:999px; border:none; padding:0; background:var(--surface-alt, oklch(94% 0.01 85)); color:var(--text, oklch(23% 0.02 85)); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .2s ease;" style-hover="transform:rotate(-15deg);">
-            <sc-if value="{{ themeIsDark }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if>
-            <sc-if value="{{ themeIsLight }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if>
-          </button>
+          <div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff);"><button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:40px; height:34px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:40px; height:34px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button></div>
         </div>
-        <a data-fp-enter="1" href="home.html?fresh=1" style="display:inline-flex; align-items:center; min-height:44px; background:var(--text, oklch(23% 0.02 85)); color:var(--bg, oklch(97.5% 0.012 85)); padding:0 16px; border-radius:9px; font-weight:600; transition:background .2s ease; white-space:nowrap;" style-hover="background:var(--accent-text, oklch(33% 0.08 152)); color:#fff;">{{ t.nav_enter }}</a>
+        <a data-fp-enter="1" href="home.html?fresh=1" style="display:inline-flex; align-items:center; height:40px; min-height:40px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:0 16px; border-radius:9px; font-weight:600; transition:background .2s ease; white-space:nowrap;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff;">{{ t.nav_enter }}</a>
         <button data-fp-burger="1" onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; width:44px; height:44px; border-radius:11px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); align-items:center; justify-content:center; cursor:pointer; padding:0;">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7 H18 M4 11 H18 M4 15 H18"></path></svg>
         </button>
@@ -96,25 +101,21 @@
   </header>
 
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-  <div data-fp-drawer="1" style="position:fixed; top:var(--fp-hh, 74px); left:0; right:0; bottom:0; z-index:19; background:var(--bg, oklch(97.5% 0.012 85)); overflow-y:auto; padding:8px 24px calc(32px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:4px;">
+  <div data-fp-drawer="1" style="position:fixed; top:var(--fp-hh, 66px); left:0; right:0; bottom:0; z-index:19; background:var(--bg, oklch(97.5% 0.012 85)); overflow-y:auto; padding:8px 24px calc(32px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:4px;">
     <a href="#medimos" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_what }}</a>
     <a href="#como" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_how }}</a>
     <a href="#metodologia" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_method }}</a>
-    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px 0;">
-      <div style="display:flex; gap:4px; flex-wrap:wrap;">
+    <div style="display:flex; flex-direction:column; gap:12px; padding:20px 0;">
+      <div style="display:flex; gap:8px; flex-wrap:wrap;"><button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display:flex; align-items:center; gap:8px; min-height:44px; padding:0 12px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff); color:var(--text, #222); cursor:pointer; font:600 13.5px 'Public Sans',sans-serif; white-space:nowrap; flex:1; justify-content:center;"><sc-if value="{{ showMoon }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if><sc-if value="{{ showSun }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if><span data-lbl="1">{{ themeLabel }}</span></button><div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff);"><button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:44px; height:44px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:44px; height:44px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button></div></div>
+      <div style="border:1px solid var(--border, #ddd); border-radius:14px; background:var(--surface, #fff); padding:6px;">
+        <div style="font:600 11.5px 'Public Sans',sans-serif; letter-spacing:.22em; color:var(--text-muted, #666); padding:10px 12px 10px;">{{ palTitle }}</div>
         <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
-          <button onClick="{{ p.select }}" title="{{ p.label }}" aria-label="{{ p.label }}" style="width:44px; height:44px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:24px; height:24px; border-radius:999px; background:{{ p.dot }}; border:{{ p.ring }}; box-shadow:0 0 0 1px var(--border, oklch(88% 0.012 85));"></span></button>
-        </sc-for>
-      </div>
-      <div style="display:flex; align-items:center; gap:8px;">
-        <div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; background:var(--surface, oklch(99% 0.004 85));">
-          <button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:48px; height:44px; border-radius:999px; font:700 14px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button>
-          <button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:48px; height:44px; border-radius:999px; font:700 14px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button>
-        </div>
-        <button onClick="{{ toggleTheme }}" title="{{ themeTitle }}" aria-label="{{ themeTitle }}" style="width:44px; height:44px; border-radius:999px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;">
-          <sc-if value="{{ themeIsDark }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if>
-          <sc-if value="{{ themeIsLight }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if>
-        </button>
+            <button onClick="{{ p.select }}" style="display:flex; align-items:center; gap:16px; width:100%; min-height:52px; padding:8px 12px; border:none; border-radius:12px; background:{{ p.rowBg }}; cursor:pointer; text-align:left; font-family:'Public Sans',sans-serif;">
+              <span style="display:flex; align-items:center; gap:5px; flex-shrink:0;"><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c1 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c2 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c3 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c4 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span></span>
+              <span style="flex:1; font-size:18px; font-weight:500; letter-spacing:.005em; color:var(--text, #222);">{{ p.label }}</span>
+              <span style="color:var(--accent, #2e9e3f); font-size:18px; font-weight:700; width:18px; text-align:right;">{{ p.check }}</span>
+            </button>
+          </sc-for>
       </div>
     </div>
     <a href="home.html?fresh=1" style="display:flex; align-items:center; justify-content:center; min-height:56px; border-radius:12px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; font-size:17px; font-weight:700;">{{ t.nav_enter }}</a>
@@ -130,7 +131,7 @@
       <h1 data-reveal="1" data-delay="80" style="font-family:'Lora',serif; font-weight:600; font-size:clamp(38px,5.2vw,62px); line-height:1.06; letter-spacing:-0.015em; margin:0 0 22px; text-wrap:balance;">{{ t.h1a }} <em style="font-style:italic; font-weight:500; color:var(--accent, oklch(52% 0.1 152));">{{ t.h1b }}</em> {{ t.h1c }}</h1>
       <p data-reveal="1" data-delay="160" style="font-size:18px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0 0 34px; max-width:520px; text-wrap:pretty;">{{ t.hero_sub }}</p>
       <div data-reveal="1" data-delay="240" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-        <a href="home.html?fresh=1" class="fp-cta" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:15px 24px; border-radius:11px; font-weight:700; font-size:15px; box-shadow:0 8px 24px oklch(52% 0.1 152 / .28); transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .25s ease;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff; transform:translateY(-2px); box-shadow:0 12px 28px oklch(52% 0.1 152 / .34);">
+        <a href="home.html?fresh=1" class="fp-cta" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:15px 24px; border-radius:11px; font-weight:700; font-size:15px; box-shadow:0 8px 24px color-mix(in oklab, var(--accent) 28%, transparent); transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .25s ease;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff; transform:translateY(-2px); box-shadow:0 12px 28px color-mix(in oklab, var(--accent) 34%, transparent);">
           {{ t.cta_start }}
           <svg class="fp-arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg>
         </a>
@@ -140,18 +141,18 @@
 
     <div data-reveal="1" data-delay="200" style="position:relative; display:flex; justify-content:center;">
       <div data-parallax="-0.08" style="position:absolute; width:470px; height:470px; max-width:110%; top:50%; left:50%; margin:-235px 0 0 -235px; pointer-events:none;">
-        <div style="position:absolute; inset:-30px; border-radius:50%; background:conic-gradient(from 0deg, oklch(62% 0.13 152 / 0), oklch(62% 0.13 152 / .22), oklch(62% 0.13 152 / 0) 40%); animation:fpSpin 9s linear infinite; -webkit-mask:radial-gradient(circle, transparent 52%, #000 53%, #000 100%); mask:radial-gradient(circle, transparent 52%, #000 53%, #000 100%);"></div>
-        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid oklch(52% 0.1 152 / .45); animation:fpPing 4.5s ease-out infinite;"></div>
-        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid oklch(52% 0.1 152 / .45); animation:fpPing 4.5s ease-out infinite; animation-delay:-1.5s;"></div>
-        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid oklch(52% 0.1 152 / .45); animation:fpPing 4.5s ease-out infinite; animation-delay:-3s;"></div>
-        <div style="position:absolute; inset:0; border-radius:50%; border:1.5px dashed oklch(52% 0.1 152 / .3); animation:fpSpin 60s linear infinite;"></div>
-        <div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-0.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-0.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(72% 0.15 85); color:oklch(72% 0.15 85); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(72% 0.15 85 / .55), 0 0 0 5px oklch(72% 0.15 85 / .12);"><svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z" transform="scale(1)"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-15.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-15.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(58% 0.13 250); color:oklch(58% 0.13 250); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(58% 0.13 250 / .55), 0 0 0 5px oklch(58% 0.13 250 / .12);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 15.3 4.8 10.6A2 2 0 0 1 6.7 9.1h10.6a2 2 0 0 1 1.9 1.5l1.3 4.7"/><path d="M3 15.3h18v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2Z"/><circle cx="7.5" cy="16.8" r="1.2" fill="currentColor"/><circle cx="16.5" cy="16.8" r="1.2" fill="currentColor"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-30.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-30.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(58% 0.14 20); color:oklch(58% 0.14 20); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(58% 0.14 20 / .55), 0 0 0 5px oklch(58% 0.14 20 / .12);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-45.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-45.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(52% 0.1 152); color:oklch(52% 0.1 152); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(52% 0.1 152 / .55), 0 0 0 5px oklch(52% 0.1 152 / .12);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l7 2 2 7 9-16Z"/></svg></div></div></div>
-        <div style="position:absolute; inset:46px; border-radius:50%; border:1px solid oklch(52% 0.1 152 / .22);"></div>
-        <div style="position:absolute; inset:0; animation:fpSpin 26s linear infinite reverse; animation-delay:-2.89s;"><span style="position:absolute; left:50%; top:0; width:9px; height:9px; margin:-4.5px 0 0 -4.5px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); box-shadow:0 0 0 4px oklch(52% 0.1 152 / .18), 0 0 18px 3px oklch(62% 0.13 152 / .7);"></span></div><div style="position:absolute; inset:0; animation:fpSpin 26s linear infinite reverse; animation-delay:-15.89s;"><span style="position:absolute; left:50%; top:0; width:6px; height:6px; margin:-3px 0 0 -3px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); box-shadow:0 0 0 4px oklch(52% 0.1 152 / .18), 0 0 18px 3px oklch(62% 0.13 152 / .7);"></span></div>
+        <div style="position:absolute; inset:-30px; border-radius:50%; background:conic-gradient(from 0deg, color-mix(in oklab, var(--accent) 0%, transparent), color-mix(in oklab, var(--accent) 22%, transparent), color-mix(in oklab, var(--accent) 0%, transparent) 40%); animation:fpSpin 9s linear infinite; -webkit-mask:radial-gradient(circle, transparent 52%, #000 53%, #000 100%); mask:radial-gradient(circle, transparent 52%, #000 53%, #000 100%);"></div>
+        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid color-mix(in oklab, var(--accent) 45%, transparent); animation:fpPing 4.5s ease-out infinite;"></div>
+        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid color-mix(in oklab, var(--accent) 45%, transparent); animation:fpPing 4.5s ease-out infinite; animation-delay:-1.5s;"></div>
+        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid color-mix(in oklab, var(--accent) 45%, transparent); animation:fpPing 4.5s ease-out infinite; animation-delay:-3s;"></div>
+        <div style="position:absolute; inset:0; border-radius:50%; border:1.5px dashed color-mix(in oklab, var(--accent) 30%, transparent); animation:fpSpin 60s linear infinite;"></div>
+        <div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-0.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-0.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(72% 0.15 85); color:oklch(72% 0.15 85); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(72% 0.15 85 / .55), 0 0 0 5px oklch(72% 0.15 85 / .12);"><svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z" transform="scale(1)"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-15.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-15.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(58% 0.13 250); color:oklch(58% 0.13 250); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(58% 0.13 250 / .55), 0 0 0 5px oklch(58% 0.13 250 / .12);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 15.3 4.8 10.6A2 2 0 0 1 6.7 9.1h10.6a2 2 0 0 1 1.9 1.5l1.3 4.7"/><path d="M3 15.3h18v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2Z"/><circle cx="7.5" cy="16.8" r="1.2" fill="currentColor"/><circle cx="16.5" cy="16.8" r="1.2" fill="currentColor"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-30.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-30.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(58% 0.14 20); color:oklch(58% 0.14 20); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(58% 0.14 20 / .55), 0 0 0 5px oklch(58% 0.14 20 / .12);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-45.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-45.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(52% 0.1 152); color:oklch(52% 0.1 152); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px color-mix(in oklab, var(--accent) 55%, transparent), 0 0 0 5px color-mix(in oklab, var(--accent) 12%, transparent);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l7 2 2 7 9-16Z"/></svg></div></div></div>
+        <div style="position:absolute; inset:46px; border-radius:50%; border:1px solid color-mix(in oklab, var(--accent) 22%, transparent);"></div>
+        <div style="position:absolute; inset:0; animation:fpSpin 26s linear infinite reverse; animation-delay:-2.89s;"><span style="position:absolute; left:50%; top:0; width:9px; height:9px; margin:-4.5px 0 0 -4.5px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent), 0 0 18px 3px color-mix(in oklab, var(--accent) 70%, transparent);"></span></div><div style="position:absolute; inset:0; animation:fpSpin 26s linear infinite reverse; animation-delay:-15.89s;"><span style="position:absolute; left:50%; top:0; width:6px; height:6px; margin:-3px 0 0 -3px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent), 0 0 18px 3px color-mix(in oklab, var(--accent) 70%, transparent);"></span></div>
       </div>
-      <div data-parallax="0.05" style="position:absolute; width:340px; height:340px; top:50%; left:50%; margin:-170px 0 0 -170px; border-radius:50%; background:oklch(93% 0.035 152 / .7);"></div>
+      <div data-parallax="0.05" style="position:absolute; width:340px; height:340px; top:50%; left:50%; margin:-170px 0 0 -170px; border-radius:50%; background:color-mix(in oklab, var(--accent) 70%, transparent);"></div>
       <div style="position:relative; width:100%; max-width:420px; animation:fpFloat 7s ease-in-out infinite;">
-        <div data-tilt="1" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:20px; padding:24px; box-shadow:0 30px 60px -20px oklch(30% 0.04 152 / .28), 0 2px 6px oklch(0% 0 0 / .04);">
+        <div data-tilt="1" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:20px; padding:24px; box-shadow:0 30px 60px -20px color-mix(in oklab, var(--accent) 28%, transparent), 0 2px 6px oklch(0% 0 0 / .04);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
             <div>
               <div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); font-weight:600;">{{ t.card_title }}</div>
@@ -186,7 +187,7 @@
             <div style="font-family:'Lora',serif; font-size:22px; font-weight:600; color:var(--warn, oklch(42% 0.11 55));">{{ saveLabel }}</div>
           </div>
         </div>
-        <div data-parallax="-0.04" style="position:absolute; left:-28px; bottom:-26px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:11px 14px; display:flex; align-items:center; gap:10px; box-shadow:0 14px 30px -12px oklch(30% 0.04 152 / .3);">
+        <div data-parallax="-0.04" style="position:absolute; left:-28px; bottom:-26px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:11px 14px; display:flex; align-items:center; gap:10px; box-shadow:0 14px 30px -12px color-mix(in oklab, var(--accent) 30%, transparent);">
           <span style="width:30px; height:30px; border-radius:9px; background:var(--accent-soft, oklch(93% 0.035 152)); display:flex; align-items:center; justify-content:center; color:var(--accent-text, oklch(33% 0.08 152));">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="11" rx="1.5"></rect><path d="M3 10.5h18M3 13.5h18M8 6v11M13 6v11M18 6v11"></path></svg>
           </span>
@@ -209,7 +210,7 @@
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:16px;">
       <sc-for list="{{ sources }}" as="src" hint-placeholder-count="4">
-        <div data-reveal="1" data-delay="{{ src.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:24px;" style-hover="border-color:oklch(52% 0.1 152 / .5); box-shadow:0 16px 36px -18px oklch(30% 0.04 152 / .3);">
+        <div data-reveal="1" data-delay="{{ src.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:24px;" style-hover="border-color:color-mix(in oklab, var(--accent) 50%, transparent); box-shadow:0 16px 36px -18px color-mix(in oklab, var(--accent) 30%, transparent);">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:34px;">
             <span class="fp-ico" style="width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:{{ src.soft }}; color:{{ src.color }};">
               <sc-if value="{{ src.isEnergy }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z"></path></svg></sc-if>
@@ -237,7 +238,7 @@
           <div data-reveal="1" data-delay="{{ st.delay }}">
             <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px;">
               <span style="width:46px; height:46px; border-radius:50%; border:1.5px solid var(--accent, oklch(52% 0.1 152)); color:var(--accent-text, oklch(33% 0.08 152)); display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-size:17px; font-weight:600; flex-shrink:0;">{{ st.n }}</span>
-              <span class="fp-line" style="flex:1; height:1px; background:linear-gradient(90deg, oklch(52% 0.1 152 / .4), transparent);"></span>
+              <span class="fp-line" style="flex:1; height:1px; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 40%, transparent), transparent);"></span>
             </div>
             <div style="font-family:'Lora',serif; font-size:22px; font-weight:600; margin-bottom:8px;">{{ st.title }}</div>
             <div style="font-size:15px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); text-wrap:pretty;">{{ st.desc }}</div>
@@ -254,7 +255,7 @@
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:16px;">
       <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
-        <div data-reveal="1" data-delay="{{ f.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:26px;" style-hover="border-color:oklch(52% 0.1 152 / .5); box-shadow:0 16px 36px -18px oklch(30% 0.04 152 / .3);">
+        <div data-reveal="1" data-delay="{{ f.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:26px;" style-hover="border-color:color-mix(in oklab, var(--accent) 50%, transparent); box-shadow:0 16px 36px -18px color-mix(in oklab, var(--accent) 30%, transparent);">
           <div style="font-size:12px; font-weight:700; color:var(--accent, oklch(52% 0.1 152)); margin-bottom:12px;">{{ f.kicker }}</div>
           <div style="font-family:'Lora',serif; font-size:21px; font-weight:600; margin-bottom:8px;">{{ f.title }}</div>
           <div style="font-size:14.5px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85));">{{ f.desc }}</div>
@@ -305,30 +306,33 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { menu: false, p: 0, theme: 'light', palette: 'sage', lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
+  state = { menu: false, p: 0, theme: 'light', palette: 'alerce', lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
   I18N = {"es":{"nav_what":"Qué medimos","nav_how":"Cómo funciona","nav_method":"Metodología","nav_enter":"Entrar","badge":"Huella de carbono del hogar","h1a":"Entiende el impacto de tu hogar y","h1b":"cuánto pueden ahorrar","hero_sub":"Registra la energía, el auto, las compras y los viajes del hogar cada mes. Te mostramos tu huella de carbono en un lenguaje simple y, sobre todo, cuánto dinero pueden ahorrar reduciéndola.","cta_start":"Comenzar ahora","cta_how":"Ver cómo funciona","card_title":"Mi huella · Septiembre","card_example":"Ejemplo ilustrativo","card_delta":"−18% vs. agosto","card_save":"Ahorro potencial al año","chip_title":"Paneles solares","chip_sub":"Energía −70%","k_what":"QUÉ MEDIMOS","h_what":"Las cuatro fuentes que forman la huella de un hogar","p_what":"Cada registro se convierte en kg de CO₂e con factores de emisión de tu país.","k_how":"CÓMO FUNCIONA","h_how":"Tres pasos, una vez al mes","k_app":"DENTRO DE LA APP","h_app":"Del dato mensual a decisiones concretas","k_flow":"FLUJO DEL HOGAR","h_flow":"Arrastra mejoras a tu casa y mira cómo reverdece el paisaje","p_flow":"Paneles solares, bomba de calor, auto eléctrico, ropa de segunda mano. Cada mejora baja tus emisiones reales y suma puntos hacia la meta de −30%.","k_method":"METODOLOGÍA","h_method":"Cálculo alineado al GHG Protocol","p_method":"Separamos tus emisiones en tres alcances y usamos factores de emisión propios de cada país.","h_cta":"Empieza a medir la huella de tu hogar","p_cta":"Configura tu hogar, registra tu primer mes y descubre dónde está tu mayor oportunidad de ahorro.","cta_enter":"Entrar a EcoInsight Home","footer":"© 2026 · Huella de carbono para hogares","rights":"Todos los derechos reservados.","h1c":"juntos"},"en":{"nav_what":"What we measure","nav_how":"How it works","nav_method":"Methodology","nav_enter":"Sign in","badge":"Household carbon footprint","h1a":"Understand your home’s impact and","h1b":"how much you can save","hero_sub":"Log your home’s energy, car, shopping and travel each month. We show your carbon footprint in plain language and, above all, how much money you can save by reducing it.","cta_start":"Get started","cta_how":"See how it works","card_title":"My footprint · September","card_example":"Illustrative example","card_delta":"−18% vs. August","card_save":"Potential yearly savings","chip_title":"Solar panels","chip_sub":"Energy −70%","k_what":"WHAT WE MEASURE","h_what":"The four sources behind a household footprint","p_what":"Each entry is converted to kg CO₂e using your country’s emission factors.","k_how":"HOW IT WORKS","h_how":"Three steps, once a month","k_app":"INSIDE THE APP","h_app":"From monthly data to concrete decisions","k_flow":"HOME FLOW","h_flow":"Drag upgrades onto your home and watch the landscape turn green","p_flow":"Solar panels, heat pump, electric car, second-hand clothing. Each upgrade lowers your real emissions and earns points toward the −30% goal.","k_method":"METHODOLOGY","h_method":"Calculation aligned with the GHG Protocol","p_method":"We split your emissions into three scopes and use country-specific emission factors.","h_cta":"Start measuring your home’s footprint","p_cta":"Set up your home, log your first month and find your biggest savings opportunity.","cta_enter":"Enter EcoInsight Home","footer":"© 2026 · Carbon footprint for households","rights":"All rights reserved.","h1c":"together"}};
   setLang = (lang) => { try { localStorage.setItem('fp_lang', lang); } catch (e) {} document.documentElement.lang = lang; this.setState({ lang }); };
   PALETTES = {
-    sage:   { label:'Salvia',    accent:'oklch(52% 0.1 152)',  accentHover:'oklch(46% 0.09 152)', accentText:'oklch(33% 0.08 152)',  accentSoft:'oklch(93% 0.035 152)', accentSoft2:'oklch(96% 0.02 152)', grad1:'oklch(58% 0.11 152)', grad2:'oklch(46% 0.09 175)',
-                dark:{ accent:'oklch(68% 0.13 152)', accentHover:'oklch(74% 0.14 152)', accentText:'oklch(88% 0.07 152)', accentSoft:'oklch(30% 0.05 152)', accentSoft2:'oklch(25% 0.03 152)', grad1:'oklch(62% 0.13 152)', grad2:'oklch(52% 0.1 175)' } },
-    ocean:  { label:'Océano',    accent:'oklch(52% 0.11 230)', accentHover:'oklch(46% 0.1 230)',  accentText:'oklch(33% 0.09 230)',  accentSoft:'oklch(93% 0.03 230)',  accentSoft2:'oklch(96% 0.02 230)', grad1:'oklch(58% 0.12 220)', grad2:'oklch(46% 0.1 250)',
-                dark:{ accent:'oklch(70% 0.12 230)', accentHover:'oklch(76% 0.13 230)', accentText:'oklch(88% 0.06 230)', accentSoft:'oklch(30% 0.05 230)', accentSoft2:'oklch(25% 0.03 230)', grad1:'oklch(62% 0.12 220)', grad2:'oklch(52% 0.11 250)' } },
-    sunset: { label:'Atardecer', accent:'oklch(56% 0.15 40)',  accentHover:'oklch(49% 0.14 40)', accentText:'oklch(38% 0.12 40)',   accentSoft:'oklch(93% 0.05 55)',   accentSoft2:'oklch(96% 0.03 45)',  grad1:'oklch(62% 0.15 45)',  grad2:'oklch(52% 0.14 25)',
-                dark:{ accent:'oklch(70% 0.15 40)', accentHover:'oklch(76% 0.16 40)', accentText:'oklch(88% 0.08 45)', accentSoft:'oklch(31% 0.06 40)', accentSoft2:'oklch(26% 0.04 40)', grad1:'oklch(64% 0.15 45)', grad2:'oklch(54% 0.14 25)' } },
-    slate:  { label:'Pizarra',   accent:'oklch(48% 0.06 265)', accentHover:'oklch(42% 0.06 265)', accentText:'oklch(32% 0.05 265)', accentSoft:'oklch(93% 0.02 265)', accentSoft2:'oklch(96% 0.012 265)', grad1:'oklch(54% 0.07 265)', grad2:'oklch(42% 0.06 290)',
-                dark:{ accent:'oklch(68% 0.08 265)', accentHover:'oklch(74% 0.09 265)', accentText:'oklch(88% 0.04 265)', accentSoft:'oklch(29% 0.03 265)', accentSoft2:'oklch(24% 0.02 265)', grad1:'oklch(60% 0.08 265)', grad2:'oklch(48% 0.07 290)' } },
-    rosa:   { label:'Rosa', dot:'#FFC5D3', accent:'oklch(60% 0.13 10)',  accentHover:'oklch(53% 0.13 10)',  accentText:'oklch(40% 0.12 10)',  accentSoft:'#FFC5D3', accentSoft2:'oklch(96% 0.02 10)',  grad1:'oklch(66% 0.14 15)',  grad2:'oklch(54% 0.12 350)',
-                dark:{ accent:'oklch(74% 0.13 10)', accentHover:'oklch(78% 0.14 10)', accentText:'oklch(88% 0.07 10)', accentSoft:'oklch(30% 0.05 10)', accentSoft2:'oklch(25% 0.03 10)', grad1:'oklch(68% 0.13 15)', grad2:'oklch(56% 0.12 350)' } },
-    pato:   { label:'Amarillo pato', dot:'#FFD23F', accent:'oklch(58% 0.16 85)', accentHover:'oklch(51% 0.15 85)', accentText:'oklch(38% 0.12 85)', accentSoft:'oklch(93% 0.06 95)', accentSoft2:'oklch(96% 0.04 95)', grad1:'oklch(74% 0.16 90)', grad2:'oklch(58% 0.16 70)',
-                dark:{ accent:'oklch(78% 0.15 90)', accentHover:'oklch(82% 0.16 90)', accentText:'oklch(88% 0.09 90)', accentSoft:'oklch(30% 0.05 90)', accentSoft2:'oklch(25% 0.03 90)', grad1:'oklch(76% 0.15 90)', grad2:'oklch(60% 0.15 70)' } },
+    alerce:    { label:'Alerce',    sw:['#0b1f2a','#2e9e3f','#1e63c8','#63c64c'] },
+    araucaria: { label:'Araucaria', sw:['#10261c','#3f7d4e','#8a5a1c','#a7d26a'] },
+    queule:    { label:'Queule',    sw:['#071e33','#0e7c7b','#1864a6','#4dd6cd'] },
+    guayacan:  { label:'Guayacán',  sw:['#2a1712','#a94a26','#8c5a0e','#f2a96b'] },
+    ruil:      { label:'Ruil',      sw:['#141a21','#3d7466','#3b6597','#b6e68a'] },
+    notro:     { label:'Notro',     sw:['#3a1420','#d63c6b','#b6316e','#f27fa6'] },
   };
-  BASE_LIGHT = { bg:'oklch(97.5% 0.012 85)', surface:'oklch(99% 0.004 85)', surfaceAlt:'oklch(96% 0.01 85)', border:'oklch(88% 0.012 85)', text:'oklch(23% 0.02 85)', textMuted:'oklch(46% 0.02 85)', warn:'oklch(42% 0.11 55)', warnSoft:'oklch(93% 0.045 55)', warnLine:'oklch(60% 0.13 55)', scenarioBlue:'oklch(60% 0.12 230)', neutralBar:'oklch(70% 0.01 85)', fuel:'oklch(58% 0.1 30)', shadowSm:'oklch(23% 0.02 85 / 0.04)', shadowMd:'oklch(23% 0.02 85 / 0.07)', shadowLg:'oklch(23% 0.02 85 / 0.08)' };
-  BASE_DARK  = { bg:'oklch(19% 0.012 85)', surface:'oklch(23% 0.012 85)', surfaceAlt:'oklch(27% 0.012 85)', border:'oklch(33% 0.014 85)', text:'oklch(94% 0.006 85)', textMuted:'oklch(70% 0.012 85)', warn:'oklch(75% 0.14 55)', warnSoft:'oklch(30% 0.06 55)', warnLine:'oklch(75% 0.14 55)', scenarioBlue:'oklch(74% 0.12 230)', neutralBar:'oklch(48% 0.01 85)', fuel:'oklch(72% 0.12 30)', shadowSm:'oklch(0% 0 0 / 0.3)', shadowMd:'oklch(0% 0 0 / 0.4)', shadowLg:'oklch(0% 0 0 / 0.5)' };
+  BASE_LIGHT = { warn:'oklch(42% 0.11 55)', warnSoft:'oklch(93% 0.045 55)', warnLine:'oklch(60% 0.13 55)', fuel:'oklch(58% 0.1 30)', shadowSm:'oklch(23% 0.02 85 / 0.04)', shadowMd:'oklch(23% 0.02 85 / 0.07)', shadowLg:'oklch(23% 0.02 85 / 0.08)' };
+  BASE_DARK  = { warn:'oklch(75% 0.14 55)', warnSoft:'oklch(30% 0.06 55)', warnLine:'oklch(75% 0.14 55)', fuel:'oklch(72% 0.12 30)', shadowSm:'oklch(0% 0 0 / 0.3)', shadowMd:'oklch(0% 0 0 / 0.4)', shadowLg:'oklch(0% 0 0 / 0.5)' };
 
   computeTokens(theme, paletteId) {
-    const p = this.PALETTES[paletteId] || this.PALETTES.sage;
-    const isDark = theme === 'dark';
-    return { ...(isDark ? this.BASE_DARK : this.BASE_LIGHT), ...(isDark ? p.dark : p) };
+    const p = this.PALETTES[paletteId] || this.PALETTES.alerce;
+    let [s0, s1, s2, s3] = p.sw;
+    if (theme === 'dark' && paletteId === 'notro') { s1 = '#f4799f'; s2 = '#f08bb8'; s3 = '#ffc2d8'; }
+    const m = (a, n, b) => 'color-mix(in oklab, ' + a + ' ' + n + '%, ' + b + ')';
+    if (theme === 'dark') return { ...this.BASE_DARK,
+      bg:s0, surface:m(s0,90,'#fff'), surfaceAlt:m(s0,84,'#fff'), border:m(s0,76,'#fff'), text:'#eaf1ef', textMuted:m('#fff',68,s0),
+      accent:s1, accentHover:m(s1,82,'#fff'), accentText:m(s3,72,'#fff'), accentSoft:m(s1,40,s0), accentSoft2:m(s1,22,s0),
+      grad1:s1, grad2:s2, scenarioBlue:m(s2,58,'#fff'), neutralBar:m(s0,58,'#fff') };
+    return { ...this.BASE_LIGHT,
+      bg:'oklch(97.5% 0.012 85)', surface:'oklch(99% 0.004 85)', surfaceAlt:'oklch(96% 0.01 85)', border:'oklch(88% 0.012 85)', text:'oklch(23% 0.02 85)', textMuted:'oklch(46% 0.02 85)',
+      accent:m(s1,90,'#000'), accentHover:m(s1,70,'#000'), accentText:m(s1,56,'#000'), accentSoft:m(s1,24,'#fff'), accentSoft2:m(s1,12,'#fff'),
+      grad1:s1, grad2:s2, scenarioBlue:s2, neutralBar:m(s0,28,'#fff') };
   }
   applyThemeWith(theme, palette) {
     const t = this.computeTokens(theme, palette);
@@ -352,8 +356,9 @@ class Component extends DCLogic {
   };
 
   componentDidMount() {
-    let theme = 'light', palette = 'sage';
+    let theme = 'light', palette = 'alerce';
     try { theme = localStorage.getItem('eih_theme') || theme; palette = localStorage.getItem('eih_palette') || palette; } catch (e) {}
+    if (!this.PALETTES[palette]) { palette = 'alerce'; try { localStorage.setItem('eih_palette', palette); } catch (e) {} }
     this.applyThemeWith(theme, palette);
     this.setState({ theme, palette });
     const show = (el) => { el.style.opacity = '1'; el.style.transform = ''; el.classList.add('fp-in'); setTimeout(() => { el.style.transitionDelay = ''; }, 1400); };
@@ -435,9 +440,9 @@ class Component extends DCLogic {
     const E = this.state.lang === 'en';
     const cats = [
       { label: E ? 'Energy' : 'Energía', pct: 0.46, color: 'var(--accent, oklch(52% 0.1 152))' },
-      { label: E ? 'Car' : 'Vehículo', pct: 0.28, color: 'oklch(55% 0.09 230)' },
-      { label: E ? 'Shopping' : 'Compras', pct: 0.16, color: 'oklch(64% 0.12 60)' },
-      { label: E ? 'Travel' : 'Viajes', pct: 0.10, color: 'oklch(58% 0.08 300)' },
+      { label: E ? 'Car' : 'Vehículo', pct: 0.28, color: 'var(--grad2)' },
+      { label: E ? 'Shopping' : 'Compras', pct: 0.16, color: 'color-mix(in oklab, var(--grad1) 55%, var(--surface))' },
+      { label: E ? 'Travel' : 'Viajes', pct: 0.10, color: 'var(--accent-hover)' },
     ];
     const C = 2 * Math.PI * 52;
     let acc = 0;
@@ -458,20 +463,25 @@ class Component extends DCLogic {
       themeIsDark: st.theme === 'dark', themeIsLight: st.theme !== 'dark',
       themeTitle: st.theme === 'dark' ? (E ? 'Switch to light mode' : 'Cambiar a modo claro') : (E ? 'Switch to dark mode' : 'Cambiar a modo oscuro'),
       toggleTheme: this.toggleTheme,
-      paletteOptions: Object.keys(this.PALETTES).map(id => ({
-        id, label: this.PALETTES[id].label,
-        dot: this.PALETTES[id].dot || (st.theme === 'dark' ? this.PALETTES[id].dark.accent : this.PALETTES[id].accent),
-        select: () => this.setPalette(id),
-        ring: st.palette === id ? '2px solid var(--text, oklch(23% 0.02 85))' : '2px solid transparent',
-      })),
+      paletteOptions: Object.keys(this.PALETTES).map(id => { const sw = this.PALETTES[id].sw, on = (st.palette) === id; return {
+        id, label: this.PALETTES[id].label, c1:sw[0], c2:sw[1], c3:sw[2], c4:sw[3],
+        select: () => { this.setPalette(id); this.setState({ palOpen:false }); },
+        check: on ? '✓' : '', rowBg: on ? 'var(--accent-soft2, oklch(96% 0.02 152))' : 'transparent',
+      }; }),
+      palOpen: !!st.palOpen, togglePal: () => this.setState(x => ({ palOpen: !x.palOpen })), closePal: () => this.setState({ palOpen:false }),
+      curName: (this.PALETTES[st.palette] || this.PALETTES.alerce).label,
+      cur1: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[0], cur2: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[1], cur3: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[2], cur4: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[3],
+      showMoon: st.theme !== 'dark', showSun: st.theme === 'dark',
+      themeLabel: st.theme === 'dark' ? (E ? 'Light mode' : 'Modo claro') : (E ? 'Dark mode' : 'Modo oscuro'),
+      palTitle: E ? 'COLOR PALETTE' : 'PALETA DE COLORES',
       ringSegs, bars,
       co2Label: Math.round(412 * p),
       saveLabel: 'US$ ' + Math.round(490 * p).toLocaleString(E ? 'en-US' : 'es-CL'),
       sources: [
         { title: E ? 'Energy' : 'Energía', desc: E ? 'Electricity, gas and firewood for heating, hot water and cooking.' : 'Electricidad, gas y leña para calefacción, agua caliente y cocina.', scope: E ? 'Scope 1 & 2' : 'Alcance 1 y 2', isEnergy: true, color: 'var(--accent-text, oklch(33% 0.08 152))', soft: 'var(--accent-soft, oklch(93% 0.035 152))', delay: 0 },
-        { title: E ? 'Car' : 'Vehículo', desc: E ? 'Fuel for household cars based on distance and efficiency.' : 'Combustible de los autos del hogar según kilómetros y rendimiento.', scope: E ? 'Scope 1' : 'Alcance 1', isCar: true, color: 'oklch(40% 0.09 230)', soft: 'oklch(93% 0.03 230)', delay: 80 },
-        { title: E ? 'Shopping' : 'Compras', desc: E ? 'Clothing, electronics and consumer goods based on monthly spend.' : 'Ropa, electrónica y bienes de consumo según el gasto mensual.', scope: E ? 'Scope 3' : 'Alcance 3', isShop: true, color: 'oklch(45% 0.11 60)', soft: 'oklch(94% 0.04 70)', delay: 160 },
-        { title: E ? 'Travel' : 'Viajes', desc: E ? 'Household flights and long trips by distance travelled.' : 'Vuelos y viajes largos del hogar por distancia recorrida.', scope: E ? 'Scope 3' : 'Alcance 3', isTravel: true, color: 'oklch(42% 0.08 300)', soft: 'oklch(94% 0.025 300)', delay: 240 },
+        { title: E ? 'Car' : 'Vehículo', desc: E ? 'Fuel for household cars based on distance and efficiency.' : 'Combustible de los autos del hogar según kilómetros y rendimiento.', scope: E ? 'Scope 1' : 'Alcance 1', isCar: true, color: 'color-mix(in oklab, var(--grad2) 70%, var(--text))', soft: 'color-mix(in oklab, var(--grad2) 16%, var(--surface))', delay: 80 },
+        { title: E ? 'Shopping' : 'Compras', desc: E ? 'Clothing, electronics and consumer goods based on monthly spend.' : 'Ropa, electrónica y bienes de consumo según el gasto mensual.', scope: E ? 'Scope 3' : 'Alcance 3', isShop: true, color: 'color-mix(in oklab, var(--grad1) 60%, var(--text))', soft: 'color-mix(in oklab, var(--grad1) 24%, var(--surface))', delay: 160 },
+        { title: E ? 'Travel' : 'Viajes', desc: E ? 'Household flights and long trips by distance travelled.' : 'Vuelos y viajes largos del hogar por distancia recorrida.', scope: E ? 'Scope 3' : 'Alcance 3', isTravel: true, color: 'color-mix(in oklab, var(--accent-hover) 50%, var(--grad2))', soft: 'color-mix(in oklab, var(--accent-hover) 12%, var(--surface))', delay: 240 },
       ],
       steps: [
         { n: '1', title: E ? 'Set up your home' : 'Configura tu hogar', desc: E ? 'Country, city, household size and home type. We use it to adjust emission factors and your benchmark.' : 'País, ciudad, integrantes y tipo de vivienda. Con eso ajustamos los factores de emisión y el punto de comparación.', delay: 0 },
