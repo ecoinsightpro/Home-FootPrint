@@ -3110,7 +3110,7 @@ class Component extends DCLogic {
   registroVals(s, completed, months) {
     const t = this.i18n[s.lang] || this.i18n.es;
     const cdR = this.countryData[s.country] || this.countryData['Internacional (USD)'];
-    const fxR = cdR.fx || 1, mDiv = fxR >= 100 ? 1000 : 1, u = this.unitsFor(s.country in this.countryData ? s.country : '');
+    const fxR = cdR.fx || 1, mDiv = 1, u = this.unitsFor(s.country in this.countryData ? s.country : '');
     const money = v => Math.round((v||0)*fxR/mDiv);
     const regMoneyUnit = (mDiv === 1000 ? (s.lang==='en' ? 'thousands of ' : 'miles de ') : '') + cdR.currency;
     const _now = new Date(), currentIdx = (s.trackingYear||2026) === _now.getFullYear() ? _now.getMonth() : Math.max(completed,1) - 1;
