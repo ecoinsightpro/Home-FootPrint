@@ -121,11 +121,19 @@
 </helmet>
 <div data-eih-root="1" style="min-height:100vh; color:var(--text, oklch(23% 0.02 85)); background:var(--bg, oklch(97.5% 0.012 85)); font-family:'Public Sans',sans-serif; display:flex; transition:background-color 0.35s ease, color 0.35s ease;">
 
+  <sc-if value="{{ leaveAsk }}" hint-placeholder-val="{{ false }}"><div role="dialog" aria-modal="true" onClick="{{ stayHere }}" style="position:fixed; inset:0; z-index:300; background:oklch(20% 0.02 85 / 0.55); display:flex; align-items:center; justify-content:center; padding:20px;">
+    <div onClick="{{ stopProp }}" style="background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); border-radius:16px; padding:24px; max-width:440px; width:100%; display:grid; gap:12px; box-shadow:0 24px 60px -20px oklch(0% 0 0 / .45);">
+      <div style="display:flex; align-items:center; gap:10px;"><span style="width:36px; height:36px; border-radius:50%; flex-shrink:0; background:var(--warn-soft, oklch(93% 0.045 55)); color:var(--warn, oklch(42% 0.11 55)); display:flex; align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 L18 17 H2 Z"></path><path d="M10 8 V11.5 M10 14.3 V14.4"></path></svg></span><div style="font-family:'Lora',serif; font-size:22px; font-weight:600;">{{ leaveTitle }}</div></div>
+      <div style="font-size:14px; line-height:1.5; color:var(--text-muted, oklch(46% 0.02 85));">{{ leaveSub }}</div>
+      <button onClick="{{ stayHere }}" style="min-height:52px; border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; border-radius:10px; font:700 15px 'Public Sans',sans-serif; cursor:pointer;">{{ leaveStay }}</button>
+      <button onClick="{{ leaveGo }}" style="min-height:48px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--warn, oklch(42% 0.11 55)); border-radius:10px; font:700 14px 'Public Sans',sans-serif; cursor:pointer;">{{ leaveContinue }}</button>
+    </div>
+  </div></sc-if>
   <aside data-eih-aside="1" data-more="{{ moreAttr }}" style="position:sticky; top:0; align-self:flex-start; height:100vh; width:220px; flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:20px 14px; display:flex; flex-direction:column; gap:16px; overflow-y:auto;">
     <div style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:0 6px;" onClick="{{ go_landing }}">
       <div data-eih-logo-wide="1" style="background:transparent; border-radius:12px; padding:8px 10px; width:100%; box-sizing:border-box;"><img src="logo-liqenlab.png" alt="liqenLab Carbon" style="width:100%; height:auto; display:block;"></div><div data-eih-logo-sq="1" style="display:none; background:transparent; border-radius:12px; width:48px; height:48px; padding:5px; box-sizing:border-box;"><img src="logo-liqenlab-icon.png" alt="liqenLab Carbon" style="width:100%; height:100%; object-fit:contain; display:block;"></div>
     </div>
-    <a href="index.html" style="display:flex; align-items:center; gap:8px; margin:0 0 14px; padding:8px 12px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; font:600 12.5px 'Public Sans',sans-serif; color:var(--text-muted, oklch(46% 0.02 85)); text-decoration:none; transition:border-color .2s ease, color .2s ease;" style-hover="border-color:var(--accent, oklch(52% 0.1 152)); color:var(--accent-text, oklch(33% 0.08 152));">
+    <a href="index.html" onClick="{{ askLeave }}" style="display:flex; align-items:center; gap:8px; margin:0 0 14px; padding:8px 12px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:8px; font:600 12.5px 'Public Sans',sans-serif; color:var(--text-muted, oklch(46% 0.02 85)); text-decoration:none; transition:border-color .2s ease, color .2s ease;" style-hover="border-color:var(--accent, oklch(52% 0.1 152)); color:var(--accent-text, oklch(33% 0.08 152));">
       <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10 H4 M9 5 L4 10 L9 15"></path></svg>
       <span>{{ t.back_landing }}</span>
     </a>
@@ -509,6 +517,9 @@
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; gap:10px; flex-wrap:wrap;">
         <div style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85));">{{ registroEditingLabel }}</div>
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <button onClick="{{ xlsxExport }}" style="min-height:36px; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--accent-text, oklch(33% 0.08 152)); padding:0 14px; border-radius:8px; font:600 12.5px 'Public Sans',sans-serif; cursor:pointer;" style-hover="border-color:var(--accent, oklch(52% 0.1 152));"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 V13 M6 9 L10 13 L14 9 M4 16 H16"></path></svg>{{ xlsxExportLabel }}</button>
+          <button onClick="{{ xlsxImportClick }}" style="min-height:36px; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--accent-text, oklch(33% 0.08 152)); padding:0 14px; border-radius:8px; font:600 12.5px 'Public Sans',sans-serif; cursor:pointer;" style-hover="border-color:var(--accent, oklch(52% 0.1 152));"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13 V3 M6 7 L10 3 L14 7 M4 16 H16"></path></svg>{{ xlsxImportLabel }}</button>
+          <input type="file" accept=".xlsx,.xls,.csv" ref="{{ xlsxRef }}" onChange="{{ xlsxImport }}" style="display:none;">
           <button onClick="{{ resetMonth }}" style="min-height:36px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text-muted, oklch(46% 0.02 85)); padding:0 14px; border-radius:8px; font:600 12.5px 'Public Sans',sans-serif; cursor:pointer;">{{ t.btn_reset_month }}</button>
           <sc-if value="{{ noData }}" hint-placeholder-val="{{ false }}"><button onClick="{{ loadExample }}" style="min-height:36px; border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:0 14px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; cursor:pointer;">{{ t.example_btn }}</button></sc-if>
         </div>
@@ -1825,7 +1836,7 @@ class Component extends DCLogic {
       scenario_result:'Con estos cambios, ahorrarían en 12 meses', btn_reset:'Reiniciar',
       sim_sub:'El ahorro por kg de CO₂ evitado no es el mismo en energía, auto, compras o viajes.',
       sim_toggle_reduce:'Queremos reducir la huella', sim_toggle_save:'Queremos ahorrar $',
-      sim_reduce_label:'Si reducen su huella un', sim_reduce_result:'ahorro de', sim_reduce_result2:'/ año', sim_reduce_equiv:'equivale a evitar', sim_reduce_equiv2:'al año',
+      sim_reduce_label:'Si reducen su huella un', sim_reduce_result:'ahorro potencial de', sim_reduce_result2:'/ año', sim_reduce_equiv:'equivale a evitar', sim_reduce_equiv2:'al año',
       sim_save_label:'Queremos ahorrar $ al año', sim_save_result:'necesitan reducir', sim_save_equiv:'equivale a evitar',
       impact_title:'Lo que significa en la vida real', impact_trees:'árboles que absorberían lo mismo en un año', impact_fuel:'litros de bencina sin quemar', impact_km:'km menos manejados en auto', impact_gauge:'de reducción',
       cost_per_kg_title:'Costo evitado por kg de CO₂, según fuente', cost_per_kg_note:'Reducir viajes en avión o electrodomésticos nuevos suele ser lo más caro de evitar por kg de CO₂.',
@@ -1932,7 +1943,7 @@ class Component extends DCLogic {
       scenario_result:'With these changes, you\u2019d save over 12 months', btn_reset:'Reset',
       sim_sub:'The savings per kg of CO₂ avoided aren\u2019t the same for energy, car, purchases, or travel.',
       sim_toggle_reduce:'We want to cut our footprint', sim_toggle_save:'We want to save $',
-      sim_reduce_label:'If we cut our footprint by', sim_reduce_result:'save', sim_reduce_result2:'/ year', sim_reduce_equiv:'equivalent to avoiding', sim_reduce_equiv2:'per year',
+      sim_reduce_label:'If we cut our footprint by', sim_reduce_result:'potential savings of', sim_reduce_result2:'/ year', sim_reduce_equiv:'equivalent to avoiding', sim_reduce_equiv2:'per year',
       sim_save_label:'We want to save $ per year', sim_save_result:'you need to cut', sim_save_equiv:'equivalent to avoiding',
       impact_title:'What this means in real life', impact_trees:'trees that would absorb the same in a year', impact_fuel:'liters of gasoline left unburned', impact_km:'fewer km driven', impact_gauge:'reduction',
       cost_per_kg_title:'Cost avoided per kg of CO₂, by source', cost_per_kg_note:'Cutting flights or buying new appliances is usually the most expensive way to avoid a kg of CO₂.',
@@ -2023,14 +2034,21 @@ class Component extends DCLogic {
     return d.cut;
   }
   persist() { try { const s = this.state; localStorage.setItem('cc_v2', JSON.stringify({ raw: this.rawMonths, st: { country:s.country, heatingType:s.heatingType, coolingType:s.coolingType, vehicles:s.vehicles, hasSolar:s.hasSolar, solarKw:s.solarKw, householdSize:s.householdSize, trackingYear:s.trackingYear, gasType:s.gasType, elecTariff:s.elecTariff, fuelTariff:s.fuelTariff, goalPct:s.goalPct, dashUpTo:s.dashUpTo, demo:s.demo } })); } catch (e) {} }
-  exportCSV = () => {
+  exportCSV = async () => {
+    const en = this.state.lang === 'en';
     const cd = this.countryData[this.state.country] || this.countryData['Internacional (USD)'];
     const months = this.fillYear(this.buildMonths(cd.factor, this.state.heatingType, this.state.coolingType, this.state.vehicles, this.state.hasSolar, this.state.solarKw));
-    const cols = ['label','co2Energia','co2Fuel','co2Compras','co2Viajes','co2AguaRes','total','cost'];
-    const rows = [['Mes','Energía kgCO2e','Vehículo kgCO2e','Compras kgCO2e','Viajes kgCO2e','Agua y residuos kgCO2e','Total kgCO2e','Costo '+cd.currency, 'Estimado'].join(',')].concat(months.map(m => cols.map(c => typeof m[c]==='number' ? m[c].toFixed(2) : m[c]).concat(m.estimated?'sí':'no').join(',')));
-    const url = URL.createObjectURL(new Blob(['\ufeff'+rows.join('\n')], { type:'text/csv' }));
-    const a = document.createElement('a'); a.href = url; a.download = 'liqenlab-carbon-'+this.state.trackingYear+'.csv'; a.click(); URL.revokeObjectURL(url);
+    const cols = ['co2Energia','co2Fuel','co2Compras','co2Viajes','co2AguaRes','total','cost'];
+    const head = en ? ['Month','Energy kgCO2e','Vehicle kgCO2e','Purchases kgCO2e','Travel kgCO2e','Water & waste kgCO2e','Total kgCO2e','Cost '+cd.currency,'Estimated'] : ['Mes','Energía kgCO2e','Vehículo kgCO2e','Compras kgCO2e','Viajes kgCO2e','Agua y residuos kgCO2e','Total kgCO2e','Costo '+cd.currency,'Estimado'];
+    const rows = months.map(m => [this.tm(m.label, this.state.lang), ...cols.map(c => Math.round(m[c]*100)/100), m.estimated ? (en?'yes':'sí') : 'no']);
+    try {
+      const X = await this.loadXLSX();
+      const ws = X.utils.aoa_to_sheet([head, ...rows]); ws['!cols'] = head.map((t,i) => ({ wch: i ? Math.max(12, t.length+2) : 8 }));
+      const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, en ? 'Footprint' : 'Huella');
+      X.writeFile(wb, 'liqenlab-carbon-'+(this.state.trackingYear||2026)+'.xlsx');
+    } catch (err) { alert(en ? 'Could not create the Excel file.' : 'No se pudo crear el archivo Excel.'); }
   };
+
   heatingDefs = {
     'Gas licuado (GLP)': { factor: 2.94, price: 2.0, kwh: 12.8, eff: 0.9 },
     'Eléctrica': null,
@@ -2103,6 +2121,7 @@ class Component extends DCLogic {
 
   constructor(props) {
     super(props);
+    this.xlsxRef = React.createRef();
     this.rawMonths = this.buildZeroMonths();
     this.fileInputRef = React.createRef();
   }
@@ -2135,6 +2154,65 @@ class Component extends DCLogic {
       flightsKm:0, bustrainKm:0, urbanKm:0, hotelNights:0,
     })));
     this.setState({ trackingYear: (this.state.trackingYear||2026)+1, dashUpTo:0, registroMonthIdx:null, screen:'registro' });
+  };
+  loadXLSX() {
+    if (window.XLSX) return Promise.resolve(window.XLSX);
+    return new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js'; sc.onload = () => res(window.XLSX); sc.onerror = rej; document.head.appendChild(sc); });
+  }
+  xlsxCols() {
+    const s = this.state, en = s.lang === 'en';
+    const cd = this.countryData[s.country] || this.countryData['Internacional (USD)'], fx = cd.fx || 1, cur = cd.currency;
+    const u = this.unitsFor(s.country in this.countryData ? s.country : '');
+    const hu = ({ 'Gas licuado (GLP)':'kg', 'Leña':'kg', 'Kerosene':'L' })[s.heatingType] || (en ? 'units' : 'unidades');
+    return [
+      ['elecUnits', en?'Electricity (kWh)':'Electricidad (kWh)', 1],
+      ['heatingUnits', (en?'Heating fuel (':'Combustible calefacción (')+hu+')', 1],
+      ['coolingUnits', en?'Air conditioning (kWh)':'Aire acondicionado (kWh)', 1],
+      ['gasM3Cocina', en?'Cooking gas (m³)':'Gas cocina (m³)', 1],
+      ['fuelL', (en?'Vehicle fuel (':'Combustible vehículos (')+u.vl+')', u.v],
+      ['waterM3', en?'Water (m³)':'Agua (m³)', 1],
+      ['wasteKg', en?'Waste (kg)':'Residuos (kg)', 1],
+      ['recycles', en?'Recycles (yes/no)':'Recicla (sí/no)', 'bool'],
+      ['food', (en?'Food (':'Alimentación (')+cur+')', 1/fx],
+      ['clothes', (en?'Clothing (':'Ropa (')+cur+')', 1/fx],
+      ['electronics', (en?'Electronics (':'Electrónica (')+cur+')', 1/fx],
+      ['homegoods', (en?'Home goods (':'Bienes del hogar (')+cur+')', 1/fx],
+      ['services', (en?'Services (':'Servicios (')+cur+')', 1/fx],
+      ['flightsKm', (en?'Flights per person (':'Vuelos por persona (')+u.dl+')', u.d],
+      ['flightTravelers', en?'People who flew':'Personas que volaron', 1],
+      ['bustrainKm', (en?'Bus/train (':'Bus/tren (')+u.dl+')', u.d],
+      ['urbanKm', (en?'Urban transport (':'Transporte urbano (')+u.dl+')', u.d],
+      ['hotelNights', en?'Hotel nights':'Noches de hotel', 1],
+    ];
+  }
+  xlsxExport = async () => {
+    try {
+      const X = await this.loadXLSX(), en = this.state.lang === 'en', cols = this.xlsxCols();
+      const head = [en?'Month':'Mes', ...cols.map(c => c[1])];
+      const rows = this.rawMonths.map(m => [this.tm(m.label, this.state.lang), ...cols.map(([k,,sc]) => sc === 'bool' ? (m[k] ? (en?'yes':'sí') : 'no') : (m[k] == null ? '' : Math.round((m[k]/sc)*100)/100))]);
+      const ws = X.utils.aoa_to_sheet([head, ...rows]); ws['!cols'] = head.map((t,i) => ({ wch: i ? Math.max(12, t.length+2) : 8 }));
+      const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, en ? 'Monthly log' : 'Registro mensual');
+      X.writeFile(wb, 'liqenlab-carbon-registro-' + (this.state.trackingYear||2026) + '.xlsx');
+    } catch (e) { alert(this.state.lang==='en' ? 'Could not create the Excel file.' : 'No se pudo crear el archivo Excel.'); }
+  };
+  xlsxImportClick = () => { this.xlsxRef.current && this.xlsxRef.current.click(); };
+  xlsxImport = async (e) => {
+    const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
+    const en = this.state.lang === 'en';
+    try {
+      const X = await this.loadXLSX(), wb = X.read(await f.arrayBuffer());
+      const aoa = X.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header:1, defval:'' });
+      const cols = this.xlsxCols(), body = aoa.slice(1).filter(r => r.some(v => v !== '')).slice(0, 12);
+      if (!body.length) throw 0;
+      const num = v => { if (typeof v === 'number') return v; const n = parseFloat(String(v).replace(/\s/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',', '.')); return isNaN(n) ? 0 : n; };
+      body.forEach((r, i) => {
+        const m = this.rawMonths[i]; if (!m) return;
+        cols.forEach(([k,,sc], ci) => { const v = r[ci+1]; if (sc === 'bool') m[k] = /^(s|y|1|true|x)/i.test(String(v).trim()); else if (k === 'flightTravelers') { if (v !== '') m[k] = num(v); } else m[k] = Math.max(0, num(v)*sc); });
+        delete m.fuelByVehicle;
+      });
+      this.setState({ demo:'data', registroMonthIdx:null });
+      alert(en ? 'Imported ' + body.length + ' months.' : 'Se importaron ' + body.length + ' meses.');
+    } catch (err) { alert(en ? 'The file does not have the expected format. Export a file first and use it as a template.' : 'El archivo no tiene el formato esperado. Exporta un archivo primero y úsalo como plantilla.'); }
   };
   triggerImport = () => { this.fileInputRef.current && this.fileInputRef.current.click(); };
   importData = (e) => {
@@ -2884,7 +2962,7 @@ class Component extends DCLogic {
     const goalV = { budget: this.fmtKg(budget), used: this.fmtKg(usedKg), proj: this.fmtKg(projKg), usedPct: Math.min(100, Math.round(usedKg/(budget||1)*100))+'%', projPct: Math.min(100, Math.round(projKg/(budget||1)*100))+'%', ok: onTrack, bad: !onTrack, empty: isEmpty,
       status: isEmpty ? (EN2?'Log your first month to see your progress.':'Registra tu primer mes para ver tu avance.') : onTrack ? (EN2?'On track: projected year-end is within budget.':'Vas bien: la proyección al cierre del año está dentro del presupuesto.') : (EN2?'Over budget: at this pace you will exceed it by ':'Sobre el presupuesto: a este ritmo lo superarás en ')+this.fmtKg(projKg-budget)+'.',
       title: EN2?'Annual carbon budget':'Presupuesto anual de carbono', pctLabel: (EN2?'Reduction goal vs. average household: ':'Meta de reducción vs. hogar promedio: ')+(s.goalPct||0)+'%',
-      lblBudget: EN2?'Budget':'Presupuesto', lblUsed: EN2?'Used so far':'Usado a la fecha', lblProj: EN2?'Projected year-end':'Proyección al cierre', csv: EN2?'Download CSV':'Descargar CSV',
+      lblBudget: EN2?'Budget':'Presupuesto', lblUsed: EN2?'Used so far':'Usado a la fecha', lblProj: EN2?'Projected year-end':'Proyección al cierre', csv: EN2?'Download Excel':'Descargar Excel',
       note: EN2?'Months without data are estimated with the average of your logged months.':'Los meses sin datos se estiman con el promedio de tus meses registrados.' };
     const historyRows = visibleMonths.map(m => ({
       label: this.tm(m.label,s.lang), co2: this.fmtKg(m.total), cost: this.fmtCLP(m.cost),
@@ -3024,6 +3102,17 @@ class Component extends DCLogic {
       setSolarKw: (e) => this.setState({ solarKw: Number(e.target.value) }),
 
       onb: { step0: s.onbStep===0, step1: s.onbStep===1, step2: s.onbStep===2, step3: s.onbStep===3, step4: s.onbStep===4 },
+      xlsxExport: this.xlsxExport, xlsxImport: this.xlsxImport, xlsxImportClick: this.xlsxImportClick, xlsxRef: this.xlsxRef,
+      xlsxExportLabel: s.lang==='en' ? 'Export Excel' : 'Exportar Excel', xlsxImportLabel: s.lang==='en' ? 'Import Excel' : 'Importar Excel',
+      leaveAsk: !!s.leaveAsk,
+      askLeave: (e) => { e.preventDefault(); this.setState({ leaveAsk: true }); },
+      stayHere: () => this.setState({ leaveAsk: false }),
+      stopProp: (e) => e.stopPropagation(),
+      leaveGo: () => { this.setState({ leaveAsk: false }); location.href = 'index.html'; },
+      leaveTitle: s.lang==='en' ? 'Go back to the home page?' : '¿Volver a la página de inicio?',
+      leaveSub: s.lang==='en' ? 'If you go back to the home page, the data you have entered will be deleted. Export your log first if you want to keep it.' : 'Si vuelves a la página de inicio, se borrarán los datos que cargaste. Exporta tu registro antes si quieres conservarlo.',
+      leaveStay: s.lang==='en' ? 'Stay here' : 'Quedarme aquí',
+      leaveContinue: s.lang==='en' ? 'Continue to home page' : 'Continuar al inicio',
       onbAsk: s.onbAsk, onbAskOpen: () => this.setState({ onbAsk: true }), onbAskClose: () => this.setState({ onbAsk: false }),
       onbAskTitle: s.lang==='en'?'Do you want to see your current footprint or keep logging your usage?':'¿Quieres ver tu huella actual o continuar registrando tus consumos?',
       onbAskSub: s.lang==='en'?'Starting in January lets you load the months you already have bills for. Starting this month only tracks from now on.':'Desde enero puedes cargar los meses de los que ya tienes boletas. Desde el mes actual solo registras de aquí en adelante.',
