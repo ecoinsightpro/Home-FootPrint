@@ -1,10 +1,10 @@
 # Home-FootPrint
 
-Sitio estático de **EcoInsight · FootPrint**.
+Sitio estático de **liqenLab Carbon**.
 
-- `index.html` — página de inicio (FootPrint Landing)
-- `home.html` — aplicación EcoInsight Home
+- `index.html` — página de inicio
+- `home.html` — aplicación "Mi huella de carbono"
 - `support.js` — runtime de las páginas (carga React desde unpkg)
-- `logo-ecoinsight.png`, `logo-ecoinsight-icon-square.png` — logotipos
+- `logo-liqenlab.png`, `logo-liqenlab-icon.png` — logotipos
 
 Publicado con GitHub Pages: https://ecoinsightpro.github.io/Home-FootPrint/

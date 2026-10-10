@@ -1,12 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<title>EcoInsight Home</title>
-<link rel="icon" type="image/png" href="logo-ecoinsight-icon-square.png">
-<link rel="apple-touch-icon" href="logo-ecoinsight-icon-square.png">
+<title>Calculadora de huella de carbono del hogar | liqenLab Carbon</title>
+<meta name="description" content="Calcula la huella de carbono de tu hogar y descubre cuánto dinero puedes ahorrar en luz, gas y combustible. Metodología alineada al GHG Protocol.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0e7c7b">
+<link rel="canonical" href="https://liqenlab.com/">
+<link rel="alternate" hreflang="es" href="https://liqenlab.com/">
+<link rel="alternate" hreflang="en" href="https://liqenlab.com/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://liqenlab.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="liqenLab Carbon">
+<meta property="og:url" content="https://liqenlab.com/">
+<meta property="og:locale" content="es_CL">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="Calculadora de huella de carbono del hogar | liqenLab Carbon">
+<meta property="og:description" content="Calcula la huella de carbono de tu hogar y descubre cuánto dinero puedes ahorrar en luz, gas y combustible. Metodología alineada al GHG Protocol.">
+<meta property="og:image" content="https://liqenlab.com/og-liqenlab.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Calculadora de huella de carbono del hogar | liqenLab Carbon">
+<meta name="twitter:description" content="Calcula la huella de carbono de tu hogar y descubre cuánto dinero puedes ahorrar en luz, gas y combustible. Metodología alineada al GHG Protocol.">
+<meta name="twitter:image" content="https://liqenlab.com/og-liqenlab.png">
+<link rel="icon" type="image/png" href="logo-liqenlab-icon.png">
+<link rel="apple-touch-icon" href="logo-liqenlab-icon.png">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"liqenLab Carbon","url":"https://liqenlab.com/","inLanguage":["es","en"]},{"@context":"https://schema.org","@type":"WebApplication","name":"liqenLab Carbon","url":"https://liqenlab.com/","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","inLanguage":["es","en"],"description":"Calcula la huella de carbono de tu hogar y descubre cuánto dinero puedes ahorrar en luz, gas y combustible. Metodología alineada al GHG Protocol.","image":"https://liqenlab.com/og-liqenlab.png"}]</script>
 </head>
 <body>
 <x-dc>
@@ -22,20 +44,38 @@
     @media (max-width: 1000px) { [data-fp-links], [data-fp-ctl] { display:none !important; } [data-fp-burger] { display:flex !important; } }
     @media (max-width: 600px) {
       [data-fp-logo] { height:36px !important; }
-      [data-fp-enter] { padding:0 14px !important; }
       [data-fp-drawer] { top:62px !important; }
-      [style*="font-size:12.5px"] { font-size:14px !important; }
-      [style*="font-size:13px"] { font-size:14px !important; }
-      [style*="font-size:15px"] { font-size:16px !important; }
+      #top p { font-size:16.5px !important; }
+      footer { font-size:14px !important; }
       #top { padding-top:40px !important; padding-bottom:56px !important; gap:40px !important; }
       #metodologia > div { padding:24px !important; }
-      section[style*="padding:96px 24px"], div[style*="padding:96px 24px"] { padding-top:64px !important; padding-bottom:64px !important; }
-      section[style*="padding:0 24px 96px"] { padding-bottom:64px !important; }
+      [data-fp-sec] { padding-top:64px !important; padding-bottom:64px !important; }
+      [data-fp-secb] { padding-bottom:64px !important; }
+      #top h1 { font-size:34px !important; line-height:1.16 !important; }
+      #top > div:first-child > div[data-delay="240"] { flex-direction:column; align-items:stretch !important; }
+      #top > div:first-child > div[data-delay="240"] > a { justify-content:center; text-align:center; }
+      #top [data-parallax="-0.08"] { transform:scale(.72); }
+      #top [data-parallax="-0.04"] { left:-6px !important; bottom:-20px !important; }
+      #top [data-tilt] { padding:18px !important; }
+      #metodologia > div { gap:24px !important; }
+      [data-fp-ctabox] { padding:44px 20px !important; border-radius:18px !important; }
+      footer { padding-bottom:calc(32px + env(safe-area-inset-bottom)) !important; }
     }
-    @media (max-width: 380px) { [data-fp-enter] { display:none !important; } }
+    @media (max-width: 380px) { #top h1 { font-size:30px !important; } #top [data-parallax="-0.08"] { transform:scale(.62); } }
     ::selection { background:var(--accent-soft, oklch(93% 0.035 152)); }
     @keyframes fpPulse { 0% { box-shadow:0 0 0 0 color-mix(in oklab, var(--accent) 50%, transparent); } 100% { box-shadow:0 0 0 10px color-mix(in oklab, var(--accent) 0%, transparent); } }
-    @keyframes fpFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+    @keyframes fpFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+    @keyframes fpBreath { 0%,100% { transform:scale(1); opacity:.9; } 50% { transform:scale(1.06); opacity:1; } }
+    @keyframes fpDrift { 0%,100% { transform:translate(0,0) rotate(0deg); } 50% { transform:translate(-14px,10px) rotate(8deg); } }
+    #top h1 em { background-size:0% .09em; transition:background-size 1.3s cubic-bezier(.16,1,.3,1) .75s; }
+    #top h1.fp-in em { background-size:100% .09em; }
+    .fp-card { position:relative; overflow:hidden; }
+    .fp-card::before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .4s ease; background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%), color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%); }
+    .fp-card:hover::before { opacity:1; }
+    #fp-header > div { transition:padding .35s cubic-bezier(.16,1,.3,1); }
+    #fp-header[data-scrolled="1"] > div { padding-top:6px !important; padding-bottom:6px !important; }
+    [data-fp-logo] { transition:height .35s cubic-bezier(.16,1,.3,1); }
+    #fp-header[data-scrolled="1"] [data-fp-logo] { height:36px !important; }
     @keyframes fpPing { 0% { transform:scale(.7); opacity:.0; } 15% { opacity:.9; } 100% { transform:scale(1.32); opacity:0; } }
     @keyframes fpSpin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
     @keyframes fpShine { from { transform:translateX(-120%) skewX(-20deg); } to { transform:translateX(220%) skewX(-20deg); } }
@@ -44,8 +84,8 @@
     .fp-cta:hover::after { animation:fpShine .8s cubic-bezier(.16,1,.3,1); }
     .fp-arrow { transition:transform .35s cubic-bezier(.16,1,.3,1); }
     .fp-cta:hover .fp-arrow, a:hover > .fp-arrow { transform:translateX(4px); }
-    .fp-card { translate:0 0; transition-property:opacity, transform, translate, border-color, box-shadow; transition-duration:.8s, 1s, .45s, .3s, .45s; transition-timing-function:cubic-bezier(.16,1,.3,1); }
-    .fp-card:hover { translate:0 -4px; }
+    .fp-card { translate:0 0; transition-property:opacity, transform, filter, translate, border-color, box-shadow; transition-duration:.9s, 1.1s, .9s, .45s, .3s, .45s; transition-timing-function:cubic-bezier(.16,1,.3,1); }
+    .fp-card:hover { translate:0 -3px; }
     .fp-ico { transition:transform .45s cubic-bezier(.34,1.56,.64,1); }
     .fp-card:hover .fp-ico { transform:scale(1.08) rotate(-4deg); }
     .fp-line { transform:scaleX(0); transform-origin:left; transition:transform 1s cubic-bezier(.16,1,.3,1) .25s; }
@@ -66,12 +106,13 @@
   <header id="fp-header" style="position:sticky; top:0; z-index:20; background:color-mix(in oklab, var(--accent-soft, #e6f2e8) 78%, var(--bg, #fff)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid color-mix(in oklch, var(--border, oklch(88% 0.012 85)) 70%, transparent);">
     <div style="max-width:1180px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
       <a href="#top" style="display:flex; align-items:center; gap:10px; color:var(--text, oklch(23% 0.02 85));">
-        <img data-fp-logo="1" src="logo-ecoinsight.png" alt="EcoInsight Home" style="height:42px; width:auto; display:block;">
+        <img data-fp-logo="1" src="logo-liqenlab.png" alt="liqenLab Carbon" style="height:42px; width:auto; display:block;">
       </a>
       <nav style="display:flex; align-items:center; gap:16px; font-size:14px; font-weight:500; flex-wrap:nowrap; min-width:0;">
         <div style="display:flex; align-items:center; gap:16px; min-width:0; overflow:hidden; flex-shrink:1;" data-fp-links="1">
-        <a href="#medimos" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_what }}</a>
         <a href="#como" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_how }}</a>
+        <a href="#medimos" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_what }}</a>
+        <a href="#obtienes" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_app }}</a>
         <a href="#metodologia" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_method }}</a>
         </div>
         <div data-fp-ctl="1" style="display:flex; align-items:center; gap:8px;">
@@ -94,7 +135,6 @@
           </div>
           <div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff);"><button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:40px; height:34px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:40px; height:34px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button></div>
         </div>
-        <a data-fp-enter="1" href="home.html?fresh=1" style="display:inline-flex; align-items:center; height:40px; min-height:40px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:0 16px; border-radius:9px; font-weight:600; transition:background .2s ease; white-space:nowrap;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff;">{{ t.nav_enter }}</a>
         <button data-fp-burger="1" onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; width:44px; height:44px; border-radius:11px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); align-items:center; justify-content:center; cursor:pointer; padding:0;">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7 H18 M4 11 H18 M4 15 H18"></path></svg>
         </button>
@@ -104,8 +144,9 @@
 
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
   <div data-fp-drawer="1" style="position:fixed; top:var(--fp-hh, 66px); left:0; right:0; bottom:0; z-index:19; background:var(--bg, oklch(97.5% 0.012 85)); overflow-y:auto; padding:8px 24px calc(32px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:4px;">
-    <a href="#medimos" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_what }}</a>
     <a href="#como" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_how }}</a>
+    <a href="#medimos" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_what }}</a>
+    <a href="#obtienes" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_app }}</a>
     <a href="#metodologia" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_method }}</a>
     <div style="display:flex; flex-direction:column; gap:12px; padding:20px 0;">
       <div style="display:flex; gap:8px; flex-wrap:wrap;"><button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display:flex; align-items:center; gap:8px; min-height:44px; padding:0 12px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff); color:var(--text, #222); cursor:pointer; font:600 13.5px 'Public Sans',sans-serif; white-space:nowrap; flex:1; justify-content:center;"><sc-if value="{{ showMoon }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if><sc-if value="{{ showSun }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if><span data-lbl="1">{{ themeLabel }}</span></button><div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff);"><button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:44px; height:44px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:44px; height:44px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button></div></div>
@@ -126,11 +167,11 @@
 
   <section id="top" style="position:relative; max-width:1180px; margin:0 auto; padding:72px 24px 88px; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr)); gap:56px; align-items:center;">
     <div>
-      <div data-reveal="1" style="display:inline-flex; align-items:center; gap:8px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); font-size:12.5px; font-weight:700; padding:6px 12px 6px 10px; border-radius:999px; margin-bottom:22px;">
-        <span style="width:7px; height:7px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); animation:fpPulse 1.8s ease-out infinite;"></span>
+      <div data-reveal="1" style="display:inline-flex; align-items:center; gap:8px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); font-size:15px; font-weight:700; padding:7px 14px 7px 12px; border-radius:999px; margin-bottom:22px;">
+        <span style="width:8px; height:8px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); animation:fpPulse 1.8s ease-out infinite;"></span>
         {{ t.badge }}
       </div>
-      <h1 data-reveal="1" data-delay="80" style="font-family:'Lora',serif; font-weight:600; font-size:clamp(38px,5.2vw,62px); line-height:1.06; letter-spacing:-0.015em; margin:0 0 22px; text-wrap:balance;">{{ t.h1a }} <em style="font-style:italic; font-weight:500; color:var(--accent, oklch(52% 0.1 152));">{{ t.h1b }}</em> {{ t.h1c }}</h1>
+      <h1 data-reveal="1" data-delay="80" style="font-family:'Lora',serif; font-weight:600; font-size:clamp(38px,5.2vw,62px); line-height:1.14; letter-spacing:-0.015em; margin:0 0 22px; text-wrap:balance;">{{ t.h1a }} <em style="font-style:italic; font-weight:500; color:var(--accent, oklch(52% 0.1 152)); background-image:linear-gradient(90deg, color-mix(in oklab, var(--accent) 38%, transparent), color-mix(in oklab, var(--accent) 38%, transparent)); background-repeat:no-repeat; background-position:0 88%;">{{ t.h1b }}</em> {{ t.h1c }}</h1>
       <p data-reveal="1" data-delay="160" style="font-size:18px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0 0 34px; max-width:520px; text-wrap:pretty;">{{ t.hero_sub }}</p>
       <div data-reveal="1" data-delay="240" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
         <a href="home.html?fresh=1" class="fp-cta" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:15px 24px; border-radius:11px; font-weight:700; font-size:15px; box-shadow:0 8px 24px color-mix(in oklab, var(--accent) 28%, transparent); transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .25s ease;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff; transform:translateY(-2px); box-shadow:0 12px 28px color-mix(in oklab, var(--accent) 34%, transparent);">
@@ -143,17 +184,12 @@
 
     <div data-reveal="1" data-delay="200" style="position:relative; display:flex; justify-content:center;">
       <div data-parallax="-0.08" style="position:absolute; width:470px; height:470px; max-width:110%; top:50%; left:50%; margin:-235px 0 0 -235px; pointer-events:none;">
-        <div style="position:absolute; inset:-30px; border-radius:50%; background:conic-gradient(from 0deg, color-mix(in oklab, var(--accent) 0%, transparent), color-mix(in oklab, var(--accent) 22%, transparent), color-mix(in oklab, var(--accent) 0%, transparent) 40%); animation:fpSpin 9s linear infinite; -webkit-mask:radial-gradient(circle, transparent 52%, #000 53%, #000 100%); mask:radial-gradient(circle, transparent 52%, #000 53%, #000 100%);"></div>
-        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid color-mix(in oklab, var(--accent) 45%, transparent); animation:fpPing 4.5s ease-out infinite;"></div>
-        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid color-mix(in oklab, var(--accent) 45%, transparent); animation:fpPing 4.5s ease-out infinite; animation-delay:-1.5s;"></div>
-        <div style="position:absolute; inset:60px; border-radius:50%; border:1.5px solid color-mix(in oklab, var(--accent) 45%, transparent); animation:fpPing 4.5s ease-out infinite; animation-delay:-3s;"></div>
         <div style="position:absolute; inset:0; border-radius:50%; border:1.5px dashed color-mix(in oklab, var(--accent) 30%, transparent); animation:fpSpin 60s linear infinite;"></div>
         <div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-0.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-0.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(72% 0.15 85); color:oklch(72% 0.15 85); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(72% 0.15 85 / .55), 0 0 0 5px oklch(72% 0.15 85 / .12);"><svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z" transform="scale(1)"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-15.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-15.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(58% 0.13 250); color:oklch(58% 0.13 250); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(58% 0.13 250 / .55), 0 0 0 5px oklch(58% 0.13 250 / .12);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 15.3 4.8 10.6A2 2 0 0 1 6.7 9.1h10.6a2 2 0 0 1 1.9 1.5l1.3 4.7"/><path d="M3 15.3h18v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2Z"/><circle cx="7.5" cy="16.8" r="1.2" fill="currentColor"/><circle cx="16.5" cy="16.8" r="1.2" fill="currentColor"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-30.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-30.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(58% 0.14 20); color:oklch(58% 0.14 20); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px oklch(58% 0.14 20 / .55), 0 0 0 5px oklch(58% 0.14 20 / .12);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div></div></div><div style="position:absolute; inset:0; animation:fpSpin 60s linear infinite ; animation-delay:-45.00s;"><div style="position:absolute; left:50%; top:0; width:38px; height:38px; margin:-19px 0 0 -19px; animation:fpSpin 60s linear infinite reverse; animation-delay:-45.00s;"><div style="width:38px; height:38px; border-radius:12px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid oklch(52% 0.1 152); color:oklch(52% 0.1 152); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px color-mix(in oklab, var(--accent) 55%, transparent), 0 0 0 5px color-mix(in oklab, var(--accent) 12%, transparent);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l7 2 2 7 9-16Z"/></svg></div></div></div>
         <div style="position:absolute; inset:46px; border-radius:50%; border:1px solid color-mix(in oklab, var(--accent) 22%, transparent);"></div>
-        <div style="position:absolute; inset:0; animation:fpSpin 26s linear infinite reverse; animation-delay:-2.89s;"><span style="position:absolute; left:50%; top:0; width:9px; height:9px; margin:-4.5px 0 0 -4.5px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent), 0 0 18px 3px color-mix(in oklab, var(--accent) 70%, transparent);"></span></div><div style="position:absolute; inset:0; animation:fpSpin 26s linear infinite reverse; animation-delay:-15.89s;"><span style="position:absolute; left:50%; top:0; width:6px; height:6px; margin:-3px 0 0 -3px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent), 0 0 18px 3px color-mix(in oklab, var(--accent) 70%, transparent);"></span></div>
       </div>
-      <div data-parallax="0.05" style="position:absolute; width:340px; height:340px; top:50%; left:50%; margin:-170px 0 0 -170px; border-radius:50%; background:color-mix(in oklab, var(--accent) 70%, transparent);"></div>
-      <div style="position:relative; width:100%; max-width:420px; animation:fpFloat 7s ease-in-out infinite;">
+      <div data-parallax="0.05" style="position:absolute; width:340px; height:340px; top:50%; left:50%; margin:-170px 0 0 -170px; border-radius:50%; background:radial-gradient(circle at 40% 35%, color-mix(in oklab, var(--accent) 62%, transparent) 0%, color-mix(in oklab, var(--accent) 28%, transparent) 52%, transparent 72%); filter:blur(8px); animation:fpBreath 10s ease-in-out infinite;"></div>
+      <div style="position:relative; width:100%; max-width:420px; animation:fpFloat 9s ease-in-out infinite;">
         <div data-tilt="1" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:20px; padding:24px; box-shadow:0 30px 60px -20px color-mix(in oklab, var(--accent) 28%, transparent), 0 2px 6px oklch(0% 0 0 / .04);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
             <div>
@@ -202,35 +238,8 @@
     </div>
   </section>
 
-  <section id="medimos" style="max-width:1180px; margin:0 auto; padding:40px 24px 96px; scroll-margin-top:70px;">
-    <div data-reveal="1" style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:36px;">
-      <div style="max-width:560px;">
-        <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_what }}</div>
-        <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.4vw,40px); line-height:1.15; margin:0; text-wrap:balance;">{{ t.h_what }}</h2>
-      </div>
-      <p style="max-width:380px; font-size:15px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0;">{{ t.p_what }}</p>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:16px;">
-      <sc-for list="{{ sources }}" as="src" hint-placeholder-count="4">
-        <div data-reveal="1" data-delay="{{ src.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:24px;" style-hover="border-color:color-mix(in oklab, var(--accent) 50%, transparent); box-shadow:0 16px 36px -18px color-mix(in oklab, var(--accent) 30%, transparent);">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:34px;">
-            <span class="fp-ico" style="width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:{{ src.soft }}; color:{{ src.color }};">
-              <sc-if value="{{ src.isEnergy }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z"></path></svg></sc-if>
-              <sc-if value="{{ src.isCar }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 15.3 4.8 10.6A2 2 0 0 1 6.7 9.1h10.6a2 2 0 0 1 1.9 1.5l1.3 4.7"></path><path d="M3 15.3h18v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2Z"></path><path d="M7 9.1 8 6.2a1.4 1.4 0 0 1 1.3-1h5.4a1.4 1.4 0 0 1 1.3 1l1 2.9"></path><circle cx="7.5" cy="16.8" r="1.5" fill="currentColor" stroke="none"></circle><circle cx="16.5" cy="16.8" r="1.5" fill="currentColor" stroke="none"></circle></svg></sc-if>
-              <sc-if value="{{ src.isShop }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></sc-if>
-              <sc-if value="{{ src.isTravel }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor" stroke="none"><path d="M9.3 1.5 L10.7 1.5 L10.7 7.3 L17 11.5 L17 13 L10.7 11 L10.7 15.3 L13 17 L13 18 L10 17.2 L7 18 L7 17 L9.3 15.3 L9.3 11 L3 13 L3 11.5 L9.3 7.3 Z"></path></svg></sc-if>
-            </span>
-            <span style="font-size:11px; font-weight:700; color:var(--text-muted, oklch(46% 0.02 85)); border:1px solid var(--border, oklch(88% 0.012 85)); padding:3px 8px; border-radius:999px;">{{ src.scope }}</span>
-          </div>
-          <div style="font-family:'Lora',serif; font-size:21px; font-weight:600; margin-bottom:6px;">{{ src.title }}</div>
-          <div style="font-size:14px; line-height:1.55; color:var(--text-muted, oklch(46% 0.02 85));">{{ src.desc }}</div>
-        </div>
-      </sc-for>
-    </div>
-  </section>
-
   <section id="como" style="background:var(--surface, oklch(99% 0.004 85)); border-top:1px solid var(--border, oklch(88% 0.012 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85)); scroll-margin-top:70px;">
-    <div style="max-width:1180px; margin:0 auto; padding:96px 24px;">
+    <div data-fp-sec="1" style="max-width:1180px; margin:0 auto; padding:96px 24px;">
       <div data-reveal="1" style="text-align:center; max-width:620px; margin:0 auto 56px;">
         <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_how }}</div>
         <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.4vw,40px); line-height:1.15; margin:0; text-wrap:balance;">{{ t.h_how }}</h2>
@@ -250,7 +259,33 @@
     </div>
   </section>
 
-  <section style="max-width:1180px; margin:0 auto; padding:96px 24px;">
+  <section id="medimos" data-fp-sec="1" style="max-width:1180px; margin:0 auto; padding:96px 24px; scroll-margin-top:70px;">
+    <div data-reveal="1" style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:36px;">
+      <div style="max-width:560px;">
+        <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_what }}</div>
+        <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.4vw,40px); line-height:1.15; margin:0; text-wrap:balance;">{{ t.h_what }}</h2>
+      </div>
+      <p style="max-width:380px; font-size:15px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0;">{{ t.p_what }}</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:16px;">
+      <sc-for list="{{ sources }}" as="src" hint-placeholder-count="4">
+        <div data-reveal="1" data-delay="{{ src.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:24px;" style-hover="border-color:color-mix(in oklab, var(--accent) 50%, transparent); box-shadow:0 16px 36px -18px color-mix(in oklab, var(--accent) 30%, transparent);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:34px;">
+            <span class="fp-ico" style="width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:{{ src.soft }}; color:{{ src.color }};">
+              <sc-if value="{{ src.isEnergy }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z"></path></svg></sc-if>
+              <sc-if value="{{ src.isCar }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 15.3 4.8 10.6A2 2 0 0 1 6.7 9.1h10.6a2 2 0 0 1 1.9 1.5l1.3 4.7"></path><path d="M3 15.3h18v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2Z"></path><path d="M7 9.1 8 6.2a1.4 1.4 0 0 1 1.3-1h5.4a1.4 1.4 0 0 1 1.3 1l1 2.9"></path><circle cx="7.5" cy="16.8" r="1.5" fill="currentColor" stroke="none"></circle><circle cx="16.5" cy="16.8" r="1.5" fill="currentColor" stroke="none"></circle></svg></sc-if>
+              <sc-if value="{{ src.isShop }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></sc-if>
+              <sc-if value="{{ src.isTravel }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor" stroke="none"><path d="M9.3 1.5 L10.7 1.5 L10.7 7.3 L17 11.5 L17 13 L10.7 11 L10.7 15.3 L13 17 L13 18 L10 17.2 L7 18 L7 17 L9.3 15.3 L9.3 11 L3 13 L3 11.5 L9.3 7.3 Z"></path></svg></sc-if>
+            </span>
+          </div>
+          <div style="font-family:'Lora',serif; font-size:21px; font-weight:600; margin-bottom:6px;">{{ src.title }}</div>
+          <div style="font-size:14px; line-height:1.55; color:var(--text-muted, oklch(46% 0.02 85));">{{ src.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="obtienes" data-fp-secb="1" style="max-width:1180px; margin:0 auto; padding:0 24px 96px; scroll-margin-top:70px;">
     <div data-reveal="1" style="max-width:620px; margin-bottom:40px;">
       <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_app }}</div>
       <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.4vw,40px); line-height:1.15; margin:0; text-wrap:balance;">{{ t.h_app }}</h2>
@@ -266,7 +301,7 @@
     </div>
   </section>
 
-  <section id="metodologia" style="max-width:1180px; margin:0 auto; padding:0 24px 96px; scroll-margin-top:70px;">
+  <section id="metodologia" data-fp-secb="1" style="max-width:1180px; margin:0 auto; padding:0 24px 96px; scroll-margin-top:70px;">
     <div data-reveal="1" style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:20px; background:var(--surface, oklch(99% 0.004 85)); padding:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:40px;">
       <div>
         <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_method }}</div>
@@ -288,9 +323,9 @@
   </section>
 
   <section style="padding:0 24px 72px;">
-    <div data-reveal="1" style="max-width:1180px; margin:0 auto; border-radius:24px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:64px 32px; text-align:center; position:relative; overflow:hidden;">
-      <div style="position:absolute; width:520px; height:520px; right:-160px; top:-260px; border-radius:50%; border:1.5px dashed oklch(100% 0 0 / .25); animation:fpSpin 80s linear infinite;"></div>
-      <div style="position:absolute; width:300px; height:300px; left:-120px; bottom:-170px; border-radius:50%; background:oklch(100% 0 0 / .08);"></div>
+    <div data-reveal="1" data-fp-ctabox="1" style="max-width:1180px; margin:0 auto; border-radius:24px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:64px 32px; text-align:center; position:relative; overflow:hidden;">
+      <div style="position:absolute; width:520px; height:520px; right:-160px; top:-260px; border-radius:50%; border:1.5px dashed oklch(100% 0 0 / .25); animation:fpDrift 18s ease-in-out infinite;"></div>
+      <div style="position:absolute; width:300px; height:300px; left:-120px; bottom:-170px; border-radius:50%; background:oklch(100% 0 0 / .08); animation:fpDrift 22s ease-in-out infinite reverse;"></div>
       <h2 style="position:relative; font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.8vw,44px); line-height:1.15; margin:0 auto 14px; max-width:680px; text-wrap:balance;">{{ t.h_cta }}</h2>
       <p style="position:relative; font-size:16.5px; color:oklch(95% 0.03 152); margin:0 auto 30px; max-width:480px; line-height:1.6;">{{ t.p_cta }}</p>
       <a href="home.html?fresh=1" class="fp-cta" style="position:relative; display:inline-flex; align-items:center; gap:10px; background:#fff; color:oklch(27% 0.05 152); padding:15px 26px; border-radius:11px; font-weight:700; font-size:15px; transition:transform .2s ease;" style-hover="transform:translateY(-2px); color:oklch(27% 0.05 152);">
@@ -300,16 +335,21 @@
     </div>
   </section>
 
-  <footer style="max-width:1180px; margin:0 auto; padding:28px 24px 40px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:13px; color:var(--text-muted, oklch(46% 0.02 85)); border-top:1px solid var(--border, oklch(88% 0.012 85));">
-    <span style="font-family:'Lora',serif; font-weight:600; color:var(--text, oklch(23% 0.02 85));">EcoInsight Home</span>
-    <span>{{ t.footer }} · {{ t.rights }}</span>
+  <footer style="max-width:1180px; margin:0 auto; padding:28px 24px 40px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px 24px; flex-wrap:wrap; font-size:13px; color:var(--text-muted, oklch(46% 0.02 85)); border-top:1px solid var(--border, oklch(88% 0.012 85));">
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <span style="font-family:'Lora',serif; font-weight:600; font-size:15px; color:var(--text, oklch(23% 0.02 85));">liqenLab Carbon</span>
+      <span style="font-size:12.5px;">{{ t.liqen }}</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px;">
+      <span>{{ t.footer }} · {{ t.rights }}</span>
+    </div>
   </footer>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { menu: false, p: 0, theme: 'light', palette: 'alerce', lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
-  I18N = {"es":{"nav_what":"Qué medimos","nav_how":"Cómo funciona","nav_method":"Metodología","nav_enter":"Entrar","badge":"Huella de carbono del hogar","h1a":"Entiende el impacto de tu hogar y","h1b":"cuánto pueden ahorrar","hero_sub":"Registra la energía, el auto, las compras y los viajes del hogar cada mes. Te mostramos tu huella de carbono en un lenguaje simple y, sobre todo, cuánto dinero pueden ahorrar reduciéndola.","cta_start":"Comenzar ahora","cta_how":"Ver cómo funciona","card_title":"Mi huella · Septiembre","card_example":"Ejemplo ilustrativo","card_delta":"−18% vs. agosto","card_save":"Ahorro potencial al año","chip_title":"Paneles solares","chip_sub":"Energía −70%","k_what":"QUÉ MEDIMOS","h_what":"Las cuatro fuentes que forman la huella de un hogar","p_what":"Cada registro se convierte en kg de CO₂e con factores de emisión de tu país.","k_how":"CÓMO FUNCIONA","h_how":"Tres pasos, una vez al mes","k_app":"DENTRO DE LA APP","h_app":"Del dato mensual a decisiones concretas","k_flow":"FLUJO DEL HOGAR","h_flow":"Arrastra mejoras a tu casa y mira cómo reverdece el paisaje","p_flow":"Paneles solares, bomba de calor, auto eléctrico, ropa de segunda mano. Cada mejora baja tus emisiones reales y suma puntos hacia la meta de −30%.","k_method":"METODOLOGÍA","h_method":"Cálculo alineado al GHG Protocol","p_method":"Separamos tus emisiones en tres alcances y usamos factores de emisión propios de cada país.","h_cta":"Empieza a medir la huella de tu hogar","p_cta":"Configura tu hogar, registra tu primer mes y descubre dónde está tu mayor oportunidad de ahorro.","cta_enter":"Entrar a EcoInsight Home","footer":"© 2026 · Huella de carbono para hogares","rights":"Todos los derechos reservados.","h1c":"juntos"},"en":{"nav_what":"What we measure","nav_how":"How it works","nav_method":"Methodology","nav_enter":"Sign in","badge":"Household carbon footprint","h1a":"Understand your home’s impact and","h1b":"how much you can save","hero_sub":"Log your home’s energy, car, shopping and travel each month. We show your carbon footprint in plain language and, above all, how much money you can save by reducing it.","cta_start":"Get started","cta_how":"See how it works","card_title":"My footprint · September","card_example":"Illustrative example","card_delta":"−18% vs. August","card_save":"Potential yearly savings","chip_title":"Solar panels","chip_sub":"Energy −70%","k_what":"WHAT WE MEASURE","h_what":"The four sources behind a household footprint","p_what":"Each entry is converted to kg CO₂e using your country’s emission factors.","k_how":"HOW IT WORKS","h_how":"Three steps, once a month","k_app":"INSIDE THE APP","h_app":"From monthly data to concrete decisions","k_flow":"HOME FLOW","h_flow":"Drag upgrades onto your home and watch the landscape turn green","p_flow":"Solar panels, heat pump, electric car, second-hand clothing. Each upgrade lowers your real emissions and earns points toward the −30% goal.","k_method":"METHODOLOGY","h_method":"Calculation aligned with the GHG Protocol","p_method":"We split your emissions into three scopes and use country-specific emission factors.","h_cta":"Start measuring your home’s footprint","p_cta":"Set up your home, log your first month and find your biggest savings opportunity.","cta_enter":"Enter EcoInsight Home","footer":"© 2026 · Carbon footprint for households","rights":"All rights reserved.","h1c":"together"}};
+  state = { menu: false, faq: null, p: 0, theme: 'light', palette: 'queule', lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
+  I18N = {"es":{"nav_what":"Qué medimos","nav_how":"Cómo funciona","nav_method":"Metodología","nav_enter":"Calcular mi huella","badge":"Huella de carbono del hogar","h1a":"Descubre el impacto de tu hogar y","h1b":"cuánto puedes ahorrar","hero_sub":"Cada mes, anota la luz, el gas, el auto, las compras y los viajes de la casa. Te mostramos su huella de carbono en palabras simples y, sobre todo, cuánto dinero pueden ahorrar juntos al reducirla.","cta_start":"Calcular mi huella","cta_how":"Ver cómo funciona","card_title":"Mi huella · Septiembre","card_example":"Ejemplo ilustrativo","card_delta":"−18% vs. agosto","card_save":"Ahorro potencial al año","chip_title":"Paneles solares","chip_sub":"Energía −70%","k_what":"QUÉ MEDIMOS","h_what":"Las cuatro fuentes que forman la huella de un hogar","p_what":"Cada registro se convierte en kg de CO₂e con factores de emisión de tu país.","k_how":"CÓMO FUNCIONA","h_how":"Tres pasos, una vez al mes","k_app":"LO QUE OBTIENES","h_app":"Del dato mensual a decisiones concretas","k_method":"METODOLOGÍA","h_method":"Cálculo alineado al GHG Protocol","p_method":"Separamos tus emisiones en tres alcances y usamos factores de emisión propios de cada país.","h_cta":"Empieza a medir la huella de tu hogar","p_cta":"Configura tu hogar, registra tu primer mes y descubre dónde está tu mayor oportunidad de ahorro.","cta_enter":"Calcular mi huella","footer":"© 2026 · Huella de carbono para hogares","rights":"Todos los derechos reservados.","h1c":"en familia","nav_faq":"Preguntas","nav_enter_short":"Calcular","k_faq":"PREGUNTAS FRECUENTES","h_faq":"Lo que suelen preguntarnos","contact":"Contacto","nav_app":"Lo que obtienes","liqen":"El liquen es un bioindicador natural de la calidad del aire y la contaminación atmosférica."},"en":{"nav_what":"What we measure","nav_how":"How it works","nav_method":"Methodology","nav_enter":"Calculate my footprint","badge":"Household carbon footprint","h1a":"Discover your home's impact and","h1b":"how much you can save","hero_sub":"Each month, log your home's electricity, gas, car, shopping and travel. We show its carbon footprint in plain words and, above all, how much money you can save together by reducing it.","cta_start":"Calculate my footprint","cta_how":"See how it works","card_title":"My footprint · September","card_example":"Illustrative example","card_delta":"−18% vs. August","card_save":"Potential yearly savings","chip_title":"Solar panels","chip_sub":"Energy −70%","k_what":"WHAT WE MEASURE","h_what":"The four sources behind a household footprint","p_what":"Each entry is converted to kg CO₂e using your country’s emission factors.","k_how":"HOW IT WORKS","h_how":"Three steps, once a month","k_app":"WHAT YOU GET","h_app":"From monthly data to concrete decisions","k_method":"METHODOLOGY","h_method":"Calculation aligned with the GHG Protocol","p_method":"We split your emissions into three scopes and use country-specific emission factors.","h_cta":"Start measuring your home’s footprint","p_cta":"Set up your home, log your first month and find your biggest savings opportunity.","cta_enter":"Calculate my footprint","footer":"© 2026 · Carbon footprint for households","rights":"All rights reserved.","h1c":"as a family","nav_faq":"FAQ","nav_enter_short":"Calculate","k_faq":"FREQUENTLY ASKED QUESTIONS","h_faq":"What people usually ask","contact":"Contact","nav_app":"What you get","liqen":"Lichen is a natural bioindicator of air quality and atmospheric pollution."}};
   setLang = (lang) => { try { localStorage.setItem('fp_lang', lang); } catch (e) {} document.documentElement.lang = lang; this.setState({ lang }); };
   PALETTES = {
     alerce:    { label:'Alerce',    sw:['#0b1f2a','#2e9e3f','#1e63c8','#63c64c'] },
@@ -358,12 +398,15 @@ class Component extends DCLogic {
   };
 
   componentDidMount() {
-    let theme = 'light', palette = 'alerce';
-    try { theme = localStorage.getItem('eih_theme') || theme; palette = localStorage.getItem('eih_palette') || palette; } catch (e) {}
-    if (!this.PALETTES[palette]) { palette = 'alerce'; try { localStorage.setItem('eih_palette', palette); } catch (e) {} }
+    let theme = 'light', palette = 'queule';
+    try { theme = localStorage.getItem('eih_theme') || theme;
+      if (sessionStorage.getItem('lq_session')) { const sp = localStorage.getItem('eih_palette'); if (this.PALETTES[sp]) palette = sp; }
+      else { sessionStorage.setItem('lq_session', '1'); localStorage.setItem('eih_palette', palette); }
+    } catch (e) {}
+    try { const q = new URLSearchParams(location.search).get('lang'); if (q === 'en' || q === 'es') this.setLang(q); } catch (e) {}
     this.applyThemeWith(theme, palette);
     this.setState({ theme, palette });
-    const show = (el) => { el.style.opacity = '1'; el.style.transform = ''; el.classList.add('fp-in'); setTimeout(() => { el.style.transitionDelay = ''; }, 1400); };
+    const show = (el) => { el.style.opacity = '1'; el.style.transform = ''; el.style.filter = ''; el.classList.add('fp-in'); setTimeout(() => { el.style.transitionDelay = ''; }, 1400); };
     const canAnimate = document.visibilityState === 'visible' && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (canAnimate) {
       const vh = window.innerHeight;
@@ -371,9 +414,9 @@ class Component extends DCLogic {
       const heroEls = els.filter(el => el.getBoundingClientRect().top < vh);
       const below = els.filter(el => el.getBoundingClientRect().top >= vh);
       const hide = (el) => {
-        el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translate3d(0,28px,0) scale(.985)';
+        el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translate3d(0,22px,0)'; el.style.filter = 'blur(8px)';
         void el.offsetHeight;
-        el.style.transition = el.classList.contains('fp-card') ? '' : 'opacity .8s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1)';
+        el.style.transition = el.classList.contains('fp-card') ? '' : 'opacity .9s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1), filter .9s cubic-bezier(.16,1,.3,1)';
         el.style.transitionDelay = (el.getAttribute('data-delay') || 0) + 'ms';
       };
       heroEls.forEach(hide);
@@ -416,6 +459,8 @@ class Component extends DCLogic {
         if (!reduced && desktop && y < innerHeight * 1.2) para.forEach(el => { el.style.translate = '0 ' + (y * parseFloat(el.dataset.parallax)).toFixed(1) + 'px'; });
       });
     };
+    this._spot = (e) => { const c = e.target.closest && e.target.closest('.fp-card'); if (!c) return; const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); };
+    if (!reduced) document.addEventListener('pointermove', this._spot, { passive: true });
     this._onScroll = onScroll;
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -435,7 +480,7 @@ class Component extends DCLogic {
     }
   }
   componentWillUnmount() {
-    this._onScroll && removeEventListener('scroll', this._onScroll);
+    this._onScroll && removeEventListener('scroll', this._onScroll); this._spot && document.removeEventListener('pointermove', this._spot);
     if (this._tiltZone) { this._tiltZone.removeEventListener('pointermove', this._tiltMove); this._tiltZone.removeEventListener('pointerleave', this._tiltLeave); } this._io && this._io.disconnect(); clearTimeout(this._t); clearTimeout(this._safe); this._vis && document.removeEventListener('visibilitychange', this._vis); cancelAnimationFrame(this._raf); }
   renderVals() {
     const p = this.state.p;
@@ -478,7 +523,17 @@ class Component extends DCLogic {
       palTitle: E ? 'COLOR PALETTE' : 'PALETA DE COLORES',
       ringSegs, bars,
       co2Label: Math.round(412 * p),
-      saveLabel: 'US$ ' + Math.round(490 * p).toLocaleString(E ? 'en-US' : 'es-CL'),
+      saveLabel: E ? 'US$ ' + Math.round(490 * p).toLocaleString('en-US') : '$' + (Math.round(420 * p) * 1000).toLocaleString('es-CL'),
+      trustItems: E ? ['5 minutes', "Your country's emission factors"] : ['5 minutos', 'Factores de emisión de tu país'],
+      faqs: (E ? [
+        ['Where is my data stored?', 'Your data is stored only in your browser; we don’t share it with anyone.'],
+        ['Do I need my bills?', 'They help you be more precise, but you can start with approximate values.'],
+        ['Does it work outside Chile?', 'Yes. When you set up your home you choose your country and we use its emission factors.'],
+      ] : [
+        ['¿Dónde se guardan mis datos?', 'Tus datos se guardan solo en tu navegador; no los compartimos con nadie.'],
+        ['¿Necesito mis boletas?', 'Ayudan a ser más preciso, pero puedes empezar con valores aproximados.'],
+        ['¿Funciona fuera de Chile?', 'Sí. Al configurar tu hogar eliges tu país y usamos sus factores de emisión.'],
+      ]).map(([q, a], i) => ({ q, a, open: st.faq === i, rot: st.faq === i ? 'rotate(45deg)' : 'rotate(0deg)', toggle: () => this.setState(s => ({ faq: s.faq === i ? null : i })) })),
       sources: [
         { title: E ? 'Energy' : 'Energía', desc: E ? 'Electricity, gas and firewood for heating, hot water and cooking.' : 'Electricidad, gas y leña para calefacción, agua caliente y cocina.', scope: E ? 'Scope 1 & 2' : 'Alcance 1 y 2', isEnergy: true, color: 'var(--accent-text, oklch(33% 0.08 152))', soft: 'var(--accent-soft, oklch(93% 0.035 152))', delay: 0 },
         { title: E ? 'Car' : 'Vehículo', desc: E ? 'Fuel for household cars based on distance and efficiency.' : 'Combustible de los autos del hogar según kilómetros y rendimiento.', scope: E ? 'Scope 1' : 'Alcance 1', isCar: true, color: 'color-mix(in oklab, var(--grad2) 70%, var(--text))', soft: 'color-mix(in oklab, var(--grad2) 16%, var(--surface))', delay: 80 },
