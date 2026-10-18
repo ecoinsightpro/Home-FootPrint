@@ -40,29 +40,41 @@
     @media (max-width:600px) {
       body { font-size:16px; }
       [data-eih-root] { display:block !important; }
-      [data-eih-aside] { position:fixed !important; top:auto !important; bottom:0; left:0; right:0; width:100% !important; height:auto !important; z-index:60; flex-direction:row !important; padding:6px 6px calc(6px + env(safe-area-inset-bottom)) 6px !important; gap:0 !important; border-right:none !important; border-top:1px solid var(--border, oklch(88% 0.012 85)); overflow:visible !important; box-shadow:0 -6px 20px -10px oklch(23% 0.02 85 / .25); }
+      [data-eih-aside] { position:fixed !important; top:auto !important; bottom:0; left:0; right:0; width:100% !important; height:auto !important; z-index:60; flex-direction:row !important; padding:6px 8px calc(6px + env(safe-area-inset-bottom)) !important; gap:0 !important; border-right:none !important; border-top:1px solid var(--border, oklch(88% 0.012 85)); overflow:visible !important; background:var(--surface, #fff) !important; }
+      [data-eih-aside]::before { content:''; position:fixed; top:0; left:0; right:0; height:calc(60px + env(safe-area-inset-top)); background:color-mix(in oklab, var(--bg, #faf7f0) 92%, transparent); -webkit-backdrop-filter:saturate(1.4) blur(14px); backdrop-filter:saturate(1.4) blur(14px); border-bottom:1px solid var(--border, oklch(88% 0.012 85)); z-index:-1; pointer-events:none; }
       [data-eih-aside] > a, [data-eih-aside] > div:nth-last-child(3), [data-eih-aside] > div:last-child { display:none !important; }
-      [data-eih-aside] > div:first-child { position:fixed; top:calc(6px + env(safe-area-inset-top)); left:12px; padding:0 !important; z-index:61; width:auto; }
-      [data-eih-logo-wide] { display:none !important; } [data-eih-logo-sq] { display:block !important; }
-      [data-eih-aside] > div:nth-last-child(2) { display:flex !important; position:fixed; top:calc(8px + env(safe-area-inset-top)); right:10px; width:116px; z-index:61; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; padding:3px !important; }
-      [data-eih-aside] > div:nth-last-child(2) button { min-height:44px; min-width:44px; border-radius:999px !important; }
-      [data-eih-aside] > nav { flex-direction:row !important; gap:0 !important; width:100%; justify-content:space-around; }
+      [data-eih-aside] > div:first-child { position:fixed; top:calc(8px + env(safe-area-inset-top)); left:14px; height:44px; padding:0 !important; z-index:61; width:auto; display:flex; align-items:center; }
+      [data-eih-logo-sq] { display:none !important; }
+      [data-eih-logo-wide] { display:block !important; padding:0 !important; width:auto !important; }
+      [data-eih-logo-wide] img { height:38px !important; width:auto !important; max-width:58vw; object-fit:contain; }
+      [data-eih-aside] > div:nth-last-child(2) { display:flex !important; position:fixed; top:calc(10px + env(safe-area-inset-top)); right:12px; width:auto; gap:2px !important; z-index:61; background:var(--surface-alt, oklch(96% 0.01 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:999px; padding:3px !important; }
+      [data-eih-aside] > div:nth-last-child(2) button { min-height:34px; min-width:44px; padding:0 10px !important; border-radius:999px !important; font-size:12px !important; }
+      [data-eih-aside] > nav { display:grid !important; grid-template-columns:repeat(5, minmax(0,1fr)); gap:2px !important; width:100%; }
       [data-eih-aside] > nav > div:first-child { display:none !important; }
-      [data-eih-aside] > nav button { flex:1 1 0; min-width:0; height:58px !important; flex-direction:column; justify-content:center; align-items:center; gap:3px !important; padding:4px 2px !important; text-align:center !important; transform:none !important; border-radius:12px !important; }
-      [data-eih-aside] > nav button span { font-size:11.5px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+      [data-eih-aside] > nav button { min-width:0; height:56px !important; flex-direction:column; justify-content:center; align-items:center; gap:4px !important; padding:4px 2px !important; text-align:center !important; transform:none !important; border-radius:14px !important; font-weight:600 !important; -webkit-tap-highlight-color:transparent; }
+      [data-eih-aside] > nav button span { font-size:11px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; letter-spacing:.01em; }
+      [data-eih-aside] > nav button[data-short] > span { display:none; }
+      [data-eih-aside] > nav button[data-short]::after { content:attr(data-short); font-size:11px; line-height:1.15; white-space:nowrap; letter-spacing:.01em; }
+      [data-eih-aside] > nav button[aria-current="page"] { background:var(--accent-soft, oklch(93% 0.035 152)) !important; color:var(--accent-text, oklch(33% 0.08 152)) !important; }
       [data-eih-aside] > nav button svg { width:22px; height:22px; flex-shrink:0; }
       [data-eih-aside] > nav > button { display:none !important; }
       [data-eih-aside] > nav > button:nth-child(4), [data-eih-aside] > nav > button:nth-child(5), [data-eih-aside] > nav > button:nth-child(6), [data-eih-aside] > nav > button:nth-child(8), [data-eih-aside] > nav > button[data-eih-more] { display:flex !important; }
       [data-eih-aside] > nav > button:nth-child(4) { order:1; } [data-eih-aside] > nav > button:nth-child(5) { order:2; } [data-eih-aside] > nav > button:nth-child(6) { order:3; } [data-eih-aside] > nav > button:nth-child(8) { order:4; } [data-eih-aside] > nav > button[data-eih-more] { order:5; }
-      [data-eih-aside][data-more="1"] > [data-eih-backdrop] { display:block !important; position:fixed; inset:0; background:oklch(20% 0.02 85 / .35); z-index:-1; }
-      [data-eih-aside][data-more="1"] > nav { flex-wrap:wrap; }
-      [data-eih-aside][data-more="1"] > nav > button { display:flex !important; flex:0 0 25%; }
-      [data-eih-main] { max-width:none !important; padding:calc(72px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important; }
+      [data-eih-aside][data-more="1"] > [data-eih-backdrop] { display:block !important; position:fixed; inset:0; background:oklch(20% 0.02 85 / .4); z-index:-2; }
+      [data-eih-aside][data-more="1"] { border-radius:22px 22px 0 0; padding-top:14px !important; box-shadow:0 -12px 40px -12px oklch(20% 0.02 85 / .35); }
+      [data-eih-aside][data-more="1"] > nav { grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px !important; }
+      [data-eih-aside][data-more="1"] > nav > button { display:flex !important; order:0; height:76px !important; background:var(--surface-alt, oklch(96% 0.01 85)) !important; gap:6px !important; padding:8px 6px !important; }
+      [data-eih-aside][data-more="1"] > nav > button > span { display:block; white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+      [data-eih-aside][data-more="1"] > nav > button[data-short] > span { display:-webkit-box; }
+      [data-eih-aside][data-more="1"] > nav > button[data-short]::after { content:none; }
+      [data-eih-aside][data-more="1"] > nav > button[data-eih-more] { order:99; grid-column:1 / -1; height:48px !important; flex-direction:row; background:transparent !important; }
+      [data-eih-main] { max-width:none !important; padding:calc(76px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(100px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important; }
       [data-eih-main] [style*="grid-template-columns"]:not([style*="repeat(2,1fr)"]) { grid-template-columns:minmax(0,1fr) !important; gap:16px !important; }
       [data-eih-main] h1 { font-size:30px !important; }
       [data-eih-main] [style*="font-size:13px"] { font-size:14px !important; }
       [data-eih-main] input:not([type=checkbox]):not([type=range]), [data-eih-main] select { min-height:48px; font-size:16px !important; }
       [data-eih-main] [style*="overflow-x:auto"], [data-eih-main] [style*="overflow:auto"] { -webkit-overflow-scrolling:touch; }
+      [data-eih-main] img, [data-eih-main] canvas, [data-eih-main] table { max-width:100%; }
     }
     @keyframes fadeInUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
     @keyframes eihBarGrow { from { transform:scaleY(0); } to { transform:scaleY(1); } }
@@ -150,16 +162,16 @@
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17 C4 13 6.5 11 10 11 C13.5 11 16 13 16 17"></path></svg>
         <span>{{ t.nav_onboarding }}</span>
       </button>
-      <button onClick="{{ nav.registro.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.registro.color }}; font:{{ nav.registro.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
+      <button onClick="{{ nav.registro.go }}" data-short="{{ shortReg }}" aria-current="{{ nav.registro.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.registro.color }}; font:{{ nav.registro.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 6 H17"></path><circle cx="5" cy="10" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 10 H17"></path><circle cx="5" cy="14" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 14 H17"></path></svg>
         <span>{{ t.nav_registro }}</span>
       </button>
-      <button onClick="{{ nav.dashboard.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.dashboard.color }}; font:{{ nav.dashboard.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
+      <button onClick="{{ nav.dashboard.go }}" data-short="{{ shortDash }}" aria-current="{{ nav.dashboard.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.dashboard.color }}; font:{{ nav.dashboard.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
         <svg width="17" height="17" viewBox="0 0 20 20" fill="currentColor" stroke="none"><path d="M7.5 3 C9 3 9.8 4.4 9.6 6 C9.4 7.4 8.4 8.3 7.1 8.3 C5.7 8.3 4.8 7.1 5 5.5 C5.2 4 6.2 3 7.5 3 Z"></path><path d="M13.5 8 C15 8 15.7 9.5 15.4 11 C15.1 12.4 14 13.3 12.7 13.1 C11.4 12.9 10.7 11.6 11 10.1 C11.3 8.7 12.3 8 13.5 8 Z"></path></svg>
         <svg width="0" height="0" style="display:none;"><path d="M4 16 V11"></path><path d="M10 16 V6"></path><path d="M16 16 V13"></path><path d="M3 16 H17"></path></svg>
         <span>{{ t.nav_dashboard }}</span>
       </button>
-      <button onClick="{{ nav.proyeccion.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.proyeccion.color }}; font:{{ nav.proyeccion.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
+      <button onClick="{{ nav.proyeccion.go }}" data-short="{{ shortProy }}" aria-current="{{ nav.proyeccion.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.proyeccion.color }}; font:{{ nav.proyeccion.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14 L8 9 L11 12 L17 5"></path><path d="M13 5 H17 V9"></path></svg>
         <span>{{ t.nav_proyeccion }}</span>
       </button>
@@ -167,7 +179,7 @@
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6 H17"></path><circle cx="7" cy="6" r="1.6" fill="currentColor" stroke="none"></circle><path d="M3 13 H17"></path><circle cx="13" cy="13" r="1.6" fill="currentColor" stroke="none"></circle></svg>
         <span>{{ t.nav_simulador }}</span>
       </button>
-      <button onClick="{{ nav.recomendaciones.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.recomendaciones.color }}; font:{{ nav.recomendaciones.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
+      <button onClick="{{ nav.recomendaciones.go }}" data-short="{{ shortRec }}" aria-current="{{ nav.recomendaciones.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:10px; position:relative; z-index:1; height:40px; box-sizing:border-box; background:transparent; color:{{ nav.recomendaciones.color }}; font:{{ nav.recomendaciones.weight }} 13px 'Public Sans',sans-serif; padding:0 12px; border-radius:10px; cursor:pointer; transition:color .25s ease, background .25s ease, transform .3s cubic-bezier(.22,.8,.3,1);" style-hover="background:oklch(52% 0.1 152 / .07); transform:translateX(4px);" style-active="transform:translateX(4px) scale(.97);">
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 A5 5 0 0 1 13 12 L12 14 H8 L7 12 A5 5 0 0 1 10 3 Z"></path><path d="M8 16 H12 M9 18 H11"></path></svg>
         <span>{{ t.nav_recomendaciones }}</span>
       </button>
@@ -1733,6 +1745,21 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
+    try {
+      const tr = sessionStorage.getItem('liq_tr');
+      if (tr) { sessionStorage.removeItem('liq_tr');
+        const o = JSON.parse(tr), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce && document.body.animate) {
+          const ov = document.createElement('div');
+          ov.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;background:' + o.b + ';';
+          document.body.appendChild(ov);
+          const an = ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, delay: 80, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+          an.onfinish = () => ov.remove(); setTimeout(() => ov.remove(), 1500);
+          const root = document.querySelector('#dc-root');
+          root && root.animate([{ transform: 'translateY(8px)' }, { transform: 'none' }], { duration: 800, delay: 80, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+        }
+      }
+    } catch (e) {}
     let _fresh = false; try { _fresh = /[?&]fresh=1/.test(location.search); if (_fresh) { localStorage.removeItem('cc_v2'); this.setState({ screen:'onboarding', onbStep:0 }); } } catch (e) {}
     if (!_fresh) try { const sv = JSON.parse(localStorage.getItem('cc_v2')||'null'); if (sv && Array.isArray(sv.raw) && sv.raw.length === 12 && !/example=/.test(location.search)) { this.rawMonths.length = 0; this.rawMonths.push(...sv.raw); this.setState(sv.st || {}); } } catch (e) {}
     this._dnKey = this.state.screen+'|'+this.state.dashUpTo+'|'+this.state.country+'|'+this.state.kpiPerPerson+'|'+this.state.demo; if (this.state.screen === 'dashboard') this.runDonut();
@@ -2524,6 +2551,7 @@ class Component extends DCLogic {
         bg: s.screen === id ? 'var(--accent-soft, oklch(93% 0.035 152))' : 'transparent',
         color: s.screen === id ? 'var(--accent-text, oklch(33% 0.08 152))' : 'var(--text-muted, oklch(46% 0.02 85))',
         weight: s.screen === id ? 700 : 600,
+        cur: s.screen === id ? 'page' : 'false',
       };
     });
 
@@ -3163,6 +3191,7 @@ class Component extends DCLogic {
       themeIsDark: s.theme === 'dark',
       toggleTheme: this.toggleTheme,
       moreAttr: s.moreOpen ? '1' : '0', moreLabel: s.lang === 'en' ? 'More' : 'Más',
+      shortReg: s.lang === 'en' ? 'Log' : 'Registro', shortDash: s.lang === 'en' ? 'Footprint' : 'Mi huella', shortProy: s.lang === 'en' ? 'Forecast' : 'Proyección', shortRec: s.lang === 'en' ? 'Tips' : 'Consejos',
       toggleMore: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(x => ({ moreOpen: !x.moreOpen })); },
       closeMore: () => { if (this.state.moreOpen) this.setState({ moreOpen: false }); },
       paletteOptions: Object.keys(this.PALETTES).map(id => { const sw = this.PALETTES[id].sw, on = (s.palette) === id; return {

@@ -7,7 +7,7 @@
 <title>Calculadora de huella de carbono del hogar | liqenInsight Carbon</title>
 <meta name="description" content="Calcula la huella de carbono de tu hogar y descubre cuánto dinero puedes ahorrar en luz, gas y combustible. Metodología alineada al GHG Protocol.">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0e7c7b">
+<meta name="theme-color" content="#f1efe9">
 <link rel="canonical" href="https://liqenlab.com/">
 <link rel="alternate" hreflang="es" href="https://liqenlab.com/">
 <link rel="alternate" hreflang="en" href="https://liqenlab.com/?lang=en">
@@ -34,322 +34,392 @@
 <x-dc>
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&amp;family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <style>
-    html { scroll-behavior:smooth; }
-    body { margin:0; background:var(--bg, oklch(97.5% 0.012 85)); color:var(--text, oklch(23% 0.02 85)); font-family:'Public Sans',sans-serif; -webkit-font-smoothing:antialiased; }
+    html { scroll-behavior:smooth; scroll-padding-top:80px; }
+    body { margin:0; background:var(--bg, #f1efe9); color:var(--ink, #0b1f2a); font-family:'Hanken Grotesk',system-ui,sans-serif; -webkit-font-smoothing:antialiased; transition:background-color .35s ease, color .35s ease; }
     * { box-sizing:border-box; }
-    a { color:var(--accent-text, oklch(33% 0.08 152)); text-decoration:none; }
-    a:hover { color:var(--accent, oklch(52% 0.1 152)); }
-    @media (max-width: 1000px) { [data-fp-links], [data-fp-ctl] { display:none !important; } [data-fp-burger] { display:flex !important; } }
-    @media (max-width: 600px) {
-      [data-fp-logo] { height:36px !important; }
-      [data-fp-drawer] { top:62px !important; }
-      #top p { font-size:16.5px !important; }
-      footer { font-size:14px !important; }
-      #top { padding-top:40px !important; padding-bottom:56px !important; gap:40px !important; }
-      #metodologia > div { padding:24px !important; }
-      [data-fp-sec] { padding-top:64px !important; padding-bottom:64px !important; }
-      [data-fp-secb] { padding-bottom:64px !important; }
-      #top h1 { font-size:34px !important; line-height:1.16 !important; }
-      #top > div:first-child > div[data-delay="240"] { flex-direction:column; align-items:stretch !important; }
-      #top > div:first-child > div[data-delay="240"] > a { justify-content:center; text-align:center; }
-      #top [data-parallax="-0.08"] { transform:scale(.72); }
-      #top [data-parallax="-0.04"] { left:-6px !important; bottom:-20px !important; }
-      #top [data-tilt] { padding:18px !important; }
-      #metodologia > div { gap:24px !important; }
-      [data-fp-ctabox] { padding:44px 20px !important; border-radius:18px !important; }
-      footer { padding-bottom:calc(32px + env(safe-area-inset-bottom)) !important; }
-    }
-    @media (max-width: 380px) { #top h1 { font-size:30px !important; } #top [data-parallax="-0.08"] { transform:scale(.62); } }
-    ::selection { background:var(--accent-soft, oklch(93% 0.035 152)); }
-    @keyframes fpPulse { 0% { box-shadow:0 0 0 0 color-mix(in oklab, var(--accent) 50%, transparent); } 100% { box-shadow:0 0 0 10px color-mix(in oklab, var(--accent) 0%, transparent); } }
-    @keyframes fpFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
-    @keyframes fpBreath { 0%,100% { transform:scale(1); opacity:.9; } 50% { transform:scale(1.06); opacity:1; } }
-    @keyframes fpDrift { 0%,100% { transform:translate(0,0) rotate(0deg); } 50% { transform:translate(-14px,10px) rotate(8deg); } }
-    #top h1 em { background-size:0% .09em; transition:background-size 1.3s cubic-bezier(.16,1,.3,1) .75s; }
-    #top h1.fp-in em { background-size:100% .09em; }
-    .fp-card { position:relative; overflow:hidden; }
-    .fp-card::before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .4s ease; background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%), color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%); }
-    .fp-card:hover::before { opacity:1; }
-    #fp-header > div { transition:padding .35s cubic-bezier(.16,1,.3,1); }
-    #fp-header[data-scrolled="1"] > div { padding-top:6px !important; padding-bottom:6px !important; }
-    [data-fp-logo] { transition:height .35s cubic-bezier(.16,1,.3,1); }
-    #fp-header[data-scrolled="1"] [data-fp-logo] { height:36px !important; }
-    @keyframes fpPing { 0% { transform:scale(.7); opacity:.0; } 15% { opacity:.9; } 100% { transform:scale(1.32); opacity:0; } }
-    @keyframes fpSpin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
-    @keyframes fpShine { from { transform:translateX(-120%) skewX(-20deg); } to { transform:translateX(220%) skewX(-20deg); } }
-    .fp-cta { position:relative; overflow:hidden; }
-    .fp-cta::after { content:""; position:absolute; top:0; bottom:0; left:0; width:40%; background:linear-gradient(90deg, transparent, oklch(100% 0 0 / .28), transparent); transform:translateX(-120%) skewX(-20deg); pointer-events:none; }
-    .fp-cta:hover::after { animation:fpShine .8s cubic-bezier(.16,1,.3,1); }
-    .fp-arrow { transition:transform .35s cubic-bezier(.16,1,.3,1); }
-    .fp-cta:hover .fp-arrow, a:hover > .fp-arrow { transform:translateX(4px); }
-    .fp-card { translate:0 0; transition-property:opacity, transform, filter, translate, border-color, box-shadow; transition-duration:.9s, 1.1s, .9s, .45s, .3s, .45s; transition-timing-function:cubic-bezier(.16,1,.3,1); }
-    .fp-card:hover { translate:0 -3px; }
-    .fp-ico { transition:transform .45s cubic-bezier(.34,1.56,.64,1); }
-    .fp-card:hover .fp-ico { transform:scale(1.08) rotate(-4deg); }
-    .fp-line { transform:scaleX(0); transform-origin:left; transition:transform 1s cubic-bezier(.16,1,.3,1) .25s; }
-    .fp-in .fp-line { transform:scaleX(1); }
-    .fp-navlink { position:relative; }
-    .fp-navlink::after { content:""; position:absolute; left:0; right:0; bottom:-4px; height:1.5px; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .35s cubic-bezier(.16,1,.3,1); }
-    .fp-navlink:hover::after { transform:scaleX(1); transform-origin:left; }
-    #fp-header { transition:box-shadow .3s ease, background-color .3s ease; }
-    #fp-header[data-scrolled="1"] { box-shadow:0 8px 24px -16px oklch(20% 0.02 85 / .35); }
-    #fp-progress { position:fixed; top:0; left:0; right:0; height:2px; z-index:30; background:var(--accent, oklch(52% 0.1 152)); transform:scaleX(0); transform-origin:left; will-change:transform; pointer-events:none; }
-    [data-tilt] { transition:transform .6s cubic-bezier(.16,1,.3,1); will-change:transform; }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } #fp-progress { display:none; } }
+    a { color:var(--accentInk, #1f6b2b); text-decoration:none; }
+    a:hover { color:var(--ink, #0b1f2a); }
+    ::selection { background:var(--accentSoft, #dbe9da); }
+    :focus-visible { outline:2px solid var(--accent, #2e9e3f); outline-offset:3px; }
+    @keyframes liqIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes liqCue { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(5px); } }
+    @keyframes liqDrop { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    [data-liq-cue] { animation:liqCue 2.4s ease-in-out infinite; }
+    [data-liq-drop] { animation:liqDrop .22s cubic-bezier(.16,1,.3,1) both; }
+    [data-liq-arrow] { transition:transform .2s ease; }
+    a:hover [data-liq-arrow], button:hover [data-liq-arrow] { transform:translateX(4px); }
+    [data-liq-row] { transition:background-color .2s ease; }
+    [data-liq-row]:hover { background:var(--soft, #e6ece2); }
+    [data-liq-ico] { transition:transform .35s cubic-bezier(.16,1,.3,1); }
+    [data-liq-row]:hover [data-liq-ico] { transform:translateX(4px); }
+    [data-reveal] { transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+    @media (max-width: 980px) { [data-liq-nav], [data-liq-ctl] { display:none !important; } [data-liq-burger] { display:flex !important; } }
+    @media (max-width: 860px) { [data-liq-split] { grid-template-columns:minmax(0,1fr) !important; } [data-liq-scopes] > div { border-left:none !important; border-top:1px solid var(--line, #d4d6d2); padding:28px 0 !important; } }
+    @media (max-width: 760px) { [data-liq-veil] { background:linear-gradient(180deg, var(--bg, #f1efe9) 0%, var(--bg, #f1efe9) 52%, color-mix(in srgb, var(--bg, #f1efe9) 55%, transparent) 72%, transparent 100%) !important; } [data-liq-bandveil] { background:linear-gradient(180deg, var(--band, #e5e4df) 0%, var(--band, #e5e4df) 70%, transparent 100%) !important; } [data-liq-hdcta] { display:none !important; } }
+    @media (max-width: 720px) { [data-liq-row] { grid-template-columns:40px minmax(0,1fr) !important; gap:8px 14px !important; } [data-liq-row] > :nth-child(n+3) { grid-column:2; } [data-liq-row] > :last-child { justify-self:start !important; } }
+    @media (max-width: 560px) { #top { min-height:auto !important; } #top > div:nth-of-type(2) { padding-top:40px !important; padding-bottom:96px !important; } [data-liq-row] { padding:22px 16px !important; } footer nav { gap:4px 20px !important; } [data-liq-motion] { aspect-ratio:4/5 !important; } [data-liq-ctas] { flex-direction:column; align-items:stretch !important; } [data-liq-ctas] > a:first-child { justify-content:space-between; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } body { animation:none; } *, *::before, *::after { animation:none !important; transition:none !important; } }
   </style>
 </helmet>
-<div style="min-height:100vh; background:var(--bg, oklch(97.5% 0.012 85)); overflow-x:clip;">
-
-  <div id="fp-progress"></div>
-  <header id="fp-header" style="position:sticky; top:0; z-index:20; background:color-mix(in oklab, var(--accent-soft, #e6f2e8) 78%, var(--bg, #fff)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid color-mix(in oklch, var(--border, oklch(88% 0.012 85)) 70%, transparent);">
-    <div style="max-width:1180px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
-      <a href="#top" style="display:flex; align-items:center; gap:10px; color:var(--text, oklch(23% 0.02 85));">
-        <img data-fp-logo="1" src="logo-liqeninsight-azul.png" alt="liqenInsight Carbon" style="height:42px; width:auto; display:block;">
-      </a>
-      <nav style="display:flex; align-items:center; gap:16px; font-size:14px; font-weight:500; flex-wrap:nowrap; min-width:0;">
-        <div style="display:flex; align-items:center; gap:16px; min-width:0; overflow:hidden; flex-shrink:1;" data-fp-links="1">
-        <a href="#como" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_how }}</a>
-        <a href="#medimos" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_what }}</a>
-        <a href="#obtienes" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_app }}</a>
-        <a href="#metodologia" class="fp-navlink" style="color:var(--accent-text, oklch(33% 0.08 152)); transition:color .25s ease;" style-hover="color:var(--text, oklch(23% 0.02 85));">{{ t.nav_method }}</a>
-        </div>
-        <div data-fp-ctl="1" style="display:flex; align-items:center; gap:8px;">
-          <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display:flex; align-items:center; gap:8px; height:40px; min-height:40px; padding:0 12px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff); color:var(--text, #222); cursor:pointer; font:600 13.5px 'Public Sans',sans-serif; white-space:nowrap;"><sc-if value="{{ showMoon }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if><sc-if value="{{ showSun }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if><span data-lbl="1">{{ themeLabel }}</span></button>
+<div style="min-height:100vh; background:var(--bg, #f1efe9); color:var(--ink, #0b1f2a); overflow-x:clip;">
+  <header style="position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg, #f1efe9) 92%, transparent); border-bottom:1px solid var(--line, #d4d6d2); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);">
+    <div style="max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); height:68px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <a href="#top" aria-label="liqenInsight Carbon" style="display:flex; align-items:center; flex-shrink:0;"><img src="logo-liqeninsight-azul.png" alt="liqenInsight Carbon" style="height:36px; width:auto; display:block;"></a>
+      <nav data-liq-nav="1" aria-label="{{ t.nav_label }}" style="display:flex; align-items:center; gap:28px;">
+        <a href="#como" style="font-size:14.5px; font-weight:500; color:var(--muted, #47555c); white-space:nowrap; transition:color .2s ease;" style-hover="color:var(--ink, #0b1f2a);">{{ t.nav_how }}</a>
+        <a href="#medimos" style="font-size:14.5px; font-weight:500; color:var(--muted, #47555c); white-space:nowrap; transition:color .2s ease;" style-hover="color:var(--ink, #0b1f2a);">{{ t.nav_what }}</a>
+        <a href="#obtienes" style="font-size:14.5px; font-weight:500; color:var(--muted, #47555c); white-space:nowrap; transition:color .2s ease;" style-hover="color:var(--ink, #0b1f2a);">{{ t.nav_app }}</a>
+        <a href="#metodologia" style="font-size:14.5px; font-weight:500; color:var(--muted, #47555c); white-space:nowrap; transition:color .2s ease;" style-hover="color:var(--ink, #0b1f2a);">{{ t.nav_method }}</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div data-liq-ctl="1" style="display:flex; align-items:center; gap:8px;">
           <div style="position:relative;">
-            <button onClick="{{ togglePal }}" aria-label="{{ palTitle }}" style="display:flex; align-items:center; gap:8px; height:40px; min-height:40px; padding:0 12px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff); color:var(--text, #222); cursor:pointer; font:600 13.5px 'Public Sans',sans-serif; white-space:nowrap; justify-content:space-between;"><span style="display:flex; align-items:center; flex-shrink:0;"><span style="width:14px; height:14px; border-radius:50%; background:{{ cur1 }}; border:1.5px solid var(--surface, #fff);"></span><span style="width:14px; height:14px; border-radius:50%; background:{{ cur2 }}; border:1.5px solid var(--surface, #fff); margin-left:-4px;"></span><span style="width:14px; height:14px; border-radius:50%; background:{{ cur3 }}; border:1.5px solid var(--surface, #fff); margin-left:-4px;"></span><span style="width:14px; height:14px; border-radius:50%; background:{{ cur4 }}; border:1.5px solid var(--surface, #fff); margin-left:-4px;"></span></span><span class="lbl" data-lbl="1" style="flex:1; text-align:left;">{{ curName }}</span><svg class="lbl" data-lbl="1" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"></path></svg></button>
+            <button onClick="{{ togglePal }}" aria-label="{{ t.palette }}: {{ curName }}" aria-expanded="{{ palOpen }}" aria-haspopup="true" style="height:40px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line, #d4d6d2); background:transparent; color:var(--ink, #0b1f2a); border-radius:6px; cursor:pointer; transition:border-color .2s ease; padding:0 10px;" style-hover="border-color:var(--ink, #0b1f2a);">
+              <span aria-hidden="true" style="width:20px; height:20px; border-radius:50%; box-shadow:0 0 0 1px var(--line, #d4d6d2); background:conic-gradient({{ cur1 }} 0 25%, {{ cur2 }} 0 50%, {{ cur3 }} 0 75%, {{ cur4 }} 0);"></span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .25s ease; transform:rotate({{ caretRot }});"><path d="M2 3.5 L5 6.5 L8 3.5"></path></svg>
+            </button>
             <sc-if value="{{ palOpen }}" hint-placeholder-val="{{ false }}">
               <div onClick="{{ closePal }}" style="position:fixed; inset:0; z-index:40;"></div>
-              <div style="position:absolute; top:calc(100% + 8px); right:0; width:270px; zoom:0.7; z-index:41; background:var(--surface, #fff); border:1px solid var(--border, #ddd); border-radius:14px; padding:6px; box-shadow:0 18px 40px -12px var(--shadow-lg, rgba(0,0,0,.25));">
-                <div style="font:600 11.5px 'Public Sans',sans-serif; letter-spacing:.22em; color:var(--text-muted, #666); padding:10px 12px 10px;">{{ palTitle }}</div>
+              <div data-liq-drop="1" style="position:absolute; top:calc(100% + 8px); right:0; width:230px; z-index:41; background:var(--surface, #fbfbfa); border:1px solid var(--line, #d4d6d2); border-radius:8px; padding:6px; box-shadow:0 18px 40px -18px rgba(0,0,0,.3);">
+                <div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted2, #5c686c); padding:8px 10px 6px;">{{ t.palette }}</div>
                 <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
-            <button onClick="{{ p.select }}" style="display:flex; align-items:center; gap:16px; width:100%; min-height:52px; padding:8px 12px; border:none; border-radius:12px; background:{{ p.rowBg }}; cursor:pointer; text-align:left; font-family:'Public Sans',sans-serif;">
-              <span style="display:flex; align-items:center; gap:5px; flex-shrink:0;"><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c1 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c2 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c3 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c4 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span></span>
-              <span style="flex:1; font-size:18px; font-weight:500; letter-spacing:.005em; color:var(--text, #222);">{{ p.label }}</span>
-              <span style="color:var(--accent, #2e9e3f); font-size:18px; font-weight:700; width:18px; text-align:right;">{{ p.check }}</span>
-            </button>
-          </sc-for>
+              <button onClick="{{ p.select }}" aria-pressed="{{ p.pressed }}" style="display:flex; align-items:center; gap:12px; width:100%; min-height:44px; padding:6px 10px; border:none; border-radius:6px; background:{{ p.rowBg }}; color:var(--ink, #0b1f2a); cursor:pointer; font-family:'Hanken Grotesk',sans-serif; font-size:15px; text-align:left;">
+                <span aria-hidden="true" style="width:24px; height:24px; flex-shrink:0; border-radius:50%; box-shadow:0 0 0 1px var(--line, #d4d6d2); background:conic-gradient({{ p.c1 }} 0 25%, {{ p.c2 }} 0 50%, {{ p.c3 }} 0 75%, {{ p.c4 }} 0);"></span>
+                <span style="flex:1;">{{ p.label }}</span><span style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; color:var(--accentInk, #1f6b2b);">{{ p.check }}</span>
+              </button>
+            </sc-for>
               </div>
             </sc-if>
           </div>
-          <div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff);"><button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:40px; height:34px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:40px; height:34px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button></div>
+          <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="height:40px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line, #d4d6d2); background:transparent; color:var(--ink, #0b1f2a); border-radius:6px; cursor:pointer; transition:border-color .2s ease; width:40px;" style-hover="border-color:var(--ink, #0b1f2a);"><sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 11.8 A7 7 0 1 1 8.2 3.5 A5.6 5.6 0 0 0 16.5 11.8 Z"></path></svg></sc-if><sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="3.6"></circle><path d="M10 2.2 V4.2 M10 15.8 V17.8 M2.2 10 H4.2 M15.8 10 H17.8 M4.5 4.5 L5.9 5.9 M14.1 14.1 L15.5 15.5 M4.5 15.5 L5.9 14.1 M14.1 5.9 L15.5 4.5"></path></svg></sc-if></button>
+          <div role="group" aria-label="Idioma / Language" style="display:flex; height:40px; border:1px solid var(--line, #d4d6d2); border-radius:6px; overflow:hidden;"><button onClick="{{ setEs }}" aria-pressed="{{ esOn }}" style="min-width:42px; border:none; cursor:pointer; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-pressed="{{ enOn }}" style="min-width:42px; border:none; border-left:1px solid var(--line, #d4d6d2); cursor:pointer; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; background:{{ enBg }}; color:{{ enColor }};">EN</button></div>
         </div>
-        <button data-fp-burger="1" onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; width:44px; height:44px; border-radius:11px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); align-items:center; justify-content:center; cursor:pointer; padding:0;">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7 H18 M4 11 H18 M4 15 H18"></path></svg>
-        </button>
-      </nav>
+        <a href="home.html?fresh=1" data-liq-hdcta="1" style="display:flex; align-items:center; height:40px; padding:0 16px; background:var(--accentInk, #1f6b2b); color:var(--onAccent, #ffffff); font-size:14px; font-weight:600; border-radius:6px; white-space:nowrap; transition:background-color .2s ease;" style-hover="background:var(--ink, #0b1f2a); color:var(--bg, #f1efe9);">{{ t.nav_enter }}</a>
+        <button data-liq-burger="1" onClick="{{ toggleMenu }}" aria-label="{{ t.menu }}" aria-expanded="{{ menuOpen }}" style="height:40px; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line, #d4d6d2); background:transparent; color:var(--ink, #0b1f2a); border-radius:6px; cursor:pointer; transition:border-color .2s ease; width:44px; height:44px; display:none;"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="{{ burgerPath }}"></path></svg></button>
+      </div>
     </div>
   </header>
 
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-  <div data-fp-drawer="1" style="position:fixed; top:var(--fp-hh, 66px); left:0; right:0; bottom:0; z-index:19; background:var(--bg, oklch(97.5% 0.012 85)); overflow-y:auto; padding:8px 24px calc(32px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:4px;">
-    <a href="#como" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_how }}</a>
-    <a href="#medimos" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_what }}</a>
-    <a href="#obtienes" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_app }}</a>
-    <a href="#metodologia" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:56px; font-size:19px; font-weight:600; color:var(--text, oklch(23% 0.02 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85));">{{ t.nav_method }}</a>
-    <div style="display:flex; flex-direction:column; gap:12px; padding:20px 0;">
-      <div style="display:flex; gap:8px; flex-wrap:wrap;"><button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="display:flex; align-items:center; gap:8px; min-height:44px; padding:0 12px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff); color:var(--text, #222); cursor:pointer; font:600 13.5px 'Public Sans',sans-serif; white-space:nowrap; flex:1; justify-content:center;"><sc-if value="{{ showMoon }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="currentColor"><path d="M17 11.6 A7.6 7.6 0 1 1 8.4 3 A6.1 6.1 0 0 0 17 11.6 Z"></path></svg></sc-if><sc-if value="{{ showSun }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="4"></circle><path d="M10 2 V4 M10 16 V18 M2 10 H4 M16 10 H18 M4.2 4.2 L5.6 5.6 M14.4 14.4 L15.8 15.8 M4.2 15.8 L5.6 14.4 M14.4 5.6 L15.8 4.2"></path></svg></sc-if><span data-lbl="1">{{ themeLabel }}</span></button><div style="display:flex; gap:2px; padding:3px; border:1px solid var(--border, #ddd); border-radius:10px; background:var(--surface, #fff);"><button onClick="{{ setEs }}" aria-label="Español" style="border:none; cursor:pointer; min-width:44px; height:44px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-label="English" style="border:none; cursor:pointer; min-width:44px; height:44px; border-radius:8px; font:700 12.5px 'Public Sans',sans-serif; background:{{ enBg }}; color:{{ enColor }};">EN</button></div></div>
-      <div style="border:1px solid var(--border, #ddd); border-radius:14px; background:var(--surface, #fff); padding:6px;">
-        <div style="font:600 11.5px 'Public Sans',sans-serif; letter-spacing:.22em; color:var(--text-muted, #666); padding:10px 12px 10px;">{{ palTitle }}</div>
-        <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
-            <button onClick="{{ p.select }}" style="display:flex; align-items:center; gap:16px; width:100%; min-height:52px; padding:8px 12px; border:none; border-radius:12px; background:{{ p.rowBg }}; cursor:pointer; text-align:left; font-family:'Public Sans',sans-serif;">
-              <span style="display:flex; align-items:center; gap:5px; flex-shrink:0;"><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c1 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c2 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c3 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span><span style="width:24px; height:24px; border-radius:50%; background:{{ p.c4 }}; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 1px rgba(0,0,0,.06);"></span></span>
-              <span style="flex:1; font-size:18px; font-weight:500; letter-spacing:.005em; color:var(--text, #222);">{{ p.label }}</span>
-              <span style="color:var(--accent, #2e9e3f); font-size:18px; font-weight:700; width:18px; text-align:right;">{{ p.check }}</span>
-            </button>
-          </sc-for>
-      </div>
+    <div data-liq-drop="1" style="position:fixed; top:69px; left:0; right:0; bottom:0; z-index:29; background:var(--bg, #f1efe9); overflow-y:auto; padding:8px clamp(20px,5vw,72px) calc(32px + env(safe-area-inset-bottom)); display:flex; flex-direction:column;">
+      <nav aria-label="{{ t.nav_label }}" style="display:flex; flex-direction:column;">
+        <sc-for list="{{ drawerLinks }}" as="l" hint-placeholder-count="4">
+          <a href="{{ l.href }}" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:16px; padding:18px 0; border-bottom:1px solid var(--line, #d4d6d2); color:var(--ink, #0b1f2a); font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:26px; letter-spacing:-0.02em;"><span style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; color:var(--accentInk, #1f6b2b);">{{ l.n }}</span>{{ l.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted2, #5c686c); padding:28px 0 6px;">{{ t.palette }}</div>
+      <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px;"><sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="6">
+              <button onClick="{{ p.select }}" aria-pressed="{{ p.pressed }}" style="display:flex; align-items:center; gap:12px; flex-direction:column; gap:8px; padding:10px 4px; border:none; border-radius:6px; background:{{ p.rowBg }}; color:var(--ink, #0b1f2a); cursor:pointer; font-family:'Hanken Grotesk',sans-serif; font-size:12.5px; text-align:left;">
+                <span aria-hidden="true" style="width:30px; height:30px; flex-shrink:0; border-radius:50%; box-shadow:0 0 0 1px var(--line, #d4d6d2); background:conic-gradient({{ p.c1 }} 0 25%, {{ p.c2 }} 0 50%, {{ p.c3 }} 0 75%, {{ p.c4 }} 0);"></span>
+                <span style="flex:1;">{{ p.label }}</span>
+              </button>
+            </sc-for></div>
+      <div style="display:flex; gap:8px; padding:20px 0 24px;"><button onClick="{{ toggleTheme }}" style="height:40px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line, #d4d6d2); background:transparent; color:var(--ink, #0b1f2a); border-radius:6px; cursor:pointer; transition:border-color .2s ease; flex:1; height:44px; font-family:'Hanken Grotesk',sans-serif; font-size:14.5px;"><sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 11.8 A7 7 0 1 1 8.2 3.5 A5.6 5.6 0 0 0 16.5 11.8 Z"></path></svg></sc-if><sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="3.6"></circle><path d="M10 2.2 V4.2 M10 15.8 V17.8 M2.2 10 H4.2 M15.8 10 H17.8 M4.5 4.5 L5.9 5.9 M14.1 14.1 L15.5 15.5 M4.5 15.5 L5.9 14.1 M14.1 5.9 L15.5 4.5"></path></svg></sc-if><span>{{ themeLabel }}</span></button><div role="group" aria-label="Idioma / Language" style="display:flex; height:44px; border:1px solid var(--line, #d4d6d2); border-radius:6px; overflow:hidden;"><button onClick="{{ setEs }}" aria-pressed="{{ esOn }}" style="min-width:42px; border:none; cursor:pointer; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; background:{{ esBg }}; color:{{ esColor }};">ES</button><button onClick="{{ setEn }}" aria-pressed="{{ enOn }}" style="min-width:42px; border:none; border-left:1px solid var(--line, #d4d6d2); cursor:pointer; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; background:{{ enBg }}; color:{{ enColor }};">EN</button></div></div>
+      <a href="home.html?fresh=1" style="display:flex; align-items:center; justify-content:space-between; min-height:54px; padding:0 22px; background:var(--accentInk, #1f6b2b); color:var(--onAccent, #ffffff); font-size:16.5px; font-weight:600; border-radius:6px;">{{ t.nav_enter }} <svg data-liq-arrow="1" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg></a>
     </div>
-    <a href="home.html?fresh=1" style="display:flex; align-items:center; justify-content:center; min-height:56px; border-radius:12px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; font-size:17px; font-weight:700;">{{ t.nav_enter }}</a>
-  </div>
   </sc-if>
 
-  <section id="top" style="position:relative; max-width:1180px; margin:0 auto; padding:72px 24px 88px; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr)); gap:56px; align-items:center;">
-    <div>
-      <div data-reveal="1" style="display:inline-flex; align-items:center; gap:8px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); font-size:15px; font-weight:700; padding:7px 14px 7px 12px; border-radius:999px; margin-bottom:22px;">
-        <span style="width:8px; height:8px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); animation:fpPulse 1.8s ease-out infinite;"></span>
-        {{ t.badge }}
-      </div>
-      <h1 data-reveal="1" data-delay="80" style="font-family:'Lora',serif; font-weight:600; font-size:clamp(38px,5.2vw,62px); line-height:1.14; letter-spacing:-0.015em; margin:0 0 22px; text-wrap:balance;">{{ t.h1a }} <em style="font-style:italic; font-weight:500; color:var(--accent, oklch(52% 0.1 152)); background-image:linear-gradient(90deg, color-mix(in oklab, var(--accent) 38%, transparent), color-mix(in oklab, var(--accent) 38%, transparent)); background-repeat:no-repeat; background-position:0 88%;">{{ t.h1b }}</em> {{ t.h1c }}</h1>
-      <p data-reveal="1" data-delay="160" style="font-size:18px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0 0 34px; max-width:520px; text-wrap:pretty;">{{ t.hero_sub }}</p>
-      <div data-reveal="1" data-delay="240" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-        <a href="home.html?fresh=1" class="fp-cta" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:15px 24px; border-radius:11px; font-weight:700; font-size:15px; box-shadow:0 8px 24px color-mix(in oklab, var(--accent) 28%, transparent); transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .25s ease;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152)); color:#fff; transform:translateY(-2px); box-shadow:0 12px 28px color-mix(in oklab, var(--accent) 34%, transparent);">
-          {{ t.cta_start }}
-          <svg class="fp-arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg>
-        </a>
-        <a href="#como" style="padding:15px 20px; border-radius:11px; font-weight:600; font-size:15px; color:var(--text, oklch(23% 0.02 85)); border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); transition:border-color .2s ease;" style-hover="border-color:var(--accent, oklch(52% 0.1 152)); color:var(--text, oklch(23% 0.02 85));">{{ t.cta_how }}</a>
+  <main>
+  <section id="top" aria-labelledby="liq-h1" style="position:relative; min-height:max(600px, min(100svh, 880px)); margin-top:-69px; padding-top:69px; display:flex; flex-direction:column; overflow:hidden;">
+    <canvas data-liq-col="hero" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; display:block;"></canvas>
+    <div data-liq-veil="1" aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg, var(--bg, #f1efe9) 0%, var(--bg, #f1efe9) 32%, color-mix(in srgb, var(--bg, #f1efe9) 70%, transparent) 45%, transparent 66%);"></div>
+    <div style="position:relative; flex:1; display:flex; align-items:center; width:100%; max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-top:clamp(40px,8vh,96px); padding-bottom:clamp(72px,10vh,120px);">
+      <div style="max-width:760px;">
+        <div data-reveal="1" style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(24px,4vh,40px);"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--accentInk, #1f6b2b);">{{ t.badge }}</div><span aria-hidden="true" style="width:40px; height:1px; background:var(--line, #d4d6d2);"></span></div>
+        <h1 id="liq-h1" data-reveal="1" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(40px,5.3vw,77px); line-height:1; letter-spacing:-0.035em; margin:0 0 clamp(24px,4vh,36px); text-wrap:balance;">{{ t.h1a }} <em style="font-style:italic; color:var(--accentInk, #1f6b2b);">{{ t.h1b }}</em> {{ t.h1c }}</h1>
+        <p data-reveal="1" style="font-size:clamp(16px,1.25vw,18px); line-height:1.6; color:var(--muted, #47555c); margin:0 0 36px; max-width:520px; text-wrap:pretty;">{{ t.hero_sub }}</p>
+        <div data-reveal="1" data-liq-ctas="1" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px;"><a href="home.html?fresh=1" style="display:inline-flex; align-items:center; gap:12px; min-height:52px; padding:0 22px; background:var(--accentInk, #1f6b2b); color:var(--onAccent, #ffffff); font-size:16px; font-weight:600; border-radius:6px; transition:background-color .2s ease, color .2s ease;" style-hover="background:var(--ink, #0b1f2a); color:var(--bg, #f1efe9);">{{ t.cta_start }} <svg data-liq-arrow="1" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg></a><a href="#como" style="display:inline-flex; align-items:center; min-height:44px; font-size:15.5px; font-weight:500; color:var(--ink, #0b1f2a); text-decoration:underline; text-decoration-color:var(--line, #d4d6d2); text-underline-offset:6px; transition:text-decoration-color .2s ease;" style-hover="color:var(--ink, #0b1f2a); text-decoration-color:var(--accent, #2e9e3f);">{{ t.cta_how }}</a></div>
       </div>
     </div>
+    <a href="#como" aria-label="{{ t.scroll }}" style="position:absolute; left:max(clamp(20px,5vw,72px), calc((100% - 1280px) / 2 + clamp(20px,5vw,72px))); bottom:28px; display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted2, #5c686c);"><span data-liq-cue="1" style="display:flex;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 2 V12 M3 8 L7 12 L11 8"></path></svg></span>{{ t.scroll }}</a>
+  </section>
 
-    <div data-reveal="1" data-delay="200" style="position:relative; display:flex; justify-content:center;">
-      <div style="position:relative; width:100%; max-width:420px; aspect-ratio:1/1;">
-        <canvas ref="{{ heroLichenRef }}" aria-hidden="true" style="position:absolute; top:-90px; left:-90px; width:calc(100% + 180px); height:calc(100% + 180px); z-index:0; pointer-events:none; color:var(--text-muted, oklch(46% 0.02 85));"></canvas>
+  <section id="como" aria-labelledby="liq-h-como" style="border-top:0px solid var(--line, #d4d6d2);">
+    <div data-liq-split="1" style="max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-top:clamp(64px,9vw,128px); padding-bottom:clamp(64px,9vw,128px); display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:56px clamp(40px,5vw,80px); align-items:end;">
+      <div style="display:flex; flex-direction:column; gap:22px;">
+        <div data-reveal="1"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--accentInk, #1f6b2b);">{{ t.k_how }}</div></div>
+        <h2 id="liq-h-como" data-reveal="1" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(30px,3.5vw,50px); line-height:1.06; letter-spacing:-0.03em; margin:0; text-wrap:balance;">{{ hHow.a }}<em style="font-style:italic; color:var(--accentInk, #1f6b2b);">{{ hHow.b }}</em>{{ hHow.c }}</h2>
+        <ol style="list-style:none; margin:20px 0 0; padding:0; display:flex; flex-direction:column;">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <li data-reveal="1" style="display:grid; grid-template-columns:48px minmax(0,1fr); gap:16px; padding:22px 0 22px 18px; border-left:2px solid {{ s.bar }}; opacity:{{ s.op }}; transition:opacity .5s ease, border-color .5s ease;">
+              <span style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12.5px; color:var(--accentInk, #1f6b2b); padding-top:5px;">{{ s.nn }}</span>
+              <span style="display:flex; flex-direction:column; gap:6px;"><span style="font-family:'Newsreader',Georgia,serif; font-weight:400; font-size:25px; line-height:1.15; letter-spacing:-0.01em;">{{ s.title }}</span><span style="font-size:16px; line-height:1.55; color:var(--muted, #47555c); text-wrap:pretty;">{{ s.desc }}</span></span>
+            </li>
+          </sc-for>
+        </ol>
       </div>
+      <figure data-reveal="1" style="margin:0; background:transparent; position:relative; top:48px;">
+        
+      <canvas data-liq-foot="1" role="img" aria-label="{{ motionLabel }}" style="display:block; width:100%; aspect-ratio:1/1; color:var(--muted, #47555c);"></canvas></figure>
     </div>
   </section>
 
-  <section id="como" style="background:var(--surface, oklch(99% 0.004 85)); border-top:1px solid var(--border, oklch(88% 0.012 85)); border-bottom:1px solid var(--border, oklch(88% 0.012 85)); scroll-margin-top:70px;">
-    <div data-fp-sec="1" style="max-width:1180px; margin:0 auto; padding:96px 24px;">
-      <div data-reveal="1" style="text-align:center; max-width:620px; margin:0 auto 56px;">
-        <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_how }}</div>
-        <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.4vw,40px); line-height:1.15; margin:0; text-wrap:balance;">{{ t.h_how }}</h2>
-      </div>
-      <div style="position:relative; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:40px;">
-        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
-          <div data-reveal="1" data-delay="{{ st.delay }}">
-            <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px;">
-              <span style="width:46px; height:46px; border-radius:50%; border:1.5px solid var(--accent, oklch(52% 0.1 152)); color:var(--accent-text, oklch(33% 0.08 152)); display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-size:17px; font-weight:600; flex-shrink:0;">{{ st.n }}</span>
-              <span class="fp-line" style="flex:1; height:1px; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 40%, transparent), transparent);"></span>
-            </div>
-            <div style="font-family:'Lora',serif; font-size:22px; font-weight:600; margin-bottom:8px;">{{ st.title }}</div>
-            <div style="font-size:15px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); text-wrap:pretty;">{{ st.desc }}</div>
-          </div>
-        </sc-for>
+  <section id="medimos" aria-labelledby="liq-h-medimos" style="max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-bottom:clamp(80px,11vw,160px); padding-top:clamp(40px,5vw,80px);">
+    <div data-liq-split="1" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2.4fr); gap:20px clamp(40px,6vw,96px); align-items:start; margin-bottom:48px;">
+      <div data-reveal="1" style="padding-top:14px;"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--accentInk, #1f6b2b);">{{ t.k_what }}</div></div>
+      <div data-reveal="1" style="display:flex; flex-direction:column; gap:16px;">
+        <h2 id="liq-h-medimos" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(30px,3.5vw,50px); line-height:1.06; letter-spacing:-0.03em; margin:0; text-wrap:balance;">{{ hWhat.a }}<em style="font-style:italic; color:var(--accentInk, #1f6b2b);">{{ hWhat.b }}</em>{{ hWhat.c }}</h2>
+        <p style="font-size:17px; line-height:1.55; color:var(--muted, #47555c); margin:0; max-width:560px;">{{ t.p_what }}</p>
       </div>
     </div>
-  </section>
-
-  <section id="medimos" data-fp-sec="1" style="max-width:1180px; margin:0 auto; padding:96px 24px; scroll-margin-top:70px;">
-    <div data-reveal="1" style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:36px;">
-      <div style="max-width:560px;">
-        <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_what }}</div>
-        <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.4vw,40px); line-height:1.15; margin:0; text-wrap:balance;">{{ t.h_what }}</h2>
-      </div>
-      <p style="max-width:380px; font-size:15px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0;">{{ t.p_what }}</p>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:16px;">
-      <sc-for list="{{ sources }}" as="src" hint-placeholder-count="4">
-        <div data-reveal="1" data-delay="{{ src.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:24px;" style-hover="border-color:color-mix(in oklab, var(--accent) 50%, transparent); box-shadow:0 16px 36px -18px color-mix(in oklab, var(--accent) 30%, transparent);">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:34px;">
-            <span class="fp-ico" style="width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:{{ src.soft }}; color:{{ src.color }};">
-              <sc-if value="{{ src.isEnergy }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z"></path></svg></sc-if>
-              <sc-if value="{{ src.isCar }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 15.3 4.8 10.6A2 2 0 0 1 6.7 9.1h10.6a2 2 0 0 1 1.9 1.5l1.3 4.7"></path><path d="M3 15.3h18v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2Z"></path><path d="M7 9.1 8 6.2a1.4 1.4 0 0 1 1.3-1h5.4a1.4 1.4 0 0 1 1.3 1l1 2.9"></path><circle cx="7.5" cy="16.8" r="1.5" fill="currentColor" stroke="none"></circle><circle cx="16.5" cy="16.8" r="1.5" fill="currentColor" stroke="none"></circle></svg></sc-if>
-              <sc-if value="{{ src.isShop }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></sc-if>
-              <sc-if value="{{ src.isTravel }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor" stroke="none"><path d="M9.3 1.5 L10.7 1.5 L10.7 7.3 L17 11.5 L17 13 L10.7 11 L10.7 15.3 L13 17 L13 18 L10 17.2 L7 18 L7 17 L9.3 15.3 L9.3 11 L3 13 L3 11.5 L9.3 7.3 Z"></path></svg></sc-if>
-            </span>
-          </div>
-          <div style="font-family:'Lora',serif; font-size:21px; font-weight:600; margin-bottom:6px;">{{ src.title }}</div>
-          <div style="font-size:14px; line-height:1.55; color:var(--text-muted, oklch(46% 0.02 85));">{{ src.desc }}</div>
+    <div style="border-bottom:1px solid var(--line, #d4d6d2); margin:0 -16px;">
+      <sc-for list="{{ sources }}" as="s" hint-placeholder-count="4">
+        <div data-reveal="1" data-liq-row="1" style="display:grid; grid-template-columns:56px minmax(0,1fr) minmax(0,1.5fr) 150px; gap:24px; align-items:center; padding:28px 16px; border-top:1px solid var(--line, #d4d6d2); border-radius:4px;">
+          <span data-liq-ico="1" style="display:flex; color:var(--accentInk, #1f6b2b);">
+            <sc-if value="{{ s.isEnergy }}" hint-placeholder-val="{{ false }}"><svg width="26" height="26" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L5 11 H9 L8 18 L15 9 H10 Z"></path></svg></sc-if>
+            <sc-if value="{{ s.isCar }}" hint-placeholder-val="{{ false }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 15.3 4.8 10.6A2 2 0 0 1 6.7 9.1h10.6a2 2 0 0 1 1.9 1.5l1.3 4.7"></path><path d="M3 15.3h18v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2Z"></path><circle cx="7.5" cy="16.8" r="1.3"></circle><circle cx="16.5" cy="16.8" r="1.3"></circle></svg></sc-if>
+            <sc-if value="{{ s.isShop }}" hint-placeholder-val="{{ false }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></sc-if>
+            <sc-if value="{{ s.isTravel }}" hint-placeholder-val="{{ false }}"><svg width="26" height="26" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M9.3 1.5 L10.7 1.5 L10.7 7.3 L17 11.5 L17 13 L10.7 11 L10.7 15.3 L13 17 L13 18 L10 17.2 L7 18 L7 17 L9.3 15.3 L9.3 11 L3 13 L3 11.5 L9.3 7.3 Z"></path></svg></sc-if>
+          </span>
+          <h3 style="font-family:'Newsreader',Georgia,serif; font-weight:400; font-size:clamp(22px,2vw,28px); line-height:1.12; letter-spacing:-0.015em; margin:0;">{{ s.title }}</h3>
+          <p style="font-size:16px; line-height:1.55; color:var(--muted, #47555c); margin:0; text-wrap:pretty;">{{ s.desc }}</p>
+          <span style="justify-self:end; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accentInk, #1f6b2b); border:1px solid var(--accentLine, #9cc8a0); border-radius:4px; padding:5px 9px; white-space:nowrap;">{{ s.scope }}</span>
         </div>
       </sc-for>
     </div>
   </section>
 
-  <section id="obtienes" data-fp-secb="1" style="max-width:1180px; margin:0 auto; padding:0 24px 96px; scroll-margin-top:70px;">
-    <div data-reveal="1" style="max-width:620px; margin-bottom:40px;">
-      <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_app }}</div>
-      <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.4vw,40px); line-height:1.15; margin:0; text-wrap:balance;">{{ t.h_app }}</h2>
+  <section id="obtienes" aria-labelledby="liq-h-obtienes" style="position:relative; background:var(--band, #e5e4df); overflow:hidden;">
+    <canvas data-liq-col="edge" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; display:block;"></canvas>
+    <div data-liq-bandveil="1" aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg, var(--band, #e5e4df) 0%, var(--band, #e5e4df) 52%, transparent 78%);"></div>
+    <div style="position:relative; max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-top:clamp(64px,9vw,128px); padding-bottom:clamp(64px,9vw,128px);">
+      <div style="max-width:860px; display:flex; flex-direction:column; gap:22px;">
+        <img data-reveal="1" src="logo-liqeninsight-azul.png" alt="liqenInsight Carbon" style="height:40px; width:auto; align-self:flex-start; display:block;">
+        <div data-reveal="1"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--accentInk, #1f6b2b);">{{ t.k_app }}</div></div>
+        <h2 id="liq-h-obtienes" data-reveal="1" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(30px,3.5vw,50px); line-height:1.06; letter-spacing:-0.03em; margin:0; text-wrap:balance;">{{ hApp.a }}<em style="font-style:italic; color:var(--accentInk, #1f6b2b);">{{ hApp.b }}</em>{{ hApp.c }}</h2>
+        <ol style="list-style:none; margin:28px 0 8px; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr)); gap:0 40px;">
+          <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+            <li data-reveal="1" style="padding:24px 0 30px; border-top:1px solid var(--line, #d4d6d2);">
+              <div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accentInk, #1f6b2b); margin-bottom:12px;">{{ f.nn }} · {{ f.kicker }}</div>
+              <div style="font-family:'Newsreader',Georgia,serif; font-weight:400; font-size:24px; line-height:1.15; margin-bottom:8px;">{{ f.title }}</div>
+              <div style="font-size:15.5px; line-height:1.55; color:var(--muted, #47555c); text-wrap:pretty;">{{ f.desc }}</div>
+            </li>
+          </sc-for>
+        </ol>
+        <div data-reveal="1" data-liq-ctas="1" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px;"><a href="home.html?fresh=1" style="display:inline-flex; align-items:center; gap:12px; min-height:52px; padding:0 22px; background:var(--accentInk, #1f6b2b); color:var(--onAccent, #ffffff); font-size:16px; font-weight:600; border-radius:6px; transition:background-color .2s ease, color .2s ease;" style-hover="background:var(--ink, #0b1f2a); color:var(--bg, #f1efe9);">{{ t.cta_start }} <svg data-liq-arrow="1" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg></a><a href="#metodologia" style="display:inline-flex; align-items:center; min-height:44px; font-size:15.5px; font-weight:500; color:var(--ink, #0b1f2a); text-decoration:underline; text-decoration-color:var(--line, #d4d6d2); text-underline-offset:6px; transition:text-decoration-color .2s ease;" style-hover="color:var(--ink, #0b1f2a); text-decoration-color:var(--accent, #2e9e3f);">{{ t.nav_method }}</a></div>
+      </div>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:16px;">
-      <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
-        <div data-reveal="1" data-delay="{{ f.delay }}" class="fp-card" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:26px;" style-hover="border-color:color-mix(in oklab, var(--accent) 50%, transparent); box-shadow:0 16px 36px -18px color-mix(in oklab, var(--accent) 30%, transparent);">
-          <div style="font-size:12px; font-weight:700; color:var(--accent, oklch(52% 0.1 152)); margin-bottom:12px;">{{ f.kicker }}</div>
-          <div style="font-family:'Lora',serif; font-size:21px; font-weight:600; margin-bottom:8px;">{{ f.title }}</div>
-          <div style="font-size:14.5px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85));">{{ f.desc }}</div>
+  </section>
+
+  <section id="metodologia" aria-labelledby="liq-h-met" style="max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-top:clamp(64px,9vw,128px); padding-bottom:clamp(64px,9vw,128px);">
+    <div data-liq-split="1" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2.4fr); gap:20px clamp(40px,6vw,96px); align-items:start; margin-bottom:clamp(48px,6vw,80px);">
+      <div data-reveal="1" style="padding-top:14px;"><div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--accentInk, #1f6b2b);">{{ t.k_method }}</div></div>
+      <div data-reveal="1" style="display:flex; flex-direction:column; gap:20px;">
+        <h2 id="liq-h-met" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(30px,3.5vw,50px); line-height:1.06; letter-spacing:-0.03em; margin:0; text-wrap:balance;">{{ hMethod.a }}<em style="font-style:italic; color:var(--accentInk, #1f6b2b);">{{ hMethod.b }}</em>{{ hMethod.c }}</h2>
+        <p style="font-size:17px; line-height:1.55; color:var(--muted, #47555c); margin:0; max-width:600px; padding-left:18px; border-left:1px solid var(--accent, #2e9e3f);">{{ t.p_method }}</p>
+        <a href="https://ghgprotocol.org/" target="_blank" rel="noopener noreferrer" style="align-self:flex-start; display:inline-flex; align-items:center; gap:10px; min-height:44px; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--accentInk, #1f6b2b); border-bottom:1px solid var(--accentLine, #9cc8a0); transition:color .2s ease, border-color .2s ease;" style-hover="color:var(--ink, #0b1f2a); border-color:var(--ink, #0b1f2a);">{{ t.ghg_link }}<svg data-liq-arrow="1" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 L10 4 M5 4 H10 V9"></path></svg></a>
+      </div>
+    </div>
+    <div data-liq-scopes="1" data-liq-split="1" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--line, #d4d6d2);">
+      <sc-for list="{{ scopes }}" as="sc" hint-placeholder-count="3">
+        <div data-reveal="1" style="padding:32px clamp(20px,3vw,40px) 8px; border-left:1px solid var(--line, #d4d6d2);">
+          <div style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(60px,6vw,88px); line-height:.85; letter-spacing:-0.04em; color:var(--accentInk, #1f6b2b); margin-bottom:24px;">{{ sc.n }}</div>
+          <div style="font-weight:600; font-size:18px; margin-bottom:6px;">{{ sc.title }}</div>
+          <div style="font-size:15.5px; line-height:1.55; color:var(--muted, #47555c);">{{ sc.desc }}</div>
         </div>
       </sc-for>
     </div>
   </section>
 
-  <section id="metodologia" data-fp-secb="1" style="max-width:1180px; margin:0 auto; padding:0 24px 96px; scroll-margin-top:70px;">
-    <div data-reveal="1" style="border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:20px; background:var(--surface, oklch(99% 0.004 85)); padding:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:40px;">
-      <div>
-        <div style="font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:10px;">{{ t.k_method }}</div>
-        <h2 style="font-family:'Lora',serif; font-weight:600; font-size:clamp(26px,3vw,34px); line-height:1.2; margin:0 0 14px;">{{ t.h_method }}</h2>
-        <p style="font-size:15px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0;">{{ t.p_method }}</p>
+  <section aria-labelledby="liq-h-cta" style="position:relative; overflow:hidden; border-top:1px solid var(--line, #d4d6d2);">
+    <canvas data-liq-col="cta" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; display:block;"></canvas>
+    <div data-liq-veil="1" aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg, var(--bg, #f1efe9) 0%, var(--bg, #f1efe9) 34%, color-mix(in srgb, var(--bg, #f1efe9) 65%, transparent) 50%, transparent 72%);"></div>
+    <div data-liq-split="1" style="position:relative; max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-top:clamp(64px,9vw,128px); padding-bottom:clamp(64px,9vw,128px); display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:48px clamp(40px,6vw,96px); align-items:end;">
+      <div data-reveal="1" style="display:flex; flex-direction:column; gap:22px;">
+        <h2 id="liq-h-cta" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(32px,4vw,58px); line-height:1.04; letter-spacing:-0.03em; margin:0; text-wrap:balance;">{{ hCta.a }}<em style="font-style:italic; color:var(--accentInk, #1f6b2b);">{{ hCta.b }}</em>{{ hCta.c }}</h2>
+        <p style="font-size:18px; line-height:1.55; color:var(--muted, #47555c); margin:0; max-width:520px; text-wrap:pretty;">{{ t.p_cta }}</p>
       </div>
-      <div style="display:flex; flex-direction:column;">
-        <sc-for list="{{ scopes }}" as="sc" hint-placeholder-count="3">
-          <div style="display:flex; gap:18px; padding:16px 0; border-top:1px solid var(--border, oklch(88% 0.012 85));">
-            <span style="font-family:'Lora',serif; font-size:26px; font-weight:600; color:var(--accent, oklch(52% 0.1 152)); width:28px; flex-shrink:0; line-height:1.1;">{{ sc.n }}</span>
-            <div>
-              <div style="font-weight:700; font-size:15px; margin-bottom:3px;">{{ sc.title }}</div>
-              <div style="font-size:14px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.5;">{{ sc.desc }}</div>
-            </div>
-          </div>
-        </sc-for>
-      </div>
+      <nav data-reveal="1" aria-label="{{ t.cta_enter }}" style="position:relative; background:var(--bg, #f1efe9); padding:0 4px; display:flex; flex-direction:column; border-bottom:1px solid var(--line, #d4d6d2);">
+        <a href="home.html?fresh=1" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px 0; border-top:1px solid var(--line, #d4d6d2); color:var(--accentInk, #1f6b2b); font-family:'Newsreader',Georgia,serif; font-size:22px;" style-hover="color:var(--ink, #0b1f2a);">{{ t.cta_enter }} <svg data-liq-arrow="1" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg></a>
+      </nav>
     </div>
   </section>
+  </main>
 
-  <section style="padding:0 24px 72px;">
-    <div data-reveal="1" data-fp-ctabox="1" style="max-width:1180px; margin:0 auto; border-radius:24px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; padding:64px 32px; text-align:center; position:relative; overflow:hidden;">
-      <canvas ref="{{ lichenRef }}" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
-      <h2 style="position:relative; font-family:'Lora',serif; font-weight:600; font-size:clamp(28px,3.8vw,44px); line-height:1.15; margin:0 auto 14px; max-width:680px; text-wrap:balance;">{{ t.h_cta }}</h2>
-      <p style="position:relative; font-size:16.5px; color:oklch(95% 0.03 152); margin:0 auto 30px; max-width:480px; line-height:1.6;">{{ t.p_cta }}</p>
-      <a href="home.html?fresh=1" class="fp-cta" style="position:relative; display:inline-flex; align-items:center; gap:10px; background:#fff; color:oklch(27% 0.05 152); padding:15px 26px; border-radius:11px; font-weight:700; font-size:15px; transition:transform .2s ease;" style-hover="transform:translateY(-2px); color:oklch(27% 0.05 152);">
-        {{ t.cta_enter }}
-        <svg class="fp-arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg>
-      </a>
-    </div>
-  </section>
-
-  <footer style="max-width:1180px; margin:0 auto; padding:28px 24px 40px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px 24px; flex-wrap:wrap; font-size:13px; color:var(--text-muted, oklch(46% 0.02 85)); border-top:1px solid var(--border, oklch(88% 0.012 85));">
-    <div style="display:flex; flex-direction:column; gap:4px;">
-      <span style="font-family:'Lora',serif; font-weight:600; font-size:15px; color:var(--text, oklch(23% 0.02 85));">liqenInsight Carbon</span>
-      <span style="font-size:12.5px;">{{ t.liqen }}</span>
-    </div>
-    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px;">
-      <span>{{ t.footer }} · {{ t.rights }}</span>
+  <footer style="border-top:1px solid var(--line, #d4d6d2);">
+    <div style="max-width:1280px; margin:0 auto; padding:64px clamp(20px,5vw,72px) calc(36px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; align-items:center; text-align:center; gap:28px;">
+      <img src="logo-liqeninsight-azul.png" alt="liqenInsight Carbon" style="height:40px; width:auto; display:block;">
+      <p style="font-size:15px; line-height:1.55; color:var(--muted, #47555c); margin:0; max-width:440px; text-wrap:balance;">{{ t.liqen }}</p>
+      <nav aria-label="{{ t.foot_nav }}" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px 28px;">
+        <a href="#como" style="font-size:15px; color:var(--ink, #0b1f2a); min-height:32px; display:flex; align-items:center;" style-hover="color:var(--accentInk, #1f6b2b);">{{ t.nav_how }}</a>
+        <a href="#medimos" style="font-size:15px; color:var(--ink, #0b1f2a); min-height:32px; display:flex; align-items:center;" style-hover="color:var(--accentInk, #1f6b2b);">{{ t.nav_what }}</a>
+        <a href="#obtienes" style="font-size:15px; color:var(--ink, #0b1f2a); min-height:32px; display:flex; align-items:center;" style-hover="color:var(--accentInk, #1f6b2b);">{{ t.nav_app }}</a>
+        <a href="#metodologia" style="font-size:15px; color:var(--ink, #0b1f2a); min-height:32px; display:flex; align-items:center;" style-hover="color:var(--accentInk, #1f6b2b);">{{ t.nav_method }}</a>
+        <a href="home.html?fresh=1" style="font-size:15px; font-weight:600; color:var(--accentInk, #1f6b2b); min-height:32px; display:flex; align-items:center;" style-hover="color:var(--ink, #0b1f2a);">{{ t.nav_enter }}</a>
+      </nav>
+      <div style="width:100%; display:flex; flex-direction:column; align-items:center; gap:6px; padding-top:22px; border-top:1px solid var(--line, #d4d6d2); font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11.5px; color:var(--muted2, #5c686c);"><span>liqenInsight Carbon · {{ t.footer }}</span><span>{{ t.rights }}</span></div>
     </div>
   </footer>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { menu: false, faq: null, p: 0, theme: 'light', palette: 'queule', lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
-  I18N = {"es":{"nav_what":"Qué medimos","nav_how":"Cómo funciona","nav_method":"Metodología","nav_enter":"Calcular mi huella","badge":"Huella de carbono del hogar","h1a":"Descubre el impacto de tu hogar y","h1b":"cuánto puedes ahorrar","hero_sub":"Cada mes, anota la luz, el gas, el auto, las compras y los viajes de la casa. Te mostramos su huella de carbono en palabras simples y, sobre todo, cuánto dinero pueden ahorrar juntos al reducirla.","cta_start":"Calcular mi huella","cta_how":"Ver cómo funciona","card_title":"Mi huella · Septiembre","card_example":"Ejemplo ilustrativo","card_delta":"−18% vs. agosto","card_save":"Ahorro potencial al año","chip_title":"Paneles solares","chip_sub":"Energía −70%","k_what":"QUÉ MEDIMOS","h_what":"Las cuatro fuentes que forman la huella de un hogar","p_what":"Cada registro se convierte en kg de CO₂e con factores de emisión de tu país.","k_how":"CÓMO FUNCIONA","h_how":"Tres pasos, una vez al mes","k_app":"LO QUE OBTIENES","h_app":"Del dato mensual a decisiones concretas","k_method":"METODOLOGÍA","h_method":"Cálculo alineado al GHG Protocol","p_method":"Separamos tus emisiones en tres alcances y usamos factores de emisión propios de cada país.","h_cta":"Empieza a medir la huella de tu hogar","p_cta":"Configura tu hogar, registra tu primer mes y descubre dónde está tu mayor oportunidad de ahorro.","cta_enter":"Calcular mi huella","footer":"© 2026 · Huella de carbono para hogares","rights":"Todos los derechos reservados.","h1c":"en familia","nav_faq":"Preguntas","nav_enter_short":"Calcular","k_faq":"PREGUNTAS FRECUENTES","h_faq":"Lo que suelen preguntarnos","contact":"Contacto","nav_app":"Lo que obtienes","liqen":"El liquen es un bioindicador natural de la calidad del aire y la contaminación atmosférica."},"en":{"nav_what":"What we measure","nav_how":"How it works","nav_method":"Methodology","nav_enter":"Calculate my footprint","badge":"Household carbon footprint","h1a":"Discover your home's impact and","h1b":"how much you can save","hero_sub":"Each month, log your home's electricity, gas, car, shopping and travel. We show its carbon footprint in plain words and, above all, how much money you can save together by reducing it.","cta_start":"Calculate my footprint","cta_how":"See how it works","card_title":"My footprint · September","card_example":"Illustrative example","card_delta":"−18% vs. August","card_save":"Potential yearly savings","chip_title":"Solar panels","chip_sub":"Energy −70%","k_what":"WHAT WE MEASURE","h_what":"The four sources behind a household footprint","p_what":"Each entry is converted to kg CO₂e using your country’s emission factors.","k_how":"HOW IT WORKS","h_how":"Three steps, once a month","k_app":"WHAT YOU GET","h_app":"From monthly data to concrete decisions","k_method":"METHODOLOGY","h_method":"Calculation aligned with the GHG Protocol","p_method":"We split your emissions into three scopes and use country-specific emission factors.","h_cta":"Start measuring your home’s footprint","p_cta":"Set up your home, log your first month and find your biggest savings opportunity.","cta_enter":"Calculate my footprint","footer":"© 2026 · Carbon footprint for households","rights":"All rights reserved.","h1c":"as a family","nav_faq":"FAQ","nav_enter_short":"Calculate","k_faq":"FREQUENTLY ASKED QUESTIONS","h_faq":"What people usually ask","contact":"Contact","nav_app":"What you get","liqen":"Lichen is a natural bioindicator of air quality and atmospheric pollution."}};
-  setLang = (lang) => { try { localStorage.setItem('fp_lang', lang); } catch (e) {} document.documentElement.lang = lang; this.setState({ lang }); };
+  state = { menu: false, palOpen: false, theme: 'light', palette: 'alerce', stage: 3, lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })() };
+  I18N = {"es":{"nav_what":"Qué medimos","nav_how":"Cómo funciona","nav_method":"Metodología","nav_enter":"Calcular mi huella","badge":"Huella de carbono del hogar","h1a":"Descubre el impacto de tu hogar y","h1b":"cuánto puedes ahorrar","hero_sub":"Cada mes, anota la luz, el gas, el auto, las compras y los viajes de la casa. Te mostramos su huella de carbono en palabras simples y, sobre todo, cuánto dinero pueden ahorrar juntos al reducirla.","cta_start":"Calcular mi huella","cta_how":"Ver cómo funciona","card_title":"Mi huella · Septiembre","card_example":"Ejemplo ilustrativo","card_delta":"−18% vs. agosto","card_save":"Ahorro potencial al año","chip_title":"Paneles solares","chip_sub":"Energía −70%","k_what":"QUÉ MEDIMOS","h_what":"Las cuatro fuentes que forman la huella de un hogar","p_what":"Cada registro se convierte en kg de CO₂e con factores de emisión de tu país.","k_how":"CÓMO FUNCIONA","h_how":"Tres pasos, una vez al mes","k_app":"LO QUE OBTIENES","h_app":"Del dato mensual a decisiones concretas","k_method":"METODOLOGÍA","h_method":"Cálculo alineado al GHG Protocol","p_method":"Separamos tus emisiones en tres alcances y usamos factores de emisión propios de cada país.","h_cta":"Empieza a medir la huella de tu hogar","p_cta":"Configura tu hogar, registra tu primer mes y descubre dónde está tu mayor oportunidad de ahorro.","cta_enter":"Calcular mi huella","footer":"© 2026 · Huella de carbono para hogares","rights":"Todos los derechos reservados.","h1c":"en familia","nav_faq":"Preguntas","nav_enter_short":"Calcular","k_faq":"PREGUNTAS FRECUENTES","h_faq":"Lo que suelen preguntarnos","contact":"Contacto","nav_app":"Lo que obtienes","liqen":"El liquen es un bioindicador natural de la calidad del aire y la contaminación atmosférica.","k_purpose":"Bioindicador","palette":"Paleta","dark":"Modo oscuro","light":"Modo claro","menu":"Menú","scroll":"Desliza","foot_nav":"Navegación","foot_prod":"Producto","nav_label":"Navegación principal","ghg_link":"Conoce el GHG Protocol"},"en":{"nav_what":"What we measure","nav_how":"How it works","nav_method":"Methodology","nav_enter":"Calculate my footprint","badge":"Household carbon footprint","h1a":"Discover your home's impact and","h1b":"how much you can save","hero_sub":"Each month, log your home's electricity, gas, car, shopping and travel. We show its carbon footprint in plain words and, above all, how much money you can save together by reducing it.","cta_start":"Calculate my footprint","cta_how":"See how it works","card_title":"My footprint · September","card_example":"Illustrative example","card_delta":"−18% vs. August","card_save":"Potential yearly savings","chip_title":"Solar panels","chip_sub":"Energy −70%","k_what":"WHAT WE MEASURE","h_what":"The four sources behind a household footprint","p_what":"Each entry is converted to kg CO₂e using your country’s emission factors.","k_how":"HOW IT WORKS","h_how":"Three steps, once a month","k_app":"WHAT YOU GET","h_app":"From monthly data to concrete decisions","k_method":"METHODOLOGY","h_method":"Calculation aligned with the GHG Protocol","p_method":"We split your emissions into three scopes and use country-specific emission factors.","h_cta":"Start measuring your home’s footprint","p_cta":"Set up your home, log your first month and find your biggest savings opportunity.","cta_enter":"Calculate my footprint","footer":"© 2026 · Carbon footprint for households","rights":"All rights reserved.","h1c":"as a family","nav_faq":"FAQ","nav_enter_short":"Calculate","k_faq":"FREQUENTLY ASKED QUESTIONS","h_faq":"What people usually ask","contact":"Contact","nav_app":"What you get","liqen":"Lichen is a natural bioindicator of air quality and atmospheric pollution.","k_purpose":"Bioindicator","palette":"Palette","dark":"Dark mode","light":"Light mode","menu":"Menu","scroll":"Scroll","foot_nav":"Navigation","foot_prod":"Product","nav_label":"Main navigation","ghg_link":"About the GHG Protocol"}};
   PALETTES = {
-    alerce:    { label:'Alerce',    sw:['#0b1f2a','#2e9e3f','#1e63c8','#63c64c'] },
-    araucaria: { label:'Araucaria', sw:['#10261c','#3f7d4e','#8a5a1c','#a7d26a'] },
-    queule:    { label:'Queule',    sw:['#071e33','#0e7c7b','#1864a6','#4dd6cd'] },
-    guayacan:  { label:'Guayacán',  sw:['#2a1712','#a94a26','#8c5a0e','#f2a96b'] },
-    ruil:      { label:'Ruil',      sw:['#141a21','#3d7466','#3b6597','#b6e68a'] },
-    notro:     { label:'Notro',     sw:['#3a1420','#d63c6b','#b6316e','#f27fa6'] },
+    alerce: { label: 'Alerce', sw: ['#0b1f2a', '#2e9e3f', '#1e63c8', '#63c64c'] },
+    araucaria: { label: 'Araucaria', sw: ['#10261c', '#3f7d4e', '#8a5a1c', '#a7d26a'] },
+    queule: { label: 'Queule', sw: ['#071e33', '#0e7c7b', '#1864a6', '#4dd6cd'] },
+    guayacan: { label: 'Guayacán', sw: ['#2a1712', '#a94a26', '#8c5a0e', '#f2a96b'] },
+    ruil: { label: 'Ruil', sw: ['#141a21', '#3d7466', '#3b6597', '#b6e68a'] },
+    notro: { label: 'Notro', sw: ['#3a1420', '#d63c6b', '#b6316e', '#f27fa6'] },
   };
-  BASE_LIGHT = { warn:'oklch(42% 0.11 55)', warnSoft:'oklch(93% 0.045 55)', warnLine:'oklch(60% 0.13 55)', fuel:'oklch(58% 0.1 30)', shadowSm:'oklch(23% 0.02 85 / 0.04)', shadowMd:'oklch(23% 0.02 85 / 0.07)', shadowLg:'oklch(23% 0.02 85 / 0.08)' };
-  BASE_DARK  = { warn:'oklch(75% 0.14 55)', warnSoft:'oklch(30% 0.06 55)', warnLine:'oklch(75% 0.14 55)', fuel:'oklch(72% 0.12 30)', shadowSm:'oklch(0% 0 0 / 0.3)', shadowMd:'oklch(0% 0 0 / 0.4)', shadowLg:'oklch(0% 0 0 / 0.5)' };
-
-  computeTokens(theme, paletteId) {
-    const p = this.PALETTES[paletteId] || this.PALETTES.alerce;
-    let [s0, s1, s2, s3] = p.sw;
-    if (theme === 'dark' && paletteId === 'notro') { s1 = '#f4799f'; s2 = '#f08bb8'; s3 = '#ffc2d8'; }
-    const m = (a, n, b) => 'color-mix(in oklab, ' + a + ' ' + n + '%, ' + b + ')';
-    if (theme === 'dark') return { ...this.BASE_DARK,
-      bg:s0, surface:m(s0,90,'#fff'), surfaceAlt:m(s0,84,'#fff'), border:m(s0,76,'#fff'), text:'#eaf1ef', textMuted:m('#fff',68,s0),
-      accent:s1, accentHover:m(s1,82,'#fff'), accentText:m(s3,72,'#fff'), accentSoft:m(s1,40,s0), accentSoft2:m(s1,22,s0),
-      grad1:s1, grad2:s2, scenarioBlue:m(s2,58,'#fff'), neutralBar:m(s0,58,'#fff') };
-    return { ...this.BASE_LIGHT,
-      bg:'oklch(97.5% 0.012 85)', surface:'oklch(99% 0.004 85)', surfaceAlt:'oklch(96% 0.01 85)', border:'oklch(88% 0.012 85)', text:'oklch(23% 0.02 85)', textMuted:'oklch(46% 0.02 85)',
-      accent:m(s1,90,'#000'), accentHover:m(s1,70,'#000'), accentText:m(s1,56,'#000'), accentSoft:m(s1,24,'#fff'), accentSoft2:m(s1,12,'#fff'),
-      grad1:s1, grad2:s2, scenarioBlue:s2, neutralBar:m(s0,28,'#fff') };
+  hx(h) { h = h.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); }
+  mx(a, b, t) { const A = this.hx(a), B = this.hx(b); return '#' + A.map((v, i) => Math.round(v * t + B[i] * (1 - t)).toString(16).padStart(2, '0')).join(''); }
+  rgba(h, a) { return 'rgba(' + this.hx(h).join(',') + ',' + a + ')'; }
+  tokens(theme, pal) {
+    const [bg, ac, se, lu] = (this.PALETTES[pal] || this.PALETTES.alerce).sw, m = this.mx.bind(this);
+    if (theme === 'dark') {
+      const base = '#0e1012', B = m(bg, base, 0.4), ink = '#e9ece7';
+      return { bg: B, band: m(bg, base, 0.6), surface: m(bg, '#16191c', 0.42), soft: m(ac, B, 0.12), ink, muted: m(ink, B, 0.74), muted2: m(ink, B, 0.6), line: m(ink, B, 0.14), accent: ac, accentInk: lu, accentSoft: m(ac, B, 0.24), accentLine: m(lu, B, 0.45), lum: lu, sec: se, onAccent: bg, pbg: bg };
+    }
+    const base = '#f8f5ef', B = m(bg, base, 0.03);
+    return { bg: B, band: m(bg, base, 0.075), surface: m(bg, '#ffffff', 0.012), soft: m(ac, B, 0.08), ink: bg, muted: m(bg, B, 0.76), muted2: m(bg, B, 0.66), line: m(bg, B, 0.15), accent: ac, accentInk: m(ac, '#000000', 0.68), accentSoft: m(ac, B, 0.16), accentLine: m(ac, B, 0.5), lum: lu, sec: se, onAccent: '#ffffff', pbg: bg };
   }
-  applyThemeWith(theme, palette) {
-    const t = this.computeTokens(theme, palette);
-    const varMap = { textMuted:'--text-muted', border:'--border', accent:'--accent', accentText:'--accent-text', surface:'--surface', accentSoft:'--accent-soft', text:'--text', warn:'--warn', accentSoft2:'--accent-soft2', surfaceAlt:'--surface-alt', scenarioBlue:'--scenario-blue', fuel:'--fuel', accentHover:'--accent-hover', warnLine:'--warn-line', bg:'--bg', grad1:'--grad1', grad2:'--grad2', warnSoft:'--warn-soft', neutralBar:'--neutral-bar', shadowSm:'--shadow-sm', shadowMd:'--shadow-md', shadowLg:'--shadow-lg' };
-    const root = document.documentElement;
-    Object.entries(varMap).forEach(([k,v]) => root.style.setProperty(v, t[k]));
-    document.body.style.background = t.bg;
-    document.body.style.color = t.text;
-    document.body.style.transition = 'background-color 0.35s ease, color 0.35s ease';
+  applyTheme(theme, pal) {
+    const T = this.tokens(theme, pal), root = document.documentElement;
+    this.C = T;
+    Object.keys(T).forEach(k => { if (k !== 'pbg') root.style.setProperty('--' + k, T[k]); });
+    root.setAttribute('data-theme', theme);
+    document.body.style.background = T.bg; document.body.style.color = T.ink;
+    const mt = document.querySelector('meta[name="theme-color"]'); if (mt) mt.setAttribute('content', T.bg);
+    (this._eng || []).forEach(e => e && e.redraw());
   }
-  toggleTheme = () => {
-    const next = this.state.theme === 'dark' ? 'light' : 'dark';
-    this.applyThemeWith(next, this.state.palette);
-    try { localStorage.setItem('eih_theme', next); } catch (e) {}
-    this.setState({ theme: next });
-  };
-  setPalette = (id) => {
-    this.applyThemeWith(this.state.theme, id);
-    try { localStorage.setItem('eih_palette', id); } catch (e) {}
-    this.setState({ palette: id });
-  };
+  setPalette = (k) => { this.applyTheme(this.state.theme, k); try { localStorage.setItem('eih_palette', k); } catch (e) {} this.setState({ palette: k, palOpen: false }); };
+  toggleTheme = () => { const n = this.state.theme === 'dark' ? 'light' : 'dark'; this.applyTheme(n, this.state.palette); try { localStorage.setItem('eih_theme', n); } catch (e) {} this.setState({ theme: n }); };
+  setLang = (lang) => { try { localStorage.setItem('fp_lang', lang); } catch (e) {} document.documentElement.lang = lang; this.setState({ lang }); };
 
-  heroLichenRef = React.createRef();
+  componentDidMount() {
+    let theme = 'light', palette = 'alerce';
+    try { theme = localStorage.getItem('eih_theme') === 'dark' ? 'dark' : 'light'; const p = localStorage.getItem('eih_palette'); if (p && this.PALETTES[p]) palette = p; } catch (e) {}
+    try { const q = new URLSearchParams(location.search).get('lang'); if (q === 'en' || q === 'es') this.setLang(q); else document.documentElement.lang = this.state.lang; } catch (e) {}
+    this.applyTheme(theme, palette); this.setState({ theme, palette });
+    try { if (document.visibilityState === 'visible' && !matchMedia('(prefers-reduced-motion: reduce)').matches && document.body.animate) document.body.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, easing: 'ease' }); } catch (e) {}
+    this._onAppClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href*="home.html"]');
+      if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !document.body.animate) return;
+      e.preventDefault(); this.setState({ menu: false });
+      const href = a.href, C = this.C;
+      try { sessionStorage.setItem('liq_tr', JSON.stringify({ b: C.bg })); } catch (er) {}
+      const ov = document.createElement('div'); ov.setAttribute('data-liq-tr', '1');
+      ov.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:all;opacity:0;background:' + C.bg + ';';
+      document.body.appendChild(ov);
+      const root = document.querySelector('#dc-root');
+      root && root.animate([{ opacity: 1, transform: 'none' }, { opacity: 0.4, transform: 'translateY(-8px)' }], { duration: 520, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+      ov.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 520, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+      setTimeout(() => { location.href = href; }, 540);
+    };
+    document.addEventListener('click', this._onAppClick);
+    this._onShow = (e) => { if (e.persisted) { document.querySelectorAll('[data-liq-tr]').forEach(n => n.remove()); const r = document.querySelector('#dc-root'); r && r.getAnimations && r.getAnimations().forEach(a => a.cancel()); } };
+    addEventListener('pageshow', this._onShow);
+    this._onKey = (e) => { if (e.key === 'Escape') this.setState({ palOpen: false, menu: false }); };
+    addEventListener('keydown', this._onKey);
+    try { this.setupReveal(); } catch (e) { console.error(e); }
+    this._eng = [];
+    try { this._eng.push(this.colonyEngine('[data-liq-col="hero"]', 'hero')); } catch (e) { console.error(e); }
+    try { this._eng.push(this.colonyEngine('[data-liq-col="edge"]', 'edge')); } catch (e) { console.error(e); }
+    try { this._eng.push(this.colonyEngine('[data-liq-col="cta"]', 'cta')); } catch (e) { console.error(e); }
+    try { this.setupHeroLichen(); } catch (e) { console.error(e); }
+  }
+  componentWillUnmount() { (this._eng || []).forEach(e => e && e.off()); this._heroLichenOff && this._heroLichenOff(); this._io && this._io.disconnect(); removeEventListener('keydown', this._onKey); document.removeEventListener('click', this._onAppClick); removeEventListener('pageshow', this._onShow); }
+
+  setupReveal() {
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    const hidden = els.filter(el => el.getBoundingClientRect().top > innerHeight * 0.92);
+    hidden.forEach(el => { el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(18px)'; void el.offsetHeight; el.style.transition = ''; });
+    const show = (el, d) => { el.style.transitionDelay = d + 'ms'; el.style.opacity = '1'; el.style.transform = 'none'; };
+    this._io = new IntersectionObserver(es => { let i = 0; es.forEach(e => { if (e.isIntersecting) { show(e.target, (i++ % 4) * 70); this._io.unobserve(e.target); } }); }, { threshold: 0.12 });
+    hidden.forEach(el => this._io.observe(el));
+    addEventListener('beforeprint', () => hidden.forEach(el => show(el, 0)));
+  }
+
+  lichenR(c, th, g) { let v = 0.8; for (const [k, a, p] of c.h) v += a * Math.sin(k * th + p); const sc = 1 + 0.045 * Math.pow(Math.abs(Math.sin(th * c.lobes / 2 + c.lp)), 0.6) + 0.014 * Math.abs(Math.sin(th * c.lobes * 1.7 + c.lp * 2)); return c.R * g * Math.max(0.4, v) * sc; }
+  lichenPath(ctx, c, g, s) { ctx.beginPath(); for (let i = 0; i <= 180; i++) { const th = i / 180 * 6.2832, r = this.lichenR(c, th, g) * s, x = c.x + Math.cos(th) * r, y = c.y + Math.sin(th) * r; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.closePath(); }
+  drawLichen(ctx, c, g, cc, breath, alpha) {
+    if (g <= 0.003) return;
+    const G = g * (1 + breath), Rg = Math.max(1, c.R * G);
+    ctx.save(); ctx.globalAlpha = alpha;
+    const grd = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, Rg * 1.05);
+    grd.addColorStop(0, cc.core); grd.addColorStop(0.5, this.mx(cc.accent, cc.core, 0.65)); grd.addColorStop(0.86, cc.accent); grd.addColorStop(1, cc.edge);
+    this.lichenPath(ctx, c, G, 1); ctx.fillStyle = grd; ctx.fill();
+    ctx.lineWidth = 1; ctx.strokeStyle = this.rgba(cc.core, 0.32);
+    [0.84, 0.68, 0.52, 0.36, 0.2].forEach(s => { this.lichenPath(ctx, c, G, s); ctx.stroke(); });
+    this.lichenPath(ctx, c, G, 1); ctx.lineWidth = 1.6; ctx.strokeStyle = this.rgba(cc.edge, 0.95 * (cc.pulse || 1)); ctx.stroke();
+    if (g > 0.82) {
+      const a = Math.min(1, (g - 0.82) / 0.18), k = Math.max(0.7, Math.min(1.4, c.R / 220));
+      for (const p of c.apo) { const rr = this.lichenR(c, p.a, G) * p.f, x = c.x + Math.cos(p.a) * rr, y = c.y + Math.sin(p.a) * rr, r = p.s * a * k;
+        ctx.fillStyle = cc.core; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+        ctx.lineWidth = Math.max(0.8, r * 0.3); ctx.strokeStyle = this.rgba(cc.edge, 0.9); ctx.stroke(); }
+    }
+    ctx.restore();
+  }
+  lichenColors() { const C = this.C; return { core: this.mx(C.accent, C.pbg, 0.45), accent: C.accent, edge: this.mx(C.lum, C.accent, 0.55) }; }
+  mkLichen(x, y, R, rnd) {
+    return { x, y, R, ph: rnd(0, 6.28), lobes: Math.round(rnd(16, 26)), lp: rnd(0, 6.28),
+      h: [[2, rnd(0.04, 0.09), rnd(0, 6.28)], [3, rnd(0.04, 0.08), rnd(0, 6.28)], [5, rnd(0.02, 0.05), rnd(0, 6.28)], [9, rnd(0.01, 0.03), rnd(0, 6.28)]],
+      apo: Array.from({ length: Math.round(rnd(9, 15)) }, () => ({ a: rnd(0, 6.2832), f: rnd(0.2, 0.78), s: rnd(2.2, 5) })) };
+  }
+
+  colonyEngine(sel, variant) {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, rnd = (a, b) => a + Math.random() * (b - a);
+    const e3 = v => 1 - Math.pow(1 - Math.max(0, Math.min(1, v)), 3);
+    let cv = null, ctx = null, W = 0, H = 0, dpr = 1, grain = null, gkey = '', cols = [], raf = 0, last = 0, clock = 0, alive = true, px = 0, py = 0, tx = 0, ty = 0;
+    const seeds = () => { const S = Math.min(W, H);
+      if (variant === 'cta') return W < 760 ? [[W * 1.06, -H * 0.03, W * 0.4], [W * 0.5, -H * 0.06, W * 0.18]] : [[W * 1.03, -H * 0.04, Math.min(S * 0.58, W * 0.24)], [W * 0.62, -H * 0.1, Math.min(S * 0.3, W * 0.12)], [W * 1.04, H * 0.62, Math.min(S * 0.22, W * 0.08)]];
+      if (variant === 'edge') return W < 760 ? [[W * 1.04, H * 0.98, W * 0.5], [W * 1.06, H * 0.62, W * 0.28]] : [[W * 1.02, H * 0.18, Math.min(S * 0.6, W * 0.26)], [W * 1.01, H * 0.96, Math.min(S * 0.46, W * 0.2)]];
+      if (W < 760) return [[W * 1.02, H * 1.0, W * 0.62], [W * 1.08, H * 0.6, W * 0.3], [-W * 0.06, H * 1.03, W * 0.34]];
+      const k = Math.min(1, W / 1300); return [[W * 1.02, H * 0.06, S * 0.42 * k], [W * 1.03, H * 0.6, S * 0.48 * k], [W * 0.74, H * 1.05, S * 0.3 * k], [W * 0.62, -H * 0.06, S * 0.2 * k], [W * 0.92, H * 1.06, S * 0.26 * k]]; };
+    const mkGrain = () => {
+      grain = document.createElement('canvas'); grain.width = cv.width; grain.height = cv.height;
+      const g = grain.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); gkey = this.C.ink;
+      const n = Math.round(W * H / 40);
+      for (let i = 0; i < n; i++) { g.fillStyle = this.rgba(gkey, rnd(0.05, 0.07).toFixed(3)); const s = rnd(1, 1.2); g.fillRect(rnd(0, W), rnd(0, H), s, s); }
+    };
+    const build = (el) => {
+      cv = el; ctx = cv.getContext('2d'); dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
+      if (!W || !H) return false;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = seeds().map(([x, y, R], i) => Object.assign(this.mkLichen(x, y, R, rnd), { delay: i * 1.3 + rnd(0, 1), dur: rnd(8, 14) }));
+      mkGrain(); return true;
+    };
+    const draw = () => {
+      if (!cv) return; if (gkey !== this.C.ink) mkGrain();
+      ctx.clearRect(0, 0, W, H); ctx.drawImage(grain, 0, 0, W, H);
+      const cc = this.lichenColors();
+      ctx.save(); ctx.translate(px, py);
+      for (const c of cols) {
+        const g = reduce ? 1 : e3((clock - c.delay) / c.dur), mat = reduce ? 0 : Math.max(0, Math.min(1, (clock - c.delay - c.dur) / 2));
+        cc.pulse = 1 - mat * 0.2 * (0.5 + 0.5 * Math.sin(clock * 0.9 + c.ph));
+        this.drawLichen(ctx, c, g, cc, mat * 0.006 * Math.sin(clock * 0.7 + c.ph), this.state.theme === 'dark' ? 0.8 : 0.6);
+      }
+      ctx.restore(); ctx.drawImage(grain, 0, 0, W, H);
+    };
+    const visible = () => { if (!cv || document.visibilityState !== 'visible') return false; const r = cv.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+    const loop = (ts) => {
+      raf = 0; if (!alive) return;
+      if (!visible()) { last = 0; return; }
+      if (last && ts - last < 33) { raf = requestAnimationFrame(loop); return; }
+      const dt = last ? Math.min(0.1, (ts - last) / 1000) : 0.016; last = ts; clock += dt;
+      px += (tx - px) * 0.06; py += (ty - py) * 0.06; draw();
+      raf = requestAnimationFrame(loop);
+    };
+    const kick = () => { if (!cv) return; if (reduce) { draw(); return; } if (!raf && alive) raf = requestAnimationFrame(loop); };
+    const onMove = (e) => { tx = (0.5 - e.clientX / innerWidth) * 16; ty = (0.5 - e.clientY / innerHeight) * 12; };
+    const boot = (n) => { const el = document.querySelector(sel); if (el && build(el)) { draw(); kick(); } else if (n < 40) setTimeout(() => boot(n + 1), 200); };
+    setTimeout(() => boot(0), 120);
+    let rt; const onR = () => { clearTimeout(rt); rt = setTimeout(() => { const el = document.querySelector(sel); if (el && (el !== cv || Math.abs(el.clientWidth - W) > 40 || Math.abs(el.clientHeight - H) > 80)) { if (build(el)) { draw(); kick(); } } }, 250); };
+    addEventListener('resize', onR); addEventListener('scroll', kick, { passive: true }); document.addEventListener('visibilitychange', kick);
+    if (!reduce) addEventListener('mousemove', onMove, { passive: true });
+    return { redraw: () => { draw(); kick(); }, off: () => { alive = false; cancelAnimationFrame(raf); removeEventListener('resize', onR); removeEventListener('scroll', kick); document.removeEventListener('visibilitychange', kick); removeEventListener('mousemove', onMove); } };
+  }
+
   setupHeroLichen(tries = 0) {
-    const cv = this.heroLichenRef.current || document.querySelector('#top canvas'); if (!cv) { if (tries < 40) setTimeout(() => this.setupHeroLichen(tries + 1), 250); return; }
+    const cv = document.querySelector('[data-liq-foot]'); if (!cv) { if (tries < 40) setTimeout(() => this.setupHeroLichen(tries + 1), 250); return; }
     const ctx = cv.getContext('2d'); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const T = 15000, IN = 3100, CV0 = 5200, CVD = 3600, OUT = 12900;
     let W = 0, H = 0, dpr = 1, px = 0, ox = 0, oy = 0, g = 0, dots = [], bands = [], foot = { b: 0 }, labelX = 0;
@@ -367,8 +437,8 @@ class Component extends DCLogic {
     const build = () => {
       dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; if (!W || !H) return false;
       cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const bl = 90, bw = W - 180;
-      px = Math.min(bw / 0.95, (H - 150) / 1.15); ox = bl + bw * 0.38; oy = 20 + 0.62 * px; labelX = ox + px * 0.42;
+      const nar = W < 560, bl = nar ? 6 : 90, bw = W - (nar ? 104 : 180);
+      px = Math.min(bw / 0.95, (H - 150) / 1.15); ox = bl + bw * 0.38; oy = Math.max(20, (H - 1.19 * px - 80) / 2) + 0.64 * px; labelX = ox + px * 0.42;
       const gu = 0.034; g = gu * px; dots = []; let row = 0;
       for (let y = -0.64; y < 0.55; y += gu * 0.866, row++) for (let x = -0.4 + (row % 2 ? gu / 2 : 0); x < 0.42; x += gu) if (inside(x, y)) {
         const bnd = y > 0.17 ? 0 : y > -0.05 ? 1 : y > -0.22 ? 2 : y > -0.4 ? 3 : 4, [X, Y] = map(x, y);
@@ -401,18 +471,18 @@ class Component extends DCLogic {
           else circ(d.x, d.y, rr * rf); }
         ctx.fill(); });
       const L = NAMES[this.state.lang === 'en' ? 'en' : 'es'];
-      ctx.font = "600 13px 'Public Sans', sans-serif"; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      ctx.font = "600 13px 'Hanken Grotesk', sans-serif"; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
       bands.forEach((bd, i) => { const al = eo((tm - bd.t) / 600) * fade; if (al <= 0) return;
         ctx.globalAlpha = al * 0.4; ctx.strokeStyle = ink; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(bd.x + g * 0.9, bd.y); ctx.lineTo(labelX - 8, bd.y); ctx.stroke();
         ctx.globalAlpha = al; ctx.fillStyle = strong; ctx.fillRect(labelX - 8, bd.y - 1.5, 3, 3); ctx.fillText(L[i], labelX, bd.y); });
       const n = dots.length || 1, shown = Math.max(0, Math.round(base * eo(tm / IN) - base * conv / n)), pct = Math.round(conv / n * 100);
       const cy = foot.b + 46; ctx.globalAlpha = fade; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-      ctx.font = "600 34px 'Lora', serif"; const s1 = String(shown), w1 = ctx.measureText(s1).width;
-      ctx.font = "500 13px 'Public Sans', sans-serif"; const s2 = this.state.lang === 'en' ? 'kg CO₂e / month' : 'kg CO₂e / mes', w2 = ctx.measureText(s2).width;
+      ctx.font = "600 34px 'Newsreader', serif"; const s1 = String(shown), w1 = ctx.measureText(s1).width;
+      ctx.font = "500 13px 'Hanken Grotesk', sans-serif"; const s2 = this.state.lang === 'en' ? 'kg CO₂e / month' : 'kg CO₂e / mes', w2 = ctx.measureText(s2).width;
       const x0 = ox - (w1 + 8 + w2) / 2;
-      ctx.font = "600 34px 'Lora', serif"; ctx.fillStyle = strong; ctx.fillText(s1, x0, cy);
-      ctx.font = "500 13px 'Public Sans', sans-serif"; ctx.fillStyle = ink; ctx.fillText(s2, x0 + w1 + 8, cy);
-      if (pct > 0) { ctx.globalAlpha = fade * cl(conv / 6); ctx.textAlign = 'center'; ctx.font = "700 13px 'Public Sans', sans-serif"; ctx.fillStyle = COL[1];
+      ctx.font = "600 34px 'Newsreader', serif"; ctx.fillStyle = strong; ctx.fillText(s1, x0, cy);
+      ctx.font = "500 13px 'Hanken Grotesk', sans-serif"; ctx.fillStyle = ink; ctx.fillText(s2, x0 + w1 + 8, cy);
+      if (pct > 0) { ctx.globalAlpha = fade * cl(conv / 6); ctx.textAlign = 'center'; ctx.font = "700 13px 'Hanken Grotesk', sans-serif"; ctx.fillStyle = COL[1];
         ctx.fillText('−' + pct + ' % · ' + (this.state.lang === 'en' ? 'potential savings' : 'ahorro potencial'), ox, cy + 24); }
       ctx.globalAlpha = 1;
     };
@@ -428,223 +498,161 @@ class Component extends DCLogic {
     window.addEventListener('resize', onR);
     this._heroLichenOff = () => { clearInterval(iv); io.disconnect(); cancelAnimationFrame(raf); window.removeEventListener('resize', onR); };
   }
-  lichenRef = React.createRef();
-  setupLichen() {
-    const cv = this.lichenRef.current; if (!cv) return;
-    const ctx = cv.getContext('2d'); const off = document.createElement('canvas'), o = off.getContext('2d');
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const DUR = 55000, COLORS = ['#8cc96e', '#2f9a44', '#1f5fc4'];
-    let W = 0, H = 0, dpr = 1, cols = [], raf = 0, started = false, t0 = 0, last = 0;
-    const rnd = (a, b) => a + Math.random() * (b - a), cl = (v) => Math.max(0, Math.min(1, v)), ease = (v) => 1 - Math.pow(1 - cl(v), 2.4);
-    const mkLayer = (n, dist, lr, bumps) => { const rot = rnd(0, 6.283); return Array.from({ length: n }, (_, i) => ({ a: rot + i / n * 6.283 + rnd(-0.2, 0.2), d: dist * rnd(0.9, 1.1), r: lr * rnd(0.85, 1.15), o: rnd(0, 0.35),
-      b: Array.from({ length: bumps }, (_, j) => ({ a: j / bumps * 6.283 + rnd(-0.25, 0.25), d: rnd(0.6, 0.78), r: rnd(0.32, 0.46) })) })); };
-    const seed = () => {
-      dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
-      [cv, off].forEach(c => { c.width = W * dpr; c.height = H * dpr; }); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); o.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const s = Math.min(W, 1100) / 1100 * 0.6 + 0.4;
-      const spots = [[W - 20, 10, H * 0.62], [20, H - 10, H * 0.58], [W * 0.13, -10, H * 0.32], [W - 10, H * 0.9, H * 0.36], [W * 0.66, H + 10, H * 0.28], [-10, H * 0.2, H * 0.26]];
-      cols = spots.map(([x, y, R], i) => ({ x, y, R: R * s, delay: i * 2800 + rnd(0, 1500), spin: rnd(-0.12, 0.12),
-        layers: [mkLayer(Math.round(rnd(6, 8)), 0.6, 0.44, 7), mkLayer(Math.round(rnd(6, 8)), 0.4, 0.3, 6), mkLayer(Math.round(rnd(7, 9)), 0.24, 0.13, 0)] }));
+  motionEngine(sel) {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, rnd = (a, b) => a + Math.random() * (b - a);
+    const cl = v => Math.max(0, Math.min(1, v)), e3 = v => 1 - Math.pow(1 - cl(v), 3), e5 = v => 1 - Math.pow(1 - cl(v), 5);
+    const eio = v => { v = cl(v); return v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2; };
+    const eback = v => { v = cl(v); const c1 = 1.1, c3 = c1 + 1; return 1 + c3 * Math.pow(v - 1, 3) + c1 * Math.pow(v - 1, 2); };
+    const END = 16;
+    let cv = null, ctx = null, W = 0, H = 0, dpr = 1, raf = 0, last = 0, clock = 0, alive = true, L = null, th = null, cells = [], parts = [], drift = [], stats = null, started = false;
+    const rr = (x, y, w, h, r) => { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); };
+    const build = (el) => {
+      cv = el; ctx = cv.getContext('2d'); dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
+      if (!W || !H) return false;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const hz = W / H >= 1.15;
+      if (hz) { const cs = Math.min(W * 0.03, H * 0.058); L = { hz, tx: W * 0.12, ty: H * 0.54, Rt: Math.min(W * 0.09, H * 0.22), cs, mx0: W * 0.335 - cs * 3, my0: H * 0.54 - cs * 3, px0: W * 0.49, py0: H * 0.17, pw: W * 0.48, ph: H * 0.78 }; }
+      else { const cs = Math.min(W * 0.07, H * 0.04); L = { hz, tx: W * 0.5, ty: H * 0.13, Rt: Math.min(W * 0.17, H * 0.09), cs, mx0: W * 0.5 - cs * 3, my0: H * 0.39 - cs * 3, px0: W * 0.06, py0: H * 0.6, pw: W * 0.88, ph: H * 0.36 }; }
+      th = Object.assign(this.mkLichen(L.tx, L.ty, L.Rt, rnd), { lobes: 14 });
+      const states = [...Array(20).fill(0), ...Array(9).fill(1), ...Array(7).fill(2)].sort(() => Math.random() - 0.5);
+      cells = states.map((st, i) => ({ x: L.mx0 + (i % 6) * L.cs + L.cs / 2, y: L.my0 + Math.floor(i / 6) * L.cs + L.cs / 2, st, arr: Infinity }));
+      const order = [...Array(36).keys()].sort(() => Math.random() - 0.5);
+      parts = order.map((ci, i) => {
+        const c = cells[ci], t0 = 3.2 + i * 0.13, an = Math.atan2(c.y - th.y, c.x - th.x), sx = th.x + Math.cos(an) * th.R * 0.7, sy = th.y + Math.sin(an) * th.R * 0.7;
+        const dx = c.x - sx, dy = c.y - sy, o = rnd(-0.32, 0.32); c.arr = t0 + 1.6;
+        return { t0, sx, sy, cx: (sx + c.x) / 2 - dy * o, cy: (sy + c.y) / 2 + dx * o, ex: c.x, ey: c.y, lbl: i % 3 === 0 ? rnd(1, 48).toFixed(1) : null };
+      });
+      drift = Array.from({ length: 10 }, () => ({ a: rnd(0, 6.28), r: rnd(1.15, 2), sp: rnd(0.08, 0.2) * (Math.random() < 0.5 ? -1 : 1), s: rnd(1.4, 2.4) }));
+      const cnt = [0, 0, 0]; cells.forEach(c => cnt[c.st]++);
+      stats = { cnt, pct: Math.round(cnt[0] / 36 * 100), bars: [0.82, 0.58, 0.36].map(v => v * rnd(0.85, 1.1)), line: Array.from({ length: 8 }, (_, i) => 0.75 - i * 0.06 + rnd(-0.07, 0.07)) };
+      return true;
     };
-    const disk = (x, y, r) => { if (r <= 0.3) return; o.moveTo(x + r, y); o.arc(x, y, r, 0, 6.283); };
-    const draw = (now) => {
-      o.clearRect(0, 0, W, H); let busy = false;
-      for (const c of cols) {
-        const k = (now - c.delay) / DUR; if (k < 1.05) busy = true; if (k <= 0) continue;
-        const prog = [ease((k - 0.18) / 0.82), ease((k - 0.06) / 0.8), ease(k / 0.62)], rot = c.spin * cl(k);
-        c.layers.forEach((L, li) => {
-          const P = prog[li]; if (!P) return; const R = c.R * P; o.beginPath();
-          disk(c.x, c.y, R * (li === 2 ? 0.2 : li === 1 ? 0.34 : 0.5));
-          for (const l of L) {
-            const g = ease((P - l.o) / (1 - l.o)); if (!g) continue;
-            const lx = c.x + Math.cos(l.a + rot) * l.d * R * (0.55 + 0.45 * g), ly = c.y + Math.sin(l.a + rot) * l.d * R * (0.55 + 0.45 * g), lr = l.r * R * g;
-            disk(lx, ly, lr * (li === 2 ? 1 : 0.62));
-            for (const u of l.b) disk(lx + Math.cos(u.a + l.a) * u.d * lr, ly + Math.sin(u.a + l.a) * u.d * lr, u.r * lr);
-          }
-          o.fillStyle = COLORS[li]; o.fill();
-        });
+    const setStage = (s) => { if (this.state.stage !== s) this.setState({ stage: s }); };
+    const draw = (t) => {
+      const C = this.C, E = this.state.lang === 'en', cc = this.lichenColors(), amb = t > END ? t - END : 0;
+      ctx.clearRect(0, 0, W, H);
+      const font = (px, w) => ctx.font = (w || 400) + ' ' + px + "px 'IBM Plex Mono', monospace";
+      this.drawLichen(ctx, th, e5(t / 4.5), cc, amb ? 0.012 * Math.sin(t * 1.1) : 0, 1);
+      const ga = cl((t - 2.6) / 0.8) * (1 - 0.72 * cl((t - 10.2) / 1.2)), cs = L.cs, sq = cs * 0.74;
+      if (ga > 0) for (const c of cells) {
+        ctx.globalAlpha = ga; rr(c.x - sq / 2, c.y - sq / 2, sq, sq, Math.min(4, sq * 0.2));
+        const k = cl((t - c.arr) / 0.35);
+        if (k > 0 && c.st < 2) { ctx.globalAlpha = ga * k; ctx.fillStyle = c.st === 0 ? C.accent : C.sec; ctx.fill(); }
+        ctx.globalAlpha = ga * (c.st === 2 && k > 0 ? 1 : 0.6); ctx.lineWidth = 1; ctx.strokeStyle = c.st === 2 && k > 0 ? C.muted2 : C.line; ctx.stroke();
       }
-      ctx.clearRect(0, 0, W, H); ctx.globalAlpha = 0.32; ctx.drawImage(off, 0, 0, W, H); ctx.globalAlpha = 1;
-      ctx.save(); ctx.globalCompositeOperation = 'destination-out'; ctx.translate(W / 2, H / 2); ctx.scale(W * 0.4, H * 0.62);
-      const m = ctx.createRadialGradient(0, 0, 0, 0, 0, 1); m.addColorStop(0, 'rgba(0,0,0,1)'); m.addColorStop(0.62, 'rgba(0,0,0,1)'); m.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = m; ctx.beginPath(); ctx.arc(0, 0, 1, 0, 6.283); ctx.fill(); ctx.restore();
-      return busy;
+      ctx.globalAlpha = 1;
+      for (const p of parts) {
+        const u = (t - p.t0) / 1.6; if (u < 0 || u > 1) continue;
+        const e = eio(u), q = 1 - e, x = q * q * p.sx + 2 * q * e * p.cx + e * e * p.ex, y = q * q * p.sy + 2 * q * e * p.cy + e * e * p.ey;
+        ctx.fillStyle = C.accentInk; ctx.globalAlpha = 0.95; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 6.2832); ctx.fill();
+        if (p.lbl) { ctx.globalAlpha = Math.sin(u * Math.PI) * 0.9; ctx.fillStyle = C.muted; font(10); ctx.fillText(E ? p.lbl : p.lbl.replace('.', ','), x + 6, y - 6); }
+      }
+      ctx.globalAlpha = 1;
+      if (amb) for (const d of drift) { const a = d.a + t * d.sp, x = th.x + Math.cos(a) * th.R * d.r, y = th.y + Math.sin(a) * th.R * d.r * 0.8; ctx.globalAlpha = 0.45; ctx.fillStyle = C.accentInk; ctx.beginPath(); ctx.arc(x, y, d.s, 0, 6.2832); ctx.fill(); }
+      ctx.globalAlpha = 1;
+      const gap = 10, pw = (L.pw - gap) / 2, ph = (L.ph - gap) / 2, fs = Math.max(9, Math.min(11, pw * 0.065));
+      const LBL = E ? ['% MET', 'SCOPES', 'TREND', 'STATUS'] : ['% CUMPLE', 'ÁMBITOS', 'TENDENCIA', 'ESTADO'];
+      for (let j = 0; j < 4; j++) {
+        const a0 = 10.4 + j * 0.45, a = (t - a0) / 0.8; if (a <= 0) continue;
+        const x = L.px0 + (j % 2) * (pw + gap), y = L.py0 + Math.floor(j / 2) * (ph + gap), s = eback(a), q = e3((t - a0 - 0.4) / 1.2);
+        const wob = amb ? Math.sin(amb * 0.9 + j) : 0;
+        ctx.save(); ctx.globalAlpha = cl(a * 1.6); ctx.translate(x + pw / 2, y + ph / 2); ctx.scale(s, s); ctx.translate(-pw / 2, -ph / 2);
+        rr(0, 0, pw, ph, 8); ctx.fillStyle = C.surface; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = C.line; ctx.stroke(); ctx.clip();
+        font(fs, 500); ctx.fillStyle = C.muted2; ctx.textBaseline = 'top'; ctx.fillText(LBL[j], 10, 9);
+        const ix = 12, iy = 14 + fs * 1.6, iw = pw - 24, ih = ph - iy - 12;
+        if (j === 0) {
+          const r = Math.min(iw, ih) * 0.42, cx = pw / 2, cy = iy + ih / 2, lw = r * 0.3;
+          ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.strokeStyle = C.line; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.2832); ctx.stroke();
+          ctx.strokeStyle = C.accent; ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + 6.2832 * (stats.pct / 100) * q + wob * 0.03); ctx.stroke();
+          font(Math.max(11, r * 0.42), 500); ctx.fillStyle = C.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(Math.round(stats.pct * q) + '%', cx, cy); ctx.textAlign = 'left';
+        } else if (j === 1) {
+          const n = 3, bw = iw / (n * 1.8), cols = [C.accent, C.sec, C.lum];
+          for (let i = 0; i < n; i++) { const h = ih * 0.78 * stats.bars[i] * q * (1 + wob * 0.03 * (i - 1)), bx = ix + i * (iw / n) + (iw / n - bw) / 2;
+            rr(bx, iy + ih * 0.82 - h, bw, Math.max(1, h), Math.min(5, bw / 3)); ctx.fillStyle = cols[i]; ctx.fill();
+            font(fs); ctx.fillStyle = C.muted2; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText((E ? 'S' : 'A') + (i + 1), bx + bw / 2, iy + ih * 0.86); ctx.textAlign = 'left'; }
+        } else if (j === 2) {
+          const pts = stats.line.map((v, i) => [ix + i / (stats.line.length - 1) * iw, iy + ih * (1 - (v + wob * 0.02 * Math.sin(i)) * 0.9)]), k = q * (pts.length - 1);
+          const vis = pts.filter((_, i) => i <= k); if (k % 1 && vis.length < pts.length) { const i = Math.floor(k), f = k - i; vis.push([pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f]); }
+          if (vis.length > 1) { ctx.beginPath(); vis.forEach(([px, py], i) => i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)); ctx.lineTo(vis[vis.length - 1][0], iy + ih); ctx.lineTo(vis[0][0], iy + ih); ctx.closePath(); ctx.fillStyle = this.rgba(C.accent, 0.16); ctx.fill();
+            ctx.beginPath(); vis.forEach(([px, py], i) => i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)); ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.strokeStyle = C.accentInk; ctx.stroke(); }
+        } else {
+          const LG = E ? ['Met', 'Missing', 'No data'] : ['Cumple', 'Falta', 'Sin dato'], colz = [C.accent, C.sec, C.line], bh = Math.max(8, Math.min(14, ih * 0.16)); let bx = ix;
+          rr(ix, iy + 4, iw, bh, bh / 2); ctx.save(); ctx.clip();
+          stats.cnt.forEach((n, i) => { const w = iw * n / 36 * q; ctx.fillStyle = colz[i]; ctx.fillRect(bx, iy + 4, w, bh); bx += w; }); ctx.restore();
+          font(fs); ctx.textBaseline = 'middle';
+          LG.forEach((l, i) => { const ly = iy + bh + 14 + i * (fs + 7); if (ly > iy + ih) return; ctx.fillStyle = colz[i]; ctx.fillRect(ix, ly - 4, 8, 8); ctx.fillStyle = C.muted; ctx.fillText(l + ' ' + stats.cnt[i], ix + 14, ly); });
+        }
+        ctx.restore();
+      }
+      if (t > 14.6) {
+        const a = e3((t - 14.6) / 0.8), txt = E ? 'Decisions ready ✓' : 'Decisiones listas ✓';
+        font(11, 500); const w = ctx.measureText(txt).width + 22, x = L.px0 + L.pw - w, y = L.py0 - 36 + (1 - a) * 6;
+        ctx.globalAlpha = a; rr(x, y, w, 26, 13); ctx.fillStyle = C.accentInk; ctx.fill(); ctx.fillStyle = C.onAccent; ctx.textBaseline = 'middle'; ctx.fillText(txt, x + 11, y + 13); ctx.globalAlpha = 1;
+      }
+      setStage(t < 3.2 ? 0 : t < 10.2 ? 1 : t < END ? 2 : 3);
     };
-    const loop = (ts) => { if (ts - last > 33) { last = ts; if (!draw(ts - t0)) return; } raf = requestAnimationFrame(loop); };
-    const run = () => { cancelAnimationFrame(raf); seed(); if (reduce) { draw(1e9); return; } t0 = performance.now(); raf = requestAnimationFrame(loop); };
-    const io = new IntersectionObserver(es => { if (es[0].isIntersecting && !started) { started = true; run(); } }, { threshold: 0.2 });
-    io.observe(cv);
-    let rt; const onR = () => { clearTimeout(rt); rt = setTimeout(() => { if (started && Math.abs(cv.clientWidth - W) > 40) run(); }, 250); };
-    window.addEventListener('resize', onR);
-    this._lichenOff = () => { io.disconnect(); cancelAnimationFrame(raf); window.removeEventListener('resize', onR); };
+    const visible = () => { if (!cv || document.visibilityState !== 'visible') return false; const r = cv.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+    const loop = (ts) => {
+      raf = 0; if (!alive) return;
+      if (!visible()) { last = 0; return; }
+      started = true;
+      if (last && ts - last < 30) { raf = requestAnimationFrame(loop); return; }
+      const dt = last ? Math.min(0.1, (ts - last) / 1000) : 0.016; last = ts; clock += dt; draw(clock);
+      raf = requestAnimationFrame(loop);
+    };
+    const kick = () => { if (!cv) return; if (reduce) { draw(END); return; } if (!raf && alive) raf = requestAnimationFrame(loop); };
+    const restart = () => { if (clock > END && cv) { build(cv); clock = 0; kick(); } };
+    const boot = (n) => { const el = document.querySelector(sel); if (el && build(el)) { draw(reduce ? END : 0); kick(); el.addEventListener('mouseenter', restart); } else if (n < 40) setTimeout(() => boot(n + 1), 200); };
+    setTimeout(() => boot(0), 150);
+    let rt; const onR = () => { clearTimeout(rt); rt = setTimeout(() => { const el = document.querySelector(sel); if (el && (Math.abs(el.clientWidth - W) > 30 || Math.abs(el.clientHeight - H) > 30)) { const keep = clock; if (build(el)) { clock = keep; draw(reduce ? END : clock); kick(); } } }, 250); };
+    addEventListener('resize', onR); addEventListener('scroll', kick, { passive: true }); document.addEventListener('visibilitychange', kick);
+    return { redraw: () => { if (cv) { draw(reduce ? END : clock); kick(); } }, off: () => { alive = false; cancelAnimationFrame(raf); removeEventListener('resize', onR); removeEventListener('scroll', kick); document.removeEventListener('visibilitychange', kick); if (cv) cv.removeEventListener('mouseenter', restart); } };
   }
 
-  componentDidMount() {
-    let theme = 'light', palette = 'queule';
-    try { theme = localStorage.getItem('eih_theme') || theme;
-      if (sessionStorage.getItem('lq_session')) { const sp = localStorage.getItem('eih_palette'); if (this.PALETTES[sp]) palette = sp; }
-      else { sessionStorage.setItem('lq_session', '1'); localStorage.setItem('eih_palette', palette); }
-    } catch (e) {}
-    try { const q = new URLSearchParams(location.search).get('lang'); if (q === 'en' || q === 'es') this.setLang(q); } catch (e) {}
-    this.applyThemeWith(theme, palette);
-    this.setState({ theme, palette });
-    const show = (el) => { el.style.opacity = '1'; el.style.transform = ''; el.style.filter = ''; el.classList.add('fp-in'); setTimeout(() => { el.style.transitionDelay = ''; }, 1400); };
-    const canAnimate = document.visibilityState === 'visible' && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (canAnimate) {
-      const vh = window.innerHeight;
-      const els = Array.from(document.querySelectorAll('[data-reveal]'));
-      const heroEls = els.filter(el => el.getBoundingClientRect().top < vh);
-      const below = els.filter(el => el.getBoundingClientRect().top >= vh);
-      const hide = (el) => {
-        el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translate3d(0,22px,0)'; el.style.filter = 'blur(8px)';
-        void el.offsetHeight;
-        el.style.transition = el.classList.contains('fp-card') ? '' : 'opacity .9s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1), filter .9s cubic-bezier(.16,1,.3,1)';
-        el.style.transitionDelay = (el.getAttribute('data-delay') || 0) + 'ms';
-      };
-      heroEls.forEach(hide);
-      requestAnimationFrame(() => requestAnimationFrame(() => heroEls.forEach(show)));
-      below.forEach(hide);
-      this._io = new IntersectionObserver(entries => entries.forEach(e => {
-        if (e.isIntersecting) { show(e.target); this._io.unobserve(e.target); }
-      }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      below.forEach(el => this._io.observe(el));
-      this._safe = setTimeout(() => { if (document.visibilityState !== 'visible') below.forEach(show); }, 1200);
-      this._vis = () => { if (document.visibilityState !== 'visible') below.forEach(show); };
-      document.addEventListener('visibilitychange', this._vis);
-      window.addEventListener('beforeprint', () => below.forEach(show));
-    } else document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('fp-in'));
-    try { this.setupHeroLichen(); } catch (e) { console.error(e); }
-    try { this.setupMotion(); } catch (e) { console.error(e); }
-    try { this.setupLichen(); } catch (e) { console.error(e); }
-    this._t = setTimeout(() => {
-      const t0 = performance.now(), dur = 1600;
-      const step = (now) => {
-        const x = Math.min(1, (now - t0) / dur);
-        this.setState({ p: 1 - Math.pow(1 - x, 3) });
-        if (x < 1) this._raf = requestAnimationFrame(step);
-      };
-      this._raf = requestAnimationFrame(step);
-    }, 500);
-  }
-  setupMotion() {
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const header = document.getElementById('fp-header');
-    const bar = document.getElementById('fp-progress');
-    const para = Array.from(document.querySelectorAll('[data-parallax]'));
-    const desktop = matchMedia('(min-width: 900px)').matches;
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(() => {
-        ticking = false;
-        const y = window.scrollY, max = document.documentElement.scrollHeight - innerHeight;
-        if (header) header.setAttribute('data-scrolled', y > 8 ? '1' : '0');
-        if (bar && !reduced) bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
-        if (!reduced && desktop && y < innerHeight * 1.2) para.forEach(el => { el.style.translate = '0 ' + (y * parseFloat(el.dataset.parallax)).toFixed(1) + 'px'; });
-      });
-    };
-    this._spot = (e) => { const c = e.target.closest && e.target.closest('.fp-card'); if (!c) return; const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); };
-    if (!reduced) document.addEventListener('pointermove', this._spot, { passive: true });
-    this._onScroll = onScroll;
-    addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    const card = document.querySelector('[data-tilt]');
-    if (card && !reduced && matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      const zone = card.closest('section') || card;
-      this._tiltMove = (e) => {
-        const r = card.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width / 2)) / r.width, dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-        const cx = Math.max(-1, Math.min(1, dx)), cy = Math.max(-1, Math.min(1, dy));
-        card.style.transform = 'perspective(900px) rotateX(' + (-cy * 5).toFixed(2) + 'deg) rotateY(' + (cx * 6).toFixed(2) + 'deg)';
-      };
-      this._tiltLeave = () => { card.style.transform = ''; };
-      this._tiltZone = zone;
-      zone.addEventListener('pointermove', this._tiltMove);
-      zone.addEventListener('pointerleave', this._tiltLeave);
-    }
-  }
-  componentWillUnmount() {
-    this._lichenOff && this._lichenOff(); this._heroLichenOff && this._heroLichenOff();
-    this._onScroll && removeEventListener('scroll', this._onScroll); this._spot && document.removeEventListener('pointermove', this._spot);
-    if (this._tiltZone) { this._tiltZone.removeEventListener('pointermove', this._tiltMove); this._tiltZone.removeEventListener('pointerleave', this._tiltLeave); } this._io && this._io.disconnect(); clearTimeout(this._t); clearTimeout(this._safe); this._vis && document.removeEventListener('visibilitychange', this._vis); cancelAnimationFrame(this._raf); }
   renderVals() {
-    const lichenRef = this.lichenRef, heroLichenRef = this.heroLichenRef;
-    const p = this.state.p;
-    const E = this.state.lang === 'en';
-    const cats = [
-      { label: E ? 'Energy' : 'Energía', pct: 0.46, color: 'var(--accent, oklch(52% 0.1 152))' },
-      { label: E ? 'Car' : 'Vehículo', pct: 0.28, color: 'var(--grad2)' },
-      { label: E ? 'Shopping' : 'Compras', pct: 0.16, color: 'color-mix(in oklab, var(--grad1) 55%, var(--surface))' },
-      { label: E ? 'Travel' : 'Viajes', pct: 0.10, color: 'var(--accent-hover)' },
-    ];
-    const C = 2 * Math.PI * 52;
-    let acc = 0;
-    const ringSegs = cats.map(c => {
-      const len = Math.max(0, c.pct * C * p - 2);
-      const seg = { color: c.color, dash: len + ' ' + C, offset: -acc * C * p };
-      acc += c.pct;
-      return seg;
-    });
-    const bars = cats.map(c => ({ label: c.label, color: c.color, pctLabel: Math.round(c.pct * 100) + '%', width: (c.pct * 100 * p / 0.46) + '%' }));
-    const st = this.state;
-    return {
-      lichenRef, heroLichenRef,
-      t: this.I18N[st.lang] || this.I18N.es,
-      menuOpen: !!st.menu, toggleMenu: () => this.setState(s => ({ menu: !s.menu })), closeMenu: () => this.setState({ menu: false }),
-      setEs: () => this.setLang('es'), setEn: () => this.setLang('en'),
-      esBg: E ? 'transparent' : 'var(--accent, oklch(52% 0.1 152))', esColor: E ? 'var(--text-muted, oklch(46% 0.02 85))' : '#fff',
-      enBg: E ? 'var(--accent, oklch(52% 0.1 152))' : 'transparent', enColor: E ? '#fff' : 'var(--text-muted, oklch(46% 0.02 85))',
-      themeIsDark: st.theme === 'dark', themeIsLight: st.theme !== 'dark',
-      themeTitle: st.theme === 'dark' ? (E ? 'Switch to light mode' : 'Cambiar a modo claro') : (E ? 'Switch to dark mode' : 'Cambiar a modo oscuro'),
-      toggleTheme: this.toggleTheme,
-      paletteOptions: Object.keys(this.PALETTES).map(id => { const sw = this.PALETTES[id].sw, on = (st.palette) === id; return {
-        id, label: this.PALETTES[id].label, c1:sw[0], c2:sw[1], c3:sw[2], c4:sw[3],
-        select: () => { this.setPalette(id); this.setState({ palOpen:false }); },
-        check: on ? '✓' : '', rowBg: on ? 'var(--accent-soft2, oklch(96% 0.02 152))' : 'transparent',
-      }; }),
-      palOpen: !!st.palOpen, togglePal: () => this.setState(x => ({ palOpen: !x.palOpen })), closePal: () => this.setState({ palOpen:false }),
-      curName: (this.PALETTES[st.palette] || this.PALETTES.alerce).label,
-      cur1: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[0], cur2: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[1], cur3: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[2], cur4: (this.PALETTES[st.palette] || this.PALETTES.alerce).sw[3],
-      showMoon: st.theme !== 'dark', showSun: st.theme === 'dark',
-      themeLabel: st.theme === 'dark' ? (E ? 'Light mode' : 'Modo claro') : (E ? 'Dark mode' : 'Modo oscuro'),
-      palTitle: E ? 'COLOR PALETTE' : 'PALETA DE COLORES',
-      ringSegs, bars,
-      co2Label: Math.round(412 * p),
-      saveLabel: E ? 'US$ ' + Math.round(490 * p).toLocaleString('en-US') : '$' + (Math.round(420 * p) * 1000).toLocaleString('es-CL'),
-      trustItems: E ? ['5 minutes', "Your country's emission factors"] : ['5 minutos', 'Factores de emisión de tu país'],
-      faqs: (E ? [
-        ['Where is my data stored?', 'Your data is stored only in your browser; we don’t share it with anyone.'],
-        ['Do I need my bills?', 'They help you be more precise, but you can start with approximate values.'],
-        ['Does it work outside Chile?', 'Yes. When you set up your home you choose your country and we use its emission factors.'],
-      ] : [
-        ['¿Dónde se guardan mis datos?', 'Tus datos se guardan solo en tu navegador; no los compartimos con nadie.'],
-        ['¿Necesito mis boletas?', 'Ayudan a ser más preciso, pero puedes empezar con valores aproximados.'],
-        ['¿Funciona fuera de Chile?', 'Sí. Al configurar tu hogar eliges tu país y usamos sus factores de emisión.'],
-      ]).map(([q, a], i) => ({ q, a, open: st.faq === i, rot: st.faq === i ? 'rotate(45deg)' : 'rotate(0deg)', toggle: () => this.setState(s => ({ faq: s.faq === i ? null : i })) })),
-      sources: [
+    const st = this.state, E = st.lang === 'en', t = this.I18N[st.lang] || this.I18N.es, P = this.PALETTES, cur = P[st.palette] || P.alerce;
+    const em = (s, w) => { const i = s && w ? s.indexOf(w) : -1; return i < 0 ? { a: s || '', b: '', c: '' } : { a: s.slice(0, i), b: w, c: s.slice(i + w.length) }; };
+    const K = E ? { what: 'four sources', how: 'once a month', app: 'concrete decisions', method: 'GHG Protocol', cta: 'your home' } : { what: 'cuatro fuentes', how: 'una vez al mes', app: 'decisiones concretas', method: 'GHG Protocol', cta: 'tu hogar' };
+    const sources = [
         { title: E ? 'Energy' : 'Energía', desc: E ? 'Electricity, gas and firewood for heating, hot water and cooking.' : 'Electricidad, gas y leña para calefacción, agua caliente y cocina.', scope: E ? 'Scope 1 & 2' : 'Alcance 1 y 2', isEnergy: true, color: 'var(--accent-text, oklch(33% 0.08 152))', soft: 'var(--accent-soft, oklch(93% 0.035 152))', delay: 0 },
         { title: E ? 'Car' : 'Vehículo', desc: E ? 'Fuel for household cars based on distance and efficiency.' : 'Combustible de los autos del hogar según kilómetros y rendimiento.', scope: E ? 'Scope 1' : 'Alcance 1', isCar: true, color: 'color-mix(in oklab, var(--grad2) 70%, var(--text))', soft: 'color-mix(in oklab, var(--grad2) 16%, var(--surface))', delay: 80 },
         { title: E ? 'Shopping' : 'Compras', desc: E ? 'Clothing, electronics and consumer goods based on monthly spend.' : 'Ropa, electrónica y bienes de consumo según el gasto mensual.', scope: E ? 'Scope 3' : 'Alcance 3', isShop: true, color: 'color-mix(in oklab, var(--grad1) 60%, var(--text))', soft: 'color-mix(in oklab, var(--grad1) 24%, var(--surface))', delay: 160 },
         { title: E ? 'Travel' : 'Viajes', desc: E ? 'Household flights and long trips by distance travelled.' : 'Vuelos y viajes largos del hogar por distancia recorrida.', scope: E ? 'Scope 3' : 'Alcance 3', isTravel: true, color: 'color-mix(in oklab, var(--accent-hover) 50%, var(--grad2))', soft: 'color-mix(in oklab, var(--accent-hover) 12%, var(--surface))', delay: 240 },
-      ],
-      steps: [
+      ].map((s, i) => ({ ...s, delay: i * 70 }));
+    const steps = [
         { n: '1', title: E ? 'Set up your home' : 'Configura tu hogar', desc: E ? 'Country, city, household size and home type. We use it to adjust emission factors and your benchmark.' : 'País, ciudad, integrantes y tipo de vivienda. Con eso ajustamos los factores de emisión y el punto de comparación.', delay: 0 },
         { n: '2', title: E ? 'Log each month' : 'Registra cada mes', desc: E ? 'Enter what your electricity and gas bills say, plus fuel, shopping and travel for the month.' : 'Ingresa lo que dicen tus boletas de luz y gas, el combustible, las compras y los viajes del mes.', delay: 120 },
         { n: '3', title: E ? 'See your footprint and savings' : 'Mira tu huella y tu ahorro', desc: E ? 'See emissions by category, their cost in money and the highest-impact actions for your home.' : 'Ves tus emisiones por categoría, su costo en dinero y las acciones con mayor impacto para tu hogar.', delay: 240 },
-      ],
-      features: [
+      ].map((s, i) => { const on = st.stage === 3 || st.stage === i; return { ...s, nn: '0' + (i + 1), op: on ? 1 : 0.5, bar: on ? 'var(--accentInk, #1f6b2b)' : 'var(--line, #d4d6d2)' }; });
+    const features = [
         { kicker: E ? 'Dashboard' : 'Dashboard', title: E ? 'Your monthly footprint' : 'Tu huella mensual', desc: E ? 'Total by source, trend over time, GHG Protocol scope breakdown and comparison with similar households.' : 'Total por fuente, evolución en el tiempo, desglose por Alcance GHG Protocol y comparación con hogares similares.', delay: 0 },
         { kicker: E ? 'Emission factors' : 'Factores de emisión', title: E ? 'A transparent calculation' : 'Cálculo transparente', desc: E ? 'Every value used to turn your usage into kg CO₂e, with its scope and official source.' : 'Cada valor usado para convertir tus consumos en kg de CO₂e, con su alcance y fuente oficial.', delay: 80 },
         { kicker: E ? 'Projection' : 'Proyección', title: E ? 'Your next 12 months' : 'Tus próximos 12 meses', desc: E ? 'Projected footprint and scenarios like solar panels, a heat pump or flying less, with estimated savings.' : 'Huella proyectada y escenarios como paneles solares, bomba de calor o volar menos, con el ahorro estimado.', delay: 160 },
         { kicker: E ? 'Simulator' : 'Simulador', title: E ? 'CO₂ goals in money' : 'Metas de CO₂ en dinero', desc: E ? 'Turn reduction goals into savings, or the reverse, and see which source costs most to cut per kg.' : 'Convierte metas de reducción en ahorro, o al revés, y ve qué fuente cuesta más reducir por kg.', delay: 0 },
         { kicker: E ? 'Recommendations' : 'Recomendaciones', title: E ? 'Where to start' : 'Por dónde empezar', desc: E ? 'Concrete actions ranked by savings, CO₂ avoided or investment required.' : 'Acciones concretas ordenadas por ahorro, CO₂ evitado o inversión requerida.', delay: 80 },
         { kicker: E ? 'History' : 'Historial', title: E ? 'Every month of the cycle' : 'Todos los meses del ciclo', desc: E ? 'Review past logs, close the cycle and start a new one when it’s time.' : 'Revisa los registros anteriores, cierra el ciclo e inicia uno nuevo cuando corresponda.', delay: 160 },
-      ],
-      scopes: [
+      ].map((f, i) => ({ ...f, nn: '0' + (i + 1) }));
+    const scopes = [
         { n: '1', title: E ? 'Direct combustion' : 'Combustión directa', desc: E ? 'Gas, firewood and household vehicle fuel.' : 'Gas, leña y combustible de vehículos del hogar.' },
         { n: '2', title: E ? 'Purchased electricity' : 'Electricidad comprada', desc: E ? 'Grid electricity use, with your country’s factor.' : 'Consumo eléctrico de la red, con el factor de tu país.' },
         { n: '3', title: E ? 'Shopping and travel' : 'Compras y viajes', desc: E ? 'Indirect emissions from consumer goods and flights.' : 'Emisiones indirectas de bienes de consumo y vuelos.' },
-      ],
+      ];
+    const on = 'var(--accentInk, #1f6b2b)', off = 'var(--muted2, #5c686c)';
+    return {
+      t, sources, steps, features, scopes,
+      hWhat: em(t.h_what, K.what), hHow: em(t.h_how, K.how), hApp: em(t.h_app, K.app), hMethod: em(t.h_method, K.method), hCta: em(t.h_cta, K.cta),
+      stageDots: [0, 1, 2].map(i => ({ n: '0' + (i + 1), color: st.stage === i || st.stage === 3 ? on : off, sep: i < 2 ? '/' : '' })),
+      motionLabel: E ? 'Animation: a household footprint by category, where lichen grows to show potential savings.' : 'Animación: la huella del hogar por categoría, donde crece un liquen que muestra el ahorro potencial.',
+      drawerLinks: [['#como', t.nav_how], ['#medimos', t.nav_what], ['#obtienes', t.nav_app], ['#metodologia', t.nav_method]].map(([href, label], i) => ({ href, label, n: '0' + (i + 1) })),
+      menuOpen: !!st.menu, toggleMenu: () => this.setState(s => ({ menu: !s.menu, palOpen: false })), closeMenu: () => this.setState({ menu: false }),
+      burgerPath: st.menu ? 'M5 5 L15 15 M15 5 L5 15' : 'M3 7 H17 M3 13 H17',
+      palOpen: !!st.palOpen, togglePal: () => this.setState(s => ({ palOpen: !s.palOpen })), closePal: () => this.setState({ palOpen: false }), caretRot: st.palOpen ? '180deg' : '0deg',
+      curName: cur.label, cur1: cur.sw[0], cur2: cur.sw[1], cur3: cur.sw[2], cur4: cur.sw[3],
+      paletteOptions: Object.keys(P).map(k => ({ label: P[k].label, c1: P[k].sw[0], c2: P[k].sw[1], c3: P[k].sw[2], c4: P[k].sw[3], select: () => this.setPalette(k), check: k === st.palette ? '✓' : '', pressed: k === st.palette ? 'true' : 'false', rowBg: k === st.palette ? 'var(--soft, #e6ece2)' : 'transparent' })),
+      isDark: st.theme === 'dark', isLight: st.theme !== 'dark', toggleTheme: this.toggleTheme, themeLabel: st.theme === 'dark' ? t.light : t.dark,
+      setEs: () => this.setLang('es'), setEn: () => this.setLang('en'), esOn: E ? 'false' : 'true', enOn: E ? 'true' : 'false',
+      esBg: E ? 'transparent' : 'var(--ink, #0b1f2a)', esColor: E ? 'var(--muted, #47555c)' : 'var(--bg, #f1efe9)',
+      enBg: E ? 'var(--ink, #0b1f2a)' : 'transparent', enColor: E ? 'var(--bg, #f1efe9)' : 'var(--muted, #47555c)',
     };
   }
 }
