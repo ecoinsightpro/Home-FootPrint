@@ -243,7 +243,39 @@
         <h2 id="liq-h-com" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(30px,3.5vw,50px); line-height:1.06; letter-spacing:-0.03em; margin:0; text-wrap:balance;">{{ t.h_fb }}</h2>
         <p style="font-size:17px; line-height:1.6; color:var(--muted, #47555c); margin:0; max-width:440px; text-wrap:pretty;">{{ t.p_fb }}</p>
       </div>
-      <form data-reveal="1" onSubmit="{{ submitFb }}" novalidate="novalidate" style="display:flex; flex-direction:column; gap:18px;">
+      <div data-reveal="1" style="display:flex; flex-direction:column; gap:24px; min-width:0;">
+      <div style="display:flex; flex-direction:column; gap:18px; padding:clamp(22px,3vw,32px); border:1px solid var(--line, #d4d6d2); border-radius:8px; background:var(--surface, #fbfbfa);">
+        <div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted2, #5c686c);">{{ pl.kick }}</div>
+        <div style="font-family:'Newsreader',Georgia,serif; font-weight:400; font-size:clamp(22px,2vw,28px); line-height:1.15; letter-spacing:-0.015em; text-wrap:balance;">{{ pl.q }}</div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <sc-for list="{{ pollChips }}" as="c" hint-placeholder-count="5">
+            <button type="button" onClick="{{ c.on }}" disabled="{{ pollLocked }}" aria-pressed="{{ c.pressed }}" style="min-height:44px; padding:0 18px; border-radius:999px; border:1px solid {{ c.bd }}; background:{{ c.bg }}; color:{{ c.fg }}; font-family:'Hanken Grotesk',sans-serif; font-size:15px; font-weight:500; cursor:pointer; transition:background-color .2s ease, border-color .2s ease;" style-hover="border-color:var(--accent, #2e9e3f);">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ pollOther }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <input type="text" placeholder="{{ pl.otherPh }}" value="{{ pollOtherVal }}" onChange="{{ onPollOther }}" style="flex:1 1 220px; min-width:0; min-height:46px; padding:0 14px; border:1px solid var(--line, #d4d6d2); border-radius:6px; background:var(--bg, #f1efe9); color:var(--ink, #0b1f2a); font-family:'Hanken Grotesk',sans-serif; font-size:16px; outline:none;" style-focus="border-color:var(--accent, #2e9e3f);">
+            <button type="button" onClick="{{ sendPollOther }}" style="min-height:46px; padding:0 20px; border:none; border-radius:6px; background:var(--accentInk, #1f6b2b); color:var(--onAccent, #ffffff); font-family:'Hanken Grotesk',sans-serif; font-size:15px; font-weight:600; cursor:pointer;">{{ pl.send }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ pollDone }}" hint-placeholder-val="{{ false }}">
+          <div data-liq-drop="1" style="display:flex; flex-direction:column; gap:12px; padding-top:16px; border-top:1px solid var(--line, #d4d6d2);">
+            <div role="status" style="display:flex; align-items:center; gap:10px; font-size:15px; font-weight:600; color:var(--accentInk, #1f6b2b);"><span aria-hidden="true" style="width:8px; height:8px; border-radius:50%; background:var(--accent, #2e9e3f);"></span>{{ pl.thanks }}</div>
+            <sc-if value="{{ pollAskMail }}" hint-placeholder-val="{{ true }}">
+              <label style="font-size:15px; color:var(--muted, #47555c);">{{ pl.notify }}</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <input type="email" autocomplete="email" placeholder="{{ pl.mailPh }}" value="{{ pollMail }}" onChange="{{ onPollMail }}" style="flex:1 1 220px; min-width:0; min-height:46px; padding:0 14px; border:1px solid var(--line, #d4d6d2); border-radius:6px; background:var(--bg, #f1efe9); color:var(--ink, #0b1f2a); font-family:'Hanken Grotesk',sans-serif; font-size:16px; outline:none;" style-focus="border-color:var(--accent, #2e9e3f);">
+                <button type="button" onClick="{{ sendPollMail }}" style="min-height:46px; padding:0 20px; border:none; border-radius:6px; background:var(--ink, #0b1f2a); color:var(--bg, #f1efe9); font-family:'Hanken Grotesk',sans-serif; font-size:15px; font-weight:600; cursor:pointer;">{{ pl.notifyBtn }}</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ pollMailMsgShow }}" hint-placeholder-val="{{ false }}"><div role="status" style="font-size:14px; color:var(--muted, #47555c);">{{ pollMailMsg }}</div></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ pollErr }}" hint-placeholder-val="{{ false }}"><div role="status" style="font-size:14px; color:var(--sec, #1e63c8);">{{ pl.err }}</div></sc-if>
+      </div>
+      <button type="button" onClick="{{ toggleFbForm }}" aria-expanded="{{ fbFormAria }}" style="align-self:flex-start; display:inline-flex; align-items:center; gap:10px; min-height:44px; padding:0; border:none; background:none; color:var(--ink, #0b1f2a); font-family:'Hanken Grotesk',sans-serif; font-size:16px; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:4px; text-decoration-color:var(--accentLine, #9ccf9f);">{{ fbToggleLabel }}</button>
+      <sc-if value="{{ fbFormOpen }}" hint-placeholder-val="{{ false }}">
+      <form onSubmit="{{ submitFb }}" novalidate="novalidate" style="display:flex; flex-direction:column; gap:18px;">
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:18px;">
           <label style="display:flex; flex-direction:column; gap:8px; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted2, #5c686c);">{{ t.fb_name }}<input type="text" name="name" autocomplete="name" value="{{ fbName }}" onChange="{{ onFbName }}" style="width:100%; min-height:48px; padding:12px 14px; border:1px solid var(--line, #d4d6d2); border-radius:6px; background:var(--surface, #fbfbfa); color:var(--ink, #0b1f2a); font-family:'Hanken Grotesk',sans-serif; font-size:16px; letter-spacing:0; text-transform:none; outline:none; transition:border-color .2s ease, box-shadow .2s ease;" style-focus="border-color:var(--accent, #2e9e3f); box-shadow:0 0 0 3px var(--accentSoft, #dbe9da);"></label>
           <label style="display:flex; flex-direction:column; gap:8px; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted2, #5c686c);">{{ t.fb_email }}<input type="email" name="email" autocomplete="email" required="required" value="{{ fbEmail }}" onChange="{{ onFbEmail }}" style="width:100%; min-height:48px; padding:12px 14px; border:1px solid var(--line, #d4d6d2); border-radius:6px; background:var(--surface, #fbfbfa); color:var(--ink, #0b1f2a); font-family:'Hanken Grotesk',sans-serif; font-size:16px; letter-spacing:0; text-transform:none; outline:none; transition:border-color .2s ease, box-shadow .2s ease;" style-focus="border-color:var(--accent, #2e9e3f); box-shadow:0 0 0 3px var(--accentSoft, #dbe9da);"></label>
@@ -258,6 +290,8 @@
           <sc-if value="{{ fbShow }}" hint-placeholder-val="{{ false }}"><div data-liq-drop="1" style="display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:6px; border:1px solid {{ fbTone }}; color:var(--ink, #0b1f2a); font-size:15px; line-height:1.5;"><span aria-hidden="true" style="width:8px; height:8px; border-radius:50%; flex-shrink:0; background:{{ fbTone }};"></span>{{ fbText }}</div></sc-if>
         </div>
       </form>
+      </sc-if>
+      </div>
     </div>
   </section>
   </main>
@@ -345,6 +379,7 @@ class Component extends DCLogic {
     try { if (document.visibilityState === 'visible' && !matchMedia('(prefers-reduced-motion: reduce)').matches && document.body.animate) document.body.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, easing: 'ease' }); } catch (e) {}
     this._onAppClick = (e) => {
       const a = e.target.closest && e.target.closest('a[href*="home.html"]');
+      if (a) try { sessionStorage.setItem('liq_enter', String(Date.now())); } catch (er) {}
       if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       if (matchMedia('(prefers-reduced-motion: reduce)').matches || !document.body.animate) return;
       e.preventDefault(); this.setState({ menu: false });
@@ -657,6 +692,24 @@ class Component extends DCLogic {
   }
 
   setFb(patch) { this.setState(s => ({ fb: { ...s.fb, ...patch } })); }
+  async fsSend(data) {
+    const r = await fetch(this.FORM_ENDPOINT, { method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, idioma: this.state.lang, pagina: location.href }) });
+    return r.ok;
+  }
+  POLL = {
+    es: { kick: 'Una pregunta rápida', q: '¿Qué te gustaría que hiciera la calculadora a continuación?', opts: ['Comparar con otros hogares', 'Recordatorio mensual', 'Exportar un informe', 'Metas de reducción', 'Otra idea'], otherPh: 'Cuéntame tu idea', send: 'Enviar', thanks: 'Respuesta enviada. Gracias.', notify: '¿Te aviso cuando exista? (opcional)', mailPh: 'tu@correo.com', notifyBtn: 'Avisarme', mailOk: 'Listo, te escribiré cuando esté disponible.', mailBad: 'Revisa el correo.', err: 'No se pudo enviar. Inténtalo de nuevo.', open: 'Prefiero escribirte un mensaje', close: 'Ocultar mensaje' },
+    en: { kick: 'A quick question', q: 'What should the calculator do next?', opts: ['Compare with other households', 'Monthly reminder', 'Export a report', 'Reduction goals', 'Another idea'], otherPh: 'Tell me your idea', send: 'Send', thanks: 'Answer sent. Thank you.', notify: 'Want me to let you know when it exists? (optional)', mailPh: 'you@email.com', notifyBtn: 'Notify me', mailOk: 'Done, I will write when it is available.', mailBad: 'Check the email address.', err: 'Could not send. Please try again.', open: 'I would rather write a message', close: 'Hide message' },
+  };
+  setPoll(patch) { this.setState(s => ({ poll: { ...(s.poll || {}), ...patch } })); }
+  sendPoll = async (answer) => {
+    const p = this.state.poll || {}; if (p.status === 'sending' || p.status === 'ok') return;
+    this.setPoll({ status: 'sending' });
+    try {
+      const ok = await this.fsSend({ origen: 'landing-encuesta', pregunta: this.POLL.es.q, respuesta: answer, _subject: 'Encuesta landing · liqenInsight Carbon' });
+      this.setPoll({ status: ok ? 'ok' : 'err' });
+      if (ok) try { localStorage.setItem('liq_fb_poll', answer); } catch (e) {}
+    } catch (e) { this.setPoll({ status: 'err' }); }
+  };
   submitFb = async (e) => {
     e.preventDefault(); const f = this.state.fb; if (f.status === 'sending') return;
     if (f.hp) { this.setFb({ status: 'ok' }); return; }
@@ -672,6 +725,26 @@ class Component extends DCLogic {
   };
   renderVals() {
     const st = this.state, E = st.lang === 'en', t = this.I18N[st.lang] || this.I18N.es, P = this.PALETTES, cur = P[st.palette] || P.alerce;
+    const pl = E ? this.POLL.en : this.POLL.es, po = st.poll || {}, OTHER = 4;
+    if (po.pick == null && !po.init) { try { const sv = localStorage.getItem('liq_fb_poll'); if (sv) { po.init = 1; po.status = 'ok'; po.saved = 1; po.mstatus = 'ok'; } } catch (e) {} }
+    const pollVals = {
+      pl, pollLocked: po.status === 'sending' || po.status === 'ok',
+      pollChips: pl.opts.map((l, i) => { const on = po.pick === i; return { label: l, pressed: on ? 'true' : 'false', bg: on ? 'var(--ink, #0b1f2a)' : 'transparent', fg: on ? 'var(--bg, #f1efe9)' : 'var(--ink, #0b1f2a)', bd: on ? 'var(--ink, #0b1f2a)' : 'var(--line, #d4d6d2)', on: () => { this.setPoll({ pick: i }); if (i !== OTHER) this.sendPoll(this.POLL.es.opts[i]); } }; }),
+      pollOther: po.pick === OTHER && po.status !== 'ok', pollOtherVal: po.other || '',
+      onPollOther: (e) => this.setPoll({ other: e.target.value }),
+      sendPollOther: () => { const v = (po.other || '').trim(); if (v) this.sendPoll('Otra idea: ' + v); },
+      pollDone: po.status === 'ok', pollErr: po.status === 'err',
+      pollAskMail: po.mstatus !== 'ok', pollMail: po.email || '',
+      onPollMail: (e) => this.setPoll({ email: e.target.value, mstatus: 'idle' }),
+      sendPollMail: async () => {
+        const m = (po.email || '').trim(); if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) { this.setPoll({ mstatus: 'bad' }); return; }
+        this.setPoll({ mstatus: 'sending' });
+        try { const ok = await this.fsSend({ origen: 'landing-aviso', email: m, _replyto: m, respuesta: po.pick != null ? this.POLL.es.opts[po.pick] : '', _subject: 'Aviso solicitado · liqenInsight Carbon' }); this.setPoll({ mstatus: ok ? 'ok' : 'err' }); } catch (e) { this.setPoll({ mstatus: 'err' }); }
+      },
+      pollMailMsgShow: ['ok', 'bad', 'err'].includes(po.mstatus) && !po.saved, pollMailMsg: po.mstatus === 'ok' ? pl.mailOk : po.mstatus === 'bad' ? pl.mailBad : pl.err,
+      fbFormOpen: !!st.fbForm, fbFormAria: st.fbForm ? 'true' : 'false', fbToggleLabel: st.fbForm ? pl.close : pl.open,
+      toggleFbForm: () => this.setState(s => ({ fbForm: !s.fbForm })),
+    };
     const em = (s, w) => { const i = s && w ? s.indexOf(w) : -1; return i < 0 ? { a: s || '', b: '', c: '' } : { a: s.slice(0, i), b: w, c: s.slice(i + w.length) }; };
     const K = E ? { what: 'four sources', how: 'once a month', app: 'concrete decisions', method: 'GHG Protocol', cta: 'your home' } : { what: 'cuatro fuentes', how: 'una vez al mes', app: 'decisiones concretas', method: 'GHG Protocol', cta: 'tu hogar' };
     const sources = [
@@ -704,7 +777,7 @@ class Component extends DCLogic {
       fbName: fb.name, fbEmail: fb.email, fbMsg: fb.msg, fbHp: fb.hp,
       onFbName: (e) => this.setFb({ name: e.target.value, status: 'idle' }), onFbEmail: (e) => this.setFb({ email: e.target.value, status: 'idle' }),
       onFbMsg: (e) => this.setFb({ msg: e.target.value, status: 'idle' }), onFbHp: (e) => this.setFb({ hp: e.target.value }),
-      submitFb: this.submitFb, fbBusy: fb.status === 'sending', fbBtnOp: fb.status === 'sending' ? 0.6 : 1, fbBtn: fb.status === 'sending' ? t.fb_sending : t.fb_send,
+      ...pollVals, submitFb: this.submitFb, fbBusy: fb.status === 'sending', fbBtnOp: fb.status === 'sending' ? 0.6 : 1, fbBtn: fb.status === 'sending' ? t.fb_sending : t.fb_send,
       fbShow: !!fbMsgs[fb.status], fbText: fbMsgs[fb.status] || '', fbTone: fb.status === 'ok' ? 'var(--accent, #2e9e3f)' : 'var(--sec, #1e63c8)',
       t, sources, steps, features, scopes,
       hWhat: em(t.h_what, K.what), hHow: em(t.h_how, K.how), hApp: em(t.h_app, K.app), hMethod: em(t.h_method, K.method), hCta: em(t.h_cta, K.cta),
