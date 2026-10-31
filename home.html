@@ -33,7 +33,18 @@
     @media (min-width:1025px) {
       [data-eih-aside] > nav > button[data-grp] { margin-top:26px; }
       [data-eih-aside] > nav > button[data-grp]:nth-child(2) { margin-top:20px; }
-      [data-eih-aside] > nav > button[data-grp]::before { content:attr(data-grp); position:absolute; left:12px; top:-20px; font:500 10.5px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--text-muted, #667); opacity:.8; pointer-events:none; }
+      [data-eih-aside] { background:var(--bg, #f8f5ef) !important; }
+      [data-eih-aside] > nav::after { content:''; position:absolute; left:17px; top:37px; bottom:77px; width:1px; background:var(--border, #ccc); pointer-events:none; }
+      [data-eih-aside] > nav > button[data-on] { background:transparent !important; box-shadow:none !important; gap:13px !important; height:34px !important; }
+      [data-eih-aside] > nav > button[data-on] > svg { display:none !important; }
+      [data-eih-aside] > nav > button[data-on] [data-node] { display:block !important; position:relative; z-index:1; flex-shrink:0; width:11px; height:11px; border-radius:50%; box-sizing:border-box; background:var(--bg, #fff); border:1.5px solid color-mix(in oklab, var(--text, #222) 28%, var(--bg, #fff)); transition:background .25s ease, border-color .25s ease, box-shadow .25s ease; }
+      [data-eih-aside] > nav > button[data-on="1"] [data-node] { background:var(--accent, #2e9e3f); border-color:var(--accent-text, #63c64c); box-shadow:0 0 0 4px color-mix(in oklab, var(--accent, #2e9e3f) 22%, transparent); }
+      [data-eih-aside] > nav > button[data-on]:hover [data-node] { border-color:var(--accent-text, #63c64c); }
+      [data-eih-aside] > nav > button[data-on]:hover { color:var(--text, #222) !important; }
+      [data-eih-aside] > nav > button[data-fb-nav] { align-self:flex-start; height:36px !important; margin-top:22px !important; padding:0 14px !important; gap:8px !important; border:1px solid var(--border, #ccc) !important; border-radius:999px !important; color:var(--text, #222) !important; }
+      [data-eih-aside] > nav > button[data-fb-nav] > svg { display:none !important; }
+      [data-eih-aside] > nav > button[data-fb-nav] [data-fb-dot] { position:relative !important; left:auto !important; top:auto !important; width:7px !important; height:7px !important; box-shadow:none !important; }
+      [data-eih-aside] > nav > button[data-grp]::before { content:attr(data-grp); position:absolute; left:36px; top:-20px; font:500 10.5px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--text-muted, #667); opacity:.8; pointer-events:none; }
       [data-eih-aside] > nav > button[data-fb-nav] { margin-top:14px; }
     }
     @media (max-width:1024px) {
@@ -195,7 +206,8 @@
     .hogar-sparkle { animation: hogarSparkle 0.6s ease-out; }
   </style>
 </helmet>
-<div data-eih-root="1" style="min-height:100vh; color:var(--text, oklch(23% 0.02 85)); background:var(--bg, oklch(97.5% 0.012 85)); font-family:'Hanken Grotesk',sans-serif; display:flex; transition:background-color 0.35s ease, color 0.35s ease;">
+<div data-eih-root="1" style="min-height:100vh; color:var(--text, oklch(23% 0.02 85)); background:transparent; font-family:'Hanken Grotesk',sans-serif; display:flex; transition:background-color 0.35s ease, color 0.35s ease;">
+  <canvas data-eih-bgcol="1" aria-hidden="true" style="position:fixed; inset:0; width:100vw; height:100vh; z-index:-1; pointer-events:none; display:block;"></canvas>
 
   <sc-if value="{{ leaveAsk }}" hint-placeholder-val="{{ false }}"><div role="dialog" aria-modal="true" onClick="{{ stayHere }}" style="position:fixed; inset:0; z-index:300; background:oklch(20% 0.02 85 / 0.55); display:flex; align-items:center; justify-content:center; padding:20px;">
     <div onClick="{{ stopProp }}" style="background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); border-radius:16px; padding:24px; max-width:440px; width:100%; display:grid; gap:12px; box-shadow:0 24px 60px -20px oklch(0% 0 0 / .45);">
@@ -218,44 +230,54 @@
       <div style="display:none; position:absolute; left:0; right:0; top:0; height:40px; border-radius:10px; background:linear-gradient(90deg, var(--accent-soft, oklch(93% 0.035 152)), var(--accent-soft2, oklch(96% 0.02 152))); box-shadow:inset 0 0 0 1px oklch(52% 0.1 152 / .18), 0 6px 16px oklch(52% 0.1 152 / .14); transform:translateY({{ navPillY }}px); opacity:{{ navPillOp }}; transition:transform .5s cubic-bezier(.34,1.35,.5,1), opacity .25s ease; pointer-events:none;">
         <div style="position:absolute; left:0; top:11px; width:3px; height:18px; border-radius:0 3px 3px 0; background:var(--accent, oklch(52% 0.1 152));"></div>
       </div>
-      <button data-grp="{{ grpData }}" onClick="{{ nav.landing.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.landing.bg }}; box-shadow:{{ nav.landing.bar }}; color:{{ nav.landing.color }}; font:{{ nav.landing.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button data-grp="{{ grpData }}" onClick="{{ nav.landing.go }}" data-on="{{ nav.landing.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.landing.bg }}; box-shadow:{{ nav.landing.bar }}; color:{{ nav.landing.color }}; font:{{ nav.landing.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 L10 4 L17 10"></path><path d="M5 10 V16 H15 V10"></path></svg>
         <span>{{ t.nav_landing }}</span>
       </button>
-      <button onClick="{{ nav.onboarding.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.onboarding.bg }}; box-shadow:{{ nav.onboarding.bar }}; color:{{ nav.onboarding.color }}; font:{{ nav.onboarding.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button onClick="{{ nav.onboarding.go }}" data-on="{{ nav.onboarding.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.onboarding.bg }}; box-shadow:{{ nav.onboarding.bar }}; color:{{ nav.onboarding.color }}; font:{{ nav.onboarding.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17 C4 13 6.5 11 10 11 C13.5 11 16 13 16 17"></path></svg>
         <span>{{ t.nav_onboarding }}</span>
       </button>
-      <button onClick="{{ nav.registro.go }}" data-short="{{ shortReg }}" aria-current="{{ nav.registro.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.registro.bg }}; box-shadow:{{ nav.registro.bar }}; color:{{ nav.registro.color }}; font:{{ nav.registro.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button onClick="{{ nav.registro.go }}" data-short="{{ shortReg }}" aria-current="{{ nav.registro.cur }}" data-on="{{ nav.registro.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.registro.bg }}; box-shadow:{{ nav.registro.bar }}; color:{{ nav.registro.color }}; font:{{ nav.registro.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 6 H17"></path><circle cx="5" cy="10" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 10 H17"></path><circle cx="5" cy="14" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 14 H17"></path></svg>
         <span>{{ t.nav_registro }}</span>
       </button>
-      <button data-grp="{{ grpInsights }}" onClick="{{ nav.dashboard.go }}" data-short="{{ shortDash }}" aria-current="{{ nav.dashboard.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.dashboard.bg }}; box-shadow:{{ nav.dashboard.bar }}; color:{{ nav.dashboard.color }}; font:{{ nav.dashboard.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button data-grp="{{ grpInsights }}" onClick="{{ nav.dashboard.go }}" data-short="{{ shortDash }}" aria-current="{{ nav.dashboard.cur }}" data-on="{{ nav.dashboard.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.dashboard.bg }}; box-shadow:{{ nav.dashboard.bar }}; color:{{ nav.dashboard.color }}; font:{{ nav.dashboard.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="currentColor" stroke="none"><path d="M7.5 3 C9 3 9.8 4.4 9.6 6 C9.4 7.4 8.4 8.3 7.1 8.3 C5.7 8.3 4.8 7.1 5 5.5 C5.2 4 6.2 3 7.5 3 Z"></path><path d="M13.5 8 C15 8 15.7 9.5 15.4 11 C15.1 12.4 14 13.3 12.7 13.1 C11.4 12.9 10.7 11.6 11 10.1 C11.3 8.7 12.3 8 13.5 8 Z"></path></svg>
         <svg width="0" height="0" style="display:none;"><path d="M4 16 V11"></path><path d="M10 16 V6"></path><path d="M16 16 V13"></path><path d="M3 16 H17"></path></svg>
         <span>{{ t.nav_dashboard }}</span>
       </button>
-      <button onClick="{{ nav.proyeccion.go }}" data-short="{{ shortProy }}" aria-current="{{ nav.proyeccion.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.proyeccion.bg }}; box-shadow:{{ nav.proyeccion.bar }}; color:{{ nav.proyeccion.color }}; font:{{ nav.proyeccion.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button onClick="{{ nav.proyeccion.go }}" data-short="{{ shortProy }}" aria-current="{{ nav.proyeccion.cur }}" data-on="{{ nav.proyeccion.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.proyeccion.bg }}; box-shadow:{{ nav.proyeccion.bar }}; color:{{ nav.proyeccion.color }}; font:{{ nav.proyeccion.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14 L8 9 L11 12 L17 5"></path><path d="M13 5 H17 V9"></path></svg>
         <span>{{ t.nav_proyeccion }}</span>
       </button>
-      <button onClick="{{ nav.simulador.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.simulador.bg }}; box-shadow:{{ nav.simulador.bar }}; color:{{ nav.simulador.color }}; font:{{ nav.simulador.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button onClick="{{ nav.simulador.go }}" data-on="{{ nav.simulador.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.simulador.bg }}; box-shadow:{{ nav.simulador.bar }}; color:{{ nav.simulador.color }}; font:{{ nav.simulador.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6 H17"></path><circle cx="7" cy="6" r="1.6" fill="currentColor" stroke="none"></circle><path d="M3 13 H17"></path><circle cx="13" cy="13" r="1.6" fill="currentColor" stroke="none"></circle></svg>
         <span>{{ t.nav_simulador }}</span>
       </button>
-      <button onClick="{{ nav.recomendaciones.go }}" data-short="{{ shortRec }}" aria-current="{{ nav.recomendaciones.cur }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.recomendaciones.bg }}; box-shadow:{{ nav.recomendaciones.bar }}; color:{{ nav.recomendaciones.color }}; font:{{ nav.recomendaciones.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button onClick="{{ nav.recomendaciones.go }}" data-short="{{ shortRec }}" aria-current="{{ nav.recomendaciones.cur }}" data-on="{{ nav.recomendaciones.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.recomendaciones.bg }}; box-shadow:{{ nav.recomendaciones.bar }}; color:{{ nav.recomendaciones.color }}; font:{{ nav.recomendaciones.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 A5 5 0 0 1 13 12 L12 14 H8 L7 12 A5 5 0 0 1 10 3 Z"></path><path d="M8 16 H12 M9 18 H11"></path></svg>
         <span>{{ t.nav_recomendaciones }}</span>
       </button>
-      <button data-grp="{{ grpRes }}" onClick="{{ nav.historial.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.historial.bg }}; box-shadow:{{ nav.historial.bar }}; color:{{ nav.historial.color }}; font:{{ nav.historial.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button data-grp="{{ grpRes }}" onClick="{{ nav.historial.go }}" data-on="{{ nav.historial.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.historial.bg }}; box-shadow:{{ nav.historial.bar }}; color:{{ nav.historial.color }}; font:{{ nav.historial.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><path d="M10 6 V10 L12.5 11.5"></path><path d="M3 4 A7 7 0 0 0 3 10"></path></svg>
         <span>{{ t.nav_historial }}</span>
       </button>
-      <button onClick="{{ nav.informe.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.informe.bg }}; box-shadow:{{ nav.informe.bar }}; color:{{ nav.informe.color }}; font:{{ nav.informe.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button onClick="{{ nav.informe.go }}" data-on="{{ nav.informe.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.informe.bg }}; box-shadow:{{ nav.informe.bar }}; color:{{ nav.informe.color }}; font:{{ nav.informe.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2.5h7l4 4v11H5z"></path><path d="M12 2.5v4h4"></path><path d="M8 11h5M8 14h5"></path></svg>
         <span>{{ t.nav_informe }}</span>
       </button>
-      <button onClick="{{ nav.factores.go }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.factores.bg }}; box-shadow:{{ nav.factores.bar }}; color:{{ nav.factores.color }}; font:{{ nav.factores.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+      <button onClick="{{ nav.factores.go }}" data-on="{{ nav.factores.on }}" style="border:none; text-align:left; display:flex; align-items:center; gap:12px; position:relative; z-index:1; height:38px; box-sizing:border-box; background:{{ nav.factores.bg }}; box-shadow:{{ nav.factores.bar }}; color:{{ nav.factores.color }}; font:{{ nav.factores.weight }} 13.5px 'Hanken Grotesk',sans-serif; letter-spacing:-0.005em; padding:0 12px; border-radius:8px; cursor:pointer; transition:color .2s ease, background .2s ease, transform .15s ease;" style-hover="background:color-mix(in oklab, var(--text, #222) 6%, transparent); color:var(--text, oklch(23% 0.02 85));" style-active="transform:scale(.98);">
+        <span data-node="1" aria-hidden="true" style="display:none;"></span>
         <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3 H12 L15 6 V17 H6 Z"></path><path d="M9 9 H12 M9 12 H12"></path></svg>
         <span>{{ t.nav_factores }}</span>
       </button>
@@ -1884,6 +1906,9 @@ class Component extends DCLogic {
     document.body.style.background = t.bg;
     document.body.style.color = t.text;
     document.body.style.transition = 'background-color 0.35s ease, color 0.35s ease';
+    const sw = (this.PALETTES[palette] || this.PALETTES.alerce).sw;
+    this._lqC = { accent: t.accent, lum: theme === 'dark' ? t.accentText : sw[3], sec: sw[2], bg: t.bg, pbg: t.bg, ink: t.text };
+    if (this._bgEng) this._bgEng.redraw();
   }
   handleChartMove = (e) => {
     const meta = this._chartMeta;
@@ -1940,7 +1965,7 @@ class Component extends DCLogic {
   };
   co2labSetSourceA = (id) => this.setState({ co2labSource:id, co2labPhase:'idle' });
   co2labSetSourceB = (id) => this.setState({ co2labSource2:id, co2labPhase:'idle' });
-  componentWillUnmount() { this.co2labClearTimers(); clearTimeout(this._dnT); clearTimeout(this._fbT); clearTimeout(this._rgT); }
+  componentWillUnmount() { try { this._bgEng && this._bgEng.off(); } catch (e) {} this.co2labClearTimers(); clearTimeout(this._dnT); clearTimeout(this._fbT); clearTimeout(this._rgT); }
   runDonut = () => { clearTimeout(this._dnT); this.setState({ donutOn: false }); this._dnT = setTimeout(() => this.setState({ donutOn: true }), 80); };
   componentDidUpdate() {
     this.persist();
@@ -2105,7 +2130,122 @@ class Component extends DCLogic {
       fbSheetMsgShow: ['need', 'bad', 'err'].includes(f.sheetStatus), fbSheetMsg: L['m_' + f.sheetStatus] || '',
     };
   }
+  lqHx(h) { h = String(h || '#888888').replace('#', ''); if (h.length === 3) h = h.split('').map(x => x + x).join(''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) || 0); }
+  lqMx(a, b, t) { const A = this.lqHx(a), B = this.lqHx(b); return '#' + A.map((v, i) => Math.round(v * t + B[i] * (1 - t)).toString(16).padStart(2, '0')).join(''); }
+  lqRgba(h, al) { return 'rgba(' + this.lqHx(h).join(',') + ',' + al + ')'; }
+  mkCol(x, y, R, type, tone, rnd, lbl) {
+    const N = 200, TAU = 6.2832, f = type === 'f', n = f ? Math.round(rnd(6, 9)) : 0, lp = rnd(0, TAU);
+    const h = [[2, rnd(0.03, 0.07), rnd(0, TAU)], [3, rnd(0.03, 0.06), rnd(0, TAU)], [5, rnd(0.01, 0.03), rnd(0, TAU)]];
+    if (!f) h.push([4, rnd(0.04, 0.08), rnd(0, TAU)], [7, rnd(0.02, 0.045), rnd(0, TAU)]);
+    const la = Array.from({ length: Math.max(1, n) }, () => rnd(0.78, 1.14)), m = Math.round(rnd(20, 32)), tph = rnd(0, 1), ta = Array.from({ length: m }, () => rnd(0.25, 1));
+    const base = new Float32Array(N), bump = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      const th = i / N * TAU; let v = 0.8; for (const [k, A, p] of h) v += A * Math.sin(k * th + p);
+      if (f) { const q = (th + lp) * n / 2, li = ((Math.floor(q / Math.PI) % n) + n) % n; base[i] = v * 0.72; bump[i] = 0.3 * Math.pow(Math.abs(Math.cos(q)), 0.6) * la[li] + 0.025 * Math.abs(Math.sin(q * 3)); }
+      else { const u = th / TAU * m + tph, j = Math.floor(u) % m, t = 1 - Math.abs((u % 1) - 0.5) * 2; base[i] = v * 0.86; bump[i] = 0.085 * Math.pow(t, 1.6) * ta[j] + 0.035 * Math.abs(Math.sin(th * m * 0.37)); }
+    }
+    const veins = [];
+    if (f) for (let k = 0; k < n; k++) { const t0 = (k * Math.PI) * 2 / n - lp; veins.push({ a: t0, len: rnd(0.8, 0.9), bend: rnd(-0.35, 0.35) }); veins.push({ a: t0 + Math.PI / n + rnd(-0.12, 0.12), len: rnd(0.45, 0.65), bend: rnd(-0.3, 0.3) }); }
+    const mean = [];
+    if (!f) for (let k = 0, K = Math.round(rnd(8, 12)); k < K; k++) {
+      const rr0 = Math.sqrt(Math.random()) * 0.72, a0 = rnd(0, TAU); let px = Math.cos(a0) * rr0, py = Math.sin(a0) * rr0, hd = rnd(0, TAU), tv = 0; const pts = [[px, py]];
+      for (let j = 0, J = Math.round(rnd(9, 18)); j < J; j++) { tv = tv * 0.55 + rnd(-0.9, 0.9); hd += tv; px += Math.cos(hd) * 0.07; py += Math.sin(hd) * 0.07; if (px * px + py * py > 0.8) { hd += Math.PI * 0.7; } pts.push([px, py]); }
+      mean.push(pts);
+    }
+    const dash = f ? [] : Array.from({ length: Math.round(rnd(5, 9)) }, () => { const r0 = Math.sqrt(Math.random()) * 0.75, a0 = rnd(0, TAU), d = rnd(0, TAU); return [Math.cos(a0) * r0, Math.sin(a0) * r0, d]; });
+    const apo = Array.from({ length: f ? Math.round(rnd(5, 12)) : Math.round(rnd(3, 7)) }, () => ({ a: rnd(0, TAU), f: f ? rnd(0.1, 0.62) : rnd(0.2, 0.82), s: f ? Math.max(1.8, Math.min(6.5, R * rnd(0.016, 0.036))) : Math.max(5, Math.min(17, R * rnd(0.03, 0.058))), d: rnd(0, 1) }));
+    return { x, y, R, type, tone, N, base, bump, veins, mean, dash, apo, lbl, ph: rnd(0, TAU), area: 0 };
+  }
+  colR(c, th, G, le) { const N = c.N, i = ((Math.round(th / 6.2832 * N) % N) + N) % N; return c.R * G * (c.base[i] + c.bump[i] * le); }
+  colPath(ctx, c, G, le, s, ox, oy) { const N = c.N; ctx.beginPath(); for (let i = 0; i <= N; i++) { const j = i % N, th = j / N * 6.2832, r = c.R * G * (c.base[j] + c.bump[j] * le) * s, x = c.x + ox + Math.cos(th) * r, y = c.y + oy + Math.sin(th) * r; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.closePath(); }
+  colTones() {
+    const C = this._lqC, m = this.lqMx.bind(this), dk = this.state.theme === 'dark';
+    const t = dk ? [m(C.lum, C.bg, 0.66), m(C.accent, C.bg, 0.78), m(C.sec, C.bg, 0.8)] : [m(C.lum, '#ffffff', 0.74), m(m(C.accent, C.lum, 0.5), '#ffffff', 0.86), m(C.sec, '#ffffff', 0.74)];
+    return { t, dot: dk ? m(C.bg, '#000000', 0.55) : m(C.pbg, '#55606a', 0.55), shadow: dk ? '#000000' : C.pbg, dk };
+  }
+  drawCol(ctx, c, g, le, tn, al, clock) {
+    if (g <= 0.003) return;
+    const m = this.lqMx.bind(this), cl = v => Math.max(0, Math.min(1, v)), T = tn.t[c.tone], f = c.type === 'f', R = c.R, k = Math.max(0.6, Math.min(1.6, R / 180));
+    const eb = v => { v = cl(v); const c1 = 1.7; return 1 + (c1 + 1) * Math.pow(v - 1, 3) + c1 * Math.pow(v - 1, 2); };
+    const G = g, light = m(T, '#ffffff', 0.55), dark = m(T, '#000000', tn.dk ? 0.7 : 0.84);
+    ctx.save(); ctx.globalAlpha = al;
+    this.colPath(ctx, c, G, le, 1, R * 0.012 + 1.5, R * 0.022 + 2.5); ctx.fillStyle = this.lqRgba(tn.shadow, tn.dk ? 0.4 : 0.16); ctx.fill();
+    this.colPath(ctx, c, G, le, 1, 0, 0); ctx.fillStyle = dark; ctx.fill();
+    const gr = ctx.createRadialGradient(c.x - R * G * 0.06, c.y - R * G * 0.08, 0, c.x, c.y, R * G * 1.05);
+    if (f) { gr.addColorStop(0, m(T, '#ffffff', 0.7)); gr.addColorStop(0.5, T); gr.addColorStop(1, m(T, '#000000', 0.92)); }
+    else { gr.addColorStop(0, m(T, '#ffffff', 0.86)); gr.addColorStop(0.7, T); gr.addColorStop(1, m(T, '#000000', 0.95)); }
+    this.colPath(ctx, c, G, le, 0.982, -0.8, -1.1); ctx.fillStyle = gr; ctx.fill();
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if (f) {
+      const vg = cl((g - 0.22) / 0.62); ctx.strokeStyle = this.lqRgba(light, 0.5); ctx.lineWidth = Math.max(0.8, R * 0.006);
+      if (vg > 0) { ctx.beginPath(); for (const v of c.veins) { const rr = this.colR(c, v.a, G, le) * v.len * vg, r0 = R * G * 0.05, ca = v.a + v.bend * 0.35;
+        ctx.moveTo(c.x + Math.cos(v.a) * r0, c.y + Math.sin(v.a) * r0); ctx.quadraticCurveTo(c.x + Math.cos(ca) * rr * 0.55, c.y + Math.sin(ca) * rr * 0.55, c.x + Math.cos(v.a) * rr, c.y + Math.sin(v.a) * rr); } ctx.stroke(); }
+      const cg = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, R * G * 0.28); cg.addColorStop(0, this.lqRgba(light, 0.35)); cg.addColorStop(1, this.lqRgba(light, 0));
+      ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(c.x, c.y, R * G * 0.28, 0, 6.2832); ctx.fill();
+    } else {
+      ctx.save(); this.colPath(ctx, c, G, le, 0.975, -0.8, -1.1); ctx.clip();
+      ctx.strokeStyle = this.lqRgba(light, 0.32); ctx.lineWidth = Math.max(1, R * 0.006); [0.9, 0.8].forEach(s => { this.colPath(ctx, c, G, le, s, 0, 0); ctx.stroke(); });
+      const mg = cl((g - 0.15) / 0.7), S = R * G; ctx.strokeStyle = this.lqRgba(light, 0.42); ctx.lineWidth = Math.max(1.4, R * 0.014);
+      ctx.beginPath(); for (const pts of c.mean) { const nn = Math.max(1, Math.round((pts.length - 1) * mg)); ctx.moveTo(c.x + pts[0][0] * S, c.y + pts[0][1] * S); for (let j = 1; j <= nn; j++) ctx.lineTo(c.x + pts[j][0] * S, c.y + pts[j][1] * S); } ctx.stroke();
+      ctx.lineWidth = Math.max(1.2, R * 0.01); ctx.beginPath(); for (const [dx, dy, d] of c.dash) { const x = c.x + dx * S, y = c.y + dy * S, L = R * 0.05 * mg; ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(d) * L, y + Math.sin(d) * L); } ctx.stroke();
+      ctx.restore();
+    }
+    const ag = cl((g - 0.68) / 0.32);
+    if (ag > 0) for (const p of c.apo) {
+      const t = cl(ag * 1.7 - p.d * 0.7); if (t <= 0) continue;
+      const rr = this.colR(c, p.a, G, le) * p.f, x = c.x + Math.cos(p.a) * rr, y = c.y + Math.sin(p.a) * rr, r = p.s * eb(t) * (1 + 0.04 * Math.sin(clock * 1.3 + p.d * 6));
+      ctx.fillStyle = this.lqRgba(light, 0.45); ctx.beginPath(); ctx.arc(x, y, r * 1.38, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = tn.dot; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  bgLichens() {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, rnd = (x, y) => x + Math.random() * (y - x);
+    const cl = v => Math.max(0, Math.min(1, v)), e3 = v => 1 - Math.pow(1 - cl(v), 3);
+    let cv = null, ctx = null, W = 0, H = 0, dpr = 1, cols = [], raf = 0, last = 0, clock = 0, alive = true, px = 0, py = 0, tx = 0, ty = 0;
+    const seeds = () => { const S = Math.min(W, H);
+      if (W < 760) return [[W * 1.12, H * 0.04, W * 0.3, 'c', 0], [W * -0.1, H * 0.82, W * 0.2, 'f', 1]];
+      if (W < 1100) return [[W * 1.06, H * 0.06, S * 0.32, 'c', 0], [W * 1.03, H * 1.02, S * 0.24, 'c', 2], [W * 0.99, H * 0.56, S * 0.1, 'f', 1]];
+      return [[W * 1.04, H * 0.08, S * 0.36, 'c', 0], [W * 1.02, H * 1.02, S * 0.28, 'c', 2], [W * 0.985, H * 0.58, S * 0.1, 'f', 1], [W * 0.66, H * 1.05, S * 0.12, 'f', 2]];
+    };
+    const build = el => {
+      cv = el; ctx = cv.getContext('2d'); dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
+      if (!W || !H || !this._lqC) return false;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = seeds().map(([x, y, R, ty, tone], i) => Object.assign(this.mkCol(x, y, R, ty, tone, rnd, null), { delay: (ty === 'c' ? 0.2 : 1) + i * 0.5 + rnd(0, 0.6), dur: ty === 'c' ? rnd(8, 11) : rnd(5, 7) }));
+      return true;
+    };
+    const growth = c => reduce ? 1 : e3((clock - c.delay) / c.dur);
+    const draw = () => {
+      if (!cv || !this._lqC) return;
+      ctx.clearRect(0, 0, W, H);
+      const tn = this.colTones(), al = tn.dk ? 0.22 : 0.28;
+      ctx.save(); ctx.translate(px, py);
+      for (const c of cols) { const g = growth(c), mat = reduce ? 0 : cl((clock - c.delay - c.dur) / 2), le = e3((g - 0.12) / 0.6) * (1 + mat * 0.025 * Math.sin(clock * 0.8 + c.ph));
+        this.drawCol(ctx, c, g * (1 + mat * 0.006 * Math.sin(clock * 0.6 + c.ph)), le, tn, al, clock); }
+      ctx.restore();
+    };
+    const loop = ts => {
+      raf = 0; if (!alive) return;
+      if (document.visibilityState !== 'visible') { last = 0; return; }
+      const settled = cols.every(c => clock > c.delay + c.dur + 2), gap = settled ? 66 : 33;
+      if (last && ts - last < gap) { raf = requestAnimationFrame(loop); return; }
+      const dt = last ? Math.min(0.1, (ts - last) / 1000) : 0.016; last = ts; clock += dt;
+      px += (tx - px) * 0.06; py += (ty - py) * 0.06; draw();
+      raf = requestAnimationFrame(loop);
+    };
+    const kick = () => { if (!cv) return; if (reduce) { draw(); return; } if (!raf && alive) raf = requestAnimationFrame(loop); };
+    const onMove = e => { tx = (0.5 - e.clientX / innerWidth) * 6; ty = (0.5 - e.clientY / innerHeight) * 4; };
+    const boot = n => { const el = document.querySelector('[data-eih-bgcol]'); if (el && build(el)) { draw(); kick(); } else if (n < 40) setTimeout(() => boot(n + 1), 200); };
+    setTimeout(() => boot(0), 200);
+    let rt; const onR = () => { clearTimeout(rt); rt = setTimeout(() => { const el = document.querySelector('[data-eih-bgcol]'); if (el && (Math.abs(el.clientWidth - W) > 40 || Math.abs(el.clientHeight - H) > 120)) { if (build(el)) { draw(); kick(); } } }, 250); };
+    addEventListener('resize', onR); document.addEventListener('visibilitychange', kick);
+    if (!reduce && matchMedia('(pointer:fine)').matches) addEventListener('mousemove', onMove, { passive: true });
+    return { redraw: () => { draw(); kick(); }, off: () => { alive = false; cancelAnimationFrame(raf); removeEventListener('resize', onR); document.removeEventListener('visibilitychange', kick); removeEventListener('mousemove', onMove); } };
+  }
   componentDidMount() {
+    try { this._bgEng = this.bgLichens(); } catch (e) { console.error(e); }
     try {
       const tok = +(sessionStorage.getItem('liq_enter') || 0); sessionStorage.removeItem('liq_enter');
       const nv = performance.getEntriesByType('navigation')[0], reload = !!(nv && nv.type === 'reload');
@@ -2924,6 +3064,7 @@ class Component extends DCLogic {
         go: this.go(id),
         bg: s.screen === id ? 'var(--accent-soft2, oklch(96% 0.02 152))' : 'transparent',
         bar: s.screen === id ? 'inset 2px 0 0 var(--accent, oklch(52% 0.1 152))' : 'none',
+        on: s.screen === id ? '1' : '0',
         color: s.screen === id ? 'var(--text, oklch(23% 0.02 85))' : 'var(--text-muted, oklch(46% 0.02 85))',
         weight: s.screen === id ? 600 : 500,
         cur: s.screen === id ? 'page' : 'false',
@@ -2931,7 +3072,7 @@ class Component extends DCLogic {
     });
 
     const navOrder = ['landing','onboarding','registro','dashboard','proyeccion','simulador','recomendaciones','historial','informe','factores'];
-    const demoDefs = [['empty','Nuevo'], ['data', s.lang==='en' ? 'Load example' : 'Cargar ejemplo']];
+    const demoDefs = [['empty', s.lang==='en' ? 'New' : 'Nuevo'], ['data', s.lang==='en' ? 'Load example' : 'Cargar ejemplo']];
     const demoOptions = demoDefs.map(([id,label]) => ({
       label,
       go: () => { if (id === 'empty') { this.clearData(); this.setState({ onbStep: 0, screen: 'onboarding' }); } else { this.loadExample(); this.setState({ screen: 'dashboard' }); } },
