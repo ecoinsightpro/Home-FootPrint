@@ -61,6 +61,7 @@
     @media (max-width: 760px) { [data-liq-veil] { background:linear-gradient(180deg, var(--bg, #f1efe9) 0%, var(--bg, #f1efe9) 52%, color-mix(in srgb, var(--bg, #f1efe9) 55%, transparent) 72%, transparent 100%) !important; } [data-liq-bandveil] { background:linear-gradient(180deg, var(--band, #e5e4df) 0%, var(--band, #e5e4df) 70%, transparent 100%) !important; } [data-liq-hdcta] { display:none !important; } }
     @media (max-width: 720px) { [data-liq-row] { grid-template-columns:40px minmax(0,1fr) !important; gap:8px 14px !important; } [data-liq-row] > :nth-child(n+3) { grid-column:2; } [data-liq-row] > :last-child { justify-self:start !important; } }
     @media (max-width: 560px) { #top { min-height:auto !important; } #top > div:nth-of-type(2) { padding-top:40px !important; padding-bottom:96px !important; } [data-liq-row] { padding:22px 16px !important; } footer nav { gap:4px 20px !important; } [data-liq-motion] { aspect-ratio:4/5 !important; } [data-liq-ctas] { flex-direction:column; align-items:stretch !important; } [data-liq-ctas] > a:first-child { justify-content:space-between; } }
+    :is(a,button,input,textarea,select):focus-visible { outline:2px solid var(--accentInk, #1f6b2b); outline-offset:2px; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } body { animation:none; } *, *::before, *::after { animation:none !important; transition:none !important; } }
   </style>
 </helmet>
@@ -326,7 +327,7 @@
       </div>
       <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px 24px; margin-top:clamp(48px,6vw,80px); padding-top:20px; border-top:1px solid var(--line, #d4d6d2); font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11.5px; letter-spacing:.03em; color:var(--muted2, #5c686c);">
         <span>liqenInsight Carbon · {{ t.footer }}</span>
-        <span style="display:flex; align-items:center; gap:18px;">{{ t.rights }}<a href="#top" aria-label="↑" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border:1px solid var(--line, #d4d6d2); border-radius:50%; color:var(--ink, #0b1f2a); transition:border-color .2s ease, transform .3s cubic-bezier(.16,1,.3,1);" style-hover="border-color:var(--ink, #0b1f2a); transform:translateY(-3px); color:var(--ink, #0b1f2a);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 12 V2 M3 6 L7 2 L11 6"></path></svg></a></span>
+        <span style="display:flex; align-items:center; gap:18px;">{{ t.rights }}<a href="#top" aria-label="↑" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid var(--line, #d4d6d2); border-radius:50%; color:var(--ink, #0b1f2a); transition:border-color .2s ease, transform .3s cubic-bezier(.16,1,.3,1);" style-hover="border-color:var(--ink, #0b1f2a); transform:translateY(-3px); color:var(--ink, #0b1f2a);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 12 V2 M3 6 L7 2 L11 6"></path></svg></a></span>
       </div>
     </div>
   </footer>
@@ -446,40 +447,141 @@ class Component extends DCLogic {
       apo: Array.from({ length: Math.round(rnd(9, 15)) }, () => ({ a: rnd(0, 6.2832), f: rnd(0.2, 0.78), s: rnd(2.2, 5) })) };
   }
 
+  mkCol(x, y, R, type, tone, rnd, lbl) {
+    const N = 200, TAU = 6.2832, f = type === 'f', n = f ? Math.round(rnd(6, 9)) : 0, lp = rnd(0, TAU);
+    const h = [[2, rnd(0.03, 0.07), rnd(0, TAU)], [3, rnd(0.03, 0.06), rnd(0, TAU)], [5, rnd(0.01, 0.03), rnd(0, TAU)]];
+    if (!f) h.push([4, rnd(0.04, 0.08), rnd(0, TAU)], [7, rnd(0.02, 0.045), rnd(0, TAU)]);
+    const la = Array.from({ length: Math.max(1, n) }, () => rnd(0.78, 1.14)), m = Math.round(rnd(20, 32)), tph = rnd(0, 1), ta = Array.from({ length: m }, () => rnd(0.25, 1));
+    const base = new Float32Array(N), bump = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      const th = i / N * TAU; let v = 0.8; for (const [k, A, p] of h) v += A * Math.sin(k * th + p);
+      if (f) { const q = (th + lp) * n / 2, li = ((Math.floor(q / Math.PI) % n) + n) % n; base[i] = v * 0.72; bump[i] = 0.3 * Math.pow(Math.abs(Math.cos(q)), 0.6) * la[li] + 0.025 * Math.abs(Math.sin(q * 3)); }
+      else { const u = th / TAU * m + tph, j = Math.floor(u) % m, t = 1 - Math.abs((u % 1) - 0.5) * 2; base[i] = v * 0.86; bump[i] = 0.085 * Math.pow(t, 1.6) * ta[j] + 0.035 * Math.abs(Math.sin(th * m * 0.37)); }
+    }
+    const veins = [];
+    if (f) for (let k = 0; k < n; k++) { const t0 = (k * Math.PI) * 2 / n - lp; veins.push({ a: t0, len: rnd(0.8, 0.9), bend: rnd(-0.35, 0.35) }); veins.push({ a: t0 + Math.PI / n + rnd(-0.12, 0.12), len: rnd(0.45, 0.65), bend: rnd(-0.3, 0.3) }); }
+    const mean = [];
+    if (!f) for (let k = 0, K = Math.round(rnd(8, 12)); k < K; k++) {
+      const rr0 = Math.sqrt(Math.random()) * 0.72, a0 = rnd(0, TAU); let px = Math.cos(a0) * rr0, py = Math.sin(a0) * rr0, hd = rnd(0, TAU), tv = 0; const pts = [[px, py]];
+      for (let j = 0, J = Math.round(rnd(9, 18)); j < J; j++) { tv = tv * 0.55 + rnd(-0.9, 0.9); hd += tv; px += Math.cos(hd) * 0.07; py += Math.sin(hd) * 0.07; if (px * px + py * py > 0.8) { hd += Math.PI * 0.7; } pts.push([px, py]); }
+      mean.push(pts);
+    }
+    const dash = f ? [] : Array.from({ length: Math.round(rnd(5, 9)) }, () => { const r0 = Math.sqrt(Math.random()) * 0.75, a0 = rnd(0, TAU), d = rnd(0, TAU); return [Math.cos(a0) * r0, Math.sin(a0) * r0, d]; });
+    const apo = Array.from({ length: f ? Math.round(rnd(5, 12)) : Math.round(rnd(3, 7)) }, () => ({ a: rnd(0, TAU), f: f ? rnd(0.1, 0.62) : rnd(0.2, 0.82), s: f ? Math.max(1.8, Math.min(6.5, R * rnd(0.016, 0.036))) : Math.max(5, Math.min(17, R * rnd(0.03, 0.058))), d: rnd(0, 1) }));
+    return { x, y, R, type, tone, N, base, bump, veins, mean, dash, apo, lbl, ph: rnd(0, TAU), area: 0 };
+  }
+  colR(c, th, G, le) { const N = c.N, i = ((Math.round(th / 6.2832 * N) % N) + N) % N; return c.R * G * (c.base[i] + c.bump[i] * le); }
+  colPath(ctx, c, G, le, s, ox, oy) { const N = c.N; ctx.beginPath(); for (let i = 0; i <= N; i++) { const j = i % N, th = j / N * 6.2832, r = c.R * G * (c.base[j] + c.bump[j] * le) * s, x = c.x + ox + Math.cos(th) * r, y = c.y + oy + Math.sin(th) * r; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.closePath(); }
+  colTones() {
+    const C = this.C, m = this.mx.bind(this), dk = this.state.theme === 'dark';
+    const t = dk ? [m(C.lum, C.bg, 0.66), m(C.accent, C.bg, 0.78), m(C.sec, C.bg, 0.8)] : [m(C.lum, '#ffffff', 0.74), m(m(C.accent, C.lum, 0.5), '#ffffff', 0.86), m(C.sec, '#ffffff', 0.74)];
+    return { t, dot: dk ? m(C.bg, '#000000', 0.55) : m(C.pbg, '#55606a', 0.55), shadow: dk ? '#000000' : C.pbg, dk };
+  }
+  drawCol(ctx, c, g, le, tn, al, clock) {
+    if (g <= 0.003) return;
+    const m = this.mx.bind(this), cl = v => Math.max(0, Math.min(1, v)), T = tn.t[c.tone], f = c.type === 'f', R = c.R, k = Math.max(0.6, Math.min(1.6, R / 180));
+    const eb = v => { v = cl(v); const c1 = 1.7; return 1 + (c1 + 1) * Math.pow(v - 1, 3) + c1 * Math.pow(v - 1, 2); };
+    const G = g, light = m(T, '#ffffff', 0.55), dark = m(T, '#000000', tn.dk ? 0.7 : 0.84);
+    ctx.save(); ctx.globalAlpha = al;
+    this.colPath(ctx, c, G, le, 1, R * 0.012 + 1.5, R * 0.022 + 2.5); ctx.fillStyle = this.rgba(tn.shadow, tn.dk ? 0.4 : 0.16); ctx.fill();
+    this.colPath(ctx, c, G, le, 1, 0, 0); ctx.fillStyle = dark; ctx.fill();
+    const gr = ctx.createRadialGradient(c.x - R * G * 0.06, c.y - R * G * 0.08, 0, c.x, c.y, R * G * 1.05);
+    if (f) { gr.addColorStop(0, m(T, '#ffffff', 0.7)); gr.addColorStop(0.5, T); gr.addColorStop(1, m(T, '#000000', 0.92)); }
+    else { gr.addColorStop(0, m(T, '#ffffff', 0.86)); gr.addColorStop(0.7, T); gr.addColorStop(1, m(T, '#000000', 0.95)); }
+    this.colPath(ctx, c, G, le, 0.982, -0.8, -1.1); ctx.fillStyle = gr; ctx.fill();
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if (f) {
+      const vg = cl((g - 0.22) / 0.62); ctx.strokeStyle = this.rgba(light, 0.5); ctx.lineWidth = Math.max(0.8, R * 0.006);
+      if (vg > 0) { ctx.beginPath(); for (const v of c.veins) { const rr = this.colR(c, v.a, G, le) * v.len * vg, r0 = R * G * 0.05, ca = v.a + v.bend * 0.35;
+        ctx.moveTo(c.x + Math.cos(v.a) * r0, c.y + Math.sin(v.a) * r0); ctx.quadraticCurveTo(c.x + Math.cos(ca) * rr * 0.55, c.y + Math.sin(ca) * rr * 0.55, c.x + Math.cos(v.a) * rr, c.y + Math.sin(v.a) * rr); } ctx.stroke(); }
+      const cg = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, R * G * 0.28); cg.addColorStop(0, this.rgba(light, 0.35)); cg.addColorStop(1, this.rgba(light, 0));
+      ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(c.x, c.y, R * G * 0.28, 0, 6.2832); ctx.fill();
+    } else {
+      ctx.save(); this.colPath(ctx, c, G, le, 0.975, -0.8, -1.1); ctx.clip();
+      ctx.strokeStyle = this.rgba(light, 0.32); ctx.lineWidth = Math.max(1, R * 0.006); [0.9, 0.8].forEach(s => { this.colPath(ctx, c, G, le, s, 0, 0); ctx.stroke(); });
+      const mg = cl((g - 0.15) / 0.7), S = R * G; ctx.strokeStyle = this.rgba(light, 0.42); ctx.lineWidth = Math.max(1.4, R * 0.014);
+      ctx.beginPath(); for (const pts of c.mean) { const nn = Math.max(1, Math.round((pts.length - 1) * mg)); ctx.moveTo(c.x + pts[0][0] * S, c.y + pts[0][1] * S); for (let j = 1; j <= nn; j++) ctx.lineTo(c.x + pts[j][0] * S, c.y + pts[j][1] * S); } ctx.stroke();
+      ctx.lineWidth = Math.max(1.2, R * 0.01); ctx.beginPath(); for (const [dx, dy, d] of c.dash) { const x = c.x + dx * S, y = c.y + dy * S, L = R * 0.05 * mg; ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(d) * L, y + Math.sin(d) * L); } ctx.stroke();
+      ctx.restore();
+    }
+    const ag = cl((g - 0.68) / 0.32);
+    if (ag > 0) for (const p of c.apo) {
+      const t = cl(ag * 1.7 - p.d * 0.7); if (t <= 0) continue;
+      const rr = this.colR(c, p.a, G, le) * p.f, x = c.x + Math.cos(p.a) * rr, y = c.y + Math.sin(p.a) * rr, r = p.s * eb(t) * (1 + 0.04 * Math.sin(clock * 1.3 + p.d * 6));
+      ctx.fillStyle = this.rgba(light, 0.45); ctx.beginPath(); ctx.arc(x, y, r * 1.38, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = tn.dot; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+    }
+    ctx.restore();
+  }
+
   colonyEngine(sel, variant) {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, rnd = (a, b) => a + Math.random() * (b - a);
-    const e3 = v => 1 - Math.pow(1 - Math.max(0, Math.min(1, v)), 3);
-    let cv = null, ctx = null, W = 0, H = 0, dpr = 1, grain = null, gkey = '', cols = [], raf = 0, last = 0, clock = 0, alive = true, px = 0, py = 0, tx = 0, ty = 0;
+    const cl = v => Math.max(0, Math.min(1, v)), e3 = v => 1 - Math.pow(1 - cl(v), 3);
+    let cv = null, ctx = null, W = 0, H = 0, dpr = 1, grain = null, gkey = '', cols = [], raf = 0, last = 0, clock = 0, alive = true, px = 0, py = 0, tx = 0, ty = 0, covT = -1, cover = 0;
     const seeds = () => { const S = Math.min(W, H);
-      if (variant === 'foot') return W < 760 ? [[W * 1.06, -H * 0.02, W * 0.34]] : [[W * 1.03, H * 0.1, Math.min(S * 0.5, W * 0.16)], [W * 0.94, H * 1.08, Math.min(S * 0.3, W * 0.1)]];
-      if (variant === 'cta') return W < 760 ? [[W * 1.06, -H * 0.03, W * 0.4], [W * 0.5, -H * 0.06, W * 0.18]] : [[W * 1.03, -H * 0.04, Math.min(S * 0.58, W * 0.24)], [W * 0.62, -H * 0.1, Math.min(S * 0.3, W * 0.12)], [W * 1.04, H * 0.62, Math.min(S * 0.22, W * 0.08)]];
-      if (variant === 'edge') return W < 760 ? [[W * 1.04, H * 0.98, W * 0.5], [W * 1.06, H * 0.62, W * 0.28]] : [[W * 1.02, H * 0.18, Math.min(S * 0.6, W * 0.26)], [W * 1.01, H * 0.96, Math.min(S * 0.46, W * 0.2)]];
-      if (W < 760) return [[W * 1.02, H * 1.0, W * 0.62], [W * 1.08, H * 0.6, W * 0.3], [-W * 0.06, H * 1.03, W * 0.34]];
-      const k = Math.min(1, W / 1300); return [[W * 1.02, H * 0.06, S * 0.42 * k], [W * 1.03, H * 0.6, S * 0.48 * k], [W * 0.74, H * 1.05, S * 0.3 * k], [W * 0.62, -H * 0.06, S * 0.2 * k], [W * 0.92, H * 1.06, S * 0.26 * k]]; };
+      if (variant === 'foot') return W < 760 ? [[W * 1.06, -H * 0.02, W * 0.34, 'f', 1]] : [[W * 1.03, H * 0.1, Math.min(S * 0.55, W * 0.17), 'c', 0], [W * 0.9, H * 1.02, Math.min(S * 0.3, W * 0.09), 'f', 1], [W * 0.82, H * 0.2, Math.min(S * 0.14, W * 0.05), 'f', 2]];
+      if (variant === 'cta') return W < 760 ? [[W * 1.06, -H * 0.03, W * 0.42, 'c', 0], [W * 0.5, -H * 0.04, W * 0.17, 'f', 1]] : [[W * 1.03, -H * 0.04, Math.min(S * 0.62, W * 0.25), 'c', 0], [W * 0.64, -H * 0.06, Math.min(S * 0.26, W * 0.1), 'f', 1], [W * 1.02, H * 0.66, Math.min(S * 0.24, W * 0.085), 'f', 2], [W * 0.8, H * 0.36, Math.min(S * 0.16, W * 0.055), 'f', 1]];
+      if (variant === 'edge') return W < 760 ? [[W * 1.04, H * 0.98, W * 0.5, 'c', 0], [W * 1.02, H * 0.6, W * 0.24, 'f', 1]] : [[W * 1.02, H * 0.18, Math.min(S * 0.62, W * 0.26), 'c', 0], [W * 1.0, H * 0.95, Math.min(S * 0.42, W * 0.17), 'c', 2], [W * 0.84, H * 0.62, Math.min(S * 0.22, W * 0.08), 'f', 1], [W * 0.88, H * 0.12, Math.min(S * 0.16, W * 0.06), 'f', 1]];
+      if (W < 760) return [[W * 1.04, H * 1.0, W * 0.62, 'c', 0], [W * 0.86, H * 0.74, W * 0.2, 'f', 1], [W * 0.58, H * 1.03, W * 0.2, 'f', 2], [W * 1.02, H * 0.56, W * 0.16, 'f', 1]];
+      const k = Math.min(1, W / 1300);
+      return [[W * 1.0, H * 0.3, S * 0.72 * k, 'c', 0, 'M-02'], [W * 0.73, H * 1.02, S * 0.4 * k, 'c', 2, 'M-03'], [W * 0.6, H * 0.2, S * 0.17 * k, 'f', 0], [W * 0.98, H * 0.08, S * 0.26 * k, 'f', 1], [W * 0.97, H * 0.5, S * 0.2 * k, 'f', 1], [W * 0.78, H * 0.64, S * 0.22 * k, 'f', 1], [W * 0.84, H * 0.94, S * 0.2 * k, 'f', 2], [W * 0.66, H * 0.8, S * 0.09 * k, 'f', 0], [W * 0.98, H * 1.0, S * 0.18 * k, 'f', 1]];
+    };
     const mkGrain = () => {
       grain = document.createElement('canvas'); grain.width = cv.width; grain.height = cv.height;
       const g = grain.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); gkey = this.C.ink;
       const n = Math.round(W * H / 40);
       for (let i = 0; i < n; i++) { g.fillStyle = this.rgba(gkey, rnd(0.05, 0.07).toFixed(3)); const s = rnd(1, 1.2); g.fillRect(rnd(0, W), rnd(0, H), s, s); }
+      g.strokeStyle = this.rgba(gkey, 0.11); g.lineWidth = 0.9; g.lineJoin = 'round';
+      for (let i = 0, K = Math.max(2, Math.round(W / 320)); i < K; i++) { let x = rnd(0, W * 0.7), y = rnd(0, H), hd = rnd(0, 6.28), tv = 0; g.beginPath(); g.moveTo(x, y);
+        for (let j = 0; j < 40; j++) { tv = tv * 0.6 + rnd(-0.35, 0.35); hd += tv; x += Math.cos(hd) * 14; y += Math.sin(hd) * 14; g.lineTo(x, y); } g.stroke(); }
     };
     const build = (el) => {
       cv = el; ctx = cv.getContext('2d'); dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
       if (!W || !H) return false;
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = seeds().map(([x, y, R], i) => Object.assign(this.mkLichen(x, y, R, rnd), { delay: i * 1.3 + rnd(0, 1), dur: rnd(8, 14) }));
-      mkGrain(); return true;
+      cols = seeds().map(([x, y, R, ty, tone, lbl], i) => Object.assign(this.mkCol(x, y, R, ty, tone, rnd, W >= 1000 ? lbl : null), { delay: (ty === 'c' ? 0 : 0.8) + i * 0.55 + rnd(0, 0.8), dur: ty === 'c' ? rnd(9, 12) : rnd(5.5, 8) }));
+      covT = -1; mkGrain(); return true;
     };
+    const growth = (c) => reduce ? 1 : e3((clock - c.delay) / c.dur);
+    const measure = () => {
+      const nx = 46, ny = 26, hits = new Array(cols.length).fill(0); let tot = 0;
+      const st = cols.map(c => { const g = growth(c); return [g, e3((g - 0.12) / 0.6)]; });
+      for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) { const x = (i + 0.5) / nx * W - px, y = (j + 0.5) / ny * H - py;
+        for (let q = 0; q < cols.length; q++) { const c = cols[q], [g, le] = st[q]; if (g <= 0.003) continue; const dx = x - c.x, dy = y - c.y, d = Math.hypot(dx, dy); if (d < c.R * g * 1.2 && d < this.colR(c, Math.atan2(dy, dx), g, le)) { hits[q]++; tot++; break; } } }
+      cols.forEach((c, q) => c.area = hits[q] / (nx * ny) * 100); cover = tot / (nx * ny) * 100;
+    };
+    const fmt = v => { const s = v.toFixed(1); return this.state.lang === 'en' ? s : s.replace('.', ','); };
     const draw = () => {
       if (!cv) return; if (gkey !== this.C.ink) mkGrain();
       ctx.clearRect(0, 0, W, H); ctx.drawImage(grain, 0, 0, W, H);
-      const cc = this.lichenColors();
+      const tn = this.colTones(), C = this.C, al = tn.dk ? 0.86 : 0.94;
       ctx.save(); ctx.translate(px, py);
       for (const c of cols) {
-        const g = reduce ? 1 : e3((clock - c.delay) / c.dur), mat = reduce ? 0 : Math.max(0, Math.min(1, (clock - c.delay - c.dur) / 2));
-        cc.pulse = 1 - mat * 0.2 * (0.5 + 0.5 * Math.sin(clock * 0.9 + c.ph));
-        this.drawLichen(ctx, c, g, cc, mat * 0.006 * Math.sin(clock * 0.7 + c.ph), this.state.theme === 'dark' ? 0.8 : 0.6);
+        const g = growth(c), mat = reduce ? 0 : cl((clock - c.delay - c.dur) / 2), le = e3((g - 0.12) / 0.6) * (1 + mat * 0.025 * Math.sin(clock * 0.8 + c.ph));
+        this.drawCol(ctx, c, g * (1 + mat * 0.006 * Math.sin(clock * 0.6 + c.ph)), le, tn, al, clock);
       }
-      ctx.restore(); ctx.drawImage(grain, 0, 0, W, H);
+      const lab = cols.filter(c => c.lbl);
+      if (lab.length) {
+        if (clock - covT > 0.25 || covT < 0) { covT = clock; measure(); }
+        const E = this.state.lang === 'en', typ = E ? 'crustose' : 'crustosa', ar = E ? 'area' : 'área';
+        for (const c of lab) {
+          const g = growth(c), a = cl((g - 0.35) / 0.3); if (a <= 0) continue;
+          const an = c.tone === 2 ? Math.PI * 1.08 : Math.PI * 1.06, le = e3((g - 0.12) / 0.6), rr = this.colR(c, an, g, le) * 0.9;
+          const ax = c.x + Math.cos(an) * rr, ay = c.y + Math.sin(an) * rr, lx = Math.max(W * 0.42 - px, ax - 300), ly = ay - 46;
+          ctx.globalAlpha = a; ctx.font = "400 13px 'IBM Plex Mono', monospace"; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+          const t1 = c.lbl + ' · ' + typ, w1 = ctx.measureText(t1).width;
+          ctx.fillStyle = C.muted; ctx.fillText(t1, lx, ly);
+          ctx.strokeStyle = this.rgba(C.ink, 0.45); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(lx + 14, ly + 9); ctx.lineTo(lx + w1 + 6, ly + 9); ctx.lineTo(ax, ay); ctx.stroke();
+          ctx.fillStyle = C.accentInk; ctx.fillText(ar + ' ' + fmt(c.area) + ' %', lx + 50, ly + 30);
+          ctx.setLineDash([2, 5]); ctx.strokeStyle = this.rgba(C.ink, 0.4); ctx.beginPath(); ctx.arc(c.x, c.y, c.R * g * 1.12, an - 0.15, an + 0.75 * a); ctx.stroke(); ctx.setLineDash([]);
+          ctx.fillStyle = tn.dot; ctx.beginPath(); ctx.arc(ax, ay, 2.5, 0, 6.2832); ctx.fill();
+        }
+        ctx.restore(); ctx.save();
+        const ca = cl((clock - 3) / 2) || (reduce ? 1 : 0);
+        if (ca > 0) { ctx.globalAlpha = ca * 0.75; ctx.font = "400 12px 'IBM Plex Mono', monospace"; ctx.textAlign = 'right'; ctx.fillStyle = C.muted2;
+          ctx.fillText((E ? 'SAMPLE COVERAGE' : 'COBERTURA DE LA MUESTRA') + '  ' + fmt(cover) + ' %', W - 28, H - 26); }
+      }
+      ctx.restore(); ctx.globalAlpha = 0.6; ctx.drawImage(grain, 0, 0, W, H); ctx.globalAlpha = 1;
     };
     const visible = () => { if (!cv || document.visibilityState !== 'visible') return false; const r = cv.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
     const loop = (ts) => {
