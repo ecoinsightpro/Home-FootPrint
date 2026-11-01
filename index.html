@@ -61,7 +61,7 @@
     @media (max-width: 860px) { [data-liq-split] { grid-template-columns:minmax(0,1fr) !important; } [data-liq-scopes] > div { border-left:none !important; border-top:1px solid var(--line, #d4d6d2); padding:28px 0 !important; } }
     @media (max-width: 760px) { [data-liq-veil] { background:linear-gradient(180deg, var(--bg, #f1efe9) 0%, var(--bg, #f1efe9) 52%, color-mix(in srgb, var(--bg, #f1efe9) 55%, transparent) 72%, transparent 100%) !important; } [data-liq-bandveil] { background:linear-gradient(180deg, var(--band, #e5e4df) 0%, var(--band, #e5e4df) 70%, transparent 100%) !important; } [data-liq-hdcta] { display:none !important; } }
     @media (max-width: 720px) { [data-liq-row] { grid-template-columns:40px minmax(0,1fr) !important; gap:8px 14px !important; } [data-liq-row] > :nth-child(n+3) { grid-column:2; } [data-liq-row] > :last-child { justify-self:start !important; } }
-    @media (max-width: 560px) { #top { min-height:auto !important; } #top > div:nth-of-type(2) { padding-top:40px !important; padding-bottom:96px !important; } [data-liq-row] { padding:22px 16px !important; } footer nav { gap:4px 20px !important; } [data-liq-motion] { aspect-ratio:4/5 !important; } [data-liq-figure] { top:0 !important; } [data-liq-ctas] { flex-direction:column; align-items:stretch !important; } [data-liq-ctas] > a:first-child { justify-content:space-between; } }
+    @media (max-width: 560px) { #top { min-height:auto !important; } #top > div:nth-of-type(2) { padding-top:40px !important; padding-bottom:96px !important; } [data-liq-row] { padding:22px 16px !important; } footer nav { gap:4px 20px !important; } [data-liq-motion] { aspect-ratio:1/1.05 !important; width:min(100%, 300px) !important; margin:0 auto !important; } [data-liq-figure] { top:0 !important; } [data-liq-ctas] { flex-direction:column; align-items:stretch !important; } [data-liq-ctas] > a:first-child { justify-content:space-between; } }
     :is(a,button,input,textarea,select):focus-visible { outline:2px solid var(--accentInk, #1f6b2b); outline-offset:2px; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } body { animation:none; } *, *::before, *::after { animation:none !important; transition:none !important; } }
   </style>
@@ -205,6 +205,22 @@
         </ol>
         <div data-reveal="1" data-liq-ctas="1" style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px;"><a href="home.html?fresh=1" style="display:inline-flex; align-items:center; gap:12px; min-height:52px; padding:0 22px; background:var(--accentInk, #1f6b2b); color:var(--onAccent, #ffffff); font-size:16px; font-weight:600; border-radius:6px; transition:background-color .2s ease, color .2s ease;" style-hover="background:var(--ink, #0b1f2a); color:var(--bg, #f1efe9);">{{ t.cta_start }} <svg data-liq-arrow="1" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 H16 M11 5 L16 10 L11 15"></path></svg></a><a href="#metodologia" style="display:inline-flex; align-items:center; min-height:44px; font-size:15.5px; font-weight:500; color:var(--ink, #0b1f2a); text-decoration:underline; text-decoration-color:var(--line, #d4d6d2); text-underline-offset:6px; transition:text-decoration-color .2s ease;" style-hover="color:var(--ink, #0b1f2a); text-decoration-color:var(--accent, #2e9e3f);">{{ t.nav_method }}</a></div>
       </div>
+    </div>
+  </section>
+
+  <section id="beneficios" aria-labelledby="liq-h-ben" style="max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-top:clamp(64px,9vw,128px);">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:48px clamp(40px,6vw,96px);">
+      <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="2">
+        <div data-reveal="1" style="display:flex; flex-direction:column; gap:14px;">
+          <div style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:{{ b.color }};">{{ b.kicker }}</div>
+          <h2 id="{{ b.hid }}" style="font-family:'Newsreader',Georgia,serif; font-weight:300; font-size:clamp(26px,2.6vw,36px); line-height:1.1; letter-spacing:-0.025em; margin:0 0 10px; text-wrap:balance;">{{ b.title }}</h2>
+          <ol style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; border-bottom:1px solid var(--line, #d4d6d2);">
+            <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+              <li style="display:grid; grid-template-columns:40px minmax(0,1fr); gap:12px; padding:18px 0; border-top:1px solid var(--line, #d4d6d2);"><span style="font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12.5px; color:{{ b.color }}; padding-top:3px;">{{ it.n }}</span><span style="font-size:16px; line-height:1.55; color:var(--muted, #47555c); text-wrap:pretty;">{{ it.text }}</span></li>
+            </sc-for>
+          </ol>
+        </div>
+      </sc-for>
     </div>
   </section>
 
@@ -887,6 +903,10 @@ class Component extends DCLogic {
       ...pollVals, submitFb: this.submitFb, fbBusy: fb.status === 'sending', fbBtnOp: fb.status === 'sending' ? 0.6 : 1, fbBtn: fb.status === 'sending' ? t.fb_sending : t.fb_send,
       fbShow: !!fbMsgs[fb.status], fbText: fbMsgs[fb.status] || '', fbTone: fb.status === 'ok' ? 'var(--accent, #2e9e3f)' : 'var(--sec, #1e63c8)',
       t, sources, steps, features, scopes, lang: st.lang === 'en' ? 'en' : 'es',
+      benefits: [
+        { hid: 'liq-h-ben', kicker: E ? 'Environment' : 'Medioambiente', title: E ? 'Benefits for the environment' : 'Beneficios para el medioambiente', color: 'var(--accentInk, #1f6b2b)', items: (E ? ['Seeing your carbon footprint broken down by source helps you find where your home actually emits the most, instead of guessing.', 'Simulating actions (heat pump, solar panels, flying less) before deciding shows the real impact in kg of CO₂e avoided.', 'The monthly log turns cutting emissions into a family habit, not a one-off calculation.'] : ['Ver la huella de carbono separada por fuente ayuda a identificar dónde el hogar realmente emite más, en vez de adivinar.', 'Simular acciones (bomba de calor, paneles solares, volar menos) antes de decidir muestra el impacto real en kg de CO₂e evitado.', 'El registro mensual convierte reducir emisiones en un hábito familiar, no en un cálculo aislado de una vez.']).map((text, i) => ({ n: '0' + (i + 1), text })) },
+        { hid: 'liq-h-ben2', kicker: E ? 'Household budget' : 'Economía familiar', title: E ? 'Benefits for the family budget' : 'Beneficios para la economía familiar', color: 'var(--accentInk, #1f6b2b)', items: (E ? ['Every kg of CO₂e has a $ cost attached: see exactly how much you pay for heating, fuel, or purchases each month.', 'The CO₂ ↔ $ simulator turns reduction goals into estimated yearly savings, in your country\u2019s currency.', 'Before investing in solar panels or a heat pump, try the scenario and see the projected savings.'] : ['Cada kg de CO₂e tiene un costo asociado en $: ves exactamente cuánto pagan por calefacción, combustible o compras cada mes.', 'El simulador CO₂ ↔ $ traduce metas de reducción en ahorro anual estimado, en la moneda de tu país.', 'Antes de invertir en paneles solares o una bomba de calor, prueban el escenario y ven el ahorro proyectado.']).map((text, i) => ({ n: '0' + (i + 1), text })) },
+      ],
       hWhat: em(t.h_what, K.what), hHow: em(t.h_how, K.how), hApp: em(t.h_app, K.app), hMethod: em(t.h_method, K.method), hCta: em(t.h_cta, K.cta),
       stageDots: [0, 1, 2].map(i => ({ n: '0' + (i + 1), color: st.stage === i || st.stage === 3 ? on : off, sep: i < 2 ? '/' : '' })),
       motionLabel: E ? 'Animation: a household carbon footprint by category, where lichen grows to show potential savings.' : 'Animación: la huella de carbono del hogar por categoría, donde crece un liquen que muestra el ahorro potencial.',
