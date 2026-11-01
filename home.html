@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -69,9 +69,10 @@
       [data-eih-main] { padding:24px 24px 48px !important; }
       [data-eih-main] [style*="1.1fr"], [data-eih-main] [style*="1fr 260px"] { grid-template-columns:minmax(0,1fr) !important; }
       [data-rg-main] { grid-template-columns:minmax(0,1fr) !important; }
-      [data-rg-aside] { position:static !important; display:grid !important; grid-template-columns:1fr 1fr; align-items:start; }
+      [data-rg-aside] { position:static !important; display:grid !important; grid-template-columns:minmax(0,1fr); align-items:start; }
     }
     @media (max-width:600px) {
+      [data-how-eq] { grid-template-columns:minmax(0,1fr) !important; }
       body { font-size:16px; }
       [data-eih-root] { display:block !important; }
       [data-eih-aside] { position:fixed !important; top:auto !important; bottom:0; left:0; right:0; width:100% !important; height:auto !important; z-index:60; flex-direction:row !important; padding:6px 8px calc(6px + env(safe-area-inset-bottom)) !important; gap:0 !important; border-right:none !important; border-top:1px solid var(--border, oklch(88% 0.012 85)); overflow:visible !important; background:var(--surface, #fff) !important; }
@@ -154,10 +155,14 @@
     @keyframes liqBreath { 0%,100% { transform:scale(1) rotate(0); } 50% { transform:scale(1.025) rotate(1.2deg); } }
     @keyframes liqApo { from { transform:scale(0); opacity:0; } to { transform:scale(1); opacity:1; } }
     @keyframes liqSpore { 0%,100% { transform:scale(1); opacity:.6; } 50% { transform:scale(1.25); opacity:1; } }
+    @keyframes hvPop { 0% { transform:scale(.4); opacity:0; } 70% { transform:scale(1.06); opacity:1; } 100% { transform:scale(1); opacity:1; } }
+    @keyframes hvPulse { 0% { box-shadow:0 0 0 0 color-mix(in oklab, var(--accent, #2e9e3f) 50%, transparent); } 100% { box-shadow:0 0 0 10px transparent; } }
     @keyframes hvGrow { from { transform:scaleY(0); opacity:0; } to { transform:scaleY(1); } }
     @media (prefers-reduced-motion: reduce) { [data-hv-card] * { animation:none !important; transition:none !important; } }
     @media print { [data-rpt-cover] { break-after:page; min-height:9.6in !important; } aside, [data-noprint] { display:none !important; } main { max-width:none !important; padding:0 !important; margin:0 !important; } body { background:#fff !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; } [data-rpt-block] { break-inside:avoid; } section { animation:none !important; } }
-    .eih-bar { transition: height 0.5s cubic-bezier(.2,.8,.2,1), y 0.5s cubic-bezier(.2,.8,.2,1); }
+    .eih-bar { transform-box:fill-box; transform-origin:50% 100%; animation: eihBarGrow .8s cubic-bezier(.2,.8,.2,1) both; transition: height 0.5s cubic-bezier(.2,.8,.2,1), y 0.5s cubic-bezier(.2,.8,.2,1), opacity .2s ease; }
+    @keyframes eihTipIn { from { opacity:0; margin-top:4px; } to { opacity:1; margin-top:0; } }
+    @media (prefers-reduced-motion: reduce) { .eih-bar, .eih-line, .eih-fade { animation:none !important; } }
     .eih-line { stroke-dasharray: 1400; animation: eihLineDraw 1.5s cubic-bezier(.3,0,.2,1) forwards; }
     .eih-wbar { transition: width 0.6s cubic-bezier(.2,.8,.2,1); }
     .eih-fade { animation: eihFadeIn 1s ease forwards; }
@@ -204,6 +209,17 @@
     .hogar-coin { animation: hogarCoinBounce 1.8s ease-in-out infinite; }
     @keyframes hogarSparkle { 0% { transform:scale(0.4) rotate(0deg); opacity:1; } 100% { transform:scale(1.3) rotate(90deg); opacity:0; } }
     .hogar-sparkle { animation: hogarSparkle 0.6s ease-out; }
+    @media (min-width:1025px) {
+      [data-eih-aside] > nav { flex:1 1 auto; }
+      [data-eih-aside] > nav > button[data-on] { height:clamp(34px, 4.4vh, 46px) !important; }
+      [data-eih-main] [style*="repeat(auto-fit"] { align-items:stretch !important; }
+      [data-eih-main] [style*="repeat(auto-fit"] > [style*="border-radius"] { height:100%; display:flex; flex-direction:column; }
+      [data-eih-main] [style*="1fr) 300px"] { grid-template-columns:minmax(0,1fr) clamp(280px, 24%, 380px) !important; align-items:stretch !important; }
+      [data-eih-main] [style*="1fr) 300px"] > div:first-child { display:flex; flex-direction:column; }
+      [data-eih-main] [style*="1fr) 300px"] > div:first-child > :last-child { flex:1 1 auto; }
+      [data-eih-main] [style*="1.1fr"][style*="0.9fr"] { align-items:stretch !important; }
+    }
+    @media (min-width:1600px) { [data-eih-main] [style*="minmax(150px, 1fr)"] { grid-template-columns:repeat(auto-fit,minmax(190px,1fr)) !important; } }
   </style>
 </helmet>
 <div data-eih-root="1" style="min-height:100vh; color:var(--text, oklch(23% 0.02 85)); background:transparent; font-family:'Hanken Grotesk',sans-serif; display:flex; transition:background-color 0.35s ease, color 0.35s ease;">
@@ -217,7 +233,7 @@
       <button onClick="{{ leaveGo }}" style="min-height:48px; border:1px solid var(--border, oklch(88% 0.012 85)); background:var(--surface, oklch(99% 0.004 85)); color:var(--warn, oklch(42% 0.11 55)); border-radius:10px; font:700 14px 'Hanken Grotesk',sans-serif; cursor:pointer;">{{ leaveContinue }}</button>
     </div>
   </div></sc-if>
-  <aside data-eih-aside="1" data-more="{{ moreAttr }}" style="position:sticky; top:0; align-self:flex-start; height:100vh; width:240px; flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:22px 14px 18px; display:flex; flex-direction:column; gap:14px; overflow-y:auto;">
+  <aside data-eih-aside="1" data-more="{{ moreAttr }}" style="position:sticky; top:0; align-self:flex-start; height:100vh; width:clamp(220px, 16vw, 272px); flex-shrink:0; background:var(--surface, oklch(99% 0.004 85)); border-right:1px solid var(--border, oklch(88% 0.012 85)); padding:22px 14px 18px; display:flex; flex-direction:column; gap:14px; overflow-y:auto;">
     <div style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:0 6px;" onClick="{{ go_landing }}">
       <div data-eih-logo-wide="1" style="background:transparent; border-radius:12px; padding:8px 10px; width:100%; box-sizing:border-box;"><img src="logo-liqeninsight-azul.png" alt="liqenInsight Carbon" style="width:100%; height:auto; display:block;"></div><div data-eih-logo-sq="1" style="display:none; background:transparent; border-radius:12px; width:48px; height:48px; padding:5px; box-sizing:border-box;"><img src="logo-liqeninsight-azul-icon.png" alt="liqenInsight Carbon" style="width:100%; height:100%; object-fit:contain; display:block;"></div>
     </div>
@@ -303,14 +319,26 @@
     </div>
   </aside>
 
-  <main data-eih-main="1" style="flex:1; min-width:0; max-width:1280px; margin:0 auto; padding:20px 20px 80px;">
+  <main data-eih-main="1" style="flex:1; min-width:0; max-width:1680px; margin:0 auto; padding:20px clamp(20px, 2.6vw, 48px) 80px;">
+    <sc-if value="{{ wb.on }}" hint-placeholder-val="{{ false }}"><div role="status" style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding:16px 18px; margin-bottom:20px; border-radius:16px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid color-mix(in oklab, var(--accent, #2e9e3f) 45%, var(--border, #ccc)); box-shadow:0 14px 34px -22px color-mix(in oklab, var(--accent, #2e9e3f) 60%, transparent); animation:fadeInUp .5s ease both;">
+      <span aria-hidden="true" style="width:42px; height:42px; flex-shrink:0; border-radius:12px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>
+      <div style="flex:1 1 260px; min-width:0; display:flex; flex-direction:column; gap:2px;">
+        <span style="font:400 20px 'Newsreader',Georgia,serif; letter-spacing:-0.01em;">{{ wb.title }}</span>
+        <span style="font-size:13.5px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.45;">{{ wb.sub }} <span style="font:500 11px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.04em; color:var(--accent-text, oklch(33% 0.08 152));">{{ wb.saved }}</span></span>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <button onClick="{{ wb.goCont }}" style="border:none; background:var(--accent, oklch(52% 0.1 152)); color:#fff; min-height:44px; padding:0 18px; border-radius:10px; font:700 14px 'Hanken Grotesk',sans-serif; cursor:pointer;" style-hover="background:var(--accent-hover, oklch(46% 0.09 152));">{{ wb.cont }}</button>
+        <sc-if value="{{ wb.hasView }}" hint-placeholder-val="{{ true }}"><button onClick="{{ wb.goView }}" style="border:1px solid var(--border, oklch(88% 0.012 85)); background:transparent; color:var(--text, oklch(23% 0.02 85)); min-height:44px; padding:0 16px; border-radius:10px; font:600 14px 'Hanken Grotesk',sans-serif; cursor:pointer;" style-hover="background:var(--surface-alt, oklch(96% 0.01 85));">{{ wb.view }}</button></sc-if>
+        <button onClick="{{ wb.dismiss }}" aria-label="{{ wb.close }}" style="border:none; background:transparent; color:var(--text-muted, oklch(46% 0.02 85)); width:44px; min-height:44px; border-radius:10px; font:400 20px 'Hanken Grotesk',sans-serif; cursor:pointer;" style-hover="background:var(--surface-alt, oklch(96% 0.01 85));">×</button>
+      </div>
+    </div></sc-if>
 
   <!-- ================= LANDING ================= -->
   <sc-if value="{{ show.landing }}" hint-placeholder-val="{{ true }}">
     <section style="animation: fadeInUp 0.45s ease;">
       <div style="display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr); gap:40px; align-items:center; padding:40px 0 60px;">
         <div>
-          <div style="display:inline-block; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); font:700 12px 'Hanken Grotesk',sans-serif; padding:5px 12px; border-radius:999px; margin-bottom:16px;">Hecho para toda la familia</div>
+          <div style="display:inline-block; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); font:700 12px 'Hanken Grotesk',sans-serif; padding:5px 12px; border-radius:999px; margin-bottom:16px;">{{ lx.badge }}</div>
           <h1 style="font-family:'Newsreader',Georgia,serif; font-size:42px; line-height:1.15; margin:0 0 18px; font-weight:400; letter-spacing:-0.015em;">{{ t.hero_title }}</h1>
           <p style="font-size:17px; line-height:1.6; color:var(--text-muted, oklch(46% 0.02 85)); margin:0 0 28px; max-width:520px;">{{ t.hero_sub }}</p>
           <div style="display:flex; gap:28px; margin-bottom:32px; flex-wrap:wrap;">
@@ -329,46 +357,38 @@
           <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
             <div style="min-width:0;">
               <div style="font:500 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--accent-text, oklch(33% 0.08 152)); letter-spacing:.06em; text-transform:uppercase;">{{ hv.kicker }}</div>
-              <div style="display:flex; align-items:baseline; gap:8px; margin-top:6px; flex-wrap:wrap;"><span style="font:600 34px 'Newsreader',Georgia,serif; letter-spacing:-0.02em; line-height:1;">{{ hv.total }}</span><span style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85));">{{ hv.totalSub }}</span></div>
+              <div style="display:flex; align-items:baseline; gap:8px; margin-top:6px; flex-wrap:wrap;"><span style="font:600 36px 'Newsreader',Georgia,serif; letter-spacing:-0.02em; line-height:1;">{{ hv.total }}</span><span style="font-size:13px; color:var(--text-muted, oklch(46% 0.02 85));">{{ hv.budgetOf }}</span></div>
             </div>
-            <span style="flex-shrink:0; font:700 11.5px 'Hanken Grotesk',sans-serif; padding:5px 10px; border-radius:999px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152));">{{ hv.rangeLabel }}</span>
+            <span style="flex-shrink:0; font:700 11.5px 'Hanken Grotesk',sans-serif; padding:5px 10px; border-radius:999px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152));">{{ hv.usedTag }}</span>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:8px; min-height:18px; flex-wrap:wrap;">
-              <span style="font:600 12px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85));">{{ hv.focusTitle }}</span>
-              <span style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); text-align:right;">{{ hv.focusSub }}</span>
+            <div style="position:relative; height:14px; border-radius:8px; background:var(--surface-alt, oklch(96% 0.01 85));">
+              <div style="position:absolute; left:0; top:0; bottom:0; width:{{ hv.projW }}; border-radius:8px; background:repeating-linear-gradient(135deg, color-mix(in oklab, var(--accent, oklch(52% 0.1 152)) 30%, transparent) 0 6px, transparent 6px 12px); transform-origin:left; animation:eihWGrow 1.1s cubic-bezier(.22,.8,.3,1) both; transition:width .6s ease;"></div>
+              <div style="position:absolute; left:0; top:0; bottom:0; width:{{ hv.usedW }}; border-radius:8px; background:linear-gradient(90deg, var(--accent, oklch(52% 0.1 152)), var(--accent-text, oklch(33% 0.08 152))); transform-origin:left; animation:eihWGrow 1s cubic-bezier(.22,.8,.3,1) .15s both; transition:width .6s ease;"></div>
+              <div style="position:absolute; left:{{ hv.usedW }}; top:50%; width:14px; height:14px; margin:-7px 0 0 -7px; border-radius:50%; background:var(--text, oklch(23% 0.02 85)); border:3px solid var(--accent, oklch(52% 0.1 152)); box-sizing:border-box; animation:eihFadeIn .4s ease 1s both, hvPulse 2.2s ease-out 1.4s infinite;"></div>
             </div>
-            <div style="position:relative; height:132px; display:flex; align-items:flex-end; gap:5px; padding-top:6px; border-bottom:1px solid var(--border, oklch(88% 0.012 85));" onMouseLeave="{{ hv.leave }}">
-              <div aria-hidden="true" style="position:absolute; left:0; right:0; bottom:{{ hv.avgPct }}%; border-top:1.5px dashed var(--text-muted, oklch(46% 0.02 85)); opacity:.55; pointer-events:none; transition:bottom .6s cubic-bezier(.22,.8,.3,1);"></div>
-              <div aria-hidden="true" style="position:absolute; right:0; bottom:{{ hv.avgPct }}%; transform:{{ hv.avgTagTf }}; font:700 10px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85)); background:var(--surface, oklch(99% 0.004 85)); padding:0 0 2px 6px; pointer-events:none;">{{ hv.avgTag }}</div>
-              <sc-for list="{{ hv.cols }}" as="col" hint-placeholder-count="12">
-                <div onMouseEnter="{{ col.enter }}" onFocus="{{ col.enter }}" onClick="{{ col.enter }}" tabindex="0" aria-label="{{ col.aria }}" style="flex:1; min-width:0; height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; cursor:default; outline:none; border-radius:6px 6px 0 0; background:{{ col.hoverBg }}; transition:background .2s ease;">
-                  <div style="height:{{ col.pct }}%; display:flex; flex-direction:column-reverse; border-radius:5px 5px 2px 2px; overflow:hidden; opacity:{{ col.op }}; border:{{ col.border }}; box-sizing:border-box; transform-origin:bottom; animation:hvGrow .8s cubic-bezier(.22,.9,.3,1) both; animation-delay:{{ col.delay }}ms; transition:height .6s cubic-bezier(.22,.8,.3,1), opacity .25s ease;">
-                    <sc-for list="{{ col.segs }}" as="sg" hint-placeholder-count="5"><div style="height:{{ sg.pct }}%; background:{{ sg.color }}; flex-shrink:0;"></div></sc-for>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-            <div aria-hidden="true" style="display:flex; gap:5px;"><sc-for list="{{ hv.cols }}" as="col" hint-placeholder-count="12"><span style="flex:1; min-width:0; text-align:center; font:600 10px 'Hanken Grotesk',sans-serif; color:{{ col.lblColor }}; overflow:hidden;">{{ col.short }}</span></sc-for></div>
+            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85));"><span>{{ hv.todayL }}</span><span>{{ hv.projL }} <b style="color:{{ hv.projColor }};">{{ hv.projS }}</b></span></div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <div aria-hidden="true" style="display:flex; height:10px; border-radius:6px; overflow:hidden; gap:2px; background:var(--surface-alt, oklch(96% 0.01 85));">
-              <sc-for list="{{ hv.mix }}" as="mx" hint-placeholder-count="5"><div style="width:{{ mx.w }}; background:{{ mx.color }}; transition:width .9s cubic-bezier(.22,.8,.3,1); transition-delay:{{ mx.delay }};"></div></sc-for>
+          <div style="position:relative;" onMouseLeave="{{ hv.leave }}">
+            <div style="display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:5px;">
+              <sc-for list="{{ hv.cells }}" as="c" hint-placeholder-count="12"><div onMouseEnter="{{ c.enter }}" onFocus="{{ c.enter }}" onClick="{{ c.enter }}" tabindex="0" aria-label="{{ c.aria }}" style="display:flex; flex-direction:column; gap:5px; min-width:0; cursor:crosshair; outline:none;">
+                <div style="height:44px; border-radius:8px; background:{{ c.bg }}; border:{{ c.bd }}; box-sizing:border-box; transform:{{ c.tf }}; box-shadow:{{ c.sh }}; animation:hvPop .5s cubic-bezier(.34,1.56,.64,1) both; animation-delay:{{ c.delay }}; transition:transform .15s ease, box-shadow .15s ease;"></div>
+                <span style="text-align:center; font:600 10px 'Hanken Grotesk',sans-serif; color:{{ c.lc }};">{{ c.s }}</span></div></sc-for>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:6px 14px;">
-              <sc-for list="{{ hv.mix }}" as="mx" hint-placeholder-count="5">
-                <div style="display:flex; align-items:center; gap:8px; min-width:0; font-size:12px;"><span aria-hidden="true" style="width:9px; height:9px; border-radius:3px; background:{{ mx.color }}; flex-shrink:0;"></span><span style="flex:1; min-width:0; color:var(--text-muted, oklch(46% 0.02 85)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ mx.label }}</span><b style="font-weight:700; color:var(--text, oklch(23% 0.02 85));">{{ mx.pctStr }}</b></div>
-              </sc-for>
-            </div>
+            <div aria-hidden="true" style="display:flex; align-items:center; gap:6px; margin-top:8px; font-size:10.5px; color:var(--text-muted, oklch(46% 0.02 85));">{{ hv.lessL }}<span style="width:70px; height:6px; border-radius:3px; background:linear-gradient(90deg, var(--accent-soft, oklch(93% 0.035 152)), var(--accent, oklch(52% 0.1 152)), var(--accent-text, oklch(33% 0.08 152)));"></span>{{ hv.moreL }}</div>
+            <sc-if value="{{ hv.tipOn }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; left:{{ hv.tip.xPct }}; top:-6px; transform:translate({{ hv.tip.tx }}, -100%); z-index:5; pointer-events:none; min-width:170px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:10px 12px; box-shadow:0 8px 24px -8px rgba(0,0,0,.35); display:flex; flex-direction:column; gap:4px; font-size:12.5px; animation:eihTipIn .16s ease-out;">
+              <div style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted, oklch(46% 0.02 85)); white-space:nowrap;">{{ hv.tip.title }}</div>
+              <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ hv.tip.lKg }}</span><strong style="font-weight:700; white-space:nowrap;">{{ hv.tip.kg }}</strong></div>
+              <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ hv.tip.lGoal }}</span><span style="white-space:nowrap;">{{ hv.tip.goal }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ hv.tip.lVs }}</span><span style="white-space:nowrap;">{{ hv.tip.vs }}</span></div>
+            </div></sc-if>
           </div>
-          <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); --rg-keep:repeat(2,1fr); gap:8px;">
-            <sc-for list="{{ hv.facts }}" as="fc" hint-placeholder-count="4">
-              <div style="padding:12px; border-radius:12px; background:var(--surface-alt, oklch(96% 0.01 85)); display:flex; flex-direction:column; gap:3px; min-width:0;">
-                <span style="font-size:11px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.3;">{{ fc.label }}</span>
-                <span style="font:700 16px 'Hanken Grotesk',sans-serif; color:{{ fc.color }}; line-height:1.2; overflow-wrap:break-word;">{{ fc.value }}</span>
-                <span style="font-size:11px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.3;">{{ fc.sub }}</span>
-              </div>
-            </sc-for>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px;">
+            <sc-for list="{{ hv.sparks }}" as="k" hint-placeholder-count="3"><div style="padding:12px; border-radius:12px; background:var(--surface-alt, oklch(96% 0.01 85)); display:flex; flex-direction:column; gap:6px; min-width:0;">
+              <span style="font-size:11px; color:var(--text-muted, oklch(46% 0.02 85));">{{ k.label }}</span>
+              <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:8px;"><span style="font:700 16px 'Hanken Grotesk',sans-serif; color:{{ k.color }}; white-space:nowrap;">{{ k.value }}</span>
+              <svg viewBox="0 0 70 24" width="70" height="24" style="overflow:visible; flex-shrink:0;"><polyline class="eih-line" points="{{ k.pts }}" fill="none" stroke="{{ k.color }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></div>
+            </div></sc-for>
           </div>
           <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:12px 14px; border-radius:12px; border:1px solid var(--border, oklch(88% 0.012 85));">
             <span style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.4;">{{ t.sim_preview_line }} {{ simPercentLabel }}%</span>
@@ -377,49 +397,35 @@
         </div>
       </div>
 
-      <div style="padding:10px 0 50px; border-top:1px solid var(--border, oklch(88% 0.012 85));">
-        <div style="text-align:center; max-width:560px; margin:0 auto 36px;">
-          <div style="font:700 12px 'Hanken Grotesk',sans-serif; color:var(--accent-text, oklch(33% 0.08 152)); letter-spacing:0.03em; margin-bottom:8px;">{{ t.how_kicker }}</div>
-          <h2 style="font-weight:400; font-family:'Newsreader',Georgia,serif; font-size:26px; margin:0; letter-spacing:-0.015em;">{{ t.how_title }}</h2>
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;">
-          <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:22px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-3px); box-shadow:0 8px 18px var(--shadow-lg, oklch(23% 0.02 85 / 0.08));">
-            <span class="eih-icon-pulse" style="width:40px; height:40px; border-radius:11px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent, oklch(52% 0.1 152)); display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L12 4 L21 11"></path><path d="M5 10 V20 H19 V10"></path><path d="M10 20 V14 H14 V20"></path></svg></span>
-            <div style="font:700 15px 'Hanken Grotesk',sans-serif; margin-bottom:6px;">{{ t.how1_t }}</div>
-            <div style="font-size:13px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.5;">{{ t.how1_d }}</div>
-          </div>
-          <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:22px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-3px); box-shadow:0 8px 18px var(--shadow-lg, oklch(23% 0.02 85 / 0.08));">
-            <span class="eih-icon-pulse" style="width:40px; height:40px; border-radius:11px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent, oklch(52% 0.1 152)); display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 6 H19"></path><circle cx="5" cy="12" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 12 H19"></path><circle cx="5" cy="18" r="1.3" fill="currentColor" stroke="none"></circle><path d="M9 18 H19"></path></svg></span>
-            <div style="font:700 15px 'Hanken Grotesk',sans-serif; margin-bottom:6px;">{{ t.how2_t }}</div>
-            <div style="font-size:13px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.5;">{{ t.how2_d }}</div>
-          </div>
-          <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:22px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-3px); box-shadow:0 8px 18px var(--shadow-lg, oklch(23% 0.02 85 / 0.08));">
-            <span class="eih-icon-pulse" style="width:40px; height:40px; border-radius:11px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent, oklch(52% 0.1 152)); display:flex; align-items:center; justify-content:center; margin-bottom:14px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19 V11 M9 19 V6 M14 19 V14 M19 19 V4"></path></svg></span>
-            <div style="font:700 15px 'Hanken Grotesk',sans-serif; margin-bottom:6px;">{{ t.how3_t }}</div>
-            <div style="font-size:13px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.5;">{{ t.how3_d }}</div>
-          </div>
-        </div>
+      <div style="padding:24px 0 50px; border-top:1px solid var(--border, oklch(88% 0.012 85));">
+        <dc-import name="Como funciona" lang="{{ lang }}" elec-factor="{{ howElecF }}" hint-size="100%,520px"></dc-import>
       </div>
 
       <div style="padding:10px 0 50px; border-top:1px solid var(--border, oklch(88% 0.012 85));">
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:24px;">
-          <div style="background:var(--accent-soft2, oklch(96% 0.02 152)); border-radius:16px; padding:26px;">
-            <span class="eih-icon-float" style="width:44px; height:44px; border-radius:12px; background:var(--accent, oklch(52% 0.1 152)); color:#fff; display:flex; align-items:center; justify-content:center; margin-bottom:16px;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 C7 6 5 10 5 14 A7 7 0 0 0 19 14 C19 10 17 6 12 2 Z"></path></svg></span>
-            <div style="font:700 17px 'Hanken Grotesk',sans-serif; margin-bottom:10px;">{{ t.env_title }}</div>
-            <ul style="margin:0; padding-left:18px; font-size:13.5px; line-height:1.9; color:var(--text-muted, oklch(46% 0.02 85));">
-              <li>{{ t.env_li1 }}</li>
-              <li>{{ t.env_li2 }}</li>
-              <li>{{ t.env_li3 }}</li>
-            </ul>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr)); gap:20px; align-items:stretch;">
+          <div style="position:relative; overflow:hidden; display:flex; flex-direction:column; gap:18px; padding:26px; border-radius:18px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); animation:fadeInUp .6s ease both 0s; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;" style-hover="transform:translateY(-3px); box-shadow:0 18px 40px -24px var(--shadow-lg, oklch(23% 0.02 85 / 0.3)); border-color:color-mix(in oklab, var(--accent-text, oklch(33% 0.08 152)) 45%, var(--border, #ccc));">
+            <div aria-hidden="true" style="position:absolute; inset:0 0 auto 0; height:120px; background:radial-gradient(120% 100% at 0% 0%, color-mix(in oklab, var(--accent-text, oklch(33% 0.08 152)) 16%, transparent), transparent 70%); pointer-events:none;"></div>
+            <div style="position:relative; display:flex; align-items:center; gap:14px;">
+              <span style="width:46px; height:46px; flex-shrink:0; border-radius:14px; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--accent-text, oklch(33% 0.08 152)) 30%, transparent);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 C7 6 5 10 5 14 A7 7 0 0 0 19 14 C19 10 17 6 12 2 Z"></path><path d="M12 9 V21"></path></svg></span>
+              <div style="min-width:0;"><div style="font:500 10.5px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-text, oklch(33% 0.08 152));">{{ benEnvK }}</div><div style="font:400 22px 'Newsreader',Georgia,serif; letter-spacing:-0.015em; line-height:1.2; margin-top:2px;">{{ t.env_title }}</div></div>
+            </div>
+            <ol style="position:relative; list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
+              <li style="display:grid; grid-template-columns:28px minmax(0,1fr); gap:12px; align-items:start; padding:13px 0; border-top:1px solid var(--border, oklch(88% 0.012 85));"><span style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--accent-text, oklch(33% 0.08 152)); padding-top:2px;">01</span><span style="font-size:14px; line-height:1.55; color:var(--text, oklch(23% 0.02 85)); text-wrap:pretty;">{{ t.env_li1 }}</span></li>
+              <li style="display:grid; grid-template-columns:28px minmax(0,1fr); gap:12px; align-items:start; padding:13px 0; border-top:1px solid var(--border, oklch(88% 0.012 85));"><span style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--accent-text, oklch(33% 0.08 152)); padding-top:2px;">02</span><span style="font-size:14px; line-height:1.55; color:var(--text, oklch(23% 0.02 85)); text-wrap:pretty;">{{ t.env_li2 }}</span></li>
+              <li style="display:grid; grid-template-columns:28px minmax(0,1fr); gap:12px; align-items:start; padding:13px 0; border-top:1px solid var(--border, oklch(88% 0.012 85));"><span style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--accent-text, oklch(33% 0.08 152)); padding-top:2px;">03</span><span style="font-size:14px; line-height:1.55; color:var(--text, oklch(23% 0.02 85)); text-wrap:pretty;">{{ t.env_li3 }}</span></li>
+            </ol>
           </div>
-          <div style="background:var(--warn-soft, oklch(93% 0.045 55)); border-radius:16px; padding:26px;">
-            <span class="eih-icon-float" style="width:44px; height:44px; border-radius:12px; background:var(--warn, oklch(42% 0.11 55)); color:#fff; display:flex; align-items:center; justify-content:center; margin-bottom:16px;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 V22 M17 6 H9.5 A3.5 3.5 0 0 0 9.5 13 H14.5 A3.5 3.5 0 0 1 14.5 20 H7"></path></svg></span>
-            <div style="font:700 17px 'Hanken Grotesk',sans-serif; margin-bottom:10px;">{{ t.eco_title }}</div>
-            <ul style="margin:0; padding-left:18px; font-size:13.5px; line-height:1.9; color:var(--text-muted, oklch(46% 0.02 85));">
-              <li>{{ t.eco_li1 }}</li>
-              <li>{{ t.eco_li2 }}</li>
-              <li>{{ t.eco_li3 }}</li>
-            </ul>
+          <div style="position:relative; overflow:hidden; display:flex; flex-direction:column; gap:18px; padding:26px; border-radius:18px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); animation:fadeInUp .6s ease both .1s; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;" style-hover="transform:translateY(-3px); box-shadow:0 18px 40px -24px var(--shadow-lg, oklch(23% 0.02 85 / 0.3)); border-color:color-mix(in oklab, var(--warn, oklch(42% 0.11 55)) 45%, var(--border, #ccc));">
+            <div aria-hidden="true" style="position:absolute; inset:0 0 auto 0; height:120px; background:radial-gradient(120% 100% at 0% 0%, color-mix(in oklab, var(--warn, oklch(42% 0.11 55)) 16%, transparent), transparent 70%); pointer-events:none;"></div>
+            <div style="position:relative; display:flex; align-items:center; gap:14px;">
+              <span style="width:46px; height:46px; flex-shrink:0; border-radius:14px; background:var(--warn-soft, oklch(93% 0.045 55)); color:var(--warn, oklch(42% 0.11 55)); display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--warn, oklch(42% 0.11 55)) 30%, transparent);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 V22 M17 6 H9.5 A3.5 3.5 0 0 0 9.5 13 H14.5 A3.5 3.5 0 0 1 14.5 20 H7"></path></svg></span>
+              <div style="min-width:0;"><div style="font:500 10.5px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--warn, oklch(42% 0.11 55));">{{ benEcoK }}</div><div style="font:400 22px 'Newsreader',Georgia,serif; letter-spacing:-0.015em; line-height:1.2; margin-top:2px;">{{ t.eco_title }}</div></div>
+            </div>
+            <ol style="position:relative; list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
+              <li style="display:grid; grid-template-columns:28px minmax(0,1fr); gap:12px; align-items:start; padding:13px 0; border-top:1px solid var(--border, oklch(88% 0.012 85));"><span style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--warn, oklch(42% 0.11 55)); padding-top:2px;">01</span><span style="font-size:14px; line-height:1.55; color:var(--text, oklch(23% 0.02 85)); text-wrap:pretty;">{{ t.eco_li1 }}</span></li>
+              <li style="display:grid; grid-template-columns:28px minmax(0,1fr); gap:12px; align-items:start; padding:13px 0; border-top:1px solid var(--border, oklch(88% 0.012 85));"><span style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--warn, oklch(42% 0.11 55)); padding-top:2px;">02</span><span style="font-size:14px; line-height:1.55; color:var(--text, oklch(23% 0.02 85)); text-wrap:pretty;">{{ t.eco_li2 }}</span></li>
+              <li style="display:grid; grid-template-columns:28px minmax(0,1fr); gap:12px; align-items:start; padding:13px 0; border-top:1px solid var(--border, oklch(88% 0.012 85));"><span style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--warn, oklch(42% 0.11 55)); padding-top:2px;">03</span><span style="font-size:14px; line-height:1.55; color:var(--text, oklch(23% 0.02 85)); text-wrap:pretty;">{{ t.eco_li3 }}</span></li>
+            </ol>
           </div>
         </div>
       </div>
@@ -435,7 +441,7 @@
 
   <!-- ================= ONBOARDING ================= -->
   <sc-if value="{{ show.onboarding }}" hint-placeholder-val="{{ false }}">
-    <section aria-labelledby="od-h" style="max-width:1120px; margin:0 auto; padding:10px 0; animation: fadeInUp 0.45s ease;">
+    <section aria-labelledby="od-h" style="max-width:100%; margin:0 auto; padding:10px 0; animation: fadeInUp 0.45s ease;">
       <div style="font:500 11.5px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-text, oklch(33% 0.08 152)); margin-bottom:6px;">{{ od.kick }}</div>
       <h1 id="od-h" style="font-weight:400; font-family:'Newsreader',Georgia,serif; font-size:24px; margin:0 0 6px; letter-spacing:-0.015em;">{{ onbTitle }}</h1>
       <p style="color:var(--text-muted, oklch(46% 0.02 85)); font-size:14px; margin:0 0 16px; max-width:640px; text-wrap:pretty;">{{ onbSub }}</p>
@@ -458,22 +464,22 @@
             <div style="min-width:0;"><div style="font:700 15px 'Hanken Grotesk',sans-serif; line-height:1.2;">{{ t.onb_step0_title }}</div><div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.4; margin-top:2px;">{{ od.stepSum }}</div></div>
           </div>
           <div style="min-width:0; display:flex; flex-direction:column; gap:16px;">
-            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_country }}</label><select value="{{ country }}" onChange="{{ setCountry }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));">
-                <optgroup label="Global"><option>Internacional (USD)</option></optgroup>
-                <optgroup label="América">
-                  <option>Chile</option><option>México</option><option>Colombia</option><option>Argentina</option><option>Brasil</option><option>Estados Unidos</option><option>Canadá</option>
+            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_country }}</label><select value="{{ country }}" onChange="{{ setCountry }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));">
+                <optgroup label="Global"><option value="Internacional (USD)">{{ lx.c0 }}</option></optgroup>
+                <optgroup label="{{ lx.g0 }}">
+                  <option value="Chile">{{ lx.c1 }}</option><option value="México">{{ lx.c2 }}</option><option value="Colombia">{{ lx.c3 }}</option><option value="Argentina">{{ lx.c4 }}</option><option value="Brasil">{{ lx.c5 }}</option><option value="Estados Unidos">{{ lx.c6 }}</option><option value="Canadá">{{ lx.c7 }}</option>
                 </optgroup>
-                <optgroup label="Europa">
-                  <option>España</option><option>Alemania</option><option>Francia</option><option>Reino Unido</option><option>Italia</option><option>Polonia</option>
+                <optgroup label="{{ lx.g1 }}">
+                  <option value="España">{{ lx.c8 }}</option><option value="Alemania">{{ lx.c9 }}</option><option value="Francia">{{ lx.c10 }}</option><option value="Reino Unido">{{ lx.c11 }}</option><option value="Italia">{{ lx.c12 }}</option><option value="Polonia">{{ lx.c13 }}</option>
                 </optgroup>
                 <optgroup label="Asia">
-                  <option>Japón</option><option>China</option><option>India</option><option>Corea del Sur</option><option>Emiratos Árabes Unidos</option>
+                  <option value="Japón">{{ lx.c14 }}</option><option value="China">{{ lx.c15 }}</option><option value="India">{{ lx.c16 }}</option><option value="Corea del Sur">{{ lx.c17 }}</option><option value="Emiratos Árabes Unidos">{{ lx.c18 }}</option>
                 </optgroup>
-                <optgroup label="África">
-                  <option>Sudáfrica</option><option>Egipto</option><option>Nigeria</option><option>Marruecos</option>
+                <optgroup label="{{ lx.g2 }}">
+                  <option value="Sudáfrica">{{ lx.c19 }}</option><option value="Egipto">{{ lx.c20 }}</option><option value="Nigeria">{{ lx.c21 }}</option><option value="Marruecos">{{ lx.c22 }}</option>
                 </optgroup>
-                <optgroup label="Oceanía">
-                  <option>Australia</option><option>Nueva Zelanda</option>
+                <optgroup label="{{ lx.g3 }}">
+                  <option value="Australia">{{ lx.c23 }}</option><option value="Nueva Zelanda">{{ lx.c24 }}</option>
                 </optgroup>
               </select></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_city }}</label><input placeholder="{{ cityPlaceholder }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_year }}</label><select value="{{ trackingYear }}" onChange="{{ setTrackingYear }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option>2024</option><option>2025</option><option>2026</option><option>2027</option></select></div></div>
             <div style="background:var(--accent-soft, oklch(93% 0.035 152)); border-radius:12px; padding:12px 14px; font-size:12.5px; line-height:1.5; color:var(--accent-text, oklch(33% 0.08 152));">{{ t.onb_factor_pre }} <b>{{ countryFactorLine }}</b> {{ t.onb_factor_mid }} <span title="{{ t.onb_factor_help_title }}" style="border-bottom:1px dotted var(--accent-text, oklch(33% 0.08 152)); cursor:help;">{{ t.onb_factor_help }}</span></div>
@@ -487,7 +493,7 @@
             <div style="min-width:0;"><div style="font:700 15px 'Hanken Grotesk',sans-serif; line-height:1.2;">{{ t.onb_step1_title }}</div><div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.4; margin-top:2px;">{{ t.onb_step1_sub }}</div></div>
           </div>
           <div style="min-width:0; display:flex; flex-direction:column; gap:16px;">
-            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_housing }}</label><select style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option>{{ t.opt_house }}</option><option>{{ t.opt_apt }}</option></select></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_household }}</label><div style="display:grid; grid-template-columns:44px minmax(0,1fr) 44px; --rg-keep:repeat(2,1fr); gap:6px;"><button onClick="{{ od.hhDec }}" aria-label="−" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">−</button><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ householdSize }}" onInput="{{ od.onHH }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">{{ od.hhUnit }}</span></div><button onClick="{{ od.hhInc }}" aria-label="+" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">+</button></div></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_heating }}</label><select value="{{ heatingType }}" onChange="{{ setHeatingType }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option>Gas licuado (GLP)</option><option>Eléctrica</option><option>Leña</option><option>Kerosene</option><option>Sin calefacción</option></select></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ gasLabel }}</label><select value="{{ gasType }}" onChange="{{ setGasType }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option value="glp">{{ gasOptGlp }}</option><option value="natural">{{ gasOptNat }}</option><option value="electric">{{ gasOptElec }}</option></select></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_cooling }}</label><select value="{{ coolingType }}" onChange="{{ setCoolingType }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option>Eléctrico (aire acondicionado)</option><option>Evaporativo</option><option>Sin enfriamiento</option></select></div></div>
+            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_housing }}</label><select style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option>{{ t.opt_house }}</option><option>{{ t.opt_apt }}</option></select></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_household }}</label><div style="display:grid; grid-template-columns:44px minmax(0,1fr) 44px; --rg-keep:repeat(2,1fr); gap:6px;"><button onClick="{{ od.hhDec }}" aria-label="−" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">−</button><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ householdSize }}" onInput="{{ od.onHH }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">{{ od.hhUnit }}</span></div><button onClick="{{ od.hhInc }}" aria-label="+" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">+</button></div></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_heating }}</label><select value="{{ heatingType }}" onChange="{{ setHeatingType }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option value="Gas licuado (GLP)">{{ lx.h0 }}</option><option value="Eléctrica">{{ lx.h1 }}</option><option value="Leña">{{ lx.h2 }}</option><option value="Kerosene">{{ lx.h3 }}</option><option value="Sin calefacción">{{ lx.h4 }}</option></select></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ gasLabel }}</label><select value="{{ gasType }}" onChange="{{ setGasType }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option value="glp">{{ gasOptGlp }}</option><option value="natural">{{ gasOptNat }}</option><option value="electric">{{ gasOptElec }}</option></select></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_cooling }}</label><select value="{{ coolingType }}" onChange="{{ setCoolingType }}" style="width:100%; height:44px; box-sizing:border-box; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:0 12px; font:500 15px 'Hanken Grotesk',sans-serif; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85));"><option value="Eléctrico (aire acondicionado)">{{ lx.k0 }}</option><option value="Evaporativo">{{ lx.k1 }}</option><option value="Sin enfriamiento">{{ lx.k2 }}</option></select></div></div>
           </div>
         </div>
         <div data-rg-card="1" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:18px; display:grid; grid-template-columns:210px minmax(0,1fr); gap:18px 24px; align-items:start;">
@@ -496,7 +502,7 @@
             <div style="min-width:0;"><div style="font:700 15px 'Hanken Grotesk',sans-serif; line-height:1.2;">{{ od.solarQ }}</div><div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.4; margin-top:2px;">{{ t.solar_hint }}</div></div>
           </div>
           <div style="min-width:0; display:flex; flex-direction:column; gap:16px;">
-            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_solar_check }}</label><div style="display:flex; gap:6px;"><button onClick="{{ od.setSolarOn }}" aria-pressed="{{ od.solarOn.pressed }}" style="flex:1; height:44px; border-radius:10px; border:1.5px solid {{ od.solarOn.bd }}; background:{{ od.solarOn.bg }}; color:{{ od.solarOn.fg }}; font:600 14px 'Hanken Grotesk',sans-serif; cursor:pointer;">{{ od.yes }}</button><button onClick="{{ od.setSolarOff }}" aria-pressed="{{ od.solarOff.pressed }}" style="flex:1; height:44px; border-radius:10px; border:1.5px solid {{ od.solarOff.bd }}; background:{{ od.solarOff.bg }}; color:{{ od.solarOff.fg }}; font:600 14px 'Hanken Grotesk',sans-serif; cursor:pointer;">{{ od.no }}</button></div></div><sc-if value="{{ hasSolar }}" hint-placeholder-val="{{ false }}"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_solar_kw }}</label><div style="display:grid; grid-template-columns:44px minmax(0,1fr) 44px; --rg-keep:repeat(2,1fr); gap:6px;"><button onClick="{{ od.kwDec }}" aria-label="−" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">−</button><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ solarKw }}" onInput="{{ setSolarKw }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">kW</span></div><button onClick="{{ od.kwInc }}" aria-label="+" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">+</button></div></div></sc-if></div>
+            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_solar_check }}</label><div style="display:flex; gap:6px;"><button onClick="{{ od.setSolarOn }}" aria-pressed="{{ od.solarOn.pressed }}" style="flex:1; height:44px; border-radius:10px; border:1.5px solid {{ od.solarOn.bd }}; background:{{ od.solarOn.bg }}; color:{{ od.solarOn.fg }}; font:600 14px 'Hanken Grotesk',sans-serif; cursor:pointer;">{{ od.yes }}</button><button onClick="{{ od.setSolarOff }}" aria-pressed="{{ od.solarOff.pressed }}" style="flex:1; height:44px; border-radius:10px; border:1.5px solid {{ od.solarOff.bd }}; background:{{ od.solarOff.bg }}; color:{{ od.solarOff.fg }}; font:600 14px 'Hanken Grotesk',sans-serif; cursor:pointer;">{{ od.no }}</button></div></div><sc-if value="{{ hasSolar }}" hint-placeholder-val="{{ false }}"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ t.label_solar_kw }}</label><div style="display:grid; grid-template-columns:44px minmax(0,1fr) 44px; --rg-keep:repeat(2,1fr); gap:6px;"><button onClick="{{ od.kwDec }}" aria-label="−" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">−</button><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ solarKw }}" onInput="{{ setSolarKw }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">kW</span></div><button onClick="{{ od.kwInc }}" aria-label="+" style="height:44px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); color:var(--text, oklch(23% 0.02 85)); font:600 18px 'Hanken Grotesk',sans-serif; cursor:pointer;">+</button></div></div></sc-if></div>
           </div>
         </div>
         </sc-if>
@@ -525,7 +531,7 @@
             <div style="min-width:0;"><div style="font:700 15px 'Hanken Grotesk',sans-serif; line-height:1.2;">{{ onbTariffTitle }}</div><div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.4; margin-top:2px;">{{ onbTariffSub }}</div></div>
           </div>
           <div style="min-width:0; display:flex; flex-direction:column; gap:16px;">
-            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ tariffLabel }}</label><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ elecTariff }}" onInput="{{ setElecTariff }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">{{ od.perKwh }}</span></div><div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:6px; line-height:1.4;">{{ tariffHint }}</div></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ fuelLabel }}</label><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ fuelTariff }}" onInput="{{ setFuelTariff }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">{{ od.perL }}</span></div></div></div>
+            <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px 18px; align-items:start;"><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ tariffLabel }}</label><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ elecTariff }}" onInput="{{ setElecTariff }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">{{ od.perKwh }}</span></div><div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:6px; line-height:1.4;">{{ tariffHint }}</div></div><div style="min-width:0;"><label style="font:600 12.5px 'Hanken Grotesk',sans-serif; color:var(--text, oklch(23% 0.02 85)); display:block; margin-bottom:8px; line-height:1.25;">{{ fuelLabel }}</label><div style="min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; background:var(--surface, oklch(99% 0.004 85)); padding:0 10px; height:44px; box-sizing:border-box;"><input data-rg-num="1" type="number" inputmode="decimal" min="0" step="any" value="{{ fuelTariff }}" onInput="{{ setFuelTariff }}" style="flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent; color:var(--text, oklch(23% 0.02 85)); font:600 16px 'Hanken Grotesk',sans-serif; padding:0; height:40px;"><span style="flex-shrink:0; font:600 11.5px 'Hanken Grotesk',sans-serif; color:var(--text-muted, oklch(46% 0.02 85));">{{ od.perL }}</span></div></div></div>
           </div>
         </div>
         <div data-rg-card="1" style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:18px; display:grid; grid-template-columns:210px minmax(0,1fr); gap:18px 24px; align-items:start;">
@@ -570,7 +576,7 @@
                   </div>
                   <div style="min-width:0; display:flex; flex-direction:column; gap:14px;">
                     <sc-if value="{{ c.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85)); border:1px dashed var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:12px; line-height:1.5;">{{ c.note }}</div></sc-if>
-                    <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px 18px; align-items:start;">
+                    <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px 18px; align-items:start;">
                       <sc-for list="{{ c.fields }}" as="f" hint-placeholder-count="2">
                         <div style="display:flex; flex-direction:column; gap:8px; min-width:0;">
                           <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:30px;">
@@ -603,7 +609,7 @@
         </sc-if>
         </div>
         <aside data-rg-aside="1" style="position:sticky; top:16px; display:flex; flex-direction:column; gap:14px;">
-          <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:14px;">
+          <div style="flex:1 1 auto; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:14px;">
             <div style="display:flex; align-items:center; gap:12px;">
               <span aria-hidden="true" style="width:52px; height:52px; flex-shrink:0; display:block;">{{ od.lichenBig }}</span>
               <div style="min-width:0;"><div style="font:700 14px 'Hanken Grotesk',sans-serif; line-height:1.25;">{{ od.ckTitle }}</div><div style="font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); line-height:1.4; margin-top:2px;">{{ od.ckSub }}</div></div>
@@ -617,10 +623,6 @@
                 </button></li>
               </sc-for>
             </ol>
-          </div>
-          <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:4px;">
-            <div style="font:700 14px 'Hanken Grotesk',sans-serif; margin-bottom:6px;">{{ od.summary }}</div>
-            <sc-for list="{{ od.sumRows }}" as="sr" hint-placeholder-count="6"><div style="display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-bottom:1px solid var(--surface-alt, oklch(96% 0.01 85)); font-size:12.5px;"><span style="color:var(--text-muted, oklch(46% 0.02 85)); flex-shrink:0;">{{ sr.k }}</span><span style="font-weight:600; text-align:right; min-width:0;">{{ sr.v }}</span></div></sc-for>
           </div>
         </aside>
       </div>
@@ -644,7 +646,7 @@
 
   <!-- ================= REGISTRO MENSUAL ================= -->
   <sc-if value="{{ show.registro }}" hint-placeholder-val="{{ false }}">
-    <section aria-labelledby="rg-h" style="max-width:1120px; margin:0 auto; padding:10px 0; animation: fadeInUp 0.45s ease;">
+    <section aria-labelledby="rg-h" style="max-width:100%; margin:0 auto; padding:10px 0; animation: fadeInUp 0.45s ease;">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; flex-wrap:wrap; gap:8px;">
         <h1 id="rg-h" style="font-weight:400; font-family:'Newsreader',Georgia,serif; font-size:24px; margin:0; letter-spacing:-0.015em;">{{ t.title_registro }}</h1>
         <span style="font:700 12px 'Hanken Grotesk',sans-serif; background:var(--accent-soft, oklch(93% 0.035 152)); color:var(--accent-text, oklch(33% 0.08 152)); padding:5px 10px; border-radius:999px;">{{ cycleProgressLabel }}</span>
@@ -656,7 +658,7 @@
           <div style="font:700 14.5px 'Hanken Grotesk',sans-serif;">{{ rg.L.year }}</div>
           <div style="display:flex; gap:14px; flex-wrap:wrap; font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85));"><span><b style="color:var(--text, oklch(23% 0.02 85));">{{ rg.yearDone }}</b> {{ rg.L.yearDone }}</span><span><b style="color:var(--text, oklch(23% 0.02 85));">{{ rg.yearPartial }}</b> {{ rg.L.yearPartial }}</span><span><b style="color:var(--fuel, oklch(58% 0.1 30));">{{ rg.yearPending }}</b> {{ rg.L.yearPending }}</span></div>
         </div>
-        <div data-rg-tiles="1" role="tablist" aria-label="{{ rg.L.year }}" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(56px,1fr)); --rg-keep:repeat(2,1fr); gap:4px;">
+        <div data-rg-tiles="1" role="tablist" aria-label="{{ rg.L.year }}" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(56px,1fr)); --rg-keep:repeat(2,1fr); gap:4px;">
           <sc-for list="{{ rg.tiles }}" as="mt" hint-placeholder-count="12">
             <button role="tab" aria-selected="{{ mt.sel }}" aria-label="{{ mt.aria }}" onClick="{{ mt.go }}" style="display:flex; flex-direction:column; align-items:center; gap:2px; padding:6px 4px 8px; border-radius:12px; border:1.5px solid {{ mt.bd }}; background:{{ mt.bg }}; cursor:pointer; color:var(--text, oklch(23% 0.02 85)); transition:border-color .2s ease, background .2s ease, transform .2s ease;" style-hover="transform:translateY(-1px);">
               <span aria-hidden="true" style="width:38px; height:38px; display:block;">{{ mt.lichen }}</span>
@@ -730,7 +732,7 @@
                   </div>
                   <div style="min-width:0; display:flex; flex-direction:column; gap:14px;">
                     <sc-if value="{{ c.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px; color:var(--text-muted, oklch(46% 0.02 85)); border:1px dashed var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:12px; line-height:1.5;">{{ c.note }}</div></sc-if>
-                    <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px 18px; align-items:start;">
+                    <div data-rg-fields="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px 18px; align-items:start;">
                       <sc-for list="{{ c.fields }}" as="f" hint-placeholder-count="2">
                         <div style="display:flex; flex-direction:column; gap:8px; min-width:0;">
                           <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:30px;">
@@ -1054,31 +1056,36 @@
             <svg viewBox="0 0 720 190" preserveAspectRatio="none" style="width:100%; height:190px; overflow:visible; cursor:crosshair;" onMouseMove="{{ handleChartMove }}" onMouseLeave="{{ handleChartLeave }}">
               <defs>
                 <linearGradient id="eihBarGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="var(--accent, oklch(52% 0.1 152))" stop-opacity="0.95"></stop>
-                  <stop offset="100%" stop-color="var(--accent, oklch(52% 0.1 152))" stop-opacity="0.55"></stop>
+                  <stop offset="0%" stop-color="var(--accent, oklch(52% 0.1 152))" stop-opacity="1"></stop>
+                  <stop offset="100%" stop-color="var(--accent, oklch(52% 0.1 152))" stop-opacity="0.45"></stop>
                 </linearGradient>
               </defs>
               <sc-for list="{{ dash.gridLines }}" as="g" hint-placeholder-count="5">
-                <line x1="10" y1="{{ g.y }}" x2="710" y2="{{ g.y }}" stroke="var(--border, oklch(88% 0.012 85))" stroke-width="1" stroke-dasharray="3,4"></line>
+                <line x1="10" y1="{{ g.y }}" x2="710" y2="{{ g.y }}" stroke="var(--border, oklch(88% 0.012 85))" stroke-width="1" stroke-dasharray="3,4" vector-effect="non-scaling-stroke"></line>
               </sc-for>
-              <sc-for list="{{ dash.bars }}" as="b" hint-placeholder-count="12">
-                <rect class="eih-bar" x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}" fill="var(--accent, oklch(52% 0.1 152))" opacity="0.88" rx="3" style="animation-delay:{{ b.delayMs }}ms"><title>{{ b.h }}</title></rect>
-              </sc-for>
-              <line x1="10" y1="165" x2="710" y2="165" stroke="var(--text-muted, oklch(46% 0.02 85))" stroke-width="1"></line>
               <sc-if value="{{ dash.hover }}" hint-placeholder-val="{{ false }}">
-                <line x1="{{ dash.hover.lineX }}" x2="{{ dash.hover.lineX }}" y1="5" y2="165" stroke="var(--text, oklch(23% 0.02 85))" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"></line>
-                <circle cx="{{ dash.hover.lineX }}" cy="{{ dash.hover.barY }}" r="5" fill="var(--accent, oklch(52% 0.1 152))" stroke="var(--surface, oklch(99% 0.004 85))" stroke-width="2"></circle>
+                <rect x="{{ dash.hover.colX }}" y="5" width="{{ dash.hover.colW }}" height="160" rx="6" fill="var(--accent-soft, oklch(93% 0.035 152))" opacity="0.55"></rect>
               </sc-if>
+              <sc-for list="{{ dash.bars }}" as="b" hint-placeholder-count="12">
+                <rect class="eih-bar" x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}" fill="url(#eihBarGrad)" rx="4" style="opacity:{{ b.op }}; animation-delay:{{ b.delayMs }}ms;"></rect>
+              </sc-for>
+              <sc-if value="{{ dash.hasAvg }}" hint-placeholder-val="{{ false }}">
+                <line class="eih-fade" x1="10" y1="{{ dash.avgY }}" x2="710" y2="{{ dash.avgY }}" stroke="var(--warn, oklch(42% 0.11 55))" stroke-width="1.5" stroke-dasharray="6,4" vector-effect="non-scaling-stroke"></line>
+              </sc-if>
+              <line x1="10" y1="165" x2="710" y2="165" stroke="var(--text-muted, oklch(46% 0.02 85))" stroke-width="1" vector-effect="non-scaling-stroke"></line>
             </svg>
+            <sc-for list="{{ dash.gridLines }}" as="g" hint-placeholder-count="5">
+              <div style="position:absolute; left:calc(100% - 2px); top:{{ g.y }}px; transform:translate(-100%,-100%); font-size:9px; white-space:nowrap; line-height:1; color:var(--text-muted, oklch(46% 0.02 85)); pointer-events:none; background:var(--surface, oklch(99% 0.004 85)); padding:0 2px;">{{ g.label }}</div>
+            </sc-for>
+            <sc-if value="{{ dash.hasAvg }}" hint-placeholder-val="{{ false }}">
+              <div class="eih-fade" style="position:absolute; left:12px; top:{{ dash.avgY }}px; transform:translateY(-120%); font:600 10px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.03em; color:var(--warn, oklch(42% 0.11 55)); background:var(--surface, oklch(99% 0.004 85)); padding:1px 4px; border-radius:4px; pointer-events:none; white-space:nowrap;">{{ dash.avgLabel }}</div>
+            </sc-if>
             <sc-for list="{{ dash.labels }}" as="l" hint-placeholder-count="12">
-              <div style="position:absolute; left:{{ l.xPct }}; top:170px; transform:translateX(-50%); font-size:10px; color:var(--text-muted, oklch(46% 0.02 85)); pointer-events:none;">{{ l.text }}</div>
+              <div style="position:absolute; left:{{ l.xPct }}; top:170px; transform:translateX(-50%); font-size:10px; color:{{ l.color }}; font-weight:{{ l.fw }}; pointer-events:none; transition:color .15s ease;">{{ l.text }}</div>
             </sc-for>
             <sc-if value="{{ dash.hover }}" hint-placeholder-val="{{ false }}">
-              <div style="position:absolute; top:6px; left:{{ dash.hover.leftPct }}; transform:translateX(-50%); background:var(--text, oklch(23% 0.02 85)); color:var(--bg, oklch(97.5% 0.012 85)); border-radius:8px; padding:8px 12px; font-size:11.5px; white-space:nowrap; pointer-events:none; box-shadow:0 6px 16px var(--shadow-lg, oklch(23% 0.02 85 / 0.08)); z-index:5;">
-                <div style="font-weight:700; margin-bottom:4px;">{{ dash.hover.label }}</div>
-                <div style="display:flex; align-items:center; gap:5px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--accent, oklch(52% 0.1 152));display:inline-block;"></span>{{ t.legend_real }}: {{ dash.hover.real }}</div>
-                <div style="margin-top:4px; opacity:0.8;">{{ t.chart_expense }} {{ dash.hover.cost }}</div>
-              </div>
+              <div style="position:absolute; left:{{ dash.hover.leftPct }}; top:{{ dash.hover.barY }}px; width:11px; height:11px; margin:-5.5px 0 0 -5.5px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); border:2px solid var(--surface, oklch(99% 0.004 85)); box-sizing:border-box; pointer-events:none; z-index:4;"></div>
+              <div style="position:absolute; left:{{ dash.hover.leftPct }}; top:-8px; transform:translate({{ dash.hover.tx }}, -100%); pointer-events:none; z-index:5; min-width:170px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:10px 12px; box-shadow:0 8px 24px -8px rgba(0,0,0,.35); display:flex; flex-direction:column; gap:4px; font-size:12.5px; animation:eihTipIn .16s ease-out;"><div style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted, oklch(46% 0.02 85)); white-space:nowrap;">{{ dash.hover.title }}</div><div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ dash.hover.lCo2 }}</span><strong style="font-weight:700; white-space:nowrap;">{{ dash.hover.real }}</strong></div><div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ dash.hover.lAvg }}</span><span style="white-space:nowrap;">{{ dash.hover.vsAvg }}</span></div><div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--warn, oklch(42% 0.11 55));">{{ dash.hover.lCost }}</span><span style="white-space:nowrap; color:var(--warn, oklch(42% 0.11 55));">{{ dash.hover.cost }}</span></div></div>
             </sc-if>
             </div>
             <div style="font-size:11.5px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:8px;">{{ t.factor_note }} {{ countryFactorSource }} {{ t.factor_note2 }}</div>
@@ -1106,10 +1113,25 @@
               <polygon class="eih-fade" points="{{ dash.cumArea }}" fill="url(#eihCumGrad)"></polygon>
               <polyline class="eih-line" points="{{ dash.cumPoints }}" fill="none" stroke="var(--accent, oklch(52% 0.1 152))" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></polyline>
               <sc-for list="{{ dash.cumDots }}" as="d" hint-placeholder-count="12">
-                <circle cx="{{ d.x }}" cy="{{ d.y }}" r="3" fill="var(--accent, oklch(52% 0.1 152))" class="eih-fade" style="animation-delay:{{ d.delayMs }}ms"><title>{{ d.val }}</title></circle>
+                <circle cx="{{ d.x }}" cy="{{ d.y }}" r="3" fill="var(--accent, oklch(52% 0.1 152))" class="eih-fade" style="animation-delay:{{ d.delayMs }}ms"></circle>
               </sc-for>
               <line x1="10" y1="155" x2="710" y2="155" stroke="var(--text-muted, oklch(46% 0.02 85))" stroke-width="1"></line>
+              <sc-if value="{{ dash.cumHasTip }}" hint-placeholder-val="{{ false }}">
+                <line x1="{{ dash.cumTip.x }}" x2="{{ dash.cumTip.x }}" y1="{{ dash.cumTip.y }}" y2="155" stroke="var(--text-muted, oklch(46% 0.02 85))" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" vector-effect="non-scaling-stroke"></line>
+              </sc-if>
             </svg>
+            <sc-if value="{{ dash.cumHasTip }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; left:{{ dash.cumTip.xPct }}; top:{{ dash.cumTip.y }}px; width:11px; height:11px; margin:-5.5px 0 0 -5.5px; border-radius:50%; background:var(--accent, oklch(52% 0.1 152)); border:2px solid var(--surface, oklch(99% 0.004 85)); box-sizing:border-box; pointer-events:none; z-index:4;"></div>
+              <div style="position:absolute; left:{{ dash.cumTip.xPct }}; top:-8px; transform:translate({{ dash.cumTip.tx }}, -100%); pointer-events:none; z-index:5; min-width:170px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:10px 12px; box-shadow:0 8px 24px -8px rgba(0,0,0,.35); display:flex; flex-direction:column; gap:4px; font-size:12.5px; animation:eihTipIn .16s ease-out;">
+                <div style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted, oklch(46% 0.02 85)); white-space:nowrap;">{{ dash.cumTip.title }}</div>
+                <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ dash.cumTip.lCum }}</span><strong style="font-weight:700; white-space:nowrap;">{{ dash.cumTip.cum }}</strong></div>
+                <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ dash.cumTip.lMonth }}</span><span style="white-space:nowrap;">{{ dash.cumTip.month }}</span></div>
+                <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--warn, oklch(42% 0.11 55));">{{ dash.cumTip.lCost }}</span><span style="white-space:nowrap; color:var(--warn, oklch(42% 0.11 55));">{{ dash.cumTip.cost }}</span></div>
+              </div>
+            </sc-if>
+            <div onMouseLeave="{{ dash.cumLeave }}" style="position:absolute; left:0; right:0; top:0; height:170px;">
+              <sc-for list="{{ dash.cumHits }}" as="hz" hint-placeholder-count="12"><div onMouseEnter="{{ hz.enter }}" onClick="{{ hz.enter }}" style="position:absolute; top:0; bottom:0; left:{{ hz.left }}; width:{{ hz.width }}; cursor:crosshair;"></div></sc-for>
+            </div>
             <sc-for list="{{ dash.cumGrid }}" as="g" hint-placeholder-count="5">
               <div style="position:absolute; left:2px; top:{{ g.y }}px; transform:translateY(-100%); font-size:9px; color:var(--text-muted, oklch(46% 0.02 85)); pointer-events:none; background:var(--surface, oklch(99% 0.004 85));">{{ g.label }}</div>
             </sc-for>
@@ -1363,6 +1385,19 @@
           <div style="position:absolute; left:{{ l.xPct }}; top:196px; transform:translateX(-50%); font-size:10px; color:var(--text-muted, oklch(46% 0.02 85)); pointer-events:none; white-space:nowrap;">{{ l.text }}</div>
         </sc-for>
         <sc-for list="{{ proj.dots }}" as="d" hint-placeholder-count="12"><div style="position:absolute; left:{{ d.xPct }}; top:{{ d.top }}px; width:9px; height:9px; margin:-4.5px 0 0 -4.5px; border-radius:50%; background:{{ d.bg }}; border:2px solid var(--accent, oklch(52% 0.1 152)); box-sizing:border-box; pointer-events:none;"></div></sc-for>
+        <div onMouseLeave="{{ proj.hoverLeave }}" style="position:absolute; left:0; right:0; top:0; height:200px;">
+          <sc-for list="{{ proj.hits }}" as="hz" hint-placeholder-count="12"><div onMouseEnter="{{ hz.enter }}" onClick="{{ hz.enter }}" style="position:absolute; top:0; bottom:0; left:{{ hz.left }}; width:{{ hz.width }}; cursor:crosshair;"></div></sc-for>
+        </div>
+        <sc-if value="{{ proj.hasTip }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; left:{{ proj.tip.xPct }}; top:{{ proj.tip.lineTop }}px; bottom:4px; width:0; border-left:1px dashed var(--text-muted, oklch(46% 0.02 85)); pointer-events:none; opacity:.6;"></div>
+          <div style="position:absolute; left:{{ proj.tip.xPct }}; top:-8px; transform:translate({{ proj.tip.tx }}, -100%); pointer-events:none; z-index:5; min-width:170px; background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:10px; padding:10px 12px; box-shadow:0 8px 24px -8px rgba(0,0,0,.35); display:flex; flex-direction:column; gap:4px; font-size:12.5px; animation:eihTipIn .16s ease-out;">
+            <div style="font:600 11px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted, oklch(46% 0.02 85)); white-space:nowrap;">{{ proj.tip.title }}</div>
+            <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ proj.tip.lCo2 }}</span><strong style="font-weight:700; white-space:nowrap;">{{ proj.tip.co2 }}</strong></div>
+            <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--text-muted, oklch(46% 0.02 85));">{{ proj.tip.lRange }}</span><span style="white-space:nowrap;">{{ proj.tip.range }}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--warn, oklch(42% 0.11 55));">{{ proj.tip.lCost }}</span><span style="white-space:nowrap; color:var(--warn, oklch(42% 0.11 55));">{{ proj.tip.cost }}</span></div>
+            <sc-if value="{{ proj.hasScenario }}" hint-placeholder-val="{{ false }}"><div style="display:flex; justify-content:space-between; gap:14px;"><span style="color:var(--scenario-blue, oklch(60% 0.12 230));">{{ proj.tip.lScen }}</span><span style="white-space:nowrap; color:var(--scenario-blue, oklch(60% 0.12 230));">{{ proj.tip.scen }}</span></div></sc-if>
+          </div>
+        </sc-if>
         </div>
         <div style="display:flex; gap:14px; font-size:12px; color:var(--text-muted, oklch(46% 0.02 85)); margin-top:8px; flex-wrap:wrap;">
           <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent-soft, oklch(93% 0.035 152));border:1px solid var(--accent, oklch(52% 0.1 152));border-radius:2px;margin-right:5px;"></span>{{ t.proj_range }}</span>
@@ -2249,7 +2284,8 @@ class Component extends DCLogic {
     try {
       const tok = +(sessionStorage.getItem('liq_enter') || 0); sessionStorage.removeItem('liq_enter');
       const nv = performance.getEntriesByType('navigation')[0], reload = !!(nv && nv.type === 'reload');
-      if (!/[?&]stay=1/.test(location.search) && (reload || !tok || Date.now() - tok > 60000)) { location.replace('index.html'); return; }
+      let hasSaved = false; try { const sv0 = JSON.parse(localStorage.getItem('cc_v2') || 'null'); hasSaved = !!(sv0 && Array.isArray(sv0.raw)); } catch (e2) {}
+      if (!hasSaved && !/[?&]stay=1/.test(location.search) && (reload || !tok || Date.now() - tok > 60000)) { location.replace('index.html'); return; }
     } catch (e) {}
     try {
       const v = (parseInt(localStorage.getItem('liq_visits') || '0', 10) || 0) + 1;
@@ -2274,8 +2310,8 @@ class Component extends DCLogic {
         }
       }
     } catch (e) {}
-    let _fresh = false; try { _fresh = /[?&]fresh=1/.test(location.search); if (_fresh) { localStorage.removeItem('cc_v2'); this.setState({ screen:'landing', onbStep:0 }); } } catch (e) {}
-    if (!_fresh) try { const sv = JSON.parse(localStorage.getItem('cc_v2')||'null'); if (sv && Array.isArray(sv.raw) && sv.raw.length === 12 && !/example=/.test(location.search)) { this.rawMonths.length = 0; this.rawMonths.push(...sv.raw); this.setState(sv.st || {}); } } catch (e) {}
+    try { if (/[?&]fresh=1/.test(location.search)) this.setState({ screen:'landing' }); } catch (e) {}
+    try { const sv = JSON.parse(localStorage.getItem('cc_v2')||'null'); if (sv && Array.isArray(sv.raw) && sv.raw.length === 12 && !/example=/.test(location.search)) { this.rawMonths.length = 0; this.rawMonths.push(...sv.raw); const st = { ...(sv.st || {}) }; delete st.regMode; const nLog = sv.raw.filter(m => this.isLogged(m || {})).length; if (nLog > 0 || (st.onbSeen && st.onbSeen.length > 1)) st.welcomeBack = { n: nLog, at: sv.at || null }; this.setState(st); } } catch (e) {}
     this._dnKey = this.state.screen+'|'+this.state.dashUpTo+'|'+this.state.country+'|'+this.state.kpiPerPerson+'|'+this.state.demo; if (this.state.screen === 'dashboard') this.runDonut();
     let theme = 'dark', palette = 'alerce';
     try {
@@ -2294,22 +2330,24 @@ class Component extends DCLogic {
   MONTHS_ES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   tm(label, lang) { const i = this.MONTHS_ES.indexOf(label); return (lang==='en' && i>=0) ? this.MONTHS_EN[i] : label; }
   tr(dict, key, lang) { const d = dict[key]; return d ? (lang==='en' ? (d.en||d.es) : d.es) : key; }
+  lxv(v, lang) { if (lang !== 'en' || !v) return v; const es = this.LX.es, en = this.LX.en; for (const k in es) if (es[k] === v) return en[k]; return v; }
+  LX = {"es":{"c0":"Internacional (USD)","c1":"Chile","c2":"México","c3":"Colombia","c4":"Argentina","c5":"Brasil","c6":"Estados Unidos","c7":"Canadá","c8":"España","c9":"Alemania","c10":"Francia","c11":"Reino Unido","c12":"Italia","c13":"Polonia","c14":"Japón","c15":"China","c16":"India","c17":"Corea del Sur","c18":"Emiratos Árabes Unidos","c19":"Sudáfrica","c20":"Egipto","c21":"Nigeria","c22":"Marruecos","c23":"Australia","c24":"Nueva Zelanda","h0":"Gas licuado (GLP)","h1":"Eléctrica","h2":"Leña","h3":"Kerosene","h4":"Sin calefacción","k0":"Eléctrico (aire acondicionado)","k1":"Evaporativo","k2":"Sin enfriamiento","g0":"América","g1":"Europa","g2":"África","g3":"Oceanía","badge":"Hecho para toda la familia"},"en":{"c0":"International (USD)","c1":"Chile","c2":"Mexico","c3":"Colombia","c4":"Argentina","c5":"Brazil","c6":"United States","c7":"Canada","c8":"Spain","c9":"Germany","c10":"France","c11":"United Kingdom","c12":"Italy","c13":"Poland","c14":"Japan","c15":"China","c16":"India","c17":"South Korea","c18":"United Arab Emirates","c19":"South Africa","c20":"Egypt","c21":"Nigeria","c22":"Morocco","c23":"Australia","c24":"New Zealand","h0":"Liquefied gas (LPG)","h1":"Electric","h2":"Firewood","h3":"Kerosene","h4":"No heating","k0":"Electric (air conditioning)","k1":"Evaporative","k2":"No cooling","g0":"Americas","g1":"Europe","g2":"Africa","g3":"Oceania","badge":"Made for the whole family"}};
   i18n = {
-    es: { back_landing:'Página de inicio', nav_landing:'Inicio', nav_informe:'Informe', nav_co2lab:'¿De dónde sale el CO₂e?', nav_hogarflujo:'Flujo del Hogar', nav_onboarding:'Mis datos', nav_registro:'Registro mensual', nav_dashboard:'Mi huella', nav_factores:'Factores', nav_proyeccion:'Proyección', nav_simulador:'Simulador', nav_recomendaciones:'Recomendaciones', nav_historial:'Historial',
+    es: { back_landing:'Página de inicio', nav_landing:'Inicio', nav_informe:'Informe', nav_co2lab:'¿De dónde sale el CO₂e?', nav_hogarflujo:'Flujo del Hogar', nav_onboarding:'Mis datos', nav_registro:'Registro mensual', nav_dashboard:'Mi huella de carbono', nav_factores:'Factores', nav_proyeccion:'Proyección', nav_simulador:'Simulador', nav_recomendaciones:'Recomendaciones', nav_historial:'Historial',
       hero_title:'Entiende el impacto de tu hogar y cuánto pueden ahorrar juntos',
       hero_sub:'Registra la energía, el auto, las compras y los viajes del hogar cada mes. Te mostramos tu huella de carbono en un lenguaje simple, y sobre todo, cuánto dinero pueden ahorrar reduciéndola.',
-      stat_month:'huella este mes', stat_savings:'ahorro posible al año',
-      title_dashboard:'La huella de tu hogar', title_factores:'Factores que usamos', title_proyeccion:'Proyección a 12 meses', title_simulador:'Simulador CO₂ ↔ $', title_recomendaciones:'Recomendaciones para la familia', title_historial:'Historial e informes', title_registro:'Registro mensual',
-      cta_dashboard:'Ingresar mis datos', cta_onboarding:'Calcular la huella de mi hogar',
-      vista_huella:'VISTA · Tu huella este mes', vista_sim:'VISTA · Simulador CO₂ ↔ $',
+      stat_month:'huella de carbono este mes', stat_savings:'ahorro posible al año',
+      title_dashboard:'La huella de carbono de tu hogar', title_factores:'Factores que usamos', title_proyeccion:'Proyección a 12 meses', title_simulador:'Simulador CO₂ ↔ $', title_recomendaciones:'Recomendaciones para la familia', title_historial:'Historial e informes', title_registro:'Registro mensual',
+      cta_dashboard:'Ingresar mis datos', cta_onboarding:'Calcular la huella de carbono de mi hogar',
+      vista_huella:'VISTA · Tu huella de carbono este mes', vista_sim:'VISTA · Simulador CO₂ ↔ $',
       preview_expense:'Gasto del mes:', preview_bench:'vs. benchmark:',
-      sim_preview_line:'Si reducen su huella un', sim_preview_result:'ahorro de', sim_preview_year:'/ año',
-      how_kicker:'CÓMO FUNCIONA', how_title:'Calcular la huella de tu hogar toma minutos al mes',
+      sim_preview_line:'Si reducen su huella de carbono un', sim_preview_result:'ahorro de', sim_preview_year:'/ año',
+      how_kicker:'CÓMO FUNCIONA', how_title:'Calcular la huella de carbono de tu hogar toma minutos al mes',
       how1_t:'1. Cuéntanos de tu hogar', how1_d:'Ubicación, tipo de vivienda, calefacción, vehículos y paneles solares. Con eso ajustamos todos los factores de emisión a tu realidad.',
       how2_t:'2. Registra tus consumos cada mes', how2_d:'Electricidad, gas, combustible, compras y viajes. Toma un par de minutos y puedes editar cualquier mes anterior si algo cambió.',
-      how3_t:'3. Descubre tu huella y ahorra', how3_d:'Dashboard con tu huella real, comparativa con hogares similares, escenarios de reducción y recomendaciones concretas para tu bolsillo.',
+      how3_t:'3. Descubre tu huella de carbono y ahorra', how3_d:'Dashboard con tu huella de carbono real, comparativa con hogares similares, escenarios de reducción y recomendaciones concretas para tu bolsillo.',
       env_title:'Beneficios para el medioambiente',
-      env_li1:'Ver la huella separada por fuente ayuda a identificar dónde el hogar realmente emite más, en vez de adivinar.',
+      env_li1:'Ver la huella de carbono separada por fuente ayuda a identificar dónde el hogar realmente emite más, en vez de adivinar.',
       env_li2:'Simular acciones (bomba de calor, paneles solares, volar menos) antes de decidir muestra el impacto real en kg de CO₂e evitado.',
       env_li3:'El registro mensual convierte reducir emisiones en un hábito familiar, no en un cálculo aislado de una vez.',
       eco_title:'Beneficios para la economía familiar',
@@ -2345,7 +2383,7 @@ class Component extends DCLogic {
       solar_hint:'Estimamos ~110 kWh generados por kW instalado al mes; esa energía se descuenta de tu electricidad de red antes de calcular emisiones.',
       onb_step2_title:'Vehículos de la familia', onb_step2_sub:'Cada auto puede tener un tipo distinto de combustible.',
       btn_add_vehicle:'+ Agregar vehículo', btn_no_vehicle:'No tenemos vehículo',
-      onb_step3_title:'Así calculamos su huella', onb_step3_sub:'Transparencia total: estos son los factores que estamos usando ahora mismo.',
+      onb_step3_title:'Así calculamos su huella de carbono', onb_step3_sub:'Transparencia total: estos son los factores que estamos usando ahora mismo.',
       btn_first_reg:'Hacer mi primer registro',
       registro_sub:'Cuatro grupos simples: energía, auto, compras y viajes. Toma 2 minutos al mes.',
       current_tag:'· actual',
@@ -2356,9 +2394,9 @@ class Component extends DCLogic {
       group_agua:'Agua y residuos', label_water:'Agua (m³)', label_waste:'Residuos (kg)', label_recycles:'Reciclamos la mayoría de nuestros residuos',
       dash_upto:'Ver consumos a la fecha:', dash_month_of:'Mes', dash_of12:'de 12',
       dash_kpi_view:'Ver KPIs:', kpi_household:'Por hogar', kpi_person:'Por persona',
-      empty_title:'Aún no tienen registros', empty_body:'Completen su primer registro mensual para ver la huella y el ahorro posible de la familia.', empty_cta:'Ir a registro mensual', example_btn:'Cargar valores de ejemplo', example_hint:'o prueba la app con datos de ejemplo',
-      kpi_month:'Huella este mes', kpi_cycle:'Acumulado del ciclo', kpi_month_of:'a mes', kpi_expense:'Gasto este mes', kpi_bench:'Benchmark per cápita', kpi_bench_sub:'Media residencial por persona, acumulada a la fecha',
-      cat_energia:'Energía', cat_vehiculo:'Vehículo', cat_compras:'Compras', cat_viajes:'Viajes', cat_agua:'Agua y residuos', kpi_acc:'Huella acumulada', table_costs:'Detalle de gastos acumulados', cost_ref_note:'Nota: los valores y montos de dinero calculados son referenciales. Se estiman con las tarifas y precios indicados en Mis datos, y pueden diferir de lo que cobran tus proveedores.', table_costs_sub:'Cantidad consumida × precio unitario de cada concepto, del mes 1 al mes', th_concepto:'Concepto', th_cantidad:'Cantidad', th_precio:'Precio unitario', th_gasto:'Gasto', th_pct:'% del gasto', kpi_avg:'Promedio mensual', kpi_expense_acc:'Gasto acumulado', th_agua:'Agua/residuos', label_flight_pax:'Personas que volaron', avoided_title:'Emisiones evitadas por inyección solar', avoided_sub:'Energía enviada a la red. Se reporta aparte y no se descuenta del Alcance 2.',
+      empty_title:'Aún no tienen registros', empty_body:'Completen su primer registro mensual para ver la huella de carbono y el ahorro posible de la familia.', empty_cta:'Ir a registro mensual', example_btn:'Cargar valores de ejemplo', example_hint:'o prueba la app con datos de ejemplo',
+      kpi_month:'Huella de carbono este mes', kpi_cycle:'Acumulado del ciclo', kpi_month_of:'a mes', kpi_expense:'Gasto este mes', kpi_bench:'Benchmark per cápita', kpi_bench_sub:'Media residencial por persona, acumulada a la fecha',
+      cat_energia:'Energía', cat_vehiculo:'Vehículo', cat_compras:'Compras', cat_viajes:'Viajes', cat_agua:'Agua y residuos', kpi_acc:'Huella de carbono acumulada', table_costs:'Detalle de gastos acumulados', cost_ref_note:'Nota: los valores y montos de dinero calculados son referenciales. Se estiman con las tarifas y precios indicados en Mis datos, y pueden diferir de lo que cobran tus proveedores.', table_costs_sub:'Cantidad consumida × precio unitario de cada concepto, del mes 1 al mes', th_concepto:'Concepto', th_cantidad:'Cantidad', th_precio:'Precio unitario', th_gasto:'Gasto', th_pct:'% del gasto', kpi_avg:'Promedio mensual', kpi_expense_acc:'Gasto acumulado', th_agua:'Agua/residuos', label_flight_pax:'Personas que volaron', avoided_title:'Emisiones evitadas por inyección solar', avoided_sub:'Energía enviada a la red. Se reporta aparte y no se descuenta del Alcance 2.',
       chart_title:'Evolución mensual de emisiones', chart_year:'Año de seguimiento:', legend_real:'Real', legend_norm:'Normalizado', chart_expense:'Gasto:',
       factor_note:'Factor eléctrico:', factor_note2:'· Factores de combustión: DEFRA/DESNZ 2026.',
       cum_title:'Acumulado del año de seguimiento', cum_sub:'· suma corrida mes a mes',
@@ -2370,23 +2408,23 @@ class Component extends DCLogic {
       ghgp_title:'GHG Protocol', ghgp_tip:'Estándar internacional para contabilizar emisiones de gases de efecto invernadero (GEI), aquí adaptado a un hogar.',
       alcance_title:'Alcance', alcance_tip:'Alcance 1: combustión directa en el hogar/vehículo. Alcance 2: electricidad comprada. Alcance 3: bienes, servicios y viajes de la cadena de valor.',
       scope1_sub:'Alcance 1 · combustión directa', scope2_sub:'Alcance 2 · electricidad', scope3_sub:'Alcance 3 · cadena de valor',
-      proj_sub:'Basada en el patrón real de consumo de la familia y el clima típico de', proj_footprint:'Huella proyectada (12 meses)', proj_expense:'Gasto proyectado (12 meses)', proj_range:'Rango probable (clima)', proj_scenario:'Con los cambios que probaste',
+      proj_sub:'Basada en el patrón real de consumo de la familia y el clima típico de', proj_footprint:'Huella de carbono proyectada (12 meses)', proj_expense:'Gasto proyectado (12 meses)', proj_range:'Rango probable (clima)', proj_scenario:'Con los cambios que probaste',
       game_title:'Jueguen: ¿qué pasa si...?', game_sub:'Muevan los controles y ganen puntos eco por cada tonelada que evitan — sin guardar nada todavía.', game_points:'puntos eco',
       card_heatpump:'Bomba de calor eléctrica', card_activar:'Activar', card_solar:'Paneles solares:',
       card_flights:'Volar menos:', card_clothes:'Comprar menos ropa:', card_led:'Eficiencia eléctrica (LED, sellos):', card_transport:'Auto compartido / bici / bus:', card_thermo:'Ajustar termostato (calefacción/A·C):', card_electronics:'Reparar vs. comprar electrónica nueva:',
       scenario_result:'Con estos cambios, ahorrarían en 12 meses', btn_reset:'Reiniciar',
       sim_sub:'El ahorro por kg de CO₂ evitado no es el mismo en energía, auto, compras o viajes.',
-      sim_toggle_reduce:'Queremos reducir la huella', sim_toggle_save:'Queremos ahorrar $',
-      sim_reduce_label:'Si reducen su huella un', sim_reduce_result:'ahorro potencial de', sim_reduce_result2:'/ año', sim_reduce_equiv:'equivale a evitar', sim_reduce_equiv2:'al año',
+      sim_toggle_reduce:'Queremos reducir la huella de carbono', sim_toggle_save:'Queremos ahorrar $',
+      sim_reduce_label:'Si reducen su huella de carbono un', sim_reduce_result:'ahorro potencial de', sim_reduce_result2:'/ año', sim_reduce_equiv:'equivale a evitar', sim_reduce_equiv2:'al año',
       sim_save_label:'Queremos ahorrar $ al año', sim_save_result:'necesitan reducir', sim_save_equiv:'equivale a evitar',
       impact_title:'Lo que significa en la vida real', impact_trees:'árboles que absorberían lo mismo en un año', impact_fuel:'litros de bencina sin quemar', impact_km:'km menos manejados en auto', impact_gauge:'de reducción',
       cost_per_kg_title:'Costo evitado por kg de CO₂, según fuente', cost_per_kg_note:'Reducir viajes en avión o electrodomésticos nuevos suele ser lo más caro de evitar por kg de CO₂.',
       sort_money:'Más ahorro $', sort_co2:'Más CO₂', sort_invest:'Menor inversión', filter_all:'Todas',
       card_invest:'Inversión referencial', card_savemoney:'Potencial de ahorro anual', card_saveco2:'Potencial de CO₂ evitado/año', card_payback:'Retorno',
-      btn_new_cycle:'Iniciar nuevo ciclo', close_cycle_title:'Cierre de ciclo', close_cycle_total:'Huella total del ciclo', close_cycle_savings:'Ahorro logrado vs. simulado',
+      btn_new_cycle:'Iniciar nuevo ciclo', close_cycle_title:'Cierre de ciclo', close_cycle_total:'Huella de carbono total del ciclo', close_cycle_savings:'Ahorro logrado vs. simulado',
       historial_note:'Metodología: GHG Protocol (Corporate Standard adaptado al hogar) — Alcance 1 combustión directa, Alcance 2 electricidad, Alcance 3 compras y viajes. Factor eléctrico',
       historial_note2:', factores de combustión y consumo DEFRA/DESNZ 2026, grados-día base', historial_note3:'. Ver el detalle completo en la pestaña Factores.',
-      hogar_kicker:'JUEGO INTERACTIVO', hogar_title:'Mejora tu hogar y reduce su huella',
+      hogar_kicker:'JUEGO INTERACTIVO', hogar_title:'Mejora tu hogar y reduce su huella de carbono',
       hogar_sub:'Arrastra mejoras hacia la casa (o toca la tarjeta) para ver cómo cambian tus emisiones reales, sin afectar tu registro.',
       hogar_goal:'Meta: reducir 30% de tus emisiones anuales', hogar_goal_met:'¡Meta cumplida!',
       hogar_base:'Actual (sin cambios)', hogar_now:'Con mejoras aplicadas', hogar_reduction:'Reducción lograda',
@@ -2397,26 +2435,26 @@ class Component extends DCLogic {
       info_registro:'Aquí ingresan manualmente los consumos del mes: electricidad, gas, combustible, compras y viajes. Estos datos alimentan todo el resto de la página (dashboard, proyección, recomendaciones).',
       info_dashboard:'Tu huella de carbono calculada a partir de los registros mensuales: total por fuente, evolución en el tiempo, desglose por Alcance GHG Protocol y comparación con hogares similares.',
       info_factores:'Cada valor que usamos para calcular kg de CO₂e a partir de tus consumos, con su Alcance (1, 2 o 3) y la fuente oficial de donde viene. Transparencia total del cálculo.',
-      info_proyeccion:'Una proyección a 12 meses de tu huella, más un simulador de escenarios: prueben paneles solares, bomba de calor, volar menos, etc., y vean el ahorro estimado antes de decidir.',
+      info_proyeccion:'Una proyección a 12 meses de tu huella de carbono, más un simulador de escenarios: prueben paneles solares, bomba de calor, volar menos, etc., y vean el ahorro estimado antes de decidir.',
       info_simulador:'Convierte metas de reducción de CO₂ en ahorro en dinero (o viceversa), y muestra qué fuente es más cara de reducir por kg de CO₂ evitado.',
       info_recomendaciones:'Acciones concretas ordenadas por ahorro, CO₂ evitado o inversión requerida, para que decidan por dónde empezar.',
       info_historial:'El registro de todos los meses del ciclo, con el cierre de ciclo y la opción de iniciar uno nuevo cuando corresponda.',
     },
-    en: { back_landing:'Home page', nav_landing:'Home', nav_informe:'Report', nav_co2lab:'Where does CO₂e come from?', nav_hogarflujo:'Home Flow', nav_onboarding:'My data', nav_registro:'Monthly log', nav_dashboard:'My footprint', nav_factores:'Factors', nav_proyeccion:'Projection', nav_simulador:'Simulator', nav_recomendaciones:'Recommendations', nav_historial:'History',
+    en: { back_landing:'Home page', nav_landing:'Home', nav_informe:'Report', nav_co2lab:'Where does CO₂e come from?', nav_hogarflujo:'Home Flow', nav_onboarding:'My data', nav_registro:'Monthly log', nav_dashboard:'My carbon footprint', nav_factores:'Factors', nav_proyeccion:'Projection', nav_simulador:'Simulator', nav_recomendaciones:'Recommendations', nav_historial:'History',
       hero_title:'Understand your household\u2019s impact and how much you could save together',
       hero_sub:'Log your household\u2019s energy, car, purchases, and travel every month. We show your carbon footprint in plain language \u2014 and above all, how much money you could save by reducing it.',
-      stat_month:'footprint this month', stat_savings:'possible yearly savings',
-      title_dashboard:'Your household footprint', title_factores:'Factors we use', title_proyeccion:'12-month projection', title_simulador:'CO₂ ↔ $ simulator', title_recomendaciones:'Recommendations for the family', title_historial:'History & reports', title_registro:'Monthly log',
-      cta_dashboard:'Enter my data', cta_onboarding:'Calculate my footprint',
-      vista_huella:'PREVIEW · Your footprint this month', vista_sim:'PREVIEW · CO₂ ↔ $ simulator',
+      stat_month:'carbon footprint this month', stat_savings:'possible yearly savings',
+      title_dashboard:'Your household carbon footprint', title_factores:'Factors we use', title_proyeccion:'12-month projection', title_simulador:'CO₂ ↔ $ simulator', title_recomendaciones:'Recommendations for the family', title_historial:'History & reports', title_registro:'Monthly log',
+      cta_dashboard:'Enter my data', cta_onboarding:'Calculate my carbon footprint',
+      vista_huella:'PREVIEW · Your carbon footprint this month', vista_sim:'PREVIEW · CO₂ ↔ $ simulator',
       preview_expense:'Monthly spend:', preview_bench:'vs. benchmark:',
-      sim_preview_line:'If you cut your footprint by', sim_preview_result:'save', sim_preview_year:'/ year',
-      how_kicker:'HOW IT WORKS', how_title:'Calculating your household footprint takes minutes a month',
+      sim_preview_line:'If you cut your carbon footprint by', sim_preview_result:'save', sim_preview_year:'/ year',
+      how_kicker:'HOW IT WORKS', how_title:'Calculating your household carbon footprint takes minutes a month',
       how1_t:'1. Tell us about your home', how1_d:'Location, home type, heating, vehicles, and solar panels. We use this to tailor every emission factor to your reality.',
       how2_t:'2. Log your usage every month', how2_d:'Electricity, gas, fuel, purchases, and travel. Takes a couple of minutes, and you can edit any past month if something changed.',
-      how3_t:'3. See your footprint and save', how3_d:'A dashboard with your real footprint, a comparison to similar households, reduction scenarios, and concrete recommendations for your wallet.',
+      how3_t:'3. See your carbon footprint and save', how3_d:'A dashboard with your real carbon footprint, a comparison to similar households, reduction scenarios, and concrete recommendations for your wallet.',
       env_title:'Benefits for the environment',
-      env_li1:'Seeing your footprint broken down by source helps you find where your home actually emits the most, instead of guessing.',
+      env_li1:'Seeing your carbon footprint broken down by source helps you find where your home actually emits the most, instead of guessing.',
       env_li2:'Simulating actions (heat pump, solar panels, flying less) before deciding shows the real impact in kg of CO₂e avoided.',
       env_li3:'The monthly log turns cutting emissions into a family habit, not a one-off calculation.',
       eco_title:'Benefits for the family budget',
@@ -2452,7 +2490,7 @@ class Component extends DCLogic {
       solar_hint:'We estimate ~110 kWh generated per installed kW per month; that energy is subtracted from your grid electricity before calculating emissions.',
       onb_step2_title:'Family vehicles', onb_step2_sub:'Each car can run on a different fuel type.',
       btn_add_vehicle:'+ Add vehicle', btn_no_vehicle:'We don\u2019t have a vehicle',
-      onb_step3_title:'This is how we calculate your footprint', onb_step3_sub:'Full transparency: these are the factors we\u2019re using right now.',
+      onb_step3_title:'This is how we calculate your carbon footprint', onb_step3_sub:'Full transparency: these are the factors we\u2019re using right now.',
       btn_first_reg:'Make my first log entry',
       registro_sub:'Four simple groups: energy, car, purchases, and travel. Takes 2 minutes a month.',
       current_tag:'· current',
@@ -2463,9 +2501,9 @@ class Component extends DCLogic {
       group_agua:'Water & waste', label_water:'Water (m³)', label_waste:'Waste (kg)', label_recycles:'We recycle most of our waste',
       dash_upto:'View usage up to:', dash_month_of:'Month', dash_of12:'of 12',
       dash_kpi_view:'View KPIs:', kpi_household:'Per household', kpi_person:'Per person',
-      empty_title:'No entries yet', empty_body:'Complete your first monthly log to see your family\u2019s footprint and possible savings.', empty_cta:'Go to monthly log', example_btn:'Load example values', example_hint:'or try the app with sample data',
-      kpi_month:'Footprint this month', kpi_cycle:'Cycle accumulated', kpi_month_of:'to month', kpi_expense:'Spend this month', kpi_bench:'Per-capita benchmark', kpi_bench_sub:'Residential average per person, accumulated to date',
-      cat_energia:'Energy', cat_vehiculo:'Vehicle', cat_compras:'Purchases', cat_viajes:'Travel', cat_agua:'Water & waste', kpi_acc:'Accumulated footprint', table_costs:'Accumulated spend breakdown', cost_ref_note:'Note: calculated values and money amounts are for reference only. They are estimated from the rates and prices set in My data and may differ from what your providers charge.', table_costs_sub:'Quantity used × unit price for each item, from month 1 to month', th_concepto:'Item', th_cantidad:'Quantity', th_precio:'Unit price', th_gasto:'Spend', th_pct:'% of spend', kpi_avg:'Monthly average', kpi_expense_acc:'Accumulated spend', th_agua:'Water/waste', label_flight_pax:'People who flew', avoided_title:'Emissions avoided by solar export', avoided_sub:'Energy sent to the grid. Reported separately, not deducted from Scope 2.',
+      empty_title:'No entries yet', empty_body:'Complete your first monthly log to see your family\u2019s carbon footprint and possible savings.', empty_cta:'Go to monthly log', example_btn:'Load example values', example_hint:'or try the app with sample data',
+      kpi_month:'Carbon footprint this month', kpi_cycle:'Cycle accumulated', kpi_month_of:'to month', kpi_expense:'Spend this month', kpi_bench:'Per-capita benchmark', kpi_bench_sub:'Residential average per person, accumulated to date',
+      cat_energia:'Energy', cat_vehiculo:'Vehicle', cat_compras:'Purchases', cat_viajes:'Travel', cat_agua:'Water & waste', kpi_acc:'Accumulated carbon footprint', table_costs:'Accumulated spend breakdown', cost_ref_note:'Note: calculated values and money amounts are for reference only. They are estimated from the rates and prices set in My data and may differ from what your providers charge.', table_costs_sub:'Quantity used × unit price for each item, from month 1 to month', th_concepto:'Item', th_cantidad:'Quantity', th_precio:'Unit price', th_gasto:'Spend', th_pct:'% of spend', kpi_avg:'Monthly average', kpi_expense_acc:'Accumulated spend', th_agua:'Water/waste', label_flight_pax:'People who flew', avoided_title:'Emissions avoided by solar export', avoided_sub:'Energy sent to the grid. Reported separately, not deducted from Scope 2.',
       chart_title:'Monthly emissions trend', chart_year:'Tracking year:', legend_real:'Actual', legend_norm:'Normalized', chart_expense:'Spend:',
       factor_note:'Electricity factor:', factor_note2:'· Combustion factors: DEFRA/DESNZ 2026.',
       cum_title:'Tracking-year accumulated total', cum_sub:'· running monthly total',
@@ -2477,23 +2515,23 @@ class Component extends DCLogic {
       ghgp_title:'GHG Protocol', ghgp_tip:'International standard for accounting greenhouse gas (GHG) emissions, here adapted to a household.',
       alcance_title:'Scope', alcance_tip:'Scope 1: direct combustion at home/vehicle. Scope 2: purchased electricity. Scope 3: value-chain goods, services, and travel.',
       scope1_sub:'Scope 1 · direct combustion', scope2_sub:'Scope 2 · electricity', scope3_sub:'Scope 3 · value chain',
-      proj_sub:'Based on the family\u2019s actual usage pattern and typical climate in', proj_footprint:'Projected footprint (12 months)', proj_expense:'Projected spend (12 months)', proj_range:'Likely range (climate)', proj_scenario:'With the changes you tried',
+      proj_sub:'Based on the family\u2019s actual usage pattern and typical climate in', proj_footprint:'Projected carbon footprint (12 months)', proj_expense:'Projected spend (12 months)', proj_range:'Likely range (climate)', proj_scenario:'With the changes you tried',
       game_title:'Play: what if...?', game_sub:'Move the controls and earn eco points for every tonne you avoid \u2014 nothing is saved yet.', game_points:'eco points',
       card_heatpump:'Electric heat pump', card_activar:'Enable', card_solar:'Solar panels:',
       card_flights:'Fly less:', card_clothes:'Buy less clothing:', card_led:'Electric efficiency (LEDs, seals):', card_transport:'Carpool / bike / bus:', card_thermo:'Adjust thermostat (heating/AC):', card_electronics:'Repair vs. buy new electronics:',
       scenario_result:'With these changes, you\u2019d save over 12 months', btn_reset:'Reset',
       sim_sub:'The savings per kg of CO₂ avoided aren\u2019t the same for energy, car, purchases, or travel.',
-      sim_toggle_reduce:'We want to cut our footprint', sim_toggle_save:'We want to save $',
-      sim_reduce_label:'If we cut our footprint by', sim_reduce_result:'potential savings of', sim_reduce_result2:'/ year', sim_reduce_equiv:'equivalent to avoiding', sim_reduce_equiv2:'per year',
+      sim_toggle_reduce:'We want to cut our carbon footprint', sim_toggle_save:'We want to save $',
+      sim_reduce_label:'If we cut our carbon footprint by', sim_reduce_result:'potential savings of', sim_reduce_result2:'/ year', sim_reduce_equiv:'equivalent to avoiding', sim_reduce_equiv2:'per year',
       sim_save_label:'We want to save $ per year', sim_save_result:'you need to cut', sim_save_equiv:'equivalent to avoiding',
       impact_title:'What this means in real life', impact_trees:'trees that would absorb the same in a year', impact_fuel:'liters of gasoline left unburned', impact_km:'fewer km driven', impact_gauge:'reduction',
       cost_per_kg_title:'Cost avoided per kg of CO₂, by source', cost_per_kg_note:'Cutting flights or buying new appliances is usually the most expensive way to avoid a kg of CO₂.',
       sort_money:'Most $ savings', sort_co2:'Most CO₂', sort_invest:'Lowest investment', filter_all:'All',
       card_invest:'Reference investment', card_savemoney:'Yearly savings potential', card_saveco2:'CO₂ avoidance potential/yr', card_payback:'Payback',
-      btn_new_cycle:'Start new cycle', close_cycle_title:'Cycle close-out', close_cycle_total:'Total footprint this cycle', close_cycle_savings:'Savings achieved vs. simulated',
+      btn_new_cycle:'Start new cycle', close_cycle_title:'Cycle close-out', close_cycle_total:'Total carbon footprint this cycle', close_cycle_savings:'Savings achieved vs. simulated',
       historial_note:'Methodology: GHG Protocol (Corporate Standard adapted for a household) — Scope 1 direct combustion, Scope 2 electricity, Scope 3 purchases and travel. Electricity factor',
       historial_note2:', combustion and consumption factors DEFRA/DESNZ 2026, base degree-days', historial_note3:'. See the full detail in the Factors tab.',
-      hogar_kicker:'INTERACTIVE GAME', hogar_title:'Upgrade your home and cut its footprint',
+      hogar_kicker:'INTERACTIVE GAME', hogar_title:'Upgrade your home and cut its carbon footprint',
       hogar_sub:'Drag upgrades onto the house (or tap the card) to see how your real emissions change, without affecting your log.',
       hogar_goal:'Goal: cut 30% of your yearly emissions', hogar_goal_met:'Goal reached!',
       hogar_base:'Current (no changes)', hogar_now:'With upgrades applied', hogar_reduction:'Reduction achieved',
@@ -2504,7 +2542,7 @@ class Component extends DCLogic {
       info_registro:'This is where you manually enter the month\u2019s usage: electricity, gas, fuel, purchases, and travel. This data feeds everything else on the site (dashboard, projection, recommendations).',
       info_dashboard:'Your carbon footprint calculated from your monthly logs: total by source, trend over time, breakdown by GHG Protocol Scope, and comparison with similar households.',
       info_factores:'Every value we use to turn your usage into kg of CO₂e, with its Scope (1, 2, or 3) and the official source it comes from. Full transparency into the calculation.',
-      info_proyeccion:'A 12-month projection of your footprint, plus a scenario simulator: try solar panels, a heat pump, flying less, and more, and see the estimated savings before deciding.',
+      info_proyeccion:'A 12-month projection of your carbon footprint, plus a scenario simulator: try solar panels, a heat pump, flying less, and more, and see the estimated savings before deciding.',
       info_simulador:'Turns CO₂ reduction goals into money savings (or vice versa), and shows which source is most expensive to cut per kg of CO₂ avoided.',
       info_recomendaciones:'Concrete actions ranked by savings, CO₂ avoided, or investment required, so you can decide where to start.',
       info_historial:'The log of every month in the cycle, with the cycle close-out and the option to start a new one when it\u2019s time.',
@@ -2549,7 +2587,7 @@ class Component extends DCLogic {
     'Corea del Sur':{yield:1250,south:0,amp:0.35}, 'Emiratos Árabes Unidos':{yield:1750,south:0,amp:0.2}, 'Sudáfrica':{yield:1700,south:1,amp:0.25}, 'Egipto':{yield:1800,south:0,amp:0.25},
     'Nigeria':{yield:1400,south:0,amp:0.1}, 'Marruecos':{yield:1700,south:0,amp:0.3}, 'Australia':{yield:1550,south:1,amp:0.3}, 'Nueva Zelanda':{yield:1300,south:1,amp:0.45},
   };
-  // Huella per cápita del hogar (t CO₂e/año): estimación a partir de huella de consumo per cápita (Global Carbon Project / Our World in Data), porción atribuible al hogar ~65%
+  // Huella de carbono per cápita del hogar (t CO₂e/año): estimación a partir de huella de carbono de consumo per cápita (Global Carbon Project / Our World in Data), porción atribuible al hogar ~65%
   benchDefs = {
     'Internacional (USD)':4.5,
     'Chile':3.0, 'México':2.6, 'Colombia':1.5, 'Argentina':2.8, 'Brasil':1.7, 'Estados Unidos':11.0, 'Canadá':9.5, 'España':4.2, 'Alemania':6.5, 'Francia':4.4, 'Reino Unido':5.0, 'Italia':4.6,
@@ -2574,7 +2612,7 @@ class Component extends DCLogic {
     if (id === 'ev' && !s.vehicles.some(v => v.type !== 'Eléctrico')) return 0;
     return d.cut;
   }
-  persist() { try { const s = this.state; localStorage.setItem('cc_v2', JSON.stringify({ raw: this.rawMonths, st: { country:s.country, heatingType:s.heatingType, coolingType:s.coolingType, vehicles:s.vehicles, hasSolar:s.hasSolar, solarKw:s.solarKw, householdSize:s.householdSize, trackingYear:s.trackingYear, gasType:s.gasType, elecTariff:s.elecTariff, fuelTariff:s.fuelTariff, goalPct:s.goalPct, dashUpTo:s.dashUpTo, demo:s.demo } })); } catch (e) {} }
+  persist() { try { const s = this.state; localStorage.setItem('cc_v2', JSON.stringify({ raw: this.rawMonths, st: { country:s.country, heatingType:s.heatingType, coolingType:s.coolingType, vehicles:s.vehicles, hasSolar:s.hasSolar, solarKw:s.solarKw, householdSize:s.householdSize, trackingYear:s.trackingYear, gasType:s.gasType, elecTariff:s.elecTariff, fuelTariff:s.fuelTariff, goalPct:s.goalPct, dashUpTo:s.dashUpTo, demo:s.demo, onbSeen:s.onbSeen, onbStep:s.onbStep, kpiPerPerson:s.kpiPerPerson, registroMonthIdx:s.registroMonthIdx, regDraft:s.regDraft }, at: Date.now() })); } catch (e) {} }
   exportCSV = async () => {
     const en = this.state.lang === 'en';
     const cd = this.countryData[this.state.country] || this.countryData['Internacional (USD)'];
@@ -2585,7 +2623,7 @@ class Component extends DCLogic {
     try {
       const X = await this.loadXLSX();
       const ws = X.utils.aoa_to_sheet([head, ...rows]); ws['!cols'] = head.map((t,i) => ({ wch: i ? Math.max(12, t.length+2) : 8 }));
-      const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, en ? 'Footprint' : 'Huella');
+      const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, en ? 'Carbon footprint' : 'Huella de carbono');
       X.writeFile(wb, 'liqeninsight-carbon-'+(this.state.trackingYear||2026)+'.xlsx');
     } catch (err) { alert(en ? 'Could not create the Excel file.' : 'No se pudo crear el archivo Excel.'); }
   };
@@ -2649,7 +2687,7 @@ class Component extends DCLogic {
     registroMonthIdx: null, onbAsk: false, regDraft: null, onbSeen: [0], regImp: null, regWiz: null, regToast: '', regDrag: false, regMode: 'slider',
     householdSize: 3,
     kpiPerPerson: false,
-    lang: (() => { try { return localStorage.getItem('fp_lang') === 'en' ? 'en' : 'es'; } catch (e) { return 'es'; } })(),
+    lang: (() => { try { return localStorage.getItem('fp_lang') === 'es' ? 'es' : 'en'; } catch (e) { return 'en'; } })(),
     simMode: 'reduce',
     simPercent: 20,
     simAmount: null,
@@ -2686,7 +2724,7 @@ class Component extends DCLogic {
     URL.revokeObjectURL(url);
   };
   startNewCycle = () => {
-    if (!confirm('¿Iniciar un nuevo ciclo? Esto borrará todos los consumos registrados de los 12 meses. La ubicación, vivienda y vehículos se mantienen.')) return;
+    if (!confirm(this.state.lang==='en' ? 'Start a new cycle? This will erase all logged consumption for the 12 months. Location, housing and vehicles are kept.' : '¿Iniciar un nuevo ciclo? Esto borrará todos los consumos registrados de los 12 meses. La ubicación, vivienda y vehículos se mantienen.')) return;
     const labels = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
     this.rawMonths.length = 0;
     this.rawMonths.push(...labels.map(label => ({
@@ -3152,18 +3190,49 @@ class Component extends DCLogic {
           hoverBg: isH ? 'var(--surface-alt, oklch(96% 0.01 85))' : 'transparent', lblColor: isH ? 'var(--text, oklch(23% 0.02 85))' : 'var(--text-muted, oklch(46% 0.02 85))',
           aria: mName(x.i) + ': ' + (x.on ? this.fmtKg(v) : (en ? 'no data' : 'sin datos')),
           enter: () => { if (this.state.heroHover !== x.i) this.setState({ heroHover: x.i }); } }; });
-      let focusTitle = en ? 'Monthly footprint by category' : 'Huella mensual por categoría', focusSub = en ? 'Hover a month' : 'Pasa sobre un mes';
+      let focusTitle = en ? 'Monthly carbon footprint by category' : 'Huella de carbono mensual por categoría', focusSub = en ? 'Hover a month' : 'Pasa sobre un mes';
       if (hov != null && logged[hov]) { const x = logged[hov]; focusTitle = mName(hov) + ' ' + yr;
         if (x.on) { const t0 = K.map(([k, label]) => [label, x.m[k] || 0]).sort((a, b) => b[1] - a[1])[0]; const d = avg ? (x.m.total / divisor - avg) / avg : 0;
           focusSub = this.fmtKg(x.m.total / divisor) + ' · ' + (d >= 0 ? '+' : '−') + Math.abs(Math.round(d * 100)) + '% ' + (en ? 'vs avg' : 'vs promedio') + ' · ' + t0[0] + ' ' + Math.round(t0[1] / (x.m.total || 1) * 100) + '%'; }
         else focusSub = en ? 'No data yet' : 'Sin datos aún'; }
       const first = L[0], lastL = L[L.length - 1];
       return {
-        kicker: en ? 'Accumulated footprint · ' + yr : 'Huella acumulada · ' + yr,
+        kicker: en ? 'Accumulated carbon footprint · ' + yr : 'Huella de carbono acumulada · ' + yr,
         total: this.fmtKg(tot), totalSub: n ? '≈ ' + (Math.round(tot / 100) / 10).toLocaleString(cd.locale) + ' t CO₂e' + (s.kpiPerPerson ? (en ? ' / person' : ' / persona') : '') : (en ? 'No months logged yet' : 'Aún sin meses registrados'),
-        statLabel: en ? 'accumulated footprint ' + yr : 'huella acumulada ' + yr,
+        statLabel: en ? 'accumulated carbon footprint ' + yr : 'huella de carbono acumulada ' + yr,
         rangeLabel: n ? (first.i === lastL.i ? mName(first.i) : mName(first.i) + '–' + mName(lastL.i)) + ' · ' + n + (en ? (n === 1 ? ' month' : ' months') : (n === 1 ? ' mes' : ' meses')) : (en ? '0 months' : '0 meses'),
         cols, leave: () => this.setState({ heroHover: null }), focusTitle, focusSub,
+        ...(() => {
+          const hh = s.householdSize || 1, budget = 2500 * hh / (divisor || 1), used = tot, proj = avg * 12, pct = used / budget * 100;
+          const nf = v => Math.round(v).toLocaleString(cd.locale);
+          const shade = v => { const r = v / mx; return r > .8 ? 'var(--accent-text, oklch(33% 0.08 152))' : r > .55 ? 'color-mix(in oklab, var(--accent, oklch(52% 0.1 152)) 70%, var(--accent-text, oklch(33% 0.08 152)))' : r > .3 ? 'var(--accent, oklch(52% 0.1 152))' : 'color-mix(in oklab, var(--accent, oklch(52% 0.1 152)) 55%, var(--surface-alt, oklch(96% 0.01 85)))'; };
+          const cells = logged.map((x, ci) => { const v = x.m.total / divisor, isH = hov === x.i;
+            return { s: mName(x.i).slice(0, 1), bg: x.on ? shade(v) : 'var(--surface-alt, oklch(96% 0.01 85))', bd: x.on ? 'none' : '1px dashed var(--border, oklch(88% 0.012 85))',
+              tf: isH ? 'translateY(-3px) scale(1.06)' : 'none', sh: isH ? '0 6px 16px -6px rgba(0,0,0,.45)' : 'none', delay: (ci * 50) + 'ms',
+              lc: isH ? 'var(--text, oklch(23% 0.02 85))' : x.on ? 'var(--text-muted, oklch(46% 0.02 85))' : 'color-mix(in oklab, var(--text-muted, #888) 55%, transparent)',
+              aria: mName(x.i) + ': ' + (x.on ? this.fmtKg(v) : (en ? 'no data' : 'sin datos')),
+              enter: () => { if (this.state.heroHover !== x.i) this.setState({ heroHover: x.i }); } }; });
+          const hx = hov != null ? logged[hov] : null, tipOn = !!(hx && hx.on);
+          const tip = tipOn ? (() => { const v = hx.m.total / divisor, d = avg ? Math.round((v / avg - 1) * 100) : 0;
+            return { xPct: ((hov + 0.5) / 12 * 100).toFixed(2) + '%', tx: hov < 2 ? '0%' : hov > 9 ? '-100%' : '-50%', title: mName(hov) + ' ' + yr,
+              lKg: en ? 'Carbon footprint' : 'Huella de carbono', kg: this.fmtKg(v), lGoal: en ? 'Monthly budget' : 'Presupuesto mensual', goal: this.fmtKg(budget / 12),
+              lVs: en ? 'vs. average' : 'vs. promedio', vs: (d > 0 ? '+' : d < 0 ? '−' : '±') + Math.abs(d) + '%' }; })() : {};
+          const sp = arr => { if (arr.length < 2) arr = [arr[0] || 0, arr[0] || 0]; const lo = Math.min(...arr), hi = Math.max(...arr); return arr.map((v, i) => (i / (arr.length - 1) * 70).toFixed(1) + ',' + (22 - (hi - lo ? (v - lo) / (hi - lo) : .5) * 20).toFixed(1)).join(' '); };
+          let run = 0; const cum = L.map(x => (run += x.m.total / divisor));
+          const topK = K.find(k => k[1] === top.label) || K[0];
+          return {
+            budgetOf: (en ? 'of ' : 'de ') + nf(budget) + ' kg ' + (en ? 'budget' : 'presupuesto'),
+            usedTag: Math.round(pct) + '% ' + (en ? 'used' : 'usado'),
+            usedW: Math.min(100, pct).toFixed(1) + '%', projW: Math.min(100, proj / budget * 100).toFixed(1) + '%',
+            todayL: (en ? 'Today: ' : 'Hoy: ') + Math.round(pct) + '%', projL: en ? 'Year-end projection:' : 'Proyección al cierre:', projS: n ? nf(proj) + ' kg' : '—',
+            projColor: proj > budget ? 'var(--fuel, oklch(58% 0.1 30))' : 'var(--warn, oklch(42% 0.11 55))',
+            cells, tipOn, tip, lessL: en ? 'Less' : 'Menos', moreL: en ? 'More' : 'Más',
+            sparks: [
+              { label: en ? 'Accumulated' : 'Acumulado', value: this.fmtKg(tot).replace(' CO₂e', ''), color: 'var(--accent-text, oklch(33% 0.08 152))', pts: sp(cum.length ? cum : [0]) },
+              { label: en ? 'Monthly average' : 'Promedio mensual', value: this.fmtKg(avg).replace(' CO₂e', ''), color: 'var(--text, oklch(23% 0.02 85))', pts: sp(L.length ? L.map(x => x.m.total / divisor) : [0]) },
+              { label: (en ? 'Main source · ' : 'Mayor fuente · ') + (n ? top.label : '—'), value: n ? Math.round(top.kg / kt * 100) + '%' : '—', color: n ? top.color : 'var(--text-muted, oklch(46% 0.02 85))', pts: sp(L.length ? L.map(x => (x.m[topK[0]] || 0) / divisor) : [0]) } ],
+          };
+        })(),
         avgPct: n ? Math.min(100, avg / mx * 100) : 0, avgTag: (en ? 'avg ' : 'prom. ') + this.fmtKg(avg), avgTagTf: n && avg / mx > 0.8 ? 'translateY(calc(100% + 2px))' : 'translateY(-100%)',
         mix: kg.map((c, i) => ({ label: c.label, color: c.color, w: (Math.round(c.kg / kt * 1000) / 10) + '%', pctStr: Math.round(c.kg / kt * 100) + '%', delay: (i * 90) + 'ms' })),
         facts: [
@@ -3198,10 +3267,12 @@ class Component extends DCLogic {
     const step = n>1 ? (chartW-barW)/(n-1) : 0;
     dash.bars = visibleMonths.map((m,i) => {
       const h = (m.total/maxTotal)*chartH;
-      return { x: 10+i*step, y: baseY-h, w: barW, h, delayMs: i*35 };
+      return { x: 10+i*step, y: baseY-h, w: barW, h, delayMs: i*45, op: s.dashHoverIdx==null || s.dashHoverIdx===i ? 1 : 0.42 };
     });
     dash.barTitles = visibleMonths.map((m,i) => { const y = baseY-(m.total/maxTotal)*chartH; return { x: 10+i*step+barW/2, xPct:((10+i*step+barW/2)/720*100).toFixed(2)+'%', labelY: Math.max(8, y-8), val: this.fmtKg(m.total), label: m.label }; });
-    dash.labels = visibleMonths.map((m,i) => ({ x: 10+i*step+barW/2, xPct:((10+i*step+barW/2)/720*100).toFixed(2)+'%', text: this.tm(m.label,s.lang) }));
+    dash.labels = visibleMonths.map((m,i) => ({ x: 10+i*step+barW/2, xPct:((10+i*step+barW/2)/720*100).toFixed(2)+'%', text: this.tm(m.label,s.lang), color: s.dashHoverIdx===i ? 'var(--text, oklch(23% 0.02 85))' : 'var(--text-muted, oklch(46% 0.02 85))', fw: s.dashHoverIdx===i ? 700 : 400 }));
+    const avgKg = n ? visibleMonths.reduce((a,m)=>a+m.total,0)/n : 0;
+    dash.hasAvg = n > 1 && avgKg > 0; dash.avgY = baseY-(avgKg/maxTotal)*chartH; dash.avgLabel = (s.lang==='en'?'AVG ':'PROM. ')+this.fmtKg(avgKg);
     dash.gridLines = [0,1,2,3,4].map(k => {
       const val = maxTotal*k/4;
       return { y: baseY-(val/maxTotal)*chartH, label: this.fmtKg(val) };
@@ -3216,6 +3287,9 @@ class Component extends DCLogic {
         lineX: xVal,
         barY: baseY-(m.total/maxTotal)*chartH,
         label: this.tm(m.label,s.lang), real: this.fmtKg(m.total), cost: this.fmtCLP(m.cost),
+        colX: 10+hi*step-Math.min(6, step*0.12), colW: barW+2*Math.min(6, step*0.12), tx: hi < 2 ? '0%' : hi > n-3 ? '-100%' : '-50%',
+        title: this.tm(m.label,s.lang)+' '+(s.trackingYear||new Date().getFullYear()), lCo2: s.lang==='en'?'Carbon footprint':'Huella de carbono', lCost: s.lang==='en'?'Spend':'Gasto', lAvg: s.lang==='en'?'vs. average':'vs. promedio',
+        vsAvg: (() => { const av = visibleMonths.reduce((a,x)=>a+x.total,0)/(n||1); if (!av) return '—'; const d = Math.round((m.total/av-1)*100); return (d>0?'+':d<0?'−':'±')+Math.abs(d)+'%'; })(),
       };
     })() : null;
     let cumRunning = 0;
@@ -3228,6 +3302,13 @@ class Component extends DCLogic {
     dash.cumLabels = visibleMonths.map((m,i) => ({ x:10+i*step+barW/2, xPct:((10+i*step+barW/2)/720*100).toFixed(2)+'%', text: this.tm(m.label,s.lang)+" '"+String(s.trackingYear).slice(-2) }));
     dash.cumGrid = [0,1,2,3,4].map(k => { const val=cumMax*k/4; return { y:cumBaseY-(val/cumMax)*cumH, label:this.fmtKg(val) }; });
     dash.cumDots = dash.cumDots.map((d,i) => ({ ...d, xPct:((10+i*step+barW/2)/720*100).toFixed(2)+'%' }));
+    { const EN = s.lang==='en', ci = s.cumHover;
+      dash.cumHits = cumVals.map((v,i) => ({ left: (Math.max(0, 10+i*step+barW/2-step/2)/720*100).toFixed(2)+'%', width: (step/720*100).toFixed(2)+'%', enter: () => { if (this.state.cumHover !== i) this.setState({ cumHover: i }); } }));
+      dash.cumLeave = () => { if (this.state.cumHover != null) this.setState({ cumHover: null }); };
+      dash.cumHasTip = ci != null && ci < cumVals.length;
+      dash.cumTip = {};
+      if (dash.cumHasTip) { const m = visibleMonths[ci], x = 10+ci*step+barW/2, y = cumBaseY-(cumVals[ci]/cumMax)*cumH, nn = cumVals.length;
+        dash.cumTip = { xPct: (x/720*100).toFixed(2)+'%', x, y, tx: ci < 2 ? '0%' : ci > nn-3 ? '-100%' : '-50%', title: this.tm(m.label,s.lang)+' '+(s.trackingYear||new Date().getFullYear()), lCum: EN?'Accumulated':'Acumulado', cum: this.fmtKg(cumVals[ci]), lMonth: EN?'This month':'Este mes', month: this.fmtKg(m.total), lCost: EN?'Spend':'Gasto', cost: this.fmtCLP(m.cost) }; } }
     dash.cumTotal = this.fmtKg(cumRunning);
     void cumChartW;
     let runningTableTotal = 0;
@@ -3313,7 +3394,7 @@ class Component extends DCLogic {
     const projCount = 12;
     const projPts = [];
     for (let k=0;k<projCount;k++) {
-      const idx = (nowIdx+k) % 12;
+      const idx = k;
       projPts.push({ label: this.tm(annualMonths[idx].label,s.lang), base: annualMonths[idx].total, scenarioVal: scenarioMonths[idx].total, baseCost: annualMonths[idx].cost, scenarioCost: scenarioMonths[idx].cost });
     }
     const projMaxTotal = Math.max(...projPts.map(p=>Math.max(p.base*1.08, p.scenarioVal*1.08)), 1);
@@ -3330,7 +3411,11 @@ class Component extends DCLogic {
       bandPoints: bandUpper+' '+bandLower,
       midPoints: projPts.map((p,i)=>`${10+i*pStep},${yOf(p.base)}`).join(' '),
       scenarioPoints: projPts.map((p,i)=>`${10+i*pStep},${yOf(p.scenarioVal)}`).join(' '),
-      labels: projPts.map((p,i)=>({ x: 10+i*pStep, xPct:((10+i*pStep)/720*100).toFixed(2)+'%', text: p.label })).filter((_,i)=>i%3===0),
+      labels: projPts.map((p,i)=>({ x: 10+i*pStep, xPct:((10+i*pStep)/720*100).toFixed(2)+'%', text: p.label })),
+      hits: projPts.map((p,i)=>({ left: (Math.max(0, 10+(i-0.5)*pStep)/720*100).toFixed(2)+'%', width: (pStep/720*100).toFixed(2)+'%', enter: () => { if (this.state.projHover !== i) this.setState({ projHover: i }); } })),
+      hoverLeave: () => { if (this.state.projHover != null) this.setState({ projHover: null }); },
+      hasTip: s.projHover != null && !!projPts[s.projHover],
+      tip: (() => { const i = s.projHover; const p = projPts[i]; if (i == null || !p) return {}; const EN = s.lang==='en', x = 10+i*pStep, est = !this.isLogged(this.rawMonths[i]); return { xPct: (x/720*100).toFixed(2)+'%', tx: i < 2 ? '0%' : i > 9 ? '-100%' : '-50%', lineTop: yOf(p.base*1.08), title: p.label+' '+(s.trackingYear||new Date().getFullYear())+' · '+(est ? (EN?'estimated':'estimado') : (EN?'logged':'registrado')), co2: this.fmtKg(p.base), range: this.fmtKg(p.base*0.92)+' – '+this.fmtKg(p.base*1.08), cost: this.fmtCLP(p.baseCost), lCo2: EN?'Carbon footprint':'Huella de carbono', lRange: EN?'Range':'Rango', lCost: EN?'Spend':'Gasto', scen: hasScenario ? this.fmtKg(p.scenarioVal) : '', lScen: EN?'With scenario':'Con escenario' }; })(),
       costLow: this.fmtCLP(projPts.reduce((a,p)=>a+p.baseCost,0)*0.92),
       costHigh: this.fmtCLP(projPts.reduce((a,p)=>a+p.baseCost,0)*1.08),
       co2Low: this.fmtKg(projPts.reduce((a,p)=>a+p.base,0)*0.92),
@@ -3366,9 +3451,9 @@ class Component extends DCLogic {
         gloTitle: EN3?'What these terms mean':'Qué significa cada concepto',
         glo: (EN3 ? [['t CO₂e','Tonnes of carbon dioxide equivalent. It adds all greenhouse gases (CO₂, methane, etc.) into one number. 1 tonne is about 6,000 km driven by car.'],['Per person','Your household total divided by the number of people, so homes of different sizes can be compared.'],['2030 target ('+nf1(TARGET)+' t)','The yearly amount per person that scientists estimate is compatible with limiting warming to 1.5°C.'],['Current pace','What you would emit each year if you keep your current habits.'],['Target path','The straight descent from where you are today to the target, year by year.'],['With your actions','The path after applying the actions you select in the game below.']] : [['t CO₂e','Toneladas de dióxido de carbono equivalente. Junta todos los gases de efecto invernadero (CO₂, metano, etc.) en un solo número. 1 tonelada equivale a unos 6.000 km en auto.'],['Por persona','El total de tu hogar dividido por las personas que viven en él, para poder comparar hogares de distinto tamaño.'],['Meta 2030 ('+nf1(TARGET)+' t)','Lo que cada persona podría emitir al año, según estimaciones científicas, para frenar el calentamiento en 1,5 °C.'],['Ritmo actual','Lo que emitirías cada año si mantienes tus hábitos de hoy.'],['Camino a la meta','La bajada pareja desde donde estás hoy hasta la meta, año a año.'],['Con tus acciones','El camino después de aplicar las acciones que elijas en el juego de más abajo.']]).map(([k,v]) => ({ k, v })),
 
-        roadTitle: EN3?'Roadmap to '+TY:'Hoja de ruta a '+TY, roadSub: EN3?'Your annual footprint per person against the 1.5°C-compatible level ('+nf1(TARGET)+' t CO₂e per person per year).':'Tu huella anual por persona frente al nivel compatible con 1,5 °C ('+nf1(TARGET)+' t CO₂e por persona al año).',
+        roadTitle: EN3?'Roadmap to '+TY:'Hoja de ruta a '+TY, roadSub: EN3?'Your annual carbon footprint per person against the 1.5°C-compatible level ('+nf1(TARGET)+' t CO₂e per person per year).':'Tu huella de carbono anual por persona frente al nivel compatible con 1,5 °C ('+nf1(TARGET)+' t CO₂e por persona al año).',
         roadEmptyMsg: EN3?'Log at least one month to see your roadmap.':'Registra al menos un mes para ver tu hoja de ruta.',
-        kNow: nf1(pp), kNowL: EN3?'Your footprint today (t / person / year)':'Tu huella hoy (t / persona / año)',
+        kNow: nf1(pp), kNowL: EN3?'Your carbon footprint today (t / person / year)':'Tu huella de carbono hoy (t / persona / año)',
         kTarget: nf1(TARGET), kTargetL: EN3?'1.5°C-compatible level':'Nivel compatible con 1,5 °C',
         kAvg: nf1(ppAvg), kAvgL: EN3?'Average in '+s.country:'Promedio en '+s.country,
         kReq: pp > TARGET ? nf1(reqPct)+'%' : '0%', kReqL: EN3?'Reduction needed per year':'Reducción necesaria por año',
@@ -3383,7 +3468,7 @@ class Component extends DCLogic {
         lgBau: EN3?'Current pace':'Ritmo actual', lgScen: EN3?'With your actions':'Con tus acciones', lgTgt: EN3?'Target path':'Camino a la meta', lgAvg: EN3?'Country average':'Promedio del país',
         lgLogged: EN3?'Logged month':'Mes registrado', lgEst: EN3?'Estimated month':'Mes estimado', lgBudget: EN3?'Monthly target':'Meta mensual',
         targetY: Math.max(4, yOf(monthlyTarget)), targetLabel: this.fmtKg(monthlyTarget),
-        dots: projPts.map((p,i) => { const idx = (nowIdx+i)%12, est = !this.isLogged(this.rawMonths[idx]); return { xPct: ((10+i*pStep)/720*100).toFixed(2)+'%', top: yOf(p.base), bg: est ? 'var(--surface, oklch(99% 0.004 85))' : 'var(--accent, oklch(52% 0.1 152))' }; }),
+        dots: projPts.map((p,i) => { const idx = i, est = !this.isLogged(this.rawMonths[idx]); return { xPct: ((10+i*pStep)/720*100).toFixed(2)+'%', top: yOf(p.base), bg: est ? 'var(--surface, oklch(99% 0.004 85))' : 'var(--accent, oklch(52% 0.1 152))' }; }),
         methodNote: EN3?'Months without data are estimated with the average of your logged months. The band shows ±8% of uncertainty. The target of 2.5 t per person per year by 2030 comes from 1.5°C-compatible per-capita pathways in the literature.':'Los meses sin datos se estiman con el promedio de tus meses registrados. La banda muestra ±8% de incertidumbre. La meta de 2,5 t por persona al año hacia 2030 viene de trayectorias por persona compatibles con 1,5 °C en la literatura.',
       });
     }
@@ -3435,11 +3520,11 @@ class Component extends DCLogic {
 
     const maxPriceKg = Math.max(priceKgEnergia, priceKgFuel, priceKgCompras, priceKgViajes, priceKgAgua, 1e-9);
     const costPerKgBars = [
-      { label:'Energía del hogar', priceLabel: this.fmtCLP(priceKgEnergia)+'/kg', color:'var(--accent, oklch(52% 0.1 152))', pct: Math.round(priceKgEnergia/maxPriceKg*100) },
-      { label:'Vehículo (combustible)', priceLabel: this.fmtCLP(priceKgFuel)+'/kg', color:'var(--text-muted, oklch(46% 0.02 85))', pct: Math.round(priceKgFuel/maxPriceKg*100) },
-      { label:'Compras', priceLabel: this.fmtCLP(priceKgCompras)+'/kg', color:'var(--fuel, oklch(58% 0.1 30))', pct: Math.round(priceKgCompras/maxPriceKg*100) },
-      { label:'Viajes', priceLabel: this.fmtCLP(priceKgViajes)+'/kg', color:'var(--scenario-blue, oklch(60% 0.12 230))', pct: Math.round(priceKgViajes/maxPriceKg*100) },
-      { label:'Agua y residuos', priceLabel: this.fmtCLP(priceKgAgua)+'/kg', color:'oklch(55% 0.08 200)', pct: Math.round(priceKgAgua/maxPriceKg*100) },
+      { label:s.lang==='en'?'Home energy':'Energía del hogar', priceLabel: this.fmtCLP(priceKgEnergia)+'/kg', color:'var(--accent, oklch(52% 0.1 152))', pct: Math.round(priceKgEnergia/maxPriceKg*100) },
+      { label:s.lang==='en'?'Vehicle (fuel)':'Vehículo (combustible)', priceLabel: this.fmtCLP(priceKgFuel)+'/kg', color:'var(--text-muted, oklch(46% 0.02 85))', pct: Math.round(priceKgFuel/maxPriceKg*100) },
+      { label:s.lang==='en'?'Shopping':'Compras', priceLabel: this.fmtCLP(priceKgCompras)+'/kg', color:'var(--fuel, oklch(58% 0.1 30))', pct: Math.round(priceKgCompras/maxPriceKg*100) },
+      { label:s.lang==='en'?'Travel':'Viajes', priceLabel: this.fmtCLP(priceKgViajes)+'/kg', color:'var(--scenario-blue, oklch(60% 0.12 230))', pct: Math.round(priceKgViajes/maxPriceKg*100) },
+      { label:s.lang==='en'?'Water & waste':'Agua y residuos', priceLabel: this.fmtCLP(priceKgAgua)+'/kg', color:'oklch(55% 0.08 200)', pct: Math.round(priceKgAgua/maxPriceKg*100) },
     ];
 
     const Ann = k => annualMonths.reduce((a,m)=>a+(m[k]||0),0);
@@ -3566,8 +3651,8 @@ class Component extends DCLogic {
     const allFactors = [
       { label: s.lang==='en'?'Reference exchange rate':'Tipo de cambio de referencia', scope:'—', value: cd.currency==='USD' ? (s.lang==='en'?'Base currency: USD':'Moneda base: USD') : '1 USD = '+Number(fxP.toPrecision(3)).toLocaleString(cd.locale)+' '+cd.currency, source: cd.currency==='USD' ? (s.lang==='en'?'Spend-based factors are defined per USD':'Los factores por gasto se definen por USD') : (s.lang==='en'?'Spend-based factors are stored per USD and rescaled to '+cd.currency:'Los factores por gasto se guardan por USD y se reescalan a '+cd.currency) },
       { label: s.lang==='en'?'Electricity':'Electricidad', scope:Tf.th_alcance2, value: cd.factor.toFixed(2)+' kgCO₂e/kWh', source: cd.source },
-      { label:(s.lang==='en'?'Heating (':'Calefacción (')+s.heatingType+')', scope: heatingScopeLabel, value: s.heatingType==='Eléctrica' ? (s.lang==='en'?'Included in electricity':'Incluida en electricidad') : (heating.factor||0).toFixed(2)+' kgCO₂e/'+({'Gas licuado (GLP)':'kg','Leña':'kg','Kerosene':'L'}[s.heatingType]||'unidad'), source: s.heatingType==='Eléctrica' ? cd.source : (s.heatingType==='Leña' ? 'DEFRA/DESNZ 2026 (incl. CO₂ biogénico)' : 'DEFRA/DESNZ 2026') },
-      { label:(s.lang==='en'?'Cooling (':'Enfriamiento (')+s.coolingType+')', scope:Tf.th_alcance2, value: (cd.factor*coolMult).toFixed(2)+' kgCO₂e/kWh', source: cd.source },
+      { label:(s.lang==='en'?'Heating (':'Calefacción (')+this.lxv(s.heatingType, s.lang)+')', scope: heatingScopeLabel, value: s.heatingType==='Eléctrica' ? (s.lang==='en'?'Included in electricity':'Incluida en electricidad') : (heating.factor||0).toFixed(2)+' kgCO₂e/'+({'Gas licuado (GLP)':'kg','Leña':'kg','Kerosene':'L'}[s.heatingType]||'unidad'), source: s.heatingType==='Eléctrica' ? cd.source : (s.heatingType==='Leña' ? 'DEFRA/DESNZ 2026 (incl. CO₂ biogénico)' : 'DEFRA/DESNZ 2026') },
+      { label:(s.lang==='en'?'Cooling (':'Enfriamiento (')+this.lxv(s.coolingType, s.lang)+')', scope:Tf.th_alcance2, value: (cd.factor*coolMult).toFixed(2)+' kgCO₂e/kWh', source: cd.source },
       { label: s.lang==='en'?(s.gasType==='glp'?'Cooking (LPG)':s.gasType==='electric'?'Cooking (electric)':'Cooking (natural gas)'):(s.gasType==='glp'?'Cocina (GLP)':s.gasType==='electric'?'Cocina (eléctrica)':'Cocina (gas natural)'), scope: s.gasType==='electric' ? Tf.th_alcance2 : Tf.th_alcance1, value: s.gasType==='electric' ? (s.lang==='en'?'Included in electricity':'Incluida en electricidad') : (s.gasType==='glp'?'5.76':'2.00')+' kgCO₂e/m³', source: s.gasType==='electric' ? cd.source : 'DEFRA/DESNZ 2026' },
       { label: s.lang==='en'?'Electricity tariff':'Tarifa eléctrica', scope:'—', value: this.fmtCLP(this._tar.elec*fxP)+'/kWh', source: (parseFloat(s.elecTariff)>0 ? (s.lang==='en'?'Entered by you':'Ingresada por ti') : (s.lang==='en'?'Reference residential average (enter yours in My data)':'Promedio residencial referencial (ingresa la tuya en Mis datos)')) },
       { label: s.lang==='en'?'Fuel price':'Precio del combustible', scope:'—', value: this.fmtCLP(this._tar.fuel*fxP*u.v)+'/'+u.vl, source: (parseFloat(s.fuelTariff)>0 ? (s.lang==='en'?'Entered by you':'Ingresado por ti') : (s.lang==='en'?'Reference average (enter yours in My data)':'Promedio referencial (ingresa el tuyo en Mis datos)')) },
@@ -3596,12 +3681,12 @@ class Component extends DCLogic {
 
     const EN = s.lang === 'en', nfR = (v, d) => Number(v||0).toLocaleString(cd.locale, { maximumFractionDigits: d == null ? 0 : d });
     const rt = EN ? { coverTag:'Carbon footprint · GHG Protocol', cMeta:['Household','Country','Period','Issued'], title:'Household carbon footprint report', sub:'Inputs, calculations, charts and recommendations in one document', print:'Print / Save as PDF', generated:'Generated', period:'Period', s1:'1. Household profile', s2:'2. Summary', s3:'3. Emissions by category', s4:'4. Monthly trend', s5:'5. Emissions by scope (GHG Protocol)', s6:'6. Monthly emissions by source', s7:'7. Accumulated spend breakdown', s8:'8. Monthly inputs', s9:'9. 12-month projection', s10:'10. Recommendations', s11:'11. Emission factors used', s12:'Methodology',
-      cum:'Cycle accumulated', avg:'Monthly average', spend:'Accumulated spend', vsb:'vs. benchmark', bench:'Per-capita benchmark', month:'Month', total:'Total', inv:'Investment', sav:'Yearly savings', co2:'CO₂ avoided/yr', pay:'Payback', rec:'Recommendation', factor:'Factor', scope:'Scope', source:'Source', range:'Likely range (climate)', projCO2:'Projected footprint', projCost:'Projected spend', empty:'There is no data yet. Load the example values or fill in the monthly log to generate the report.',
+      cum:'Cycle accumulated', avg:'Monthly average', spend:'Accumulated spend', vsb:'vs. benchmark', bench:'Per-capita benchmark', month:'Month', total:'Total', inv:'Investment', sav:'Yearly savings', co2:'CO₂ avoided/yr', pay:'Payback', rec:'Recommendation', factor:'Factor', scope:'Scope', source:'Source', range:'Likely range (climate)', projCO2:'Projected carbon footprint', projCost:'Projected spend', empty:'There is no data yet. Load the example values or fill in the monthly log to generate the report.',
       meth:'Calculation aligned with the GHG Protocol (Corporate Standard adapted for a household). Scope 1: direct combustion; Scope 2: purchased electricity; Scope 3: purchases, travel, water and waste. Spend-based factors are defined per USD and rescaled to the selected currency. Combustion factors: DEFRA/DESNZ 2026.',
       cols:['Electricity (kWh)','Heating','Cooking gas (m³)','Fuel ('+u.vl+')','Water (m³)','Waste (kg)','Purchases ('+cd.currency+')','Flights ('+u.dl+'/pers.)','Bus/train + urban ('+u.dl+')','Hotel nights'],
       prof:['Country','Electricity factor','Currency','Household size','Heating','Cooling','Vehicles','Solar panels','Tracking year','Months recorded','None','Yes'] }
     : { coverTag:'Huella de carbono · GHG Protocol', cMeta:['Hogar','País','Período','Emitido'], title:'Informe de huella de carbono del hogar', sub:'Datos ingresados, cálculos, gráficos y recomendaciones en un solo documento', print:'Imprimir / Guardar como PDF', generated:'Generado', period:'Período', s1:'1. Perfil del hogar', s2:'2. Resumen', s3:'3. Emisiones por categoría', s4:'4. Evolución mensual', s5:'5. Emisiones por alcance (GHG Protocol)', s6:'6. Emisiones mensuales por fuente', s7:'7. Detalle de gastos acumulados', s8:'8. Datos ingresados por mes', s9:'9. Proyección a 12 meses', s10:'10. Recomendaciones', s11:'11. Factores de emisión utilizados', s12:'Metodología',
-      cum:'Acumulado del ciclo', avg:'Promedio mensual', spend:'Gasto acumulado', vsb:'vs. benchmark', bench:'Benchmark per cápita', month:'Mes', total:'Total', inv:'Inversión', sav:'Ahorro anual', co2:'CO₂ evitado/año', pay:'Retorno', rec:'Recomendación', factor:'Factor', scope:'Alcance', source:'Fuente', range:'Rango probable (clima)', projCO2:'Huella proyectada', projCost:'Gasto proyectado', empty:'Aún no hay datos. Carga los valores de ejemplo o completa el registro mensual para generar el informe.',
+      cum:'Acumulado del ciclo', avg:'Promedio mensual', spend:'Gasto acumulado', vsb:'vs. benchmark', bench:'Benchmark per cápita', month:'Mes', total:'Total', inv:'Inversión', sav:'Ahorro anual', co2:'CO₂ evitado/año', pay:'Retorno', rec:'Recomendación', factor:'Factor', scope:'Alcance', source:'Fuente', range:'Rango probable (clima)', projCO2:'Huella de carbono proyectada', projCost:'Gasto proyectado', empty:'Aún no hay datos. Carga los valores de ejemplo o completa el registro mensual para generar el informe.',
       meth:'Cálculo alineado al GHG Protocol (Corporate Standard adaptado al hogar). Alcance 1: combustión directa; Alcance 2: electricidad comprada; Alcance 3: compras, viajes, agua y residuos. Los factores por gasto se definen por USD y se reescalan a la moneda elegida. Factores de combustión: DEFRA/DESNZ 2026.',
       cols:['Electricidad (kWh)','Calefacción','Gas cocina (m³)','Combustible ('+u.vl+')','Agua (m³)','Residuos (kg)','Compras ('+cd.currency+')','Vuelos ('+u.dl+'/pers.)','Bus/tren + urbano ('+u.dl+')','Noches hotel'],
       prof:['País','Factor eléctrico','Moneda','Personas en el hogar','Calefacción','Enfriamiento','Vehículos','Paneles solares','Año de seguimiento','Meses registrados','Ninguno','Sí'] };
@@ -3613,9 +3698,9 @@ class Component extends DCLogic {
       periodLabel: !isEmpty && visibleMonths.length ? this.tm(visibleMonths[0].label, s.lang)+' – '+this.tm(last.label, s.lang)+' '+(s.trackingYear||2026) : '—',
       hasData: !isEmpty, noData: isEmpty,
       profile: [
-        [P[0], s.country+(cd.city && cd.city !== '—' ? ' · '+cd.city : '')], [P[1], cd.factor.toFixed(2)+' kgCO₂e/kWh · '+cd.source],
+        [P[0], this.lxv(s.country, s.lang)+(cd.city && cd.city !== '—' ? ' · '+cd.city : '')], [P[1], cd.factor.toFixed(2)+' kgCO₂e/kWh · '+cd.source],
         [P[2], cd.currency+((cd.fx||1) !== 1 ? ' (1 USD = '+nfR(cd.fx,2)+' '+cd.currency+')' : '')], [P[3], String(s.householdSize||1)],
-        [P[4], s.heatingType], [P[5], s.coolingType],
+        [P[4], this.lxv(s.heatingType, s.lang)], [P[5], this.lxv(s.coolingType, s.lang)],
         [P[6], s.vehicles.length ? s.vehicles.map(v=>v.type).join(', ') : P[10]], [P[7], s.hasSolar ? P[11]+' · '+s.solarKw+' kW' : P[10]],
         [P[8], String(s.trackingYear||2026)], [P[9], String(visibleMonths.length)],
       ].map(([k,v]) => ({ k, v })),
@@ -3652,6 +3737,20 @@ class Component extends DCLogic {
       navPillY: Math.max(0, navOrder.indexOf(s.screen))*44, navPillOp: navOrder.indexOf(s.screen) >= 0 ? 1 : 0,
       t: this.localizeT(this.i18n[s.lang] || this.i18n.es, u),
       lang: s.lang, isEn: s.lang==='en',
+      wb: (() => { const w = s.welcomeBack, en = s.lang==='en'; if (!w) return { on: false };
+        const logged = this.rawMonths.map((m, i) => ({ i, on: this.isLogged(m || {}) })).filter(x => x.on), last = logged[logged.length - 1];
+        const nextIdx = last ? Math.min(11, last.i + 1) : 0, mN = i => this.tm((this.rawMonths[i] || {}).label || '', s.lang);
+        const when = w.at ? new Date(w.at).toLocaleDateString(en ? 'en-US' : 'es-CL', { day: 'numeric', month: 'long' }) : '';
+        return { on: true, title: en ? 'Welcome back' : 'Hola de nuevo',
+          sub: logged.length ? (en ? 'You have ' + logged.length + (logged.length === 1 ? ' month' : ' months') + ' logged (last: ' + mN(last.i) + ').' : 'Tienes ' + logged.length + (logged.length === 1 ? ' mes registrado' : ' meses registrados') + ' (último: ' + mN(last.i) + ').') : (en ? 'Your home profile is saved.' : 'El perfil de tu hogar está guardado.'),
+          saved: (en ? 'Saved in this browser' : 'Guardado en este navegador') + (when ? ' · ' + when : ''),
+          cont: logged.length ? (en ? 'Continue with ' : 'Continuar con ') + mN(nextIdx) : (en ? 'Continue my profile' : 'Continuar mi perfil'),
+          view: en ? 'View my carbon footprint' : 'Ver mi huella de carbono', hasView: logged.length > 0, close: en ? 'Close' : 'Cerrar',
+          goCont: () => this.setState(logged.length ? { welcomeBack: null, screen: 'registro', registroMonthIdx: nextIdx } : { welcomeBack: null, screen: 'onboarding' }),
+          goView: () => this.setState({ welcomeBack: null, screen: 'dashboard' }), dismiss: () => this.setState({ welcomeBack: null }) }; })(),
+      benEnvK: s.lang==='en' ? 'Environment' : 'Medioambiente', benEcoK: s.lang==='en' ? 'Household budget' : 'Economía familiar',
+      howElecF: (this.countryData[s.country] || this.countryData['Internacional (USD)'] || {}).factor,
+      lx: this.LX[s.lang==='en'?'en':'es'],
       setLangEs: () => { try { localStorage.setItem('fp_lang','es'); } catch(e) {} this.setState({ lang:'es' }); },
       setLangEn: () => { try { localStorage.setItem('fp_lang','en'); } catch(e) {} this.setState({ lang:'en' }); },
       langEsBg: s.lang==='es' ? 'var(--surface, #fff)' : 'transparent',
@@ -3699,14 +3798,14 @@ class Component extends DCLogic {
       stopProp: (e) => e.stopPropagation(),
       leaveGo: () => { this.setState({ leaveAsk: false }); location.href = 'index.html'; },
       leaveTitle: s.lang==='en' ? 'Go back to the home page?' : '¿Volver a la página de inicio?',
-      leaveSub: s.lang==='en' ? 'If you go back to the home page, the data you have entered will be deleted. Export your log first if you want to keep it.' : 'Si vuelves a la página de inicio, se borrarán los datos que cargaste. Exporta tu registro antes si quieres conservarlo.',
+      leaveSub: s.lang==='en' ? 'Your data stays saved in this browser. When you come back you can continue where you left off. If you use another device or clear your browser, export your log to keep it.' : 'Tus datos quedan guardados en este navegador. Al volver podrás continuar donde quedaste. Si usarás otro equipo o borrarás el navegador, exporta tu registro para conservarlo.',
       leaveStay: s.lang==='en' ? 'Stay here' : 'Quedarme aquí',
       leaveContinue: s.lang==='en' ? 'Continue to home page' : 'Continuar al inicio',
       onbAsk: s.onbAsk, onbAskOpen: () => this.setState({ onbAsk: true }), onbAskClose: () => this.setState({ onbAsk: false }),
-      onbAskTitle: s.lang==='en'?'Do you want to see your current footprint or keep logging your usage?':'¿Quieres ver tu huella actual o continuar registrando tus consumos?',
+      onbAskTitle: s.lang==='en'?'Do you want to see your current carbon footprint or keep logging your usage?':'¿Quieres ver tu huella de carbono actual o continuar registrando tus consumos?',
       onbAskSub: s.lang==='en'?'Starting in January lets you load the months you already have bills for. Starting this month only tracks from now on.':'Desde enero puedes cargar los meses de los que ya tienes boletas. Desde el mes actual solo registras de aquí en adelante.',
       onbAskJan: s.lang==='en'?'From January':'Desde enero', onbAskNow: (s.lang==='en'?'From this month (':'Desde el mes actual (')+(s.lang==='en'?['January','February','March','April','May','June','July','August','September','October','November','December']:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'])[new Date().getMonth()]+')',
-      onbAskView: s.lang==='en'?'View my footprint':'Ver mi huella',
+      onbAskView: s.lang==='en'?'View my carbon footprint':'Ver mi huella de carbono',
       onbPickView: () => this.setState({ onbAsk:false, screen:'dashboard' }),
       onbPickJan: () => this.setState({ onbAsk:false, screen:'registro', registroMonthIdx:0 }),
       onbPickNow: () => this.setState({ onbAsk:false, screen:'registro', registroMonthIdx:new Date().getMonth() }),
@@ -3716,7 +3815,7 @@ class Component extends DCLogic {
       onbProgress: (s.lang==='en'?'Step ':'Paso ')+(s.onbStep+1)+(s.lang==='en'?' of 5':' de 5'),
       onbNext: () => this.setState({ onbStep: Math.min(4, s.onbStep+1) }),
       onbBack: () => this.setState({ onbStep: Math.max(0, s.onbStep-1) }),
-      onbNextLabel: s.lang==='en'?'Continue':'Continuar', onbBackLabel: s.lang==='en'?'Back':'Atrás', onbFinishLabel: s.lang==='en'?'View my footprint':'Ver mi huella',
+      onbNextLabel: s.lang==='en'?'Continue':'Continuar', onbBackLabel: s.lang==='en'?'Back':'Atrás', onbFinishLabel: s.lang==='en'?'View my carbon footprint':'Ver mi huella de carbono',
       onbTariffTitle: s.lang==='en'?'What you pay':'Lo que pagas', onbTariffSub: s.lang==='en'?'Optional. Enter your bill prices for accurate costs and savings.':'Opcional. Ingresa los precios de tu boleta para obtener costos y ahorros precisos.',
       onbMonthTitle: s.lang==='en'?'Your first month':'Tu primer mes', onbMonthSub: s.lang==='en'?'Enter this month\u2019s main usage. You can complete purchases, travel and fuel later in the monthly log.':'Ingresa el consumo principal de este mes. Puedes completar compras, viajes y combustible después en el registro mensual.',
       onbMonthHint: s.lang==='en'?'Leave blank what you don\u2019t know yet.':'Deja en blanco lo que aún no sepas.', onbHeatLabel: '', heatLabelFull: (s.lang==='en' ? {'Gas licuado (GLP)':'LPG used (kg; a 15 kg cylinder = 15)','Leña':'Firewood burned (kg)','Kerosene':'Kerosene used (L)','Eléctrica':'Electric heating (kWh)'} : {'Gas licuado (GLP)':'Gas licuado (GLP) usado (kg; un balón de 15 kg = 15)','Leña':'Leña quemada (kg)','Kerosene':'Kerosene usado (L)','Eléctrica':'Calefacción eléctrica (kWh)'})[s.heatingType] || (s.lang==='en'?'Heating':'Calefacción'),
@@ -3753,7 +3852,7 @@ class Component extends DCLogic {
       toggleTheme: this.toggleTheme,
       ...this.fbVals(s, isEmpty),
       moreAttr: s.moreOpen ? '1' : '0', moreLabel: s.lang === 'en' ? 'More' : 'Más',
-      shortReg: s.lang === 'en' ? 'Log' : 'Registro', shortDash: s.lang === 'en' ? 'Footprint' : 'Mi huella', shortProy: s.lang === 'en' ? 'Forecast' : 'Proyección', shortRec: s.lang === 'en' ? 'Tips' : 'Consejos',
+      shortReg: s.lang === 'en' ? 'Log' : 'Registro', shortDash: s.lang === 'en' ? 'Carbon footprint' : 'Mi huella de carbono', shortProy: s.lang === 'en' ? 'Forecast' : 'Proyección', shortRec: s.lang === 'en' ? 'Tips' : 'Consejos',
       toggleMore: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(x => ({ moreOpen: !x.moreOpen })); },
       closeMore: () => { if (this.state.moreOpen) this.setState({ moreOpen: false }); },
       paletteOptions: Object.keys(this.PALETTES).map(id => { const sw = this.PALETTES[id].sw, on = (s.palette) === id; return {
@@ -3802,7 +3901,7 @@ class Component extends DCLogic {
       m_manual:'Manual preciso', m_manual_d:'Valores exactos de tu boleta', m_slider:'Deslizantes', m_slider_d:'Ajusta y mira el efecto', m_import:'Importar', m_import_d:'Excel o CSV', m_wizard:'Asistente', m_wizard_d:'Sin boleta: estimación guiada',
       src_medido:'Medido', src_declarado:'Declarado', src_importado:'Importado', src_estimado:'Estimado', src_empty:'Sin dato', srcHint:'Toca para alternar entre Medido (boleta o medidor) y Declarado', srcAria:'Origen del dato: {s}. Toca para cambiar',
       cat_done:'Completo', cat_pending:'Pendiente', cat_zero:'Sin consumo', zero:'Sin consumo este mes', copyPrev:'Copiar mes anterior', warn:'Valor inusualmente alto para un mes. Revisa la unidad ({u}).', dec:'Restar {s} {u}', inc:'Sumar {s} {u}',
-      unsaved:'Cambios sin guardar en {m}. Todo se guarda automáticamente.', save:'Guardar', saveGo:'Guardar registro', saveGoClean:'Ver mi huella', discard:'Descartar cambios', clear:'Vaciar mes', clearQ:'¿Vaciar todos los valores de {m}? Se guardará de inmediato.', template:'Plantilla Excel', saved:'Registro de {m} guardado.', leave:'Tienes cambios sin guardar en {m}. ¿Descartarlos?', confirmWarn:'Algunos valores están fuera del rango habitual:\n{list}\n\n¿Guardar de todas formas?',
+      unsaved:'Cambios sin guardar en {m}. Todo se guarda automáticamente.', save:'Guardar', saveGo:'Guardar registro', saveGoClean:'Ver mi huella de carbono', discard:'Descartar cambios', clear:'Vaciar mes', clearQ:'¿Vaciar todos los valores de {m}? Se guardará de inmediato.', template:'Plantilla Excel', saved:'Registro de {m} guardado.', leave:'Tienes cambios sin guardar en {m}. ¿Descartarlos?', confirmWarn:'Algunos valores están fuera del rango habitual:\n{list}\n\n¿Guardar de todas formas?',
       colony:'Colonia de registro', colonyNote:'La colonia crece con la completitud y la calidad de los datos del mes, igual que un liquen crece donde el ambiente es estable. Representa tu registro, no una reducción de emisiones.', completeness:'Categorías completas', quality:'Calidad del dato', preview:'Vista previa del mes', draft:'Sin guardar', cost:'Gasto estimado', annual:'Proyección anual', vsSaved:'vs. lo guardado',
       impTitle:'Importar consumos', impDrop:'Arrastra un archivo aquí', impTypes:'Excel (.xlsx, .xls) o CSV con el formato de la plantilla. Las facturas en PDF o imagen aún no se leen automáticamente.', impChoose:'Elegir archivo', impUnsupported:'«{f}» es una factura en PDF o imagen. Por ahora no hay un lector automático confiable: copia los valores en Manual preciso y márcalos como Medido.', impBad:'El archivo no tiene el formato esperado. Descarga la plantilla y úsala como base.', impReview:'Revisa y corrige antes de incorporar', impRows:'{n} meses en «{f}» · {k} seleccionados', impMonth:'Mes', impExisting:'Ya tiene datos: se reemplazará', impDup:'Mes repetido en el archivo', impWarn:'Hay valores fuera de rango', impConfirm:'Incorporar {n} meses', impCancel:'Cancelar', impToast:'Se incorporaron {n} meses marcados como Importado.', impNone:'Selecciona al menos un mes.',
       wizTitle:'Asistente de estimación', wizCount:'Pregunta {i} de {n}', wizSkip:'Prefiero no estimar', wizNext:'Siguiente', wizBack:'Atrás', wizApply:'Aplicar al borrador', wizRestart:'Empezar de nuevo', wizSumTitle:'Resumen de estimaciones', wizSum:'Estos valores se marcarán como Estimado y quedarán en el borrador para que los revises en el registro antes de guardar. Compras y viajes se ingresan mejor de forma manual.', wizNone:'No elegiste ninguna estimación.', wizHist:'Basado en tu promedio de los meses ya registrados ({v}).', wizRef:'Referencia de consumo típico para {p} personas. Si conoces el valor real, usa Manual preciso.',
@@ -3813,7 +3912,7 @@ class Component extends DCLogic {
       m_manual:'Precise manual', m_manual_d:'Exact values from your bill', m_slider:'Sliders', m_slider_d:'Adjust and see the effect', m_import:'Import', m_import_d:'Excel or CSV', m_wizard:'Assistant', m_wizard_d:'No bill: guided estimate',
       src_medido:'Measured', src_declarado:'Declared', src_importado:'Imported', src_estimado:'Estimated', src_empty:'No data', srcHint:'Tap to switch between Measured (bill or meter) and Declared', srcAria:'Data source: {s}. Tap to change',
       cat_done:'Complete', cat_pending:'Pending', cat_zero:'No usage', zero:'No usage this month', copyPrev:'Copy previous month', warn:'Unusually high for one month. Check the unit ({u}).', dec:'Subtract {s} {u}', inc:'Add {s} {u}',
-      unsaved:'Unsaved changes in {m}. Everything is saved automatically.', save:'Save', saveGo:'Save log', saveGoClean:'View my footprint', discard:'Discard changes', clear:'Clear month', clearQ:'Clear every value in {m}? This is saved immediately.', template:'Excel template', saved:'{m} log saved.', leave:'You have unsaved changes in {m}. Discard them?', confirmWarn:'Some values are outside the usual range:\n{list}\n\nSave anyway?',
+      unsaved:'Unsaved changes in {m}. Everything is saved automatically.', save:'Save', saveGo:'Save log', saveGoClean:'View my carbon footprint', discard:'Discard changes', clear:'Clear month', clearQ:'Clear every value in {m}? This is saved immediately.', template:'Excel template', saved:'{m} log saved.', leave:'You have unsaved changes in {m}. Discard them?', confirmWarn:'Some values are outside the usual range:\n{list}\n\nSave anyway?',
       colony:'Logging colony', colonyNote:'The colony grows with how complete and reliable this month\u2019s data is, the way lichen grows where conditions are stable. It represents your log, not an emissions reduction.', completeness:'Complete categories', quality:'Data quality', preview:'Month preview', draft:'Unsaved', cost:'Estimated spend', annual:'Annual projection', vsSaved:'vs. saved',
       impTitle:'Import usage', impDrop:'Drop a file here', impTypes:'Excel (.xlsx, .xls) or CSV in the template format. PDF or image bills are not read automatically yet.', impChoose:'Choose file', impUnsupported:'\u201c{f}\u201d is a PDF or image bill. There is no reliable automatic reader yet: copy the values in Precise manual and mark them as Measured.', impBad:'The file does not have the expected format. Download the template and use it as a base.', impReview:'Review and correct before adding', impRows:'{n} months in \u201c{f}\u201d \u00b7 {k} selected', impMonth:'Month', impExisting:'Has data: will be replaced', impDup:'Month repeated in file', impWarn:'Some values are out of range', impConfirm:'Add {n} months', impCancel:'Cancel', impToast:'{n} months added, marked as Imported.', impNone:'Select at least one month.',
       wizTitle:'Estimate assistant', wizCount:'Question {i} of {n}', wizSkip:'I\u2019d rather not estimate', wizNext:'Next', wizBack:'Back', wizApply:'Apply to draft', wizRestart:'Start over', wizSumTitle:'Estimate summary', wizSum:'These values will be marked as Estimated and stay in the draft so you can review them in the log before saving. Purchases and travel are best entered manually.', wizNone:'You did not pick any estimate.', wizHist:'Based on your average from logged months ({v}).', wizRef:'Typical usage reference for {p} people. If you know the real value, use Precise manual.',
@@ -3831,7 +3930,7 @@ class Component extends DCLogic {
     const heatNeeds = s.heatingType !== 'Eléctrica' && s.heatingType !== 'Sin calefacción';
     const hu = ({ 'Gas licuado (GLP)':'kg', 'Leña':'kg', 'Kerosene':'L' })[s.heatingType] || '';
     const hMax = ({ 'Gas licuado (GLP)':60, 'Leña':400, 'Kerosene':100 })[s.heatingType] || 100;
-    const heatLbl = (s.lang==='en' ? 'Heating' : 'Calefacción') + ' · ' + s.heatingType;
+    const heatLbl = (s.lang==='en' ? 'Heating' : 'Calefacción') + ' · ' + this.lxv(s.heatingType, s.lang);
     const comb = s.vehicles.map((v,i) => ({ v, i })).filter(o => o.v.type !== 'Eléctrico');
     const hasEV = s.vehicles.some(v => v.type === 'Eléctrico');
     const F = (k, label, unit, sc, step, max, warn, defSrc, extra) => ({ k, label, unit, sc, step, max, warn, defSrc, ...(extra||{}) });
@@ -4169,14 +4268,14 @@ class Component extends DCLogic {
       types: vt.map(([k, lbl]) => ({ label: lbl, ...chip(v.type === k), pick: () => this.setState({ vehicles: s.vehicles.map((vv, ii) => ii === i ? { ...vv, type: k } : vv) }) })) }));
     const hh = s.householdSize || 1, kw = s.solarKw || 0;
     const sumRows = [
-      [names[0], s.country + ' · ' + cd.factor.toFixed(2) + ' kgCO₂e/kWh'],
+      [names[0], this.lxv(s.country, s.lang) + ' · ' + cd.factor.toFixed(2) + ' kgCO₂e/kWh'],
       [en ? 'People' : 'Personas', String(hh)],
-      [en ? 'Heating' : 'Calefacción', s.heatingType],
+      [en ? 'Heating' : 'Calefacción', this.lxv(s.heatingType, s.lang)],
       [names[2], s.vehicles.length ? s.vehicles.map(v => v.type).join(', ') : (en ? 'None' : 'Ninguno')],
       [en ? 'Solar' : 'Solar', s.hasSolar ? kw + ' kW' : (en ? 'No' : 'No')],
       [names[3], tarN ? tarN + ' / 2' : (en ? 'Country default' : 'Promedio del país')],
     ].map(([k, v]) => ({ k, v }));
-    const hints = en ? ['Electricity factor and units','Heating, gas and household size','Fuel per car','Real cost of savings (optional)','Your first footprint'] : ['Factor eléctrico y unidades','Calefacción, gas y tamaño del hogar','Combustible de cada auto','Costo real de los ahorros (opcional)','Tu primera huella'];
+    const hints = en ? ['Electricity factor and units','Heating, gas and household size','Fuel per car','Real cost of savings (optional)','Your first carbon footprint'] : ['Factor eléctrico y unidades','Calefacción, gas y tamaño del hogar','Combustible de cada auto','Costo real de los ahorros (opcional)','Tu primera huella de carbono'];
     const doneN = comps.filter(c => c >= 1).length, pct = Math.round(comps.reduce((a,b)=>a+b,0)/5*100);
     const checklist = names.map((n, i) => { const c = comps[i], cur = i === step, stc = c >= 1 ? 'complete' : c > 0 ? 'partial' : 'pending';
       return { name: (i+1) + '. ' + n, hint: hints[i], go: () => go(i), cur: cur ? 'step' : 'false', bg: cur ? 'var(--accent-soft2, oklch(96% 0.02 152))' : 'transparent',
