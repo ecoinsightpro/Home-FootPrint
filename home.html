@@ -2283,15 +2283,17 @@ class Component extends DCLogic {
     const cl = v => Math.max(0, Math.min(1, v)), e3 = v => 1 - Math.pow(1 - cl(v), 3);
     let cv = null, ctx = null, W = 0, H = 0, dpr = 1, cols = [], raf = 0, last = 0, clock = 0, alive = true, px = 0, py = 0, tx = 0, ty = 0;
     const seeds = () => { const S = Math.min(W, H);
+      const asEl = document.querySelector('[data-eih-aside]'), asR = asEl && getComputedStyle(asEl).position !== 'fixed' ? asEl.getBoundingClientRect().right : 0;
+      const left = W < 760 ? [] : [[asR - S * 0.06, H * 0.34, S * 0.2, 'c', 1, 1], [asR + S * 0.02, H * 0.94, S * 0.15, 'c', 2, 1], [asR + S * 0.1, H * 0.06, S * 0.07, 'f', 0, 1]];
       if (W < 760) return [[W * 1.12, H * 0.04, W * 0.3, 'c', 0], [W * -0.1, H * 0.82, W * 0.2, 'f', 1]];
-      if (W < 1100) return [[W * 1.06, H * 0.06, S * 0.32, 'c', 0], [W * 1.03, H * 1.02, S * 0.24, 'c', 2], [W * 0.99, H * 0.56, S * 0.1, 'f', 1]];
-      return [[W * 1.04, H * 0.08, S * 0.36, 'c', 0], [W * 1.02, H * 1.02, S * 0.28, 'c', 2], [W * 0.985, H * 0.58, S * 0.1, 'f', 1], [W * 0.66, H * 1.05, S * 0.12, 'f', 2]];
+      if (W < 1100) return [[W * 1.06, H * 0.06, S * 0.32, 'c', 0], [W * 1.03, H * 1.02, S * 0.24, 'c', 2], [W * 0.99, H * 0.56, S * 0.1, 'f', 1], ...left];
+      return [[W * 1.04, H * 0.08, S * 0.36, 'c', 0], [W * 1.02, H * 1.02, S * 0.28, 'c', 2], [W * 0.985, H * 0.58, S * 0.1, 'f', 1], [W * 0.66, H * 1.05, S * 0.12, 'f', 2], ...left];
     };
     const build = el => {
       cv = el; ctx = cv.getContext('2d'); dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
       if (!W || !H || !this._lqC) return false;
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = seeds().map(([x, y, R, ty, tone], i) => Object.assign(this.mkCol(x, y, R, ty, tone, rnd, null), { delay: (ty === 'c' ? 0.2 : 1) + i * 0.5 + rnd(0, 0.6), dur: ty === 'c' ? rnd(8, 11) : rnd(5, 7) }));
+      cols = seeds().map(([x, y, R, ty, tone, faint], i) => Object.assign(this.mkCol(x, y, R, ty, tone, rnd, null), { faint: !!faint, delay: (ty === 'c' ? 0.2 : 1) + i * 0.5 + rnd(0, 0.6) + (faint ? 1.2 : 0), dur: ty === 'c' ? rnd(8, 11) : rnd(5, 7) }));
       return true;
     };
     const growth = c => reduce ? 1 : e3((clock - c.delay) / c.dur);
@@ -2301,7 +2303,7 @@ class Component extends DCLogic {
       const tn = this.colTones(), al = tn.dk ? 0.22 : 0.28;
       ctx.save(); ctx.translate(px, py);
       for (const c of cols) { const g = growth(c), mat = reduce ? 0 : cl((clock - c.delay - c.dur) / 2), le = e3((g - 0.12) / 0.6) * (1 + mat * 0.025 * Math.sin(clock * 0.8 + c.ph));
-        this.drawCol(ctx, c, g * (1 + mat * 0.006 * Math.sin(clock * 0.6 + c.ph)), le, tn, al, clock); }
+        this.drawCol(ctx, c, g * (1 + mat * 0.006 * Math.sin(clock * 0.6 + c.ph)), le, tn, c.faint ? al * 0.45 : al, clock); }
       ctx.restore();
     };
     const loop = ts => {
