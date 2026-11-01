@@ -93,8 +93,17 @@
       [data-eih-aside] > nav button[aria-current="page"] { background:var(--accent-soft, oklch(93% 0.035 152)) !important; color:var(--accent-text, oklch(33% 0.08 152)) !important; }
       [data-eih-aside] > nav button svg { width:22px; height:22px; flex-shrink:0; }
       [data-eih-aside] > nav > button { display:none !important; }
-      [data-eih-aside] > nav > button:nth-child(4), [data-eih-aside] > nav > button:nth-child(5), [data-eih-aside] > nav > button:nth-child(6), [data-eih-aside] > nav > button:nth-child(8), [data-eih-aside] > nav > button[data-eih-more] { display:flex !important; }
-      [data-eih-aside] > nav > button:nth-child(4) { order:1; } [data-eih-aside] > nav > button:nth-child(5) { order:2; } [data-eih-aside] > nav > button:nth-child(6) { order:3; } [data-eih-aside] > nav > button:nth-child(8) { order:4; } [data-eih-aside] > nav > button[data-eih-more] { order:5; }
+      [data-eih-aside] > nav > button:nth-child(2), [data-eih-aside] > nav > button:nth-child(4), [data-eih-aside] > nav > button:nth-child(5), [data-eih-aside] > nav > button:nth-child(6), [data-eih-aside] > nav > button[data-eih-more] { display:flex !important; }
+      [data-eih-aside] > nav > button:nth-child(2) { order:1; } [data-eih-aside] > nav > button:nth-child(4) { order:2; } [data-eih-aside] > nav > button:nth-child(5) { order:3; } [data-eih-aside] > nav > button:nth-child(6) { order:4; } [data-eih-aside] > nav > button[data-eih-more] { order:5; }
+      [data-eih-aside] > nav > button { position:relative; transition:background .2s ease, color .2s ease; }
+      [data-eih-aside]:not([data-more="1"]) > nav > button[aria-current="page"]::before { content:''; position:absolute; top:-6px; left:50%; width:22px; height:3px; margin-left:-11px; border-radius:0 0 3px 3px; background:var(--accent, oklch(52% 0.1 152)); }
+      [data-eih-aside]:not([data-more="1"]) > nav > button[aria-current="page"] { background:transparent !important; }
+      [data-eih-aside]:not([data-more="1"]) > nav > button[aria-current="page"] svg { background:var(--accent-soft, oklch(93% 0.035 152)); border-radius:10px; padding:3px 12px; width:46px !important; height:28px !important; box-sizing:border-box; }
+      [data-eih-aside] { background:color-mix(in oklab, var(--surface, #fff) 92%, transparent) !important; -webkit-backdrop-filter:saturate(1.4) blur(16px); backdrop-filter:saturate(1.4) blur(16px); }
+      [data-eih-aside][data-more="1"] { background:var(--surface, #fff) !important; max-height:calc(100dvh - 72px); overflow-y:auto !important; }
+      [data-eih-aside][data-more="1"] > nav::before { content:attr(data-sheet-title); grid-column:1 / -1; order:-1; display:block; padding:14px 4px 4px; font:600 11px 'IBM Plex Mono',ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted, oklch(46% 0.02 85)); }
+      [data-eih-aside][data-more="1"]::after { content:''; position:absolute; top:7px; left:50%; width:40px; height:4px; margin-left:-20px; border-radius:2px; background:var(--border, oklch(88% 0.012 85)); }
+      [data-eih-aside][data-more="1"] > nav > button[aria-current="page"] { box-shadow:inset 0 0 0 1.5px var(--accent, oklch(52% 0.1 152)) !important; }
       [data-eih-aside][data-more="1"] > [data-eih-backdrop] { display:block !important; position:fixed; inset:0; background:oklch(20% 0.02 85 / .4); z-index:-2; }
       [data-eih-aside][data-more="1"] { border-radius:22px 22px 0 0; padding-top:14px !important; box-shadow:0 -12px 40px -12px oklch(20% 0.02 85 / .35); }
       [data-eih-aside][data-more="1"] > nav { grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px !important; }
@@ -242,7 +251,7 @@
       <span>{{ t.back_landing }}</span>
     </a>
     <div data-eih-backdrop="1" onClick="{{ closeMore }}" style="display:none;"></div>
-    <nav onClick="{{ closeMore }}" style="position:relative; display:flex; flex-direction:column; gap:2px;">
+    <nav onClick="{{ closeMore }}" data-sheet-title="{{ sheetTitle }}" style="position:relative; display:flex; flex-direction:column; gap:2px;">
       <div style="display:none; position:absolute; left:0; right:0; top:0; height:40px; border-radius:10px; background:linear-gradient(90deg, var(--accent-soft, oklch(93% 0.035 152)), var(--accent-soft2, oklch(96% 0.02 152))); box-shadow:inset 0 0 0 1px oklch(52% 0.1 152 / .18), 0 6px 16px oklch(52% 0.1 152 / .14); transform:translateY({{ navPillY }}px); opacity:{{ navPillOp }}; transition:transform .5s cubic-bezier(.34,1.35,.5,1), opacity .25s ease; pointer-events:none;">
         <div style="position:absolute; left:0; top:11px; width:3px; height:18px; border-radius:0 3px 3px 0; background:var(--accent, oklch(52% 0.1 152));"></div>
       </div>
@@ -3851,8 +3860,8 @@ class Component extends DCLogic {
       themeIsDark: s.theme === 'dark',
       toggleTheme: this.toggleTheme,
       ...this.fbVals(s, isEmpty),
-      moreAttr: s.moreOpen ? '1' : '0', moreLabel: s.lang === 'en' ? 'More' : 'Más',
-      shortReg: s.lang === 'en' ? 'Log' : 'Registro', shortDash: s.lang === 'en' ? 'Carbon footprint' : 'Mi huella de carbono', shortProy: s.lang === 'en' ? 'Forecast' : 'Proyección', shortRec: s.lang === 'en' ? 'Tips' : 'Consejos',
+      moreAttr: s.moreOpen ? '1' : '0', moreLabel: s.moreOpen ? (s.lang === 'en' ? 'Close' : 'Cerrar') : (s.lang === 'en' ? 'More' : 'Más'), sheetTitle: s.lang === 'en' ? 'All sections' : 'Todas las secciones',
+      shortReg: s.lang === 'en' ? 'Log' : 'Registro', shortDash: s.lang === 'en' ? 'Footprint' : 'Huella', shortProy: s.lang === 'en' ? 'Forecast' : 'Proyección', shortRec: s.lang === 'en' ? 'Tips' : 'Consejos',
       toggleMore: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(x => ({ moreOpen: !x.moreOpen })); },
       closeMore: () => { if (this.state.moreOpen) this.setState({ moreOpen: false }); },
       paletteOptions: Object.keys(this.PALETTES).map(id => { const sw = this.PALETTES[id].sw, on = (s.palette) === id; return {
