@@ -2023,7 +2023,21 @@ class Component extends DCLogic {
   };
   co2labSetSourceA = (id) => this.setState({ co2labSource:id, co2labPhase:'idle' });
   co2labSetSourceB = (id) => this.setState({ co2labSource2:id, co2labPhase:'idle' });
-  componentWillUnmount() { try { this._bgEng && this._bgEng.off(); } catch (e) {} this.co2labClearTimers(); clearTimeout(this._dnT); clearTimeout(this._fbT); clearTimeout(this._rgT); }
+  setupBackTrap() {
+    const mq = matchMedia('(max-width:1024px), (pointer:coarse)');
+    const arm = () => { try { history.pushState({ eihTrap: 1 }, ''); } catch (e) {} };
+    arm();
+    this._onPop = () => {
+      if (!mq.matches) { removeEventListener('popstate', this._onPop); history.back(); return; }
+      arm();
+      if (this.state.leaveAsk) { this.setState({ leaveAsk: false }); return; }
+      if (this.state.moreOpen) { this.setState({ moreOpen: false }); return; }
+      if (this.state.screen !== 'landing') { this.setState({ screen: 'landing' }); try { window.scrollTo(0, 0); } catch (e) {} }
+      else this.setState({ leaveAsk: true });
+    };
+    addEventListener('popstate', this._onPop);
+  }
+  componentWillUnmount() { try { removeEventListener('popstate', this._onPop); } catch (e) {} try { this._bgEng && this._bgEng.off(); } catch (e) {} this.co2labClearTimers(); clearTimeout(this._dnT); clearTimeout(this._fbT); clearTimeout(this._rgT); }
   runDonut = () => { clearTimeout(this._dnT); this.setState({ donutOn: false }); this._dnT = setTimeout(() => this.setState({ donutOn: true }), 80); };
   componentDidUpdate() {
     this.persist();
@@ -2303,6 +2317,7 @@ class Component extends DCLogic {
     return { redraw: () => { draw(); kick(); }, off: () => { alive = false; cancelAnimationFrame(raf); removeEventListener('resize', onR); document.removeEventListener('visibilitychange', kick); removeEventListener('mousemove', onMove); } };
   }
   componentDidMount() {
+    try { this.setupBackTrap(); } catch (e) {}
     try { this._bgEng = this.bgLichens(); } catch (e) { console.error(e); }
     try {
       const tok = +(sessionStorage.getItem('liq_enter') || 0); sessionStorage.removeItem('liq_enter');
