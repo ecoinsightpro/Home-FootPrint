@@ -60,7 +60,7 @@
     @media (max-width: 860px) { [data-liq-split] { grid-template-columns:minmax(0,1fr) !important; } [data-liq-scopes] > div { border-left:none !important; border-top:1px solid var(--line, #d4d6d2); padding:28px 0 !important; } }
     @media (max-width: 760px) { [data-liq-veil] { background:linear-gradient(180deg, var(--bg, #f1efe9) 0%, var(--bg, #f1efe9) 52%, color-mix(in srgb, var(--bg, #f1efe9) 55%, transparent) 72%, transparent 100%) !important; } [data-liq-bandveil] { background:linear-gradient(180deg, var(--band, #e5e4df) 0%, var(--band, #e5e4df) 70%, transparent 100%) !important; } [data-liq-hdcta] { display:none !important; } }
     @media (max-width: 720px) { [data-liq-row] { grid-template-columns:40px minmax(0,1fr) !important; gap:8px 14px !important; } [data-liq-row] > :nth-child(n+3) { grid-column:2; } [data-liq-row] > :last-child { justify-self:start !important; } }
-    @media (max-width: 560px) { #top { min-height:auto !important; } #top > div:nth-of-type(2) { padding-top:40px !important; padding-bottom:96px !important; } [data-liq-row] { padding:22px 16px !important; } footer nav { gap:4px 20px !important; } [data-liq-motion] { aspect-ratio:4/5 !important; } [data-liq-ctas] { flex-direction:column; align-items:stretch !important; } [data-liq-ctas] > a:first-child { justify-content:space-between; } }
+    @media (max-width: 560px) { #top { min-height:auto !important; } #top > div:nth-of-type(2) { padding-top:40px !important; padding-bottom:96px !important; } [data-liq-row] { padding:22px 16px !important; } footer nav { gap:4px 20px !important; } [data-liq-motion] { aspect-ratio:4/5 !important; } [data-liq-figure] { top:0 !important; } [data-liq-ctas] { flex-direction:column; align-items:stretch !important; } [data-liq-ctas] > a:first-child { justify-content:space-between; } }
     :is(a,button,input,textarea,select):focus-visible { outline:2px solid var(--accentInk, #1f6b2b); outline-offset:2px; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } body { animation:none; } *, *::before, *::after { animation:none !important; transition:none !important; } }
   </style>
@@ -152,9 +152,9 @@
           </sc-for>
         </ol>
       </div>
-      <figure data-reveal="1" style="margin:0; background:transparent; position:relative; top:48px;">
+      <figure data-reveal="1" data-liq-figure="1" style="margin:0; background:transparent; position:relative; top:48px;">
         
-      <canvas data-liq-foot="1" role="img" aria-label="{{ motionLabel }}" style="display:block; width:100%; aspect-ratio:1/1; color:var(--muted, #47555c);"></canvas></figure>
+      <canvas data-liq-foot="1" data-liq-motion="1" role="img" aria-label="{{ motionLabel }}" style="display:block; width:100%; aspect-ratio:1/1; color:var(--muted, #47555c);"></canvas></figure>
     </div>
   </section>
 
@@ -621,7 +621,7 @@ class Component extends DCLogic {
     const build = () => {
       dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; if (!W || !H) return false;
       cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const nar = W < 560, bl = nar ? 6 : 90, bw = W - (nar ? 104 : 180);
+      const nar = W < 560, bw = W - (nar ? 100 : 180), bl = nar ? Math.max(0, (W - bw - 100) / 2) + 4 : 90;
       px = Math.min(bw / 0.95, (H - 150) / 1.15); ox = bl + bw * 0.38; oy = Math.max(20, (H - 1.19 * px - 80) / 2) + 0.64 * px; labelX = ox + px * 0.42;
       const gu = 0.034; g = gu * px; dots = []; let row = 0;
       for (let y = -0.64; y < 0.55; y += gu * 0.866, row++) for (let x = -0.4 + (row % 2 ? gu / 2 : 0); x < 0.42; x += gu) if (inside(x, y)) {
@@ -677,6 +677,7 @@ class Component extends DCLogic {
     const run = () => { let ok = false; try { ok = build(); } catch (e) { console.error('hero anim', e); } if (!ok) { setTimeout(run, 400); return; } clock = 0; if (reduce) still(); else start(); };
     const io = new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && !reduce) start(); }, { threshold: 0 });
     io.observe(cv); setTimeout(run, 500);
+    let rw = 0; addEventListener('resize', () => { clearTimeout(rw); rw = setTimeout(() => { if (cv.clientWidth && Math.abs(cv.clientWidth - W) > 4) { try { if (build()) { if (reduce) still(); else start(); } } catch (e) {} } }, 200); });
     const iv = reduce ? setInterval(() => { if (dots.length) still(); }, 600) : 0;
     let rt; const onR = () => { clearTimeout(rt); rt = setTimeout(() => { if (Math.abs(cv.clientWidth - W) > 30) { cancelAnimationFrame(raf); raf = 0; run(); } }, 250); };
     window.addEventListener('resize', onR);
