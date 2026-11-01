@@ -57,6 +57,7 @@
     [data-liq-row]:hover [data-liq-ico] { transform:translateX(4px); }
     [data-reveal] { transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
     @media (max-width: 980px) { [data-liq-nav], [data-liq-ctl] { display:none !important; } [data-liq-burger] { display:flex !important; } }
+    @media (max-width: 600px) { [data-how-eq] { grid-template-columns:minmax(0,1fr) !important; } }
     @media (max-width: 860px) { [data-liq-split] { grid-template-columns:minmax(0,1fr) !important; } [data-liq-scopes] > div { border-left:none !important; border-top:1px solid var(--line, #d4d6d2); padding:28px 0 !important; } }
     @media (max-width: 760px) { [data-liq-veil] { background:linear-gradient(180deg, var(--bg, #f1efe9) 0%, var(--bg, #f1efe9) 52%, color-mix(in srgb, var(--bg, #f1efe9) 55%, transparent) 72%, transparent 100%) !important; } [data-liq-bandveil] { background:linear-gradient(180deg, var(--band, #e5e4df) 0%, var(--band, #e5e4df) 70%, transparent 100%) !important; } [data-liq-hdcta] { display:none !important; } }
     @media (max-width: 720px) { [data-liq-row] { grid-template-columns:40px minmax(0,1fr) !important; gap:8px 14px !important; } [data-liq-row] > :nth-child(n+3) { grid-column:2; } [data-liq-row] > :last-child { justify-self:start !important; } }
@@ -155,6 +156,9 @@
       <figure data-reveal="1" data-liq-figure="1" style="margin:0; background:transparent; position:relative; top:48px;">
         
       <canvas data-liq-foot="1" data-liq-motion="1" role="img" aria-label="{{ motionLabel }}" style="display:block; width:100%; aspect-ratio:1/1; color:var(--muted, #47555c);"></canvas></figure>
+    </div>
+    <div data-reveal="1" style="max-width:1280px; margin:0 auto; padding-left:clamp(20px,5vw,72px); padding-right:clamp(20px,5vw,72px); padding-bottom:clamp(64px,9vw,128px); --surface:var(--band); --surface-alt:var(--bg); --border:var(--line); --text:var(--ink); --text-muted:var(--muted); --accent-text:var(--accentInk); --accent-soft:var(--accentSoft); --scenario-blue:var(--sec);">
+      <dc-import name="como-funciona" lang="{{ lang }}" elec-factor="0.35" hint-size="100%,520px"></dc-import>
     </div>
   </section>
 
@@ -882,7 +886,7 @@ class Component extends DCLogic {
       onFbMsg: (e) => this.setFb({ msg: e.target.value, status: 'idle' }), onFbHp: (e) => this.setFb({ hp: e.target.value }),
       ...pollVals, submitFb: this.submitFb, fbBusy: fb.status === 'sending', fbBtnOp: fb.status === 'sending' ? 0.6 : 1, fbBtn: fb.status === 'sending' ? t.fb_sending : t.fb_send,
       fbShow: !!fbMsgs[fb.status], fbText: fbMsgs[fb.status] || '', fbTone: fb.status === 'ok' ? 'var(--accent, #2e9e3f)' : 'var(--sec, #1e63c8)',
-      t, sources, steps, features, scopes,
+      t, sources, steps, features, scopes, lang: st.lang === 'en' ? 'en' : 'es',
       hWhat: em(t.h_what, K.what), hHow: em(t.h_how, K.how), hApp: em(t.h_app, K.app), hMethod: em(t.h_method, K.method), hCta: em(t.h_cta, K.cta),
       stageDots: [0, 1, 2].map(i => ({ n: '0' + (i + 1), color: st.stage === i || st.stage === 3 ? on : off, sep: i < 2 ? '/' : '' })),
       motionLabel: E ? 'Animation: a household carbon footprint by category, where lichen grows to show potential savings.' : 'Animación: la huella de carbono del hogar por categoría, donde crece un liquen que muestra el ahorro potencial.',
