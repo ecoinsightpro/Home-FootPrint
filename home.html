@@ -246,6 +246,21 @@
       [data-eih-aside]::before { height:calc(110px + env(safe-area-inset-top)) !important; }
       [data-eih-root] [data-eih-main] { padding-top:calc(124px + env(safe-area-inset-top)) !important; }
     }
+    @media (max-width:600px) {
+      html[data-eih-theme="dark"] { --bg:#111315 !important; --surface:#181b1e !important; --surface-alt:#1f2326 !important; --border:#262a2e !important; --text:#eceeed !important; --text-muted:#8d9497 !important; --accent-soft2:#1a221c !important; }
+      html[data-eih-theme="dark"] body { background:#111315 !important; }
+      [data-eih-bgcol] { display:none !important; }
+      [data-mob-huella] { display:flex !important; }
+      [data-eih-root] [data-eih-main] [data-mob-huella] [data-mh-row] { grid-template-columns:40px minmax(0,1fr) auto !important; gap:12px !important; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) { background:var(--surface, #181b1e) !important; -webkit-backdrop-filter:none !important; backdrop-filter:none !important; padding:6px 4px calc(4px + env(safe-area-inset-bottom)) !important; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button:nth-child(6) { display:none !important; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button:nth-child(8) { display:flex !important; order:4; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button { height:52px !important; gap:3px !important; background:transparent !important; box-shadow:none !important; color:var(--text-muted, #8d9497) !important; font-weight:500 !important; border-radius:10px !important; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button[data-on="1"] { color:var(--accent-text, #63c64c) !important; font-weight:600 !important; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button::before { content:none !important; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button svg { width:24px !important; height:24px !important; padding:0 !important; background:transparent !important; }
+      [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button span, [data-eih-root] [data-eih-aside]:not([data-more="1"]) > nav > button[data-short]::after { font-size:10.5px !important; }
+    }
     @media (min-width:1600px) { [data-eih-main] [style*="minmax(150px, 1fr)"] { grid-template-columns:repeat(auto-fit,minmax(190px,1fr)) !important; } }
   </style>
 </helmet>
@@ -911,6 +926,26 @@
   <sc-if value="{{ show.dashboard }}" hint-placeholder-val="{{ true }}">
     <section style="animation: fadeInUp 0.45s ease;">
       <h1 style="font-weight:400; font-family:'Newsreader',Georgia,serif; font-size:24px; margin:0 0 10px; letter-spacing:-0.015em;">{{ t.title_dashboard }}</h1>
+      <sc-if value="{{ mh.show }}" hint-placeholder-val="{{ false }}">
+        <div data-mob-huella="1" style="display:none; flex-direction:column; gap:18px; margin:0 0 22px;">
+          <div style="display:flex; justify-content:center;"><div role="tablist" style="display:flex; padding:3px; border-radius:10px; background:var(--surface-alt, #1f2326);"><sc-for list="{{ mh.tabs }}" as="tb" hint-placeholder-count="2"><button role="tab" aria-selected="{{ tb.sel }}" onClick="{{ tb.pick }}" style="min-height:34px; padding:0 16px; border:none; border-radius:8px; cursor:pointer; background:{{ tb.bg }}; color:{{ tb.fg }}; font:{{ tb.fw }} 13px 'Hanken Grotesk',sans-serif;">{{ tb.label }}</button></sc-for></div></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+            <span style="font-size:14px; color:var(--text-muted, #8d9497);">{{ mh.caption }}</span>
+            <span style="font:600 56px 'Hanken Grotesk',sans-serif; letter-spacing:-0.04em; line-height:1.05;">{{ mh.total }}<span style="font-size:22px; color:var(--text-muted, #8d9497); font-weight:500; letter-spacing:0;"> kg</span></span>
+            <sc-if value="{{ mh.hasPill }}" hint-placeholder-val="{{ false }}"><span style="font:600 13px 'Hanken Grotesk',sans-serif; color:{{ mh.pillFg }}; background:{{ mh.pillBg }}; padding:5px 10px; border-radius:999px;">{{ mh.pill }}</span></sc-if>
+          </div>
+          <div style="display:flex; height:12px; border-radius:6px; overflow:hidden; gap:3px; background:var(--surface-alt, #1f2326);"><sc-for list="{{ mh.rows }}" as="r" hint-placeholder-count="5"><div style="width:{{ r.w }}; background:{{ r.c }};"></div></sc-for></div>
+          <div style="display:flex; flex-direction:column;">
+            <sc-for list="{{ mh.rows }}" as="r" hint-placeholder-count="5">
+              <div data-mh-row="1" style="display:grid; grid-template-columns:40px minmax(0,1fr) auto; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid var(--border, #262a2e);">
+                <span style="width:40px; height:40px; border-radius:12px; background:{{ r.soft }}; display:flex; align-items:center; justify-content:center;"><span style="width:12px; height:12px; border-radius:50%; background:{{ r.c }};"></span></span>
+                <div style="min-width:0;"><div style="font:600 15px 'Hanken Grotesk',sans-serif;">{{ r.label }}</div><div style="font-size:13px; color:var(--text-muted, #8d9497);">{{ r.sub }}</div></div>
+                <div style="text-align:right;"><div style="font:600 15px 'Hanken Grotesk',sans-serif; white-space:nowrap;">{{ r.kg }}</div><div style="font-size:12px; color:{{ r.dc }};">{{ r.d }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
       <div style="background:var(--surface, oklch(99% 0.004 85)); border:1px solid var(--border, oklch(88% 0.012 85)); border-radius:14px; padding:18px; margin-bottom:16px; display:grid; gap:12px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;"><div style="font:700 16px 'Hanken Grotesk',sans-serif;">{{ goal.title }}</div><button onClick="{{ exportCSV }}" style="border:1px solid var(--border, oklch(88% 0.012 85)); background:transparent; color:var(--accent-text, oklch(33% 0.08 152)); min-height:44px; padding:0 16px; border-radius:10px; font:700 14px 'Hanken Grotesk',sans-serif; cursor:pointer;">{{ goal.csv }}</button></div>
         <label style="display:grid; gap:6px; font:600 13px 'Hanken Grotesk',sans-serif;">{{ goal.pctLabel }}<input type="range" min="0" max="60" step="5" value="{{ goalPct }}" onInput="{{ setGoalPct }}" style="width:100%; accent-color:var(--accent, oklch(52% 0.1 152));"></label>
@@ -1930,7 +1965,7 @@ class Component extends DCLogic {
   applyThemeWith(theme, palette) {
     const t = this.computeTokens(theme, palette);
     const varMap = { textMuted:'--text-muted', border:'--border', accent:'--accent', accentText:'--accent-text', surface:'--surface', accentSoft:'--accent-soft', text:'--text', warn:'--warn', accentSoft2:'--accent-soft2', surfaceAlt:'--surface-alt', scenarioBlue:'--scenario-blue', fuel:'--fuel', accentHover:'--accent-hover', warnLine:'--warn-line', bg:'--bg', grad1:'--grad1', grad2:'--grad2', warnSoft:'--warn-soft', neutralBar:'--neutral-bar', shadowSm:'--shadow-sm', shadowMd:'--shadow-md', shadowLg:'--shadow-lg' };
-    const root = document.documentElement;
+    const root = document.documentElement; root.setAttribute('data-eih-theme', theme);
     Object.entries(varMap).forEach(([k,v]) => root.style.setProperty(v, t[k]));
     document.body.style.background = t.bg;
     document.body.style.color = t.text;
@@ -3130,6 +3165,26 @@ class Component extends DCLogic {
 
     const last = months[Math.max(completed,1) - 1] || months[0];
     const visibleMonths = months.slice(0, Math.max(completed,1));
+    const mh = (() => {
+      const en = s.lang === 'en', yr = s.mobPer === 'y', dv = s.kpiPerPerson ? (s.householdSize||1) : 1;
+      const nf = v => Math.round(v).toLocaleString(cd.locale || 'es-CL');
+      const ci = Math.max(completed,1) - 1, cur = months[ci] || months[0], prev = ci > 0 ? months[ci-1] : null;
+      const K = [['co2Energia', en?'Energy':'Energía', en?'Electricity, gas and heating':'Luz, gas y calefacción', '#63c64c'], ['co2Fuel', en?'Vehicle':'Vehículo', en?'Fuel':'Combustible', '#e0a14a'], ['co2Compras', en?'Purchases':'Compras', en?'Food, clothes, tech':'Alimentos, ropa, tecnología', '#78a1de'], ['co2Viajes', en?'Travel':'Viajes', en?'Flights, bus, hotels':'Vuelos, bus y hoteles', '#c58fd6'], ['co2AguaRes', en?'Water & waste':'Agua y residuos', en?'Water and waste':'Consumo de agua y basura', '#8d9497']];
+      const val = (m, k) => (m && m[k] || 0) / dv;
+      const src = yr ? visibleMonths : [cur];
+      const tot = K.reduce((a, k) => a + src.reduce((b, m) => b + val(m, k[0]), 0), 0);
+      const rows = K.map(([k, label, desc, c]) => { const kg = src.reduce((b, m) => b + val(m, k), 0), pct = tot > 0 ? Math.round(kg / tot * 100) : 0;
+        let d = '', dc = 'var(--text-muted, #8d9497)';
+        if (!yr && prev) { const p = val(prev, k); if (p > 0) { const ch = Math.round((kg - p) / p * 100); d = ch === 0 ? '0%' : (ch > 0 ? '+' : '−') + Math.abs(ch) + '%'; dc = ch < 0 ? 'var(--accent-text, #63c64c)' : ch > 0 ? '#f08a64' : dc; } }
+        return { label, sub: desc + ' · ' + pct + '%', kg: nf(kg) + ' kg', d, dc, c, soft: 'color-mix(in oklab, ' + c + ' 16%, transparent)', w: (tot > 0 ? kg / tot * 100 : 0).toFixed(1) + '%' }; }).filter(r => r.w !== '0.0%');
+      let pill = '', pillFg = 'var(--accent-text, #63c64c)', pillBg = 'color-mix(in oklab, var(--accent, #2e9e3f) 16%, transparent)';
+      if (!yr && prev && prev.total > 0) { const df = Math.round((cur.total - prev.total) / dv); pill = (df <= 0 ? '↓ ' : '↑ ') + nf(Math.abs(df)) + ' kg ' + (en ? 'vs ' : 'vs ') + this.tm(prev.label, s.lang).toLowerCase(); if (df > 0) { pillFg = '#f08a64'; pillBg = 'rgba(240,138,100,.14)'; } }
+      if (yr) pill = (en ? 'Average ' : 'Promedio ') + nf(tot / Math.max(1, visibleMonths.length)) + (en ? ' kg/month' : ' kg/mes');
+      const tab = (id, label) => ({ label, sel: (s.mobPer || 'm') === id ? 'true' : 'false', bg: (s.mobPer || 'm') === id ? 'var(--surface, #181b1e)' : 'transparent', fg: (s.mobPer || 'm') === id ? 'var(--text, #eceeed)' : 'var(--text-muted, #8d9497)', fw: (s.mobPer || 'm') === id ? 600 : 500, pick: () => this.setState({ mobPer: id }) });
+      return { show: !isEmpty, tabs: [tab('m', en ? 'Month' : 'Mes'), tab('y', en ? 'Year' : 'Año')],
+        caption: yr ? (en ? 'Carbon footprint · ' : 'Huella de carbono · ') + (s.trackingYear || 2026) + ' (' + visibleMonths.length + (en ? ' mo.)' : ' meses)') : (en ? 'Carbon footprint · ' : 'Huella de carbono · ') + this.tm(cur.label, s.lang).toLowerCase(),
+        total: nf(tot), hasPill: !!pill, pill, pillFg, pillBg, rows };
+    })();
     const cycleCO2 = visibleMonths.reduce((a,m)=>a+m.total,0);
     const divisor = s.kpiPerPerson ? (s.householdSize||1) : 1;
     const dash = {
@@ -3833,7 +3888,7 @@ class Component extends DCLogic {
       dashUpTo: completed || 1,
       setDashUpTo: (e) => this.setState({ dashUpTo: Number(e.target.value) }),
       demoEmpty: isEmpty, noData: isEmpty, loadExample: this.loadExample,
-      dash, hv, proj,
+      dash, hv, proj, mh,
       trackingYear: s.trackingYear,
       setTrackingYear: (e) => this.setState({ trackingYear: Number(e.target.value) }),
       handleChartMove: this.handleChartMove,
@@ -3861,7 +3916,7 @@ class Component extends DCLogic {
       toggleTheme: this.toggleTheme,
       ...this.fbVals(s, isEmpty),
       moreAttr: s.moreOpen ? '1' : '0', moreLabel: s.moreOpen ? (s.lang === 'en' ? 'Close' : 'Cerrar') : (s.lang === 'en' ? 'More' : 'Más'), sheetTitle: s.lang === 'en' ? 'All sections' : 'Todas las secciones',
-      shortReg: s.lang === 'en' ? 'Log' : 'Registro', shortDash: s.lang === 'en' ? 'Footprint' : 'Huella', shortProy: s.lang === 'en' ? 'Forecast' : 'Proyección', shortRec: s.lang === 'en' ? 'Tips' : 'Consejos',
+      shortReg: s.lang === 'en' ? 'Log' : 'Registro', shortDash: s.lang === 'en' ? 'Footprint' : 'Huella', shortProy: s.lang === 'en' ? 'Forecast' : 'Proyección', shortRec: s.lang === 'en' ? 'Savings' : 'Ahorro',
       toggleMore: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(x => ({ moreOpen: !x.moreOpen })); },
       closeMore: () => { if (this.state.moreOpen) this.setState({ moreOpen: false }); },
       paletteOptions: Object.keys(this.PALETTES).map(id => { const sw = this.PALETTES[id].sw, on = (s.palette) === id; return {
