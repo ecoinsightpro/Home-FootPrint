@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="background:var(--surface, #111c22); border:1px solid var(--border, #2c3438); border-radius:20px; padding:clamp(16px,2.4vw,24px); display:flex; flex-direction:column; gap:18px; color:var(--text, #e9ece7); font-family:'Hanken Grotesk',sans-serif;">
+  <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap;">
+    <div style="min-width:0;"><div style="font:500 11px 'IBM Plex Mono',ui-monospace,monospace; color:var(--accent-text, #63c64c); letter-spacing:.08em;">{{ c.kicker }}</div><div style="font:400 clamp(20px,2.2vw,24px) 'Newsreader',Georgia,serif; margin-top:4px; letter-spacing:-0.01em;">{{ c.title }}</div></div>
+    <div role="tablist" style="display:flex; flex-wrap:wrap; gap:4px; padding:4px; border-radius:999px; background:var(--surface-alt, #0c1920); border:1px solid var(--border, #2c3438);">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4"><button role="tab" aria-selected="{{ t.sel }}" onClick="{{ t.pick }}" style="border:none; cursor:pointer; min-height:34px; padding:6px 13px; border-radius:999px; background:{{ t.bg }}; color:{{ t.color }}; font:600 12px 'Hanken Grotesk',sans-serif; display:flex; align-items:center; gap:6px; transition:background .3s, color .3s;"><span style="width:7px; height:7px; border-radius:50%; background:{{ t.dot }};"></span>{{ t.label }}</button></sc-for>
+    </div>
+  </div>
+  <div data-how-eq="1" style="display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1.1fr); gap:10px; align-items:stretch;">
+    <sc-for list="{{ eq }}" as="q" hint-placeholder-count="5">
+      <sc-if value="{{ q.isOp }}" hint-placeholder-val="{{ false }}"><div style="display:flex; align-items:center; justify-content:center; width:30px; height:30px; align-self:center; justify-self:center; border-radius:50%; background:{{ q.bg }}; font:600 20px 'Newsreader',Georgia,serif; color:{{ q.color }}; transform:{{ q.tf }}; transition:all .35s cubic-bezier(.34,1.56,.64,1);">{{ q.sym }}</div></sc-if>
+      <sc-if value="{{ q.isBox }}" hint-placeholder-val="{{ true }}"><div style="display:flex; flex-direction:column; gap:6px; padding:16px 14px; border-radius:14px; background:{{ q.bg }}; border:1.5px solid {{ q.bd }}; transform:{{ q.tf }}; box-shadow:{{ q.sh }}; transition:all .45s cubic-bezier(.22,.8,.3,1); min-width:0;">
+        <span style="display:flex; align-items:center; gap:6px; font:600 10.5px 'IBM Plex Mono',monospace; letter-spacing:.06em; color:{{ q.kc }}; text-transform:uppercase; transition:color .4s;"><span style="width:16px; height:16px; border-radius:50%; background:{{ q.nb }}; color:var(--bg, #0d161c); display:inline-flex; align-items:center; justify-content:center; font-size:9.5px; flex-shrink:0; transition:background .4s;">{{ q.n }}</span>{{ q.k }}</span>
+        <span style="display:flex; align-items:baseline; gap:5px; flex-wrap:wrap;"><span style="font:400 30px 'Newsreader',Georgia,serif; letter-spacing:-0.02em; line-height:1; color:{{ q.vc }}; transition:color .4s;">{{ q.v }}</span><span style="font:500 12px 'Hanken Grotesk',sans-serif; color:var(--text-muted, #b0b4b2);">{{ q.u }}</span></span>
+        <span style="font-size:12px; color:var(--text-muted, #b0b4b2); line-height:1.35;">{{ q.d }}</span>
+      </div></sc-if>
+    </sc-for>
+  </div>
+  <div style="display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:center; padding:14px 16px; border-radius:14px; background:var(--surface-alt, #0c1920); border:1px solid {{ endBd }}; opacity:{{ endOp }}; transform:{{ endTf }}; transition:all .5s ease;">
+    <div style="width:44px; height:44px; border-radius:12px; background:color-mix(in oklab, var(--warn, oklch(75% 0.14 55)) 18%, transparent); display:flex; align-items:center; justify-content:center; font:600 15px 'Newsreader',Georgia,serif; color:var(--warn, oklch(75% 0.14 55));">km</div>
+    <div style="display:flex; flex-direction:column; gap:2px; min-width:0;"><span style="font:600 10.5px 'IBM Plex Mono',monospace; letter-spacing:.06em; color:var(--warn, oklch(75% 0.14 55));">{{ c.simple }}</span><span style="font-size:14px; line-height:1.45;">{{ equiv }}</span></div>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:8px; padding-top:14px; border-top:1px solid var(--border, #2c3438);">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap;"><span style="font-size:12.5px; color:var(--text-muted, #b0b4b2);">{{ c.sum }}</span><span style="font:400 22px 'Newsreader',Georgia,serif;">{{ total }} <span style="font:500 12px 'Hanken Grotesk',sans-serif; color:var(--text-muted, #b0b4b2);">kg CO₂e</span></span></div>
+    <div style="display:flex; height:12px; border-radius:6px; overflow:hidden; gap:2px; background:var(--surface-alt, #0c1920);"><sc-for list="{{ stack }}" as="s" hint-placeholder-count="4"><div style="width:{{ s.w }}; background:{{ s.c }}; opacity:{{ s.op }}; transition:width .8s cubic-bezier(.22,.8,.3,1), opacity .3s;"></div></sc-for></div>
+    <div style="display:flex; gap:6px 14px; flex-wrap:wrap; font-size:11.5px; color:var(--text-muted, #b0b4b2);"><sc-for list="{{ stack }}" as="s" hint-placeholder-count="4"><span style="display:flex; align-items:center; gap:5px; opacity:{{ s.lop }}; transition:opacity .3s;"><span style="width:8px; height:8px; border-radius:2px; background:{{ s.c }};"></span>{{ s.label }} <b style="color:var(--text, #e9ece7);">{{ s.kgS }}</b></span></sc-for></div>
+    <div style="font-size:11px; color:var(--text-muted, #b0b4b2); line-height:1.45;">{{ c.note }}</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:560},&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;default&quot;:&quot;es&quot;,&quot;tsType&quot;:&quot;'es'|'en'&quot;},&quot;elecFactor&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:0.35,&quot;min&quot;:0,&quot;max&quot;:1.2,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { src: 0, st: 0, done: 0 };
+  componentDidMount() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { this.setState({ st: 3, done: 4, src: 0 }); return; }
+    this._a = setInterval(() => {
+      if (Date.now() < (this._pause || 0) || document.hidden) return;
+      this.setState(s => s.st < 4 ? { st: s.st + 1, done: Math.max(s.done, s.st + 1 >= 2 ? s.src + 1 : s.done) } : { src: (s.src + 1) % 4, st: 0, done: s.src === 3 ? 0 : s.done });
+    }, 1100);
+  }
+  componentWillUnmount() { clearInterval(this._a); }
+  renderVals() {
+    const en = this.props.lang === 'en', ef = +this.props.elecFactor || 0.4;
+    const nf = (v, d) => Number(v).toLocaleString(en ? 'en-US' : 'es-CL', { maximumFractionDigits: d || 0, minimumFractionDigits: d || 0 });
+    const F = [{ q: 250, f: ef }, { q: 12, f: 2.0 }, { q: 60, f: 2.31 }, { q: 2450, f: 0.15 }];
+    const S = [
+      { label: en ? 'Electricity' : 'Luz', c: 'var(--accent, #2e9e3f)', u: 'kWh', fu: 'kg/kWh', qd: en ? 'What your electricity bill says' : 'Lo que dice tu boleta de luz', fd: en ? 'Grid factor for your country' : 'Factor de la red eléctrica de tu país' },
+      { label: en ? 'Gas' : 'Gas', c: 'var(--warn, oklch(75% 0.14 55))', u: 'm³', fu: 'kg/m³', qd: en ? 'Natural gas for cooking and hot water' : 'Gas natural de la cocina y el agua caliente', fd: en ? 'What burning 1 m³ of gas emits' : 'Lo que emite quemar 1 m³ de gas' },
+      { label: en ? 'Petrol' : 'Bencina', c: 'var(--text-muted, #b0b4b2)', u: en ? 'litres' : 'litros', fu: 'kg/L', qd: en ? 'What you put in the car this month' : 'Lo que cargaste en el auto este mes', fd: en ? 'What burning 1 litre of petrol emits' : 'Lo que emite quemar 1 litro de bencina' },
+      { label: en ? 'Flight' : 'Vuelo', c: 'var(--scenario-blue, #78a1de)', u: 'km', fu: 'kg/km', qd: en ? 'One Santiago–Lima flight, per person' : 'Un vuelo Santiago–Lima por persona', fd: en ? 'Average per passenger, commercial flight' : 'Promedio por pasajero en vuelo comercial' } ]
+      .map((s, k) => ({ ...s, q: F[k].q, f: F[k].f, kg: Math.round(F[k].q * F[k].f) }));
+    const st = this.state, i = st.src, p = Math.min(3, st.st), x = S[i], on = 'var(--accent-text, #63c64c)';
+    const kgShown = p >= 2 ? Math.round(x.kg * Math.min(1, (st.st - 1) / 1.5)) : 0;
+    const box = (k, n, v, u, d, lvl, res) => ({ isBox: true, isOp: false, n, k, v, u, d,
+      bg: res && p >= lvl ? 'var(--accent-soft, #153724)' : p >= lvl ? 'var(--surface-alt, #0c1920)' : 'transparent',
+      bd: p === lvl ? on : p > lvl ? (res ? 'var(--accent, #2e9e3f)' : 'var(--border, #2c3438)') : 'var(--border, #2c3438)',
+      kc: p >= lvl ? on : 'var(--text-muted, #5a6266)', nb: p >= lvl ? on : 'var(--border, #2c3438)', vc: p >= lvl ? (res ? on : 'var(--text, #e9ece7)') : 'var(--text-muted, #5a6266)',
+      tf: p === lvl ? 'translateY(-3px)' : 'none', sh: p === lvl ? '0 12px 28px -14px color-mix(in oklab, var(--accent, #2e9e3f) 70%, transparent)' : 'none' });
+    const op = (lvl, sym) => ({ isBox: false, isOp: true, sym, bg: p >= lvl ? 'var(--accent-soft, #153724)' : 'transparent', color: p >= lvl ? on : 'var(--text-muted, #5a6266)', tf: p === lvl ? 'scale(1.2)' : 'scale(1)' });
+    const all = S.reduce((a, s) => a + s.kg, 0), done = Math.max(st.done, p >= 2 ? i + 1 : i);
+    const val = k => k === i ? kgShown : S[k].kg;
+    const total = S.slice(0, done).reduce((a, s, k) => a + val(k), 0);
+    const km = Math.round(x.kg / 0.17 / 5) * 5;
+    return {
+      c: en ? { kicker: 'HOW IT WORKS', title: 'One multiplication for each kind of usage', simple: 'IN PLAIN WORDS', sum: 'We add it all up to get the month\u2019s carbon footprint', note: 'Example values. The app uses the official factors for your country (GHG Protocol, DEFRA/DESNZ 2026).' }
+             : { kicker: 'CÓMO FUNCIONA', title: 'Una multiplicación por cada consumo', simple: 'EN PALABRAS SIMPLES', sum: 'Sumamos todo y obtienes la huella de carbono del mes', note: 'Valores de ejemplo. La app usa los factores oficiales de tu país (GHG Protocol, DEFRA/DESNZ 2026).' },
+      tabs: S.map((s, k) => ({ label: s.label, sel: k === i ? 'true' : 'false', bg: k === i ? 'var(--accent-soft, #153724)' : 'transparent', color: k === i ? 'var(--text, #e9ece7)' : 'var(--text-muted, #b0b4b2)', dot: s.c,
+        pick: () => { this._pause = Date.now() + 6000; this.setState({ src: k, st: 0, done: k }); } })),
+      eq: [box(en ? 'Your usage' : 'Tu consumo', '1', nf(x.q), x.u, x.qd, 0), op(1, '×'), box(en ? 'Factor' : 'Factor', '2', nf(x.f, 2), x.fu, x.fd, 1), op(2, '='),
+        box(en ? 'Carbon footprint' : 'Huella de carbono', '3', nf(kgShown), 'kg CO₂e', en ? 'What this usage adds to your month' : 'Lo que suma este consumo a tu mes', 2, true)],
+      endOp: p >= 3 ? 1 : 0.2, endTf: p >= 3 ? 'none' : 'translateY(6px)', endBd: p >= 3 ? 'color-mix(in oklab, var(--warn, oklch(75% 0.14 55)) 40%, transparent)' : 'var(--border, #2c3438)',
+      equiv: en ? x.label + ' this month = like driving about ' + nf(km) + ' km by car.' : x.label + ' del mes = como manejar unos ' + nf(km) + ' km en auto.',
+      total: nf(total),
+      stack: S.map((s, k) => ({ label: s.label, c: s.c, w: (k < done ? val(k) / all * 100 : 0).toFixed(1) + '%', op: k === i ? 1 : 0.7, lop: k < done ? 1 : 0.45, kgS: k < done ? nf(val(k)) + ' kg' : '—' })),
+    };
+  }
+}
+</script>
+</body>
+</html>
